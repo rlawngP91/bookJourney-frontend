@@ -1,10 +1,12 @@
-import React from 'react'
-import StatusBar from './components/statusbar/StatusBar'
+import React from 'react';
+import Router from './routers/Router';
 
-const App  = () => {
+function App() {
   return (
-    <StatusBar />
-  )
+    <>
+      <Router />
+    </>
+  );
 }
 
-export default App 
+export default App;
