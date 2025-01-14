@@ -1,6 +1,12 @@
 import React from 'react';
-import StatusBar from './components/statusbar/StatusBar';
+import Router from './routers/Router';
 
-const App = () => {
-  return <StatusBar />;
-};
+function App() {
+  return (
+    <>
+      <Router />
+    </>
+  );
+}
+
+export default App;
