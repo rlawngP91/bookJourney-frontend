@@ -1,10 +1,6 @@
-import React from 'react'
-import StatusBar from './components/statusbar/StatusBar'
+import React from 'react';
+import StatusBar from './components/statusbar/StatusBar';
 
-const App  = () => {
-  return (
-    <StatusBar />
-  )
-}
-
-export default App 
+const App = () => {
+  return <StatusBar />;
+};
