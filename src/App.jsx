@@ -1,15 +1,13 @@
 import React from 'react'
-import Category from './pages/category/Category'
-//import Login from './pages/login/Login'
-//import Onboarding from './pages/onboarding/Onboarding'
-//import Signup from './pages/signup/Signup'
+import Router from './routers/Router';
 
 
-
-const App  = () => {
+function App() {
   return (
-    <Category />
-  )
+    <>
+      <Router />
+    </>
+  );
 }
 
-export default App 
+export default App;
