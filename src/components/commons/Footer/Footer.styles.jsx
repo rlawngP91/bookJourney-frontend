@@ -8,6 +8,10 @@ export const Wrapper = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background: #fbfbfb;
   box-shadow: 0px 1px 5.7px 0px rgba(0, 0, 0, 0.25);
+
+  position: fixed;
+  bottom: 0;
+  z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
 `;
 
 export const Button = styled.button`
