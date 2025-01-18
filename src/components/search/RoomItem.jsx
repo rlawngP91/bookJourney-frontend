@@ -77,9 +77,11 @@ export const RoomItem = ({
   title,
   author,
   coverImage,
-  rating,
+  currentpeople,
+  totalpeople,
   progress,
-  date,
+  startdate,
+  enddate,
 }) => {
   return (
     <ItemWrapper>
@@ -89,15 +91,17 @@ export const RoomItem = ({
         <Title>{title}</Title>
         <StatusContainer>
           <StatusItem>
-            <img src={usersIcon} />
-            {rating}
+            <img src={usersIcon} alt="userInfo" />
+            {currentpeople}/{totalpeople}
           </StatusItem>
           <StatusItem>
             <img src={calendarIcon} alt="calendar" />
             {progress}%
           </StatusItem>
         </StatusContainer>
-        <DateText>{date}</DateText>
+        <DateText>
+          {startdate} ~ {enddate}
+        </DateText>
       </RoomInfo>
     </ItemWrapper>
   );
