@@ -51,10 +51,13 @@ export const SearchResults = ({
                 key={room.id}
                 title={room.title}
                 author={room.author}
-                rating={room.rating}
+                currentpeople={room.currentpeople}
+                totalpeople={room.totalpeople}
                 progress={room.progress}
-                date={room.date}
+                startdate={room.startdate}
+                enddate={room.enddate}
                 coverImage={room.coverImage}
+                isLocked={room.isLocked}
               />
             ))}
           </BookList>
