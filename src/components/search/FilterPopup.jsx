@@ -72,9 +72,9 @@ const FilterPopup = ({ onClose, onApply }) => {
     '종교/역학',
     '청소년',
     '인문학',
-    '어린이/육아',
+    '어린이',
     '에세이',
-    '기타',
+    '유아',
   ];
 
   const handleApply = () => {
