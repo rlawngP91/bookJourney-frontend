@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 393px;
   height: 105px;
-  position: fixed;
+  top: 0;
 `;
 
 export const HeaderWrapper = styled.div`

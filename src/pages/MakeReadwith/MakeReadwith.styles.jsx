@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background: #f6f7f9;
   box-sizing: border-box;
-  padding-top: 178px;
 
   * {
     outline: none; /* 기본 포커스 스타일 제거 */
@@ -17,6 +16,7 @@ export const Wrapper = styled.div`
   }
 
   .buttoncontainer {
+    padding-top: 82px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -30,13 +30,20 @@ export const Wrapper = styled.div`
     gap: 8px;
     margin-top: 40px;
     color: #000;
-    text-align: center;
     font-family: Pretendard;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: var(--Label-Small-Line-Height, 16px); /* 114.286% */
     letter-spacing: var(--Label-Small-Tracking, 0.5px);
+
+    .error {
+      color: #fd7472;
+      font-family: Pretendard;
+      font-size: 11px;
+      font-style: normal;
+      padding-left: 25px;
+    }
 
     .countcontainer {
       display: flex;
@@ -68,6 +75,7 @@ export const Wrapper = styled.div`
     }
 
     input {
+      //border: 1px solid ${({ hasError }) => (hasError ? '#fd7472' : 'none')};
       border: none;
       width: 342px;
       height: 36px;
@@ -204,6 +212,15 @@ export const Wrapper = styled.div`
         letter-spacing: var(--Label-Small-Tracking, 0.5px);
       }
     }
+
+    .error {
+      color: #fd7472;
+      font-family: Pretendard;
+      font-size: 11px;
+      font-style: normal;
+      padding-right: 25px;
+      margin-left: auto;
+    }
   }
 
   .password {
@@ -242,6 +259,15 @@ export const Wrapper = styled.div`
       line-height: var(--Label-Medium-Line-Height, 16px); /* 114.286% */
       letter-spacing: var(--Label-Medium-Tracking, 0.5px);
     }
+
+    .error {
+      color: #fd7472;
+      font-family: Pretendard;
+      font-size: 11px;
+      font-style: normal;
+      margin-top: 5px;
+      margin-left: 22px; /* input과 정렬 */
+    }
   }
 `;
 
@@ -250,8 +276,10 @@ export const Button = styled.button`
   height: 160px;
   flex-shrink: 0;
   border-radius: 9px;
-  border: 1px solid #6aa5f8;
+  border: ${({ $isSelected }) => ($isSelected ? '3px' : '1px')} solid #6aa5f8;
   background: #f6f7f9;
+  box-shadow: ${({ $isSelected }) =>
+    $isSelected ? ' 0px 4px 4px 0px rgba(0, 0, 0, 0.25)' : ''};
 
   div {
     color: #000;
@@ -268,3 +296,23 @@ export const Button = styled.button`
     background: #e6f0ff;
   }
 `;
+/*
+export const Aa = styled.input`
+  border: none;
+  width: 342px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 8.361px;
+  background: #fff;
+  margin: auto;
+
+  color: #88909b;
+  padding-left: 11px;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Label-Medium-Line-Height, 16px); /* 114.286% */
+//  letter-spacing: var(--Label-Medium-Tracking, 0.5px);
+//  border: 1px solid ${({ $hasError }) => ($hasError ? '#fd7472' : '#ddd')};
+//`;
