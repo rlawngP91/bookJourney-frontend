@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from './DataPicker';
+import CountSlider from './CountSlider';
 
 const Overlay = styled.div`
   position: fixed;
@@ -119,6 +120,8 @@ const FilterPopup = ({ onClose, onApply }) => {
           onStartDateChange={setPeriodStartDate}
           onEndDateChange={setPeriodEndDate}
         />
+
+        <CountSlider onValueChange={(value) => console.log(value)} />
 
         <ApplyButton onClick={handleApply}>적용</ApplyButton>
       </PopupContainer>
