@@ -6,23 +6,28 @@ const DatePickerContainer = styled.div`
 `;
 
 const DatePickerLabel = styled.div`
-  font-size: 16px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: var(--sds-typography-body-size-small);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
   margin-bottom: 8px;
 `;
 
 const DateInputsContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
 `;
 
 const DateInput = styled.div`
   padding: 12px 16px;
-  border: 1px solid #e5e7eb;
   border-radius: 12px;
+  text-align: center;
   cursor: pointer;
-  color: ${(props) => (props.hasValue ? '#000' : '#9CA3AF')};
-  background-color: ${(props) => (props.selected ? '#EBF3FF' : 'white')};
+  color: ${(props) => (props.selected ? '#FFF' : '#000')};
+  background-color: ${(props) => (props.selected ? '#A3C7FA' : 'white')};
   flex: 1;
 `;
 
