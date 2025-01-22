@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wrapper } from './MemberHeader.styles';
-import Member from './Member';
+import Member from './member';
 
 export default function MemberHeader() {
   return (
