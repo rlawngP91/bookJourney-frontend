@@ -1,7 +1,7 @@
 import React from 'react';
 import { Wrapper, Users } from './MemberHeader.styles';
 import users from '../../assets/users.svg';
-import Member from './member';
+import Member from './Member';
 
 export default function MemberHeader() {
   return (
