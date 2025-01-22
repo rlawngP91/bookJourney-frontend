@@ -5,7 +5,7 @@ import { InputWrapper, StyledInput, LabelText } from './UserInputField.styles';
 const UserInputField = ({ placeholder, labelText }) => {
   return (
     <InputWrapper>
-      {/* labelText는 항상 표시됩니다 */}
+      {/* labelText는 값이 있을 때만 표시 */}
       <LabelText>{labelText}</LabelText>
       <StyledInput placeholder={placeholder} />
     </InputWrapper>
@@ -14,7 +14,7 @@ const UserInputField = ({ placeholder, labelText }) => {
 
 UserInputField.propTypes = {
   placeholder: PropTypes.string.isRequired, //placeholder는 필수
-  labelText: PropTypes.string.isRequired, // labelText는 필수
+  labelText: PropTypes.string, // labelText는 선택
 };
 
 export default UserInputField;
