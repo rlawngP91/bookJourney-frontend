@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from './DataPicker';
+import CountSlider from './CountSlider';
 
 const Overlay = styled.div`
   position: fixed;
@@ -72,9 +73,9 @@ const FilterPopup = ({ onClose, onApply }) => {
     '종교/역학',
     '청소년',
     '인문학',
-    '어린이/육아',
+    '어린이',
     '에세이',
-    '기타',
+    '유아',
   ];
 
   const handleApply = () => {
@@ -119,6 +120,8 @@ const FilterPopup = ({ onClose, onApply }) => {
           onStartDateChange={setPeriodStartDate}
           onEndDateChange={setPeriodEndDate}
         />
+
+        <CountSlider onValueChange={(value) => console.log(value)} />
 
         <ApplyButton onClick={handleApply}>적용</ApplyButton>
       </PopupContainer>
