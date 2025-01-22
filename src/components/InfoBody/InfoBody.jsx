@@ -1,52 +1,55 @@
-import React from 'react';
-import {
-  Wrapper,
-  Button,
-  Category,
-  Container,
-  InfoContainer,
-  BookDetail,
-} from './InfoBody.styles';
+import React, { useState } from 'react';
+import { Wrapper, Popup, Container } from './InfoBody.styles';
 import star from '../../assets/star.svg';
+import filledstar from '../../assets/filledstar.svg';
 
 export default function InfoBody() {
+  const [isFavorite, setIsFavorite] = useState(false); // 즐겨찾기 상태
+  const [showPopup, setShowPopup] = useState(false); // 팝업 상태
+
+  const handleStarClick = () => {
+    if (isFavorite) {
+      // 즐겨찾기 상태일 때는 팝업 표시
+      setShowPopup(true);
+    } else {
+      // 즐겨찾기가 아닐 때는 상태 변경
+      setIsFavorite(true);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowPopup(false); // 팝업 닫기
+  };
+
+  const handleDelete = () => {
+    setIsFavorite(false); // 즐겨찾기 해제
+    setShowPopup(false); // 팝업 닫기
+  };
+
   return (
-    <Wrapper>
-      <div className="title">
-        <div className="bookname">밤의 여행자들</div>
-        <img src={star} />
-      </div>
-      <div className="writer">윤고은 저</div>
-      <Container>
-        <div className="buttons">
-          <Button>혼자읽기</Button>
-          <Button>같이 읽기 방 만들기</Button>
+    <Container>
+      <Wrapper>
+        <div className="title">
+          <div className="bookname">밤의 여행자들</div>
+          <img src={isFavorite ? filledstar : star} onClick={handleStarClick} />
         </div>
-        <Category>책 정보</Category>
-        <InfoContainer>
-          <div className="line">
-            <div className="first">출판사</div>
-            <div>은행나무</div>
+        <div className="writer">윤고은 저</div>
+      </Wrapper>
+
+      {showPopup && (
+        <Popup>
+          <div>즐겨찾기 삭제</div>
+          <div className="message">즐겨찾기 책에서 삭제할까요?</div>
+          <div className="buttons">
+            <button className="cancel" onClick={handleCancel}>
+              취소
+            </button>
+            <button className="delete" onClick={handleDelete}>
+              삭제
+            </button>
           </div>
-          <div className="line">
-            <div className="first">출간일</div>
-            <div>2025년 1월 1일</div>
-          </div>
-          <div className="line">
-            <div className="first">ISBN</div>
-            <div>12341234134</div>
-          </div>
-          <div className="line">
-            <div className="first">전체 페이지 수</div>
-            <div>500</div>
-          </div>
-        </InfoContainer>
-        <div className="underbar" />
-        <BookDetail>
-          <div className="introduce">책 소개</div>
-          <div className="detail">~~~~~~~~~~~~~~알라딘 불러오기~~~~~~~~</div>
-        </BookDetail>
-      </Container>
-    </Wrapper>
+        </Popup>
+      )}
+    </Container>
   );
 }

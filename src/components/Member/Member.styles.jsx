@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: 100px;
+  height: 120px;
   width: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding-top: 22px;
-  padding-right: 24px;
+  justify-content: space-between;
 
   img {
     width: 40px;

@@ -144,8 +144,8 @@ export default function MakeReadwith() {
           />
         </div>
         {passwordError && <div className="error">{passwordError}</div>}
+        <RWFooter />
       </Wrapper>
-      <RWFooter />
     </>
   );
 }
