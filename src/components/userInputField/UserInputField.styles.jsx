@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
   flex-shrink: 0;
   position: relative; /* 위치가 겹치지 않게 하기 위해 relative 추가 */
   left: 25px;
-  padding-bottom: 46px;
+  margin-bottom: 16px;
 `;
 
 export const StyledInput = styled.input`

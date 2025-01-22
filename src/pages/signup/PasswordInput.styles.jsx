@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // Wrapper로 감싸서 전체 스타일을 지정합니다.
 export const InputWrapper = styled.div`
@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
   flex-shrink: 0;
   position: relative; /* 위치가 겹치지 않게 하기 위해 relative 추가 */
   left: 25px;
-  padding-bottom: 46px;
+  padding-bottom: 16px;
 `;
 
 export const StyledInput = styled.input`
