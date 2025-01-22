@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   //position: absolute;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
   width: 393px;
   height: 88px;
   display: grid;

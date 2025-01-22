@@ -57,4 +57,14 @@ export const Container = styled.div`
     grid-template-rows: repeat(4, 1fr); /* 4행 */
     gap: 17px 11px; /* 세로 17px, 가로 11px 간격 */
   }
+
+  .count {
+    color: #6aa5f8;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: var(--Label-Medium-Line-Height, 16px); /* 100% */
+    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
+  }
 `;
