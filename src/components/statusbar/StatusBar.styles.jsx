@@ -6,7 +6,7 @@ export const StyledDiv = styled.div`
     width: 393px;
     height: 46.5px;
     display: flex;
-
+    z-index: 100;
 
     .notch {
         width: 169px;
