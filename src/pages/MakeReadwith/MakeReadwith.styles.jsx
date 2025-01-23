@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 393px;
-  height: 855px;
+  min-height: 100vh;
+  //height: 853px;
   display: flex;
   flex-direction: column;
-  background: #f6f7f9;
+  background-color: #f6f7f9;
   box-sizing: border-box;
 
   * {

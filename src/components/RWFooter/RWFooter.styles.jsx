@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   position: fixed;
   bottom: 0;
+  z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
   width: 393px;
   height: 88px;
   flex-shrink: 0;
@@ -10,8 +11,6 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const Button = styled.button`

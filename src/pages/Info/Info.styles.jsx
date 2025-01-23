@@ -66,7 +66,7 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   width: 393px;
-  height: 896px;
+  height: 100%;
   border-radius: 23px;
   background-color: #fef7f7;
   margin-top: 330px;

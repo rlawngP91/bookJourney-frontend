@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  height: 100%;
-  width: 393px;
-  padding: 88px 20px 0px 20px;
-  box-sizing: border-box;
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: 156px;
+  width: 393px;
+`;
+
+export const Wrapper = styled.div`
+  height: 100%;
+  width: 100%;
 
   .title {
     display: flex;
@@ -14,6 +17,8 @@ export const Wrapper = styled.div`
     justify-content: center;
     gap: 9px;
     text-align: center;
+    padding: 88px 20px 0px 20px;
+    box-sizing: border-box;
 
     .bookname {
       color: #000;
@@ -44,102 +49,18 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+export const Popup = styled.div`
+  .message {
+  }
 
   .buttons {
-    gap: 18px;
-    flex-direction: row;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .underbar {
-    height: 10px;
-    background-color: rgba(171, 171, 171, 0.12);
-  }
-`;
-
-export const Button = styled.button`
-  width: 167px;
-  height: 42px;
-  border-radius: 9px;
-  border: 1px solid #cecbcb;
-  background: #6aa5f8;
-
-  /* 기본 스타일 제거 */
-  border: none; /* 테두리 제거 */
-  outline: none; /* 포커스 시 나오는 아웃라인 제거 */
-`;
-
-export const Category = styled.div`
-  padding-top: 42px;
-  padding-bottom: 8px;
-  margin: auto;
-  height: 25px;
-  width: 108px;
-  border: none;
-  outline: none;
-  border-bottom: 3px solid #6aa5f8;
-
-  background: #fef7f7;
-  color: #6aa5f8;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 600;
-`;
-
-export const InfoContainer = styled.div`
-  height: 206px;
-  width: 100%;
-  color: black;
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-  padding-top: 49.5px;
-  padding-left: 55px;
-  padding-bottom: 40px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  justify-content: center;
-
-  .line {
-    display: flex;
-    flex-direction: row;
-
-    .first {
-      width: 105px;
+    button {
     }
-  }
-`;
 
-export const BookDetail = styled.div`
-  display: flex;
-  width: 100%;
-  height: 380px;
-  flex-direction: column;
-  padding: 30px 30px 100px 30px;
-  box-sizing: border-box;
-  gap: 15px;
+    .cancel {
+    }
 
-  color: black;
-  font-family: Pretendard;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-
-  .introduce {
-  }
-
-  .detail {
+    .delete {
+    }
   }
 `;
