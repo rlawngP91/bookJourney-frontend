@@ -25,7 +25,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 56px 0 72px; // HeaderContainer 높이(56px)만큼 상단 패딩, FooterContainer 높이(56px) + 여유공간(16px)만큼 하단 패딩
+  padding: 56px 0 87px;
   margin: 0;
 `;
 
@@ -46,7 +46,7 @@ export const ChipsContainer = styled.div`
 `;
 
 export const BookListSection = styled.section`
-  margin-top: 27px;
+  margin-top: 0px;
 `;
 
 export const SectionTitle = styled.div`

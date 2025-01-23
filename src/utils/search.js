@@ -21,7 +21,7 @@ export const getFilteredResults = (
           book.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
         filteredRooms = filteredRooms.filter((room) =>
-          room.title.toLowerCase().includes(searchQuery.toLowerCase())
+          room.book.toLowerCase().includes(searchQuery.toLowerCase())
         );
         break;
       case '작가 이름':
