@@ -5,7 +5,6 @@ import searchIcon from '../../assets/search2.svg';
 
 const SearchBarWrapper = styled.div`
   padding: 8px 16px;
-  width: 393px;
   height: 39px;
   position: relative;
 `;
@@ -13,7 +12,7 @@ const SearchBarWrapper = styled.div`
 const SearchInput = styled.div`
   position: relative;
   display: flex;
-  width: 393px;
+  width: 100%;
   height: 39px;
   align-items: center;
   gap: 8px;
@@ -44,6 +43,7 @@ const SearchTypeButton = styled.button`
 
 const StyledInput = styled.input`
   flex: 1;
+  width: 100%;
   height: 100%;
   border: none;
   background: #ababab1f;

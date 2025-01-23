@@ -9,22 +9,30 @@ const ChipWrapper = styled.div`
   gap: 4px;
   border-radius: 20px;
   background: #f5f5f5;
-  width: calc(25% - 12px); // 4개씩 정렬을 위한 너비 설정
   box-sizing: border-box;
+  width: 74.475px;
+  height: 30.783px;
+  flex-shrink: 0;
 
   span {
-    font-family: Pretendard;
-    font-size: 12px;
-    color: #333;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     flex: 1;
+    color: #000;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-feature-settings: 'dlig' on;
+    font-family: Roboto;
+    font-size: 10.923px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 19.86px; /* 181.818% */
+    letter-spacing: 0.109px;
   }
 
   img {
-    width: 16px;
-    height: 16px;
+    width: 6.951px;
+    height: 6.951px;
     cursor: pointer;
     flex-shrink: 0;
   }

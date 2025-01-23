@@ -11,6 +11,7 @@ export const SearchWrapper = styled.div`
 
 export const HeaderContainer = styled.div`
   position: fixed;
+  width: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -20,6 +21,7 @@ export const HeaderContainer = styled.div`
 
 export const ContentContainer = styled.div`
   flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -44,7 +46,7 @@ export const ChipsContainer = styled.div`
 `;
 
 export const BookListSection = styled.section`
-  margin-top: 0px;
+  margin-top: 27px;
 `;
 
 export const SectionTitle = styled.div`

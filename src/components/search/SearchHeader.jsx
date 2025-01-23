@@ -5,13 +5,13 @@ import settingsIcon from '../../assets/searchsetting.svg';
 
 const HeaderWrapper = styled.div`
   position: fixed;
-  width: 393px;
+  width: 100%;
+  height: 48px;
   left: 0;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 48px;
   padding: 0 16px;
   background: #ffffff;
 `;
@@ -33,14 +33,14 @@ const BackButton = styled.button`
 `;
 
 const Title = styled.h1`
+  color: #000;
+  text-align: center;
   font-family: Pretendard;
-  font-size: 18px;
-  font-weight: 600;
-  color: #000000;
-  margin: 0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Label-Medium-Line-Height, 16px); /* 100% */
+  letter-spacing: var(--Label-Medium-Tracking, 0.5px);
 `;
 
 const SettingsButton = styled.button`
@@ -51,7 +51,7 @@ const SettingsButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: -8px;
+  margin-right: 26px;
 
   img {
     width: 17px;
