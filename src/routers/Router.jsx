@@ -3,6 +3,7 @@ import React from 'react';
 import Main from '../pages/Main/Main';
 import MakeReadwith from '../pages/makeReadwith/makeReadwith';
 import Test from '../pages/Test';
+import Info from '../pages/Info/Info';
 import Login from '../pages/login/Login';
 import Onboarding from '../pages/onboarding/Onboarding';
 import Signup from '../pages/signup/Signup';
@@ -23,6 +24,10 @@ const Router = () => {
     {
       path: '/makeReadwith',
       element: <MakeReadwith />,
+    },
+    {
+      path: '/info',
+      element: <Info />,
     },
     {
       path: '/login',

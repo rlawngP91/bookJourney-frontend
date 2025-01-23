@@ -1,10 +1,12 @@
 import React from 'react';
 import { Wrapper, Header, Body, Container } from './Info.styles';
 import Footer from '../../components/commons/Footer/Footer';
-import InfoBody from '../../components/InfoBody/InfoBody';
 import logo from '../../assets/logo.svg';
 import exit from '../../assets/exit.svg';
 import bookexample from '../../assets/bookexample.svg';
+import ButtonGroup2 from '../../components/InfoBody/ButtonGroup2';
+import TabGroup2 from '../../components/InfoBody/TapGroup2';
+import InfoBody from '../../components/InfoBody/InfoBody';
 
 export default function Info() {
   return (
@@ -22,6 +24,8 @@ export default function Info() {
         </Header>
         <Body>
           <InfoBody />
+          <ButtonGroup2 />
+          <TabGroup2 />
         </Body>
       </Container>
       <Footer />
