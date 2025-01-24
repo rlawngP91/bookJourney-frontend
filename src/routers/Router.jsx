@@ -9,6 +9,7 @@ import Signup from '../pages/signup/Signup';
 import Category from '../pages/category/Category';
 import Profile from '../pages/profile/Profile';
 import Home from '../pages/home/Home';
+import Bookmark from '../pages/bookmark/Bookmark';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -47,6 +48,10 @@ const Router = () => {
     {
       path: '/home',
       element: <Home />,
+    },
+    {
+      path: '/bookmark',
+      element: <Bookmark />,
     },
   ]);
 
