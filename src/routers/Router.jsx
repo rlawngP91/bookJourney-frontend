@@ -11,6 +11,7 @@ import Category from '../pages/category/Category';
 import Profile from '../pages/profile/Profile';
 import Home from '../pages/home/Home';
 import Bookmark from '../pages/bookmark/Bookmark';
+import Record from '../pages/record/Record';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const Router = () => {
     {
       path: '/bookmark',
       element: <Bookmark />,
+    },
+    {
+      path: '/record',
+      element: <Record />,
     },
   ]);
 
