@@ -11,6 +11,7 @@ import Category from '../pages/category/Category';
 import Profile from '../pages/profile/Profile';
 import Home from '../pages/home/Home';
 import Search from '../pages/search/search';
+import Bookmark from '../pages/bookmark/Bookmark';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const Router = () => {
     {
       path: '/search',
       element: <Search />,
+    },
+    {
+      path: '/bookmark',
+      element: <Bookmark />,
     },
   ]);
 
