@@ -30,6 +30,7 @@ export default function Search() {
     '해리포터',
     '해리포터',
     '해리포터',
+    '밤의여행자들',
   ]);
 
   const [listType, setListType] = useState('책 목록');
@@ -82,7 +83,7 @@ export default function Search() {
   const handleFilterApply = (newFilters) => {
     setFilters(newFilters);
 
-    // 검색어와 다른 필터 적용
+    // 검색어와 다른 필터 적용 -> 필요한가..?
     const { filteredBooks, filteredRooms } = getFilteredResults(
       searchQuery,
       searchType,

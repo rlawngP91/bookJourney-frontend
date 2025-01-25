@@ -11,6 +11,7 @@ export const SearchWrapper = styled.div`
 
 export const HeaderContainer = styled.div`
   position: fixed;
+  width: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -20,10 +21,11 @@ export const HeaderContainer = styled.div`
 
 export const ContentContainer = styled.div`
   flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 56px 0 72px; // HeaderContainer 높이(56px)만큼 상단 패딩, FooterContainer 높이(56px) + 여유공간(16px)만큼 하단 패딩
+  padding: 56px 0 87px;
   margin: 0;
 `;
 

@@ -49,8 +49,9 @@ export const SearchResults = ({
             {filteredRooms.map((room) => (
               <RoomItem
                 key={room.id}
-                title={room.title}
+                book={room.book}
                 author={room.author}
+                title={room.title}
                 currentpeople={room.currentpeople}
                 totalpeople={room.totalpeople}
                 progress={room.progress}
