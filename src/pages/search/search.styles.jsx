@@ -6,7 +6,6 @@ export const SearchWrapper = styled.div`
   height: 100vh; // min-height 대신 height 사용
   background: #ffffff;
   position: relative;
-  overflow: hidden; // 스크롤이 ContentContainer 내부에서만 발생하도록
 `;
 
 export const HeaderContainer = styled.div`
@@ -24,9 +23,7 @@ export const ContentContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   padding: 56px 0 87px;
-  margin: 0;
 `;
 
 export const FooterContainer = styled.div`
