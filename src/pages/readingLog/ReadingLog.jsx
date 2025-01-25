@@ -11,11 +11,13 @@ import {
 import arrowBtn from '../../assets/downarrow2.svg';
 import RoomList from '../../components/readingLog/RoomList';
 import Footer from '../../components/commons/Footer/Footer';
+import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
 import { mockRooms } from '../../apis/mockData2';
 
 const ReadingLog = ({ nickname }) => {
   const [isRead, setIsRead] = useState(true);
-  const [currentDate] = useState('2025년 1월');
+  const [currentDate, setCurrentDate] = useState('2025년 1월');
+  const [showDatePopup, setShowDatePopup] = useState(false);
   const [rooms] = useState(mockRooms);
 
   const handleFilterChange = (value) => {
@@ -24,6 +26,7 @@ const ReadingLog = ({ nickname }) => {
 
   const handleDateClick = () => {
     // 여기에 날짜 팝업창 넣고
+    setShowDatePopup(true);
     console.log('Date picker clicked');
   };
 
@@ -60,6 +63,16 @@ const ReadingLog = ({ nickname }) => {
       <FooterContainer>
         <Footer />
       </FooterContainer>
+      {showDatePopup && (
+        <DateSelectorPopup
+          currentDate={currentDate}
+          onClose={() => setShowDatePopup(false)}
+          onSelect={(date) => {
+            setCurrentDate(date);
+            setShowDatePopup(false);
+          }}
+        />
+      )}
     </Container>
   );
 };
