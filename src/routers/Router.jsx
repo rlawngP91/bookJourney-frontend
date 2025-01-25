@@ -12,6 +12,7 @@ import Profile from '../pages/profile/Profile';
 import Home from '../pages/home/Home';
 import Search from '../pages/search/search';
 import Bookmark from '../pages/bookmark/Bookmark';
+import ReadingLog from '../pages/readingLog/ReadingLog';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -62,6 +63,10 @@ const Router = () => {
     {
       path: '/bookmark',
       element: <Bookmark />,
+    },
+    {
+      path: '/readinglog',
+      element: <ReadingLog nickname="TestUser" />,
     },
   ]);
 
