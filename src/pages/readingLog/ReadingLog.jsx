@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
   Container,
-  FilterButton,
+  FilterButtons,
+  FilterLeftButton,
+  FilterRightButton,
   DateSelector,
   NoItems,
   FooterContainer,
@@ -29,17 +31,20 @@ const ReadingLog = ({ nickname }) => {
     <Container>
       <h1 className="readinglog-title">{nickname} 님의 독서기록장</h1>
 
-      <div className="filter-buttons">
-        <FilterButton $active={isRead} onClick={() => handleFilterChange(true)}>
+      <FilterButtons>
+        <FilterLeftButton
+          $active={isRead}
+          onClick={() => handleFilterChange(true)}
+        >
           다 읽었어요
-        </FilterButton>
-        <FilterButton
+        </FilterLeftButton>
+        <FilterRightButton
           $active={!isRead}
           onClick={() => handleFilterChange(false)}
         >
           다 안읽었어요
-        </FilterButton>
-      </div>
+        </FilterRightButton>
+      </FilterButtons>
 
       <DateSelector onClick={handleDateClick}>
         <span>{currentDate}</span>
