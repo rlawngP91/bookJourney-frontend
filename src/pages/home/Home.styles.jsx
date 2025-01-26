@@ -13,6 +13,16 @@ export const Container = styled.div`
   width: 393px;
   height: 852px;
   background-color: #f6f7f9;
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    width: 393px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.42);
+    z-index: 100; /* 팝업 아래 배경보다 높은 z-index */
+  }
+
   .title {
     position: absolute;
     top: 73px;
