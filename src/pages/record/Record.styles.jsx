@@ -114,7 +114,7 @@ export const Container = styled.div`
     top: 0;
     left: 0;
     width: 393px;
-    height: 720px;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.42);
     z-index: 100; /* 팝업 아래 배경보다 높은 z-index */
   }

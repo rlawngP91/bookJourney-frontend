@@ -4,6 +4,7 @@ export const Container = styled.div`
   width: 118px;
   height: 239px;
   margin-right: 13px;
+  cursor: pointer;
   .title-container {
     display: flex;
     justify-content: space-between;

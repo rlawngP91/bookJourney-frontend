@@ -11,9 +11,10 @@ const BookFrame = ({
   writer,
   hour,
   percentage,
+  onDotsClick,
 }) => {
   // 전달된 props 값 확인
-  console.log('readType:', readType); // "같이" 또는 "혼자"가 출력되는지 확인
+  //console.log('readType:', readType); // "같이" 또는 "혼자"가 출력되는지 확인
 
   return (
     <Container>
@@ -36,7 +37,14 @@ const BookFrame = ({
         <span className="hour">{hour}시간 전</span>
         <img className="note" src={Note} alt="노트" />
         <span className="percentage">{percentage}%</span>
-        <img className="dots" src={Dots} alt="점3개" />
+        <img
+          className="dots"
+          src={Dots}
+          alt="점3개"
+          onClick={() =>
+            onDotsClick({ bookTitle, readType, writer, hour, percentage })
+          }
+        />
       </div>
     </Container>
   );
@@ -50,6 +58,7 @@ BookFrame.propTypes = {
   writer: PropTypes.string.isRequired,
   hour: PropTypes.number.isRequired,
   percentage: PropTypes.number.isRequired,
+  onDotsClick: PropTypes.func.isRequired,
 };
 
 export default BookFrame;
