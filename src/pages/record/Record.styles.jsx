@@ -91,6 +91,7 @@ export const Container = styled.div`
     bottom: 0;
     background-color: #fff;
     border-radius: 9px 9px 0 0;
+    z-index: 2000;
   }
 
   .line {
@@ -147,5 +148,85 @@ export const Container = styled.div`
 
   .content::-webkit-scrollbar {
     display: none; /* Chrome, Safari에서 스크롤 바 숨기기 */
+  }
+
+  #popup1 {
+    position: fixed;
+    top: 234px;
+    left: 63px;
+    width: 268px;
+    height: 144px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0px 2.73px 2.73px 0px rgba(0, 0, 0, 0.25);
+    z-index: 999;
+  }
+
+  .top {
+    height: 97px;
+    position: relative;
+  }
+
+  .popup-title {
+    position: absolute;
+    top: 24px;
+    left: 71px;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .popup-message {
+    position: absolute;
+    top: 52px;
+    left: 66px;
+    color: #000;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: var(--sds-typography-body-font-weight-regular);
+  }
+
+  .popup-message2 {
+    position: absolute;
+    top: 69px;
+    left: 49px;
+    color: #000;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: var(--sds-typography-body-font-weight-regular);
+  }
+
+  .popup-bottom {
+    display: flex;
+    border-top: 0.5px solid #a3a3a3;
+    height: 47px;
+  }
+
+  .popup-cancel,
+  .popup-delete {
+    width: 134px;
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+    cursor: pointer;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .popup-cancel {
+    color: #a3a3a3;
+  }
+
+  .popup-delete {
+    border-left: 0.5px solid #a3a3a3;
+    color: #d25643;
   }
 `;
