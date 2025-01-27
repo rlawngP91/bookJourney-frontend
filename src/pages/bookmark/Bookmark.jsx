@@ -20,25 +20,10 @@ const Bookmark = () => {
       bookTitle: '이기적 유전자2',
       isChecked: false,
     },
-    {
-      imgSrc: BookCover,
-      writer: '리처드 도킨스',
-      bookTitle: '이기적 유전자3',
-      isChecked: false,
-    },
-    {
-      imgSrc: BookCover,
-      writer: '리처드 도킨스',
-      bookTitle: '이기적 유전자4',
-      isChecked: false,
-    },
-    {
-      imgSrc: BookCover,
-      writer: '리처드 도킨스',
-      bookTitle: '이기적 유전자5',
-      isChecked: false,
-    },
   ]);
+
+  const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
+  const [popup2Visible, setPopup2Visible] = useState(false); // #popup2 상태
 
   // "삭제" 버튼 클릭 시 삭제 모드로 진입
   const enterDeleteMode = () => {
@@ -75,13 +60,67 @@ const Bookmark = () => {
     setIsDeleteMode(false); // 삭제 모드 비활성화
   };
 
+  // 팝업1에서 삭제 버튼 클릭 시 동작
+  const handleDeleteConfirmed = () => {
+    handleRemoveBooks();
+    setPopup1Visible(false); // 팝업 숨기기
+  };
+
+  // 선택 삭제 버튼 클릭 시 팝업 띄우기
+  const handleRemoveClick = () => {
+    const selectedCount = books.filter((book) => book.isChecked).length;
+    if (selectedCount === 0) {
+      setPopup2Visible(true); // #popup2 띄우기
+    } else {
+      setPopup1Visible(true); // #popup1 띄우기
+    }
+  };
+
+  // 팝업 닫기
+  const closePopup = () => {
+    setPopup1Visible(false);
+    setPopup2Visible(false);
+  };
+
   return (
     <Container>
       <StatusBar />
+
+      {/* 배경 오버레이 */}
+      {(popup1Visible || popup2Visible) && <div className="overlay"></div>}
+
       <img className="arrow" src={Arrow} alt="뒤로가기" />
       <span className="bookmark-book">즐겨찾기 책</span>
       <div className="content-container">
         <div className="place-holder"></div>
+        {popup1Visible && ( // #popup1
+          <div id="popup1" className="popup">
+            <div className="top">
+              <span className="popup-title">즐겨찾기 삭제</span>
+              <span className="popup-message">즐겨찾기 책에서 삭제할까요?</span>
+            </div>
+            <div className="bottom">
+              <div className="popup-cancel" onClick={closePopup}>
+                취소
+              </div>
+              <div className="popup-delete" onClick={handleDeleteConfirmed}>
+                삭제
+              </div>
+            </div>
+          </div>
+        )}
+        {popup2Visible && ( // #popup2
+          <div id="popup2" className="popup">
+            <div className="top">
+              <span className="popup-message2">선택한 책이 없습니다.</span>
+            </div>
+            <div className="bottom">
+              <div className="popup-ok" onClick={closePopup}>
+                확인
+              </div>
+            </div>
+          </div>
+        )}
         {!isDeleteMode ? (
           <span className="delete" onClick={enterDeleteMode}>
             삭제
@@ -114,7 +153,7 @@ const Bookmark = () => {
         <div className="cancel-btn" onClick={handleCancelDeleteMode}>
           취소
         </div>
-        <div className="remove-btn" onClick={handleRemoveBooks}>
+        <div className="remove-btn" onClick={handleRemoveClick}>
           선택 삭제
         </div>
       </div>

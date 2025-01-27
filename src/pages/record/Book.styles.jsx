@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 118px;
-  height: 239px;
-  margin-right: 13px;
+  width: 145px;
+  height: 291.3px;
+  //margin-right: 13px;
   cursor: pointer;
   .title-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 17px;
+    height: 25px;
   }
+
+  .book-img {
+    margin-bottom: 5.05px;
+  }
+
   .bookTitle {
     position: relative;
     left: 1px;
@@ -18,14 +23,17 @@ export const Container = styled.div`
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
     font-family: Pretendard;
-    font-size: 10px;
+    font-size: 13px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
+    line-height: 25px;
     letter-spacing: 0.11px;
   }
+
   .read-type {
-    width: 33.452px;
-    height: 17px;
+    margin-top: 11.05px;
+    width: 41.06px;
+    height: 20.86px;
     border-radius: 11.516px;
     color: #fff;
     text-align: center;
@@ -35,24 +43,24 @@ export const Container = styled.div`
     font-size: 10px;
     font-style: normal;
     font-weight: 500;
-    line-height: 17px; /* 109.677% */
+    line-height: 20.86px; /* 109.677% */
     letter-spacing: 0.1px;
+    margin-top: 2.5px;
   }
 
   .writer-space {
     margin: 0;
-    margin-top: 9px;
     color: #a3a3a3;
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
     font-family: Pretendard;
-    font-size: 10px;
+    font-size: 12.27px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: 0.1px;
   }
   .separate-line {
-    width: 118px;
+    width: 145px;
     height: 1px;
     margin-top: 6px;
     background: #d9d9d9;
@@ -67,28 +75,32 @@ export const Container = styled.div`
   .percentage {
     color: #a3a3a3;
     font-family: Inter;
-    font-size: 8.788px;
+    font-size: 9.588px;
     font-style: normal;
     font-weight: 600;
-    line-height: 17.576px; /* 200% */
+    line-height: 19.179px;
   }
 
   .clock {
     position: absolute;
-    top: 3px;
+    top: 4px;
   }
 
   .hour {
-    margin-left: 12.45px;
+    margin-left: 13.45px;
   }
 
   .note {
-    margin-left: 4.15px;
+    margin-left: 4.4px;
     margin-right: 2.2px;
-    left: 47.6px;
   }
 
   .percentage {
-    margin-right: 25.5px;
+  }
+
+  .dots {
+    position: absolute;
+    margin-top: 1.8px;
+    left: 132px;
   }
 `;

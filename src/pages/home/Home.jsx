@@ -14,15 +14,44 @@ import Arrow from './arrow.svg';
 import BookFrame from '../../components/bookFrame/BookFrame';
 import DummyBook1 from '../../assets/dummyBook1.svg';
 import DummyBook2 from '../../assets/dummyBook2.svg';
+import InfoPopup from '../../components/infoPopup/InfoPopup';
 //import DummyBook3 from '../../assets/dummyBook3.svg';
 const Home = () => {
   //const [bookCount, setBookCount] = useState(0); // 백엔드에서 가져올 값
   const [bookCount] = useState(4); // 진행중인 기록 - 백엔드에서 가져올 값
   const [readingCount] = useState(31); // 읽기 횟수 - 백엔드에서 가져올 값
+  const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
+  const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
+  // InfoPopup 관련
+  const handleDotsClick = (book) => {
+    setSelectedBook(book); // 선택된 책 업데이트
+    setShowInfoPopup(true); // InfoPopup 표시
+  };
+
+  const handleCloseInfoPopup = () => {
+    setShowInfoPopup(false); // InfoPopup 숨김
+    setSelectedBook(null); // 선택된 책 초기화
+  };
+
+  const handleLine1Click = () => {
+    console.log(`[${selectedBook.bookTitle}] 정보 보기`);
+    setShowInfoPopup(false); // InfoPopup 숨김
+  };
+
+  const handleLine2Click = () => {
+    console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
+    setShowInfoPopup(false); // InfoPopup 숨김
+  };
+
   return (
     <Wrapper>
       <Container>
         <StatusBar />
+        {/* InfoPopup의 overlay */}
+        {showInfoPopup && (
+          <div className="overlay" onClick={handleCloseInfoPopup}></div>
+        )}
+
         <img className="title" src={Title} alt="제목" />
         <img className="star" src={Star} alt="별 아이콘" />
         <img className="bell" src={Bell} alt="벨 아이콘" />
@@ -65,6 +94,7 @@ const Home = () => {
                   percentage={50}
                   readType="같이"
                   writer="윤고은"
+                  onDotsClick={handleDotsClick}
                 />
                 <BookFrame
                   imageSrc={DummyBook2}
@@ -73,6 +103,7 @@ const Home = () => {
                   percentage={50}
                   readType="혼자"
                   writer="로랑스 드빌레르"
+                  onDotsClick={handleDotsClick}
                 />
                 <BookFrame
                   imageSrc={DummyBook2}
@@ -81,6 +112,7 @@ const Home = () => {
                   hour={1}
                   percentage={50}
                   writer="이기주"
+                  onDotsClick={handleDotsClick}
                 />
                 <BookFrame
                   imageSrc={DummyBook1}
@@ -89,6 +121,7 @@ const Home = () => {
                   hour={1}
                   percentage={50}
                   writer="이기주"
+                  onDotsClick={handleDotsClick}
                 />
               </div>
             </div>
@@ -156,6 +189,13 @@ const Home = () => {
         </div>
       </Container>
       <Footer />
+      {/* InfoPopup */}
+      {showInfoPopup && selectedBook && (
+        <InfoPopup
+          onLine1Click={handleLine1Click}
+          onLine2Click={handleLine2Click}
+        />
+      )}
     </Wrapper>
   );
 };

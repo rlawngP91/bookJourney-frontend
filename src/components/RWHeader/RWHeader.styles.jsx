@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   width: 393px;
   height: 105px;
   top: 0;
+  background-color: #f6f7f9;
 `;
 
 export const HeaderWrapper = styled.div`
@@ -28,6 +29,8 @@ export const HeaderWrapper = styled.div`
     font-family: Pretendard;
     font-size: 16px;
     font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 16px;
     letter-spacing: 0.5px;
   }
 `;

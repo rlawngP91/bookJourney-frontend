@@ -21,6 +21,14 @@ export const Button = styled.button`
   border: 1px solid #cecbcb;
   background: #6aa5f8;
 
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 106.667% */
+  letter-spacing: 0.5px;
+
   outline: none; /* 기본 포커스 스타일 제거 */
   &:focus {
     outline: none; /* 포커스 상태에서도 기본 포커스 스타일 제거 */

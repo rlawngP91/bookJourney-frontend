@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types'; // PropTypes import
-import { Container } from './BookFrame.styles';
+import { Container } from './Book.styles';
 import Clock from './clock.svg';
 import Note from './note.svg';
 import Dots from './dots.svg';
-const BookFrame = ({
+const Book = ({
   imageSrc,
   bookTitle,
   readType,
@@ -18,7 +18,7 @@ const BookFrame = ({
 
   return (
     <Container>
-      <img src={imageSrc} alt="책1" />
+      <img className="book-img" src={imageSrc} alt="책1" />
       <div className="title-container">
         <span className="bookTitle">{bookTitle}</span>
         <div
@@ -51,7 +51,7 @@ const BookFrame = ({
 };
 
 // PropTypes 정의
-BookFrame.propTypes = {
+Book.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
   readType: PropTypes.string.isRequired,
@@ -61,4 +61,4 @@ BookFrame.propTypes = {
   onDotsClick: PropTypes.func.isRequired,
 };
 
-export default BookFrame;
+export default Book;

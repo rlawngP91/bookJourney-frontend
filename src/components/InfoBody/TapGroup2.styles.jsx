@@ -33,9 +33,10 @@ export const Category = styled.div`
   width: 108px;
   border: none;
   outline: none;
-  border-bottom: ${({ isActive }) => (isActive ? '3px solid #6aa5f8' : 'none')};
+  border-bottom: ${({ $isActive }) =>
+    $isActive ? '3px solid #6aa5f8' : 'none'};
   background: #fef7f7;
-  color: ${({ isActive }) => (isActive ? '#6aa5f8' : '#B3B3B3')};
+  color: ${({ $isActive }) => ($isActive ? '#6aa5f8' : '#B3B3B3')};
   text-align: center;
   font-family: Pretendard;
   font-size: 13px;
