@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   RoomItem,
@@ -6,11 +6,26 @@ import {
   Tag,
   MetaItem,
 } from './RoomListNotRead.styles';
+import BookInfoPopup from './BookInfoPopup';
 import clockIcon from '../../assets/clock3.svg';
 import progressIcon from '../../assets/note3.svg';
 import menuIcon from '../../assets/menudot.svg';
 
 const RoomListNotRead = ({ rooms }) => {
+  const [selectedRoom, setSelectedRoom] = useState(null);
+
+  const handleBookInfoClick = (roomId) => {
+    setSelectedRoom(roomId);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedRoom(null);
+  };
+
+  const handleBookInfoButtonClick = () => {
+    handleClosePopup();
+  };
+
   return (
     <Container>
       {rooms.map((room) => (
@@ -18,8 +33,15 @@ const RoomListNotRead = ({ rooms }) => {
           <img src={room.coverImage} alt={room.title} className="book-cover" />
           <BookInfo>
             <p className="roomAuthor">{room.author}</p>
-            <span className="roomBook">{room.book}</span>
-
+            <div className="bookMetaContainer">
+              <span className="roomBook">{room.book}</span>
+              <img
+                src={menuIcon}
+                alt="menu"
+                className="bookInfoBtn"
+                onClick={() => handleBookInfoClick(room.id)}
+              />
+            </div>
             <div className="roomMeta">
               <Tag>{room.people}</Tag>
               <MetaItem>
@@ -31,10 +53,16 @@ const RoomListNotRead = ({ rooms }) => {
                 <span className="data">{room.progress}%</span>
               </MetaItem>
             </div>
-            <img src={menuIcon} alt="menu" className="bookMenu" />
           </BookInfo>
         </RoomItem>
       ))}
+      {selectedRoom && (
+        <BookInfoPopup
+          onClose={handleClosePopup}
+          onBookInfoClick={handleBookInfoButtonClick}
+          roomId={selectedRoom}
+        />
+      )}
     </Container>
   );
 };

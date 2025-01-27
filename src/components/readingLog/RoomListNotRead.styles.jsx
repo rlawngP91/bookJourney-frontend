@@ -11,15 +11,14 @@ export const Container = styled.div`
 export const RoomItem = styled.div`
   display: flex;
   width: 100%;
-  padding: 16px;
+  height: 123px;
   gap: 16px;
-  border-bottom: 1px solid #f2f2f2;
+  padding: 16px;
 
   .book-cover {
     width: 84px;
     height: 123px;
     flex-shrink: 0;
-    border-radius: 4px;
   }
 `;
 
@@ -32,30 +31,34 @@ export const BookInfo = styled.div`
   .roomAuthor {
     color: #757373;
     font-family: Pretendard;
-    font-size: 12px;
+    font-size: 10px;
     font-style: normal;
     font-weight: 500;
-    margin-bottom: 4px;
-  }
-
-  .roomBook {
-    color: var(--sds-color-text-default-default);
-    font-family: Pretendard;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: var(--Label-Small-Line-Height, 16px); /* 106.667% */
+    line-height: var(--Label-Small-Line-Height, 16px); /* 160% */
     letter-spacing: var(--Label-Small-Tracking, 0.5px);
-    margin-top: 8px;
   }
 
-  .bookMenu {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+  .bookMetaContainer {
+    display: flex;
+    gap: 5px;
+
+    .roomBook {
+      color: var(--sds-color-text-default-default);
+      font-family: Pretendard;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: var(--Label-Small-Line-Height, 16px); /* 106.667% */
+      letter-spacing: var(--Label-Small-Tracking, 0.5px);
+    }
+
+    .bookMetaBtn {
+      width: 11.965px;
+      height: 11.965px;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: none;
+    }
   }
 
   .roomMeta {
