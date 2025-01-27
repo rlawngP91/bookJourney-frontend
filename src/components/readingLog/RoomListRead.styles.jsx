@@ -46,7 +46,6 @@ export const BookInfo = styled.div`
     font-weight: 500;
     line-height: var(--Label-Small-Line-Height, 16px); /* 106.667% */
     letter-spacing: var(--Label-Small-Tracking, 0.5px);
-    margin-top: 8px;
   }
 
   .roomMeta {

@@ -9,7 +9,7 @@ const RoomListRead = ({ rooms }) => {
           <img src={room.coverImage} alt={room.title} className="book-cover" />
           <BookInfo>
             <p className="roomAuthor">{room.author}</p>
-            <span className="rooomBook">{room.book}</span>
+            <span className="roomBook">{room.book}</span>
             <div className="roomMeta">
               <Tag>{room.people}</Tag>
               <span className="date">
