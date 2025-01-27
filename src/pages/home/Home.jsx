@@ -55,7 +55,7 @@ const Home = () => {
     <Wrapper>
       <Container>
         <StatusBar />
-        {/* InfoPopup의 overlay */}
+{/* InfoPopup의 overlay */}
         {(showInfoPopup || popup1Visible) && (
           <div className="overlay" onClick={handleCloseInfoPopup}></div>
         )}
