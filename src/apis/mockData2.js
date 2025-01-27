@@ -1,11 +1,13 @@
 import bookcover from '../assets/bookexample.svg';
 import bookcover2 from '../assets/dummyBook2.svg';
-export const mockRooms = [
+
+export const mockRoomsRead = [
   {
     id: 1,
     book: '이기적 유전자',
     author: '리처드 도킨스',
     title: 'testroom',
+    people: '혼자',
     startdate: '2024.12.30',
     enddate: '2025.01.20',
     coverImage: bookcover2,
@@ -15,6 +17,7 @@ export const mockRooms = [
     book: '이기적 유전자',
     author: '리처드 도킨스',
     title: 'testroom',
+    people: '혼자',
     startdate: '2024.12.30',
     enddate: '2025.01.20',
     coverImage: bookcover2,
@@ -24,6 +27,7 @@ export const mockRooms = [
     book: '밤의 여행자들',
     author: '윤고은',
     title: 'notlocked',
+    people: '같이',
     startdate: '2025.01.02',
     enddate: '2025.01.31',
     coverImage: bookcover,
@@ -33,6 +37,7 @@ export const mockRooms = [
     book: '밤의 여행자들',
     author: '윤고은',
     title: 'lockedroom',
+    people: '같이',
     startdate: '2025.01.13',
     enddate: '2025.02.02',
     coverImage: bookcover,

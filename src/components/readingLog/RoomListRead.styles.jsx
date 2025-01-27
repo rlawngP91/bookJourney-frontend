@@ -26,7 +26,7 @@ export const BookInfo = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  position: relative;
 
   .roomAuthor {
     color: #757373;
@@ -39,17 +39,21 @@ export const BookInfo = styled.div`
   }
 
   .roomBook {
-    color: #1e1e1e;
+    color: var(--sds-color-text-default-default);
     font-family: Pretendard;
     font-size: 15px;
     font-style: normal;
+    font-weight: 500;
+    line-height: var(--Label-Small-Line-Height, 16px); /* 106.667% */
+    letter-spacing: var(--Label-Small-Tracking, 0.5px);
+    margin-top: 8px;
   }
 
   .roomMeta {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     align-items: center;
-    margin-top: auto;
+    margin-top: 42px;
 
     .date {
       color: #757575;
@@ -61,4 +65,23 @@ export const BookInfo = styled.div`
       letter-spacing: var(--Label-Small-Tracking, 0.5px);
     }
   }
+`;
+export const Tag = styled.span`
+  display: inline-flex;
+  width: 41.064px;
+  height: 20.869px;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background: #6aa5f8;
+  color: #fff;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-feature-settings: 'dlig' on;
+  font-family: Pretendard;
+  font-size: 9.624px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13.464px; /* 139.895% */
+  letter-spacing: 0.096px;
 `;

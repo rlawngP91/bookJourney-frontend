@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, RoomItem, BookInfo } from './RoomListRead.styles';
+import { Container, RoomItem, BookInfo, Tag } from './RoomListRead.styles';
 
 const RoomListRead = ({ rooms }) => {
   return (
@@ -11,6 +11,7 @@ const RoomListRead = ({ rooms }) => {
             <p className="roomAuthor">{room.author}</p>
             <span className="rooomBook">{room.book}</span>
             <div className="roomMeta">
+              <Tag>{room.people}</Tag>
               <span className="date">
                 {room.startdate} ~ {room.enddate}
               </span>
