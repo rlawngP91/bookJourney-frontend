@@ -17,7 +17,7 @@ const Record = () => {
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedOrder, setSelectedOrder] = useState('latest-order'); // 기본 선택: 최신순
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
-
+  const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
   // Sort 팝업 관련
   const handleSortClick = () => {
     setShowSortPopup(true); // Sort 팝업 표시
@@ -40,6 +40,7 @@ const Record = () => {
 
   const handleCloseInfoPopup = () => {
     setShowInfoPopup(false); // InfoPopup 숨김
+    setPopup1Visible(false); // 팝업 숨기기
     setSelectedBook(null); // 선택된 책 초기화
   };
 
@@ -49,8 +50,14 @@ const Record = () => {
   };
 
   const handleLine2Click = () => {
-    console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
+    setPopup1Visible(true); // 팝업 띄우기기
+    //console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
     setShowInfoPopup(false); // InfoPopup 숨김
+  };
+
+  const handleDeleteConfirmed = () => {
+    console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
+    setPopup1Visible(false); // 팝업 띄우기기
   };
 
   return (
@@ -62,8 +69,28 @@ const Record = () => {
       )}
 
       {/* InfoPopup의 overlay */}
-      {showInfoPopup && (
+      {(showInfoPopup || popup1Visible) && (
         <div className="overlay" onClick={handleCloseInfoPopup}></div>
+      )}
+
+      {popup1Visible && ( // popup1Visible 상태에 따라 조건부 렌더링 추가
+        <div id="popup1">
+          <div className="top">
+            <span className="popup-title">진행중인 기록에서 삭제</span>
+            <span className="popup-message">지금 읽고있는 책이에요.</span>
+            <span className="popup-message2">
+              진행중인 기록에서 삭제할까요?
+            </span>
+          </div>
+          <div className="popup-bottom">
+            <div className="popup-cancel" onClick={handleCloseInfoPopup}>
+              취소
+            </div>
+            <div className="popup-delete" onClick={handleDeleteConfirmed}>
+              삭제
+            </div>
+          </div>
+        </div>
       )}
 
       <div className="header">

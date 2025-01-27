@@ -22,6 +22,7 @@ const Home = () => {
   const [readingCount] = useState(31); // 읽기 횟수 - 백엔드에서 가져올 값
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
+  const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
   // InfoPopup 관련
   const handleDotsClick = (book) => {
     setSelectedBook(book); // 선택된 책 업데이트
@@ -30,6 +31,7 @@ const Home = () => {
 
   const handleCloseInfoPopup = () => {
     setShowInfoPopup(false); // InfoPopup 숨김
+    setPopup1Visible(false); // 팝업 숨기기
     setSelectedBook(null); // 선택된 책 초기화
   };
 
@@ -39,8 +41,14 @@ const Home = () => {
   };
 
   const handleLine2Click = () => {
-    console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
+    setPopup1Visible(true); // 팝업 띄우기기
+    //console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
     setShowInfoPopup(false); // InfoPopup 숨김
+  };
+
+  const handleDeleteConfirmed = () => {
+    console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
+    setPopup1Visible(false); // 팝업 띄우기기
   };
 
   return (
@@ -48,10 +56,28 @@ const Home = () => {
       <Container>
         <StatusBar />
         {/* InfoPopup의 overlay */}
-        {showInfoPopup && (
+        {(showInfoPopup || popup1Visible) && (
           <div className="overlay" onClick={handleCloseInfoPopup}></div>
         )}
-
+        {popup1Visible && ( // #popup1
+          <div id="popup1" className="popup">
+            <div className="top">
+              <span className="popup-title">진행중인 기록에서 삭제</span>
+              <span className="popup-message">지금 읽고있는 책이에요.</span>
+              <span className="popup-message2">
+                진행중인 기록에서 삭제할까요?
+              </span>
+            </div>
+            <div className="popup-bottom">
+              <div className="popup-cancel" onClick={handleCloseInfoPopup}>
+                취소
+              </div>
+              <div className="popup-delete" onClick={handleDeleteConfirmed}>
+                삭제
+              </div>
+            </div>
+          </div>
+        )}
         <img className="title" src={Title} alt="제목" />
         <img className="star" src={Star} alt="별 아이콘" />
         <img className="bell" src={Bell} alt="벨 아이콘" />
