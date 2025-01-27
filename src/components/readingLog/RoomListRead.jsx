@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, RoomItem, BookInfo } from './RoomList.styles';
+import { Container, RoomItem, BookInfo } from './RoomListRead.styles';
 
-const RoomList = ({ rooms }) => {
+const RoomListRead = ({ rooms }) => {
   return (
     <Container>
       {rooms.map((room) => (
@@ -22,4 +22,4 @@ const RoomList = ({ rooms }) => {
   );
 };
 
-export default RoomList;
+export default RoomListRead;

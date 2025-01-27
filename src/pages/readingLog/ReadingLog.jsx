@@ -9,7 +9,7 @@ import {
   FooterContainer,
 } from './ReadingLog.styles';
 import arrowBtn from '../../assets/downarrow2.svg';
-import RoomList from '../../components/readingLog/RoomList';
+import RoomListRead from '../../components/readingLog/RoomListRead';
 import Footer from '../../components/commons/Footer/Footer';
 import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
 import { mockRooms } from '../../apis/mockData2';
@@ -58,7 +58,7 @@ const ReadingLog = ({ nickname }) => {
       {rooms.length === 0 ? (
         <NoItems>검색 결과가 없습니다</NoItems>
       ) : (
-        <RoomList rooms={rooms} />
+        <RoomListRead rooms={rooms} />
       )}
       <FooterContainer>
         <Footer />
