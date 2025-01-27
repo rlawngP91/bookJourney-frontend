@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   FilterButtons,
@@ -12,13 +12,20 @@ import arrowBtn from '../../assets/downarrow2.svg';
 import RoomListRead from '../../components/readingLog/RoomListRead';
 import Footer from '../../components/commons/Footer/Footer';
 import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
-import { mockRooms } from '../../apis/mockData2';
+import { mockRoomsRead } from '../../apis/mockData2';
+import { mockRoomsNotRead } from '../../apis/mockData3';
+import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
 
 const ReadingLog = ({ nickname }) => {
   const [isRead, setIsRead] = useState(true);
   const [currentDate, setCurrentDate] = useState('2025년 1월');
   const [showDatePopup, setShowDatePopup] = useState(false);
-  const [rooms] = useState(mockRooms);
+  const [rooms, setRooms] = useState(mockRoomsRead);
+
+  useEffect(() => {
+    // filterchange가 일어닐때마다 mockdata가 바껴
+    setRooms(isRead ? mockRoomsRead : mockRoomsNotRead);
+  }, [isRead]);
 
   const handleFilterChange = (value) => {
     setIsRead(value);
@@ -58,7 +65,13 @@ const ReadingLog = ({ nickname }) => {
       {rooms.length === 0 ? (
         <NoItems>검색 결과가 없습니다</NoItems>
       ) : (
-        <RoomListRead rooms={rooms} />
+        <>
+          {isRead ? (
+            <RoomListRead rooms={rooms} />
+          ) : (
+            <RoomListNotRead rooms={rooms} />
+          )}
+        </>
       )}
       <FooterContainer>
         <Footer />
