@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container } from './Record.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
 import BackBtn from '../../assets/arrow.svg';
@@ -13,11 +14,17 @@ import Dummy4 from './dummy4.svg';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 
 const Record = () => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
   const [showSortPopup, setShowSortPopup] = useState(false); // Sort 팝업 상태
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedOrder, setSelectedOrder] = useState('latest-order'); // 기본 선택: 최신순
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
+
+  const handleBackClick = () => {
+    navigate('/home');
+  };
+
   // Sort 팝업 관련
   const handleSortClick = () => {
     setShowSortPopup(true); // Sort 팝업 표시
@@ -94,7 +101,12 @@ const Record = () => {
       )}
 
       <div className="header">
-        <img className="back-btn" src={BackBtn} alt="뒤로가기" />
+        <img
+          className="back-btn"
+          src={BackBtn}
+          alt="뒤로가기"
+          onClick={handleBackClick}
+        />
         <p className="title-message">
           <span className="nickname">닉네임</span>님의 진행중 기록
         </p>

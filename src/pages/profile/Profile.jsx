@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container } from './Profile.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
 import ValidTestInput from '../signup/ValidTestInput';
@@ -7,6 +8,12 @@ import ProfileImg from './profileImg.svg';
 import Plus from './plus.svg';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 const Profile = () => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
+  const handlerBackBtnClick = () => {
+    navigate('/signup');
+  };
+
   // 닉네임 중복 여부를 확인하는 함수
   const validateNickname = (value) => {
     const existingNicknames = ['testUser', 'admin', 'user123']; // 서버에서 받아온 데이터라고 가정
@@ -38,7 +45,7 @@ const Profile = () => {
         중복확인
       </span>
       <div className="btn-container">
-        <div className="back-btn">
+        <div className="back-btn" onClick={handlerBackBtnClick}>
           <p>이전</p>
         </div>
         <BlueBtn className={'next'} text="다음" width={'167px'} />

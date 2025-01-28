@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Wrapper } from './Home.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
 import Title from '../../assets/title.svg';
@@ -17,12 +18,27 @@ import DummyBook2 from '../../assets/dummyBook2.svg';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 //import DummyBook3 from '../../assets/dummyBook3.svg';
 const Home = () => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
   //const [bookCount, setBookCount] = useState(0); // 백엔드에서 가져올 값
   const [bookCount] = useState(4); // 진행중인 기록 - 백엔드에서 가져올 값
   const [readingCount] = useState(31); // 읽기 횟수 - 백엔드에서 가져올 값
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
+
+  const handleRecordClick = () => {
+    navigate('/record');
+  };
+
+  const handleBookmarkClick = () => {
+    navigate('/bookmark');
+  };
+
+  //책 찾기 클릭
+  const handleSearchClick = () => {
+    navigate('/search'); // '/search'로 네비게이션
+  };
+
   // InfoPopup 관련
   const handleDotsClick = (book) => {
     setSelectedBook(book); // 선택된 책 업데이트
@@ -79,7 +95,12 @@ const Home = () => {
           </div>
         )}
         <img className="title" src={Title} alt="제목" />
-        <img className="star" src={Star} alt="별 아이콘" />
+        <img
+          className="star"
+          src={Star}
+          alt="별 아이콘"
+          onClick={handleBookmarkClick}
+        />
         <img className="bell" src={Bell} alt="벨 아이콘" />
         <span className="user-name">
           닉네임 <span>님</span>
@@ -106,12 +127,22 @@ const Home = () => {
               <p className="line2">독서 기록과 이야기가 담길</p>
               <p className="line3">특별한 공간입니다.</p>
               <p className="line4">지금 책을 찾으러 가보세요!</p>
-              <BlueBtn className={'btn'} text="책 찾기" width={'351px'} />
+              <BlueBtn
+                className={'btn'}
+                text="책 찾기"
+                width={'351px'}
+                onClick={handleSearchClick}
+              />
             </div>
             <div
               className={`place-holder-list ${bookCount === 0 ? 'hidden' : ''}`}
             >
-              <img className="arrow" src={Arrow} alt="화살표" />
+              <img
+                className="arrow"
+                src={Arrow}
+                alt="화살표"
+                onClick={handleRecordClick}
+              />
               <div className="book-scroll-container">
                 <BookFrame
                   imageSrc={DummyBook1}

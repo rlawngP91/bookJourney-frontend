@@ -67,4 +67,44 @@ export const Container = styled.div`
     line-height: var(--Label-Medium-Line-Height, 16px); /* 100% */
     letter-spacing: var(--Label-Medium-Tracking, 0.5px);
   }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 393px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.42);
+    z-index: 100; /* 팝업 아래 배경보다 높은 z-index */
+  }
+
+  #pop-up {
+    position: fixed;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0px 2.73px 2.73px 0px rgba(0, 0, 0, 0.25);
+    left: 63px;
+    top: 395px;
+    width: 268px;
+    height: 62px;
+    z-index: 2000;
+  }
+
+  .pop-up-text {
+    position: absolute;
+    top: 22px;
+    left: 71px;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .x-icon {
+    position: absolute;
+    top: 14px;
+    right: 15px;
+    cursor: pointer;
+  }
 `;

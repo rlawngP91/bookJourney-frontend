@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container } from './Bookmark.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
 import Arrow from '../../assets/arrow.svg';
@@ -21,6 +22,10 @@ const Bookmark = () => {
       isChecked: false,
     },
   ]);
+  const navigate = useNavigate(); // useNavigate 훅 사용
+  const handleBackClick = () => {
+    navigate('/home');
+  };
 
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
   const [popup2Visible, setPopup2Visible] = useState(false); // #popup2 상태
@@ -89,7 +94,12 @@ const Bookmark = () => {
       {/* 배경 오버레이 */}
       {(popup1Visible || popup2Visible) && <div className="overlay"></div>}
 
-      <img className="arrow" src={Arrow} alt="뒤로가기" />
+      <img
+        className="arrow"
+        src={Arrow}
+        alt="뒤로가기"
+        onClick={handleBackClick}
+      />
       <span className="bookmark-book">즐겨찾기 책</span>
       <div className="content-container">
         <div className="place-holder"></div>
