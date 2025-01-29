@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SearchHeader from '../../components/search/SearchHeader';
 import Footer from '../../components/commons/Footer/Footer';
 import { SearchBar } from '../../components/search/SearchBar';
-import { SearchResults } from '../../components/search/searchResults';
+import { SearchResults } from '../../components/search/SearchResults';
 import { RecentSearches } from '../../components/search/RecentSearches';
 import BookTypePopup from '../../components/search/BookTypePopup';
 import { getFilteredResults } from '../../utils/search';

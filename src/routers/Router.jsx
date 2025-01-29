@@ -10,7 +10,7 @@ import Signup from '../pages/signup/Signup';
 import Category from '../pages/category/Category';
 import Profile from '../pages/profile/Profile';
 import Home from '../pages/home/Home';
-import Search from '../pages/search/search';
+import Search from '../pages/search/Search';
 import Bookmark from '../pages/bookmark/Bookmark';
 import Record from '../pages/record/Record';
 import ReadingLog from '../pages/readingLog/ReadingLog';
