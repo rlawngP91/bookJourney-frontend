@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from './InfoPopup.styles';
 import Bar from './bar.svg';
-import InfoCircle from './infoCircle.svg';
+import InfoCircle from './InfoCircle.svg';
 import Trash from './trash.svg';
 
 const InfoPopup = ({ onLine1Click, onLine2Click }) => {
