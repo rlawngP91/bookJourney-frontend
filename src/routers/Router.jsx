@@ -26,7 +26,7 @@ const Router = () => {
       element: <Main />,
     },
     {
-      path: '/makeReadwith',
+      path: '/makereadwith',
       element: <MakeReadwith />,
     },
     {
