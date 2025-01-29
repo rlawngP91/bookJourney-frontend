@@ -4,7 +4,7 @@ import {
   BookListSection,
   ChipsContainer,
   SectionTitle,
-} from '../../pages/search/search.styles';
+} from '../../pages/search/Search.styles';
 import { BookChip } from './BookChip';
 
 export const RecentSearches = ({ recentSearches, onClearAll, onRemove }) => {

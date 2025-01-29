@@ -3,7 +3,7 @@ import {
   BookListSection,
   BookList,
   NoResultsMessage,
-} from '../../pages/search/search.styles';
+} from '../../pages/search/Search.styles';
 import { BookItem } from './BookItem';
 import { RoomItem } from './RoomItem';
 
