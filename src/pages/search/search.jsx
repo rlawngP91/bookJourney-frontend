@@ -54,8 +54,33 @@ export default function Search() {
     setShowPopup(true);
   }, []);
 
+  useEffect(() => {
+    const { filteredBooks, filteredRooms } = getFilteredResults(
+      searchQuery,
+      searchType,
+      mockBooks,
+      mockRooms,
+      filters
+    );
+
+    setBooks(filteredBooks);
+    setRooms(filteredRooms);
+  }, [searchQuery, searchType, filters]);
+
   const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
+    const newQuery = e.target.value;
+    setSearchQuery(newQuery);
+
+    const { filteredBooks, filteredRooms } = getFilteredResults(
+      newQuery,
+      searchType,
+      mockBooks,
+      mockRooms,
+      filters
+    );
+
+    setBooks(filteredBooks);
+    setRooms(filteredRooms);
   };
 
   const handleClearSearch = () => {

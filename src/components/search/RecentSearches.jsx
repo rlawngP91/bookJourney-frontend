@@ -1,4 +1,3 @@
-// components/RecentSearches.jsx
 import React from 'react';
 import {
   BookListSection,
