@@ -37,7 +37,7 @@ const SelectButton = styled.button`
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
-  font-weight: ${(props) => (props.isSelected ? 'bold' : 'normal')};
+  font-weight: ${(props) => (props.$isSelected ? 'bold' : 'normal')};
   border: none;
   background: none;
 
@@ -51,7 +51,7 @@ const CheckIcon = styled.img`
   height: 20px;
 `;
 
-const BookTypePopup = ({ onSelect, onClose, currentType }) => {
+const BookTypePopup = ({ onSelect, onClose, $currentType }) => {
   const bookTypes = [
     { id: 'book', label: '책 제목' },
     { id: 'author', label: '작가 이름' },
@@ -77,10 +77,10 @@ const BookTypePopup = ({ onSelect, onClose, currentType }) => {
             <SelectButton
               key={type.id}
               onClick={() => handleSelect(type.id)}
-              isSelected={getCurrentTypeId(currentType) === type.id}
+              $isSelected={getCurrentTypeId($currentType) === type.id}
             >
               <span>{type.label}</span>
-              {getCurrentTypeId(currentType) === type.id && (
+              {getCurrentTypeId($currentType) === type.id && (
                 <CheckIcon src={checkmark} alt="selected" />
               )}
             </SelectButton>

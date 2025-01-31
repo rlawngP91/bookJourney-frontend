@@ -147,24 +147,24 @@ export default function Search() {
           />
         )}
 
-        <ListTypeContainer searchQuery={searchQuery}>
+        <ListTypeContainer $searchQuery={searchQuery}>
           <ListTypeButton
             onClick={() => setListType('책 목록')}
-            isSelected={listType === '책 목록'}
+            $isSelected={listType === '책 목록'}
           >
             책 목록
           </ListTypeButton>
           <ListTypeButton
             onClick={() => setListType('같이읽기 목록')}
-            isSelected={listType === '같이읽기 목록'}
+            $isSelected={listType === '같이읽기 목록'}
           >
             같이읽기 목록
           </ListTypeButton>
         </ListTypeContainer>
 
         <SearchResults
-          searchQuery={searchQuery}
-          searchType={searchType}
+          $searchQuery={searchQuery}
+          $searchType={searchType}
           filteredBooks={books}
           filteredRooms={rooms}
           listType={listType}
@@ -179,7 +179,7 @@ export default function Search() {
         <FilterPopup
           onClose={() => setShowFilterPopup(false)}
           onApply={handleFilterApply}
-          currentFilters={filters}
+          $currentFilters={filters}
         />
       )}
 
@@ -187,7 +187,7 @@ export default function Search() {
         <BookTypePopup
           onSelect={handleTypeSelect}
           onClose={() => setShowPopup(false)}
-          currentType={searchType}
+          $currentType={searchType}
         />
       )}
     </SearchWrapper>

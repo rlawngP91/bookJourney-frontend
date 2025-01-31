@@ -8,15 +8,15 @@ import { BookItem } from './BookItem';
 import { RoomItem } from './RoomItem';
 
 export const SearchResults = ({
-  searchQuery,
-  searchType,
+  $searchQuery,
+  $searchType,
   filteredBooks,
   filteredRooms,
   listType,
 }) => {
   const hasResults = filteredBooks.length > 0 || filteredRooms.length > 0;
 
-  if (!searchQuery) {
+  if (!$searchQuery) {
     return null;
   }
 
@@ -27,7 +27,7 @@ export const SearchResults = ({
   return (
     <>
       {listType === '책 목록' &&
-        searchType !== '방 이름' &&
+        $searchType !== '방 이름' &&
         filteredBooks.length > 0 && (
           <BookListSection>
             <BookList>
