@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BookListSection,
-  BookList,
-  NoResultsMessage,
-} from '../../pages/search/Search.styles';
+import { BookListSection, BookList, NoResultsMessage } from './Search.styles';
 import { BookItem } from './BookItem';
 import { RoomItem } from './RoomItem';
 

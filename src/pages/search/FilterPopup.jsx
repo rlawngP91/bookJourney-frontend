@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import DatePicker from './DataPicker';
+import DatePicker from './DatePicker';
 import CountSlider from './CountSlider';
 
 const Overlay = styled.div`

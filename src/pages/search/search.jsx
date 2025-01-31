@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchHeader from '../../components/search/SearchHeader';
+import SearchHeader from './SearchHeader';
 import Footer from '../../components/commons/Footer/Footer';
-import { SearchBar } from '../../components/search/SearchBar';
-import { SearchResults } from '../../components/search/SearchResults';
-import { RecentSearches } from '../../components/search/RecentSearches';
-import BookTypePopup from '../../components/search/BookTypePopup';
+import { SearchBar } from './SearchBar';
+import { SearchResults } from './SearchResults';
+import { RecentSearches } from './RecentSearches';
+import BookTypePopup from './BookTypePopup';
 import { getFilteredResults } from '../../utils/search';
 import { mockBooks, mockRooms } from '../../apis/mockData';
-import FilterPopup from '../../components/search/FilterPopup';
+import FilterPopup from './FilterPopup';
 import {
   SearchWrapper,
   HeaderContainer,
