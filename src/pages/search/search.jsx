@@ -16,7 +16,7 @@ import {
   FooterContainer,
   ListTypeContainer,
   ListTypeButton,
-} from './Search.styles';
+} from './search.styles';
 
 export default function Search() {
   const navigate = useNavigate();

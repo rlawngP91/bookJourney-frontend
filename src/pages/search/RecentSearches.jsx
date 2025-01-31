@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookListSection, ChipsContainer, SectionTitle } from './Search.styles';
+import { BookListSection, ChipsContainer, SectionTitle } from './search.styles';
 import { BookChip } from './BookChip';
 
 export const RecentSearches = ({ recentSearches, onClearAll, onRemove }) => {
