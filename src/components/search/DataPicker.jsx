@@ -236,7 +236,7 @@ const DatePicker = ({
       )}
 
       {showEndCalendar && (
-        <Calendar right>
+        <Calendar right="true">
           <CalendarHeader>
             <ArrowButton onClick={handlePrevMonth}>&lt;</ArrowButton>
             <div>
