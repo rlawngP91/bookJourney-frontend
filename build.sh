@@ -1,5 +1,5 @@
 #!/bin/sh
 cd ../
 mkdir output
-cp -R ./bookJourney-fronted/* ./output
-cp -R ./output ./bookJourney-fronted/
+cp -R ./bookJourney-frontend/* ./output
+cp -R ./output ./bookJourney-frontend/
