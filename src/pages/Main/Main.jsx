@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function Main() {
-  return <></>;
+  return (
+    <>
+      <h1>Welcome to Book-Journey!</h1>
+    </>
+  );
 }

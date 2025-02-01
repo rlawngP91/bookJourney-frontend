@@ -33,7 +33,7 @@ const Overlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.58);
   border-radius: 4px;
-  display: ${(props) => (props.isLocked ? 'block' : 'none')};
+  display: ${(props) => (props.$isLocked ? 'block' : 'none')};
 `;
 
 const LockIconWrapper = styled.div`
@@ -41,7 +41,7 @@ const LockIconWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: ${(props) => (props.isLocked ? 'flex' : 'none')};
+  display: ${(props) => (props.$isLocked ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
 `;
@@ -124,8 +124,8 @@ export const RoomItem = ({
     <ItemWrapper>
       <BookCoverWrapper>
         <BookCover src={coverImage} alt={book} />
-        <Overlay isLocked={isLocked} />
-        <LockIconWrapper isLocked={isLocked}>
+        <Overlay $isLocked={isLocked} />
+        <LockIconWrapper $isLocked={isLocked}>
           <LockIcon src={lockIcon} alt="locked" />
         </LockIconWrapper>
       </BookCoverWrapper>

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchHeader from '../../components/search/SearchHeader';
+import SearchHeader from './SearchHeader';
 import Footer from '../../components/commons/Footer/Footer';
-import { SearchBar } from '../../components/search/SearchBar';
-import { SearchResults } from '../../components/search/searchResults';
-import { RecentSearches } from '../../components/search/RecentSearches';
-import BookTypePopup from '../../components/search/BookTypePopup';
+import { SearchBar } from './SearchBar';
+import { SearchResults } from './SearchResults';
+import { RecentSearches } from './RecentSearches';
+import BookTypePopup from './BookTypePopup';
 import { getFilteredResults } from '../../utils/search';
 import { mockBooks, mockRooms } from '../../apis/mockData';
-import FilterPopup from '../../components/search/FilterPopup';
+import FilterPopup from './FilterPopup';
 import {
   SearchWrapper,
   HeaderContainer,
@@ -54,8 +54,33 @@ export default function Search() {
     setShowPopup(true);
   }, []);
 
+  useEffect(() => {
+    const { filteredBooks, filteredRooms } = getFilteredResults(
+      searchQuery,
+      searchType,
+      mockBooks,
+      mockRooms,
+      filters
+    );
+
+    setBooks(filteredBooks);
+    setRooms(filteredRooms);
+  }, [searchQuery, searchType, filters]);
+
   const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
+    const newQuery = e.target.value;
+    setSearchQuery(newQuery);
+
+    const { filteredBooks, filteredRooms } = getFilteredResults(
+      newQuery,
+      searchType,
+      mockBooks,
+      mockRooms,
+      filters
+    );
+
+    setBooks(filteredBooks);
+    setRooms(filteredRooms);
   };
 
   const handleClearSearch = () => {
@@ -122,24 +147,24 @@ export default function Search() {
           />
         )}
 
-        <ListTypeContainer searchQuery={searchQuery}>
+        <ListTypeContainer $searchQuery={searchQuery}>
           <ListTypeButton
             onClick={() => setListType('책 목록')}
-            isSelected={listType === '책 목록'}
+            $isSelected={listType === '책 목록'}
           >
             책 목록
           </ListTypeButton>
           <ListTypeButton
             onClick={() => setListType('같이읽기 목록')}
-            isSelected={listType === '같이읽기 목록'}
+            $isSelected={listType === '같이읽기 목록'}
           >
             같이읽기 목록
           </ListTypeButton>
         </ListTypeContainer>
 
         <SearchResults
-          searchQuery={searchQuery}
-          searchType={searchType}
+          $searchQuery={searchQuery}
+          $searchType={searchType}
           filteredBooks={books}
           filteredRooms={rooms}
           listType={listType}
@@ -154,7 +179,7 @@ export default function Search() {
         <FilterPopup
           onClose={() => setShowFilterPopup(false)}
           onApply={handleFilterApply}
-          currentFilters={filters}
+          $currentFilters={filters}
         />
       )}
 
@@ -162,7 +187,7 @@ export default function Search() {
         <BookTypePopup
           onSelect={handleTypeSelect}
           onClose={() => setShowPopup(false)}
-          currentType={searchType}
+          $currentType={searchType}
         />
       )}
     </SearchWrapper>

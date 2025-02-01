@@ -1,4 +1,3 @@
-// mockData.js
 import bookcover from '../assets/bookexample.svg';
 import bookcover2 from '../assets/dummyBook2.svg';
 export const mockBooks = [

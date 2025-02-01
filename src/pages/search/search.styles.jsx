@@ -85,7 +85,7 @@ export const NoResultsMessage = styled.div`
 `;
 
 export const ListTypeContainer = styled.div`
-  display: ${(props) => (props.searchQuery ? 'flex' : 'none')};
+  display: ${(props) => (props.$searchQuery ? 'flex' : 'none')};
   width: 100%;
   border-bottom: 1px solid #eeeeee;
   margin-bottom: 5px;
@@ -98,8 +98,8 @@ export const ListTypeButton = styled.button`
   border: none;
   font-family: Pretendard;
   font-size: 14px;
-  color: ${(props) => (props.isSelected ? '#000000' : '#666666')};
-  font-weight: ${(props) => (props.isSelected ? '600' : '400')};
+  color: ${(props) => (props.$isSelected ? '#000000' : '#666666')};
+  font-weight: ${(props) => (props.$isSelected ? '600' : '400')};
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -112,8 +112,8 @@ export const ListTypeButton = styled.button`
     left: 50%;
     transform: translateX(-50%);
     width: fit-content;
-    min-width: ${(props) => (props.isSelected ? 'calc(100% - 24px)' : '0')};
+    min-width: ${(props) => (props.$isSelected ? 'calc(100% - 24px)' : '0')};
     height: 2px;
-    background-color: ${(props) => (props.isSelected ? '#000000' : '#FFF')};
+    background-color: ${(props) => (props.$isSelected ? '#000000' : '#FFF')};
   }
 `;

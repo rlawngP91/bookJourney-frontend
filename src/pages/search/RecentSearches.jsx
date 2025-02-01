@@ -1,10 +1,5 @@
-// components/RecentSearches.jsx
 import React from 'react';
-import {
-  BookListSection,
-  ChipsContainer,
-  SectionTitle,
-} from '../../pages/search/search.styles';
+import { BookListSection, ChipsContainer, SectionTitle } from './search.styles';
 import { BookChip } from './BookChip';
 
 export const RecentSearches = ({ recentSearches, onClearAll, onRemove }) => {
