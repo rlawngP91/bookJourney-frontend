@@ -22,7 +22,7 @@ jobs:
         with:
           source-directory: 'output'
           destination-github-username: rlawngP91
-          destination-repository-name: bookJourney-fronted
+          destination-repository-name: bookJourney-frontend
           user-email: ${{ secrets.DEPLOYMENT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
