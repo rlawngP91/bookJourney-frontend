@@ -30,7 +30,7 @@ const RoomListNotRead = ({ rooms }) => {
     <Container>
       {rooms.map((room) => (
         <RoomItem key={room.id}>
-          <img src={room.coverImage} alt={room.title} className="book-cover" />
+          <img src={room.coverImage} className="book-cover" />
           <BookInfo>
             <p className="roomAuthor">{room.author}</p>
             <div className="bookMetaContainer">

@@ -72,7 +72,7 @@ const Router = () => {
     },
     {
       path: '/readinglog',
-      element: <ReadingLog nickname="TestUser" />,
+      element: <ReadingLog />,
     },
     {
       path: '/readWith',
