@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getRoomInfo } from '../../apis/getRoomInfo';
 import {
   Wrapper,
   InfoContainer,
@@ -18,6 +20,33 @@ export default function TabGroup2() {
     setActiveTab(tab); // 클릭한 탭으로 상태 변경
   };
 
+  const { roomId } = useParams();
+  const [roomData, setRoomData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!roomId) {
+        console.warn('🚨 roomId가 없습니다. API 요청을 중단합니다.');
+        return;
+      }
+
+      console.log('🔥 API 요청 시작! roomId:', roomId);
+
+      try {
+        const data = await getRoomInfo(roomId);
+        console.log('✅ API 응답 데이터:', data);
+        setRoomData(data);
+      } catch (error) {
+        console.error('❌ API 요청 실패:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [roomId]); // roomId 변경 시마다 실행
+
   return (
     <Wrapper>
       <div className="category">
@@ -34,6 +63,7 @@ export default function TabGroup2() {
           방 정보
         </Category>
       </div>
+
       {activeTab === '책정보' ? (
         <>
           <InfoContainer>
@@ -60,42 +90,50 @@ export default function TabGroup2() {
         </>
       ) : (
         <>
-          <InfoContainer2>
-            <div className="header">
-              <img src={lock} />
-              <div>같이 읽기방 제목</div>
-              <div className="detail">
-                <div className="gap">
-                  <img src={clock2} />
-                  <div>1시간 전</div>
+          {loading ? (
+            <div>로딩 중...</div>
+          ) : roomData ? (
+            <>
+              <InfoContainer2>
+                <div className="header">
+                  <img src={lock} />
+                  <div>{roomData.roomName}</div>
+                  <div className="detail">
+                    <div className="gap">
+                      <img src={clock2} />
+                      <div>{roomData.recruitDday}</div>
+                    </div>
+                    <div className="gap">
+                      <img src={note} />
+                      <div>{roomData.roomPercentage}%</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="gap">
-                  <img src={note} />
-                  <div>40%</div>
+                <div className="duration">
+                  <div className="title">기간</div>
+                  <div className="text">{roomData.progressStartDate}</div>
+                  <div className="text">~</div>
+                  <div className="text">{roomData.progressEndDate}</div>
                 </div>
-              </div>
-            </div>
-            <div className="duration">
-              <div className="title">기간</div>
-              <div className="text">2024.12.30</div>
-              <div className="text">~</div>
-              <div className="text">2025.01.14</div>
-            </div>
-            <div className="duration">
-              <div className="title">모집 마감일</div>
-              <div className="text">D-8</div>
-              <div className="text">2024.12.30</div>
-            </div>
-          </InfoContainer2>
-          <div className="underbar" />
-          <BookDetail>
-            <div className="numcontainer">
-              <div className="now">4</div>
-              <div className="of">/</div>
-              <div className="total">6</div>
-            </div>
-            <MemberHeader />
-          </BookDetail>
+                <div className="duration">
+                  <div className="title">모집 마감일</div>
+                  <div className="text">{roomData.recruitDday}</div>
+                  <div className="text">{roomData.recruitEndDate}</div>
+                </div>
+              </InfoContainer2>
+              <div className="underbar" />
+              <BookDetail>
+                <div className="numcontainer">
+                  <div className="now">{roomData.memberList.length}</div>
+                  <div className="of">/</div>
+                  <div className="total">{roomData.recruitCount}</div>
+                </div>
+                <MemberHeader />
+              </BookDetail>
+            </>
+          ) : (
+            <div>방 정보가 없습니다.</div>
+          )}
         </>
       )}
     </Wrapper>
