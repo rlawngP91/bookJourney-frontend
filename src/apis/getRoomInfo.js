@@ -1,9 +1,5 @@
-import axios from 'axios';
+import instance from './instance';
 
-// ✅ Axios 인스턴스 생성 (Base URL을 `/api`로 설정)
-const api = axios.create({
-  baseURL: '/api', // 🔥 프록시 적용, 실제 요청은 백엔드로 전달됨
-});
 /* 
 // ✅ 모든 요청에 `Authorization` 헤더 자동 추가 (Interceptor 활용)
 api.interceptors.request.use(
@@ -52,7 +48,7 @@ export const getRoomInfo = async (roomId) => {
     'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODUwNzUxOCwiZXhwIjoxNzM4NTExMTE4fQ.qBQ7J3981LIq-ViGcre-y5mcTYOrjvp6e-f9m1La5Eo';
 
   try {
-    const response = await api.get(`/rooms/${roomId}`, {
+    const response = await instance.get(`/rooms/${roomId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     return response.data.data;
