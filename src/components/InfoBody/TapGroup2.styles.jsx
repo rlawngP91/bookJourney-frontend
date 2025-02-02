@@ -15,9 +15,9 @@ export const Wrapper = styled.div`
   .category {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 15px;
     box-sizing: border-box;
-    padding: 0px 60px 0px 60px;
+    padding: 0px 20px 0px 20px;
   }
 
   .underbar {
@@ -85,7 +85,6 @@ export const InfoContainer2 = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  justify-content: center;
 
   img {
     width: 15px;
@@ -97,7 +96,7 @@ export const InfoContainer2 = styled.div`
     align-items: center;
     justify-content: center;
     gap: 11px;
-    padding-bottom: 23px;
+    padding-bottom: 10px;
 
     .detail {
       display: flex;
@@ -129,8 +128,8 @@ export const InfoContainer2 = styled.div`
   .duration {
     display: flex;
     flex-direction: row;
+    gap: 10px;
     align-items: center;
-    gap: 18px;
     padding-left: 107px;
 
     .title {
