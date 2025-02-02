@@ -107,45 +107,91 @@ export const Body = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
 export const Filter = styled.div`
-  padding: 0px 25px;
-  box-sizing: border-box;
+  padding: 0 25px;
   display: flex;
-  flex-direction: row;
   align-items: center;
   height: 60px;
   width: 100%;
   gap: 10px;
 
-  .pagerange {
-    width: 92px;
-    height: 25px;
-
-    color: #000;
-    font-family: Pretendard;
-    font-size: 11.629px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 14.313px; /* 123.077% */
-    letter-spacing: 0.447px;
-    border-radius: 9px;
-    border: 1px solid #000;
+  .dropdown {
+    position: relative;
   }
 
-  .pagearray {
-    width: 81px;
-    height: 25px;
+  .dropdown-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+  }
 
-    color: #000;
-    font-family: Pretendard;
-    font-size: 11.629px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 14.313px; /* 123.077% */
-    letter-spacing: 0.447px;
-    border-radius: 9px;
-    border: 1px solid #000;
+  .arrow-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  .dropdown-menu2 {
+    position: absolute;
+    flex-direction: column;
+    width: 99px;
+    height: auto;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  .page-input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    outline: none;
+  }
+
+  .page-separator {
+    font-size: 16px;
+    color: #555;
+  }
+
+  .dropdown-item {
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .dropdown-item:hover {
+    background: #f0f0f0;
   }
 `;
 
