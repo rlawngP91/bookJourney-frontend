@@ -5,6 +5,7 @@ import Footer from '../../components/commons/Footer/Footer';
 import { SearchBar } from './SearchBar';
 import { SearchResults } from './SearchResults';
 import { RecentSearches } from './RecentSearches';
+import { recentsearchAPI } from '../../apis/recentsearchAPI';
 import BookTypePopup from './BookTypePopup';
 import { getFilteredResults } from '../../utils/search';
 import { mockBooks, mockRooms } from '../../apis/mockData';
@@ -23,15 +24,7 @@ export default function Search() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [searchType, setSearchType] = useState('책 제목');
-  const [recentSearches, setRecentSearches] = useState([
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '밤의여행자들',
-  ]);
+  const [recentSearches, setRecentSearches] = useState([]);
 
   const [listType, setListType] = useState('책 목록');
   const [books, setBooks] = useState(mockBooks);
@@ -49,6 +42,20 @@ export default function Search() {
       end: null,
     },
   });
+
+  // 최근 검색어 목록 조회
+  useEffect(() => {
+    const fetchRecentSearches = async () => {
+      try {
+        const data = await recentsearchAPI.getRecentSearches();
+        setRecentSearches(data);
+      } catch (error) {
+        console.error('최근 검색어 조회 실패:', error);
+      }
+    };
+
+    fetchRecentSearches();
+  }, []);
 
   useEffect(() => {
     setShowPopup(true);
@@ -97,12 +104,24 @@ export default function Search() {
     setShowPopup(false);
   };
 
-  const removeRecentSearch = (index) => {
-    setRecentSearches(recentSearches.filter((_, i) => i !== index));
+  const removeRecentSearch = async (index) => {
+    // 특정한 최근 검색어 삭제
+    try {
+      const searchId = recentSearches[index].recentSearchId;
+      await recentsearchAPI.removeRecentSearch(searchId);
+      setRecentSearches(recentSearches.filter((_, i) => i !== index));
+    } catch (error) {
+      console.error('최근 검색어 삭제 실패:', error);
+    }
   };
-
-  const handleClearAll = () => {
-    setRecentSearches([]);
+  const handleClearAll = async () => {
+    // 최근 검색어 전체 삭제
+    try {
+      await recentsearchAPI.clearAllRecentSearches();
+      setRecentSearches([]);
+    } catch (error) {
+      console.error('전체 검색어 삭제 실패:', error);
+    }
   };
 
   const handleFilterApply = (newFilters) => {
@@ -141,7 +160,7 @@ export default function Search() {
 
         {!searchQuery && (
           <RecentSearches
-            recentSearches={recentSearches}
+            recentSearches={recentSearches.map((item) => item.recentSearch)}
             onClearAll={handleClearAll}
             onRemove={removeRecentSearch}
           />
