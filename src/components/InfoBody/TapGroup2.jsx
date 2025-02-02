@@ -128,7 +128,7 @@ export default function TabGroup2() {
                   <div className="of">/</div>
                   <div className="total">{roomData.recruitCount}</div>
                 </div>
-                <MemberHeader />
+                <MemberHeader memberList={roomData.memberList} />
               </BookDetail>
             </>
           ) : (

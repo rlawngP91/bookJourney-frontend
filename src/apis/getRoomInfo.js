@@ -50,6 +50,7 @@ export const getRoomInfo = async (roomId) => {
   try {
     const response = await instance.get(`/rooms/${roomId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
+      'Content-Type': 'application/json',
     });
     return response.data.data;
   } catch (error) {

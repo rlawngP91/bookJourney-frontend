@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   height: 120px;
-  width: 40px;
+  width: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +14,6 @@ export const Wrapper = styled.div`
   }
 
   .title {
-    color: #000;
     font-family: Pretendard;
     font-size: 12.574px;
     font-style: normal;
