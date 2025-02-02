@@ -1,6 +1,15 @@
-const API_ENDPOINTS = {
-  READING_RECORDS: 'http://13.48.61.179/rooms/records',
-};
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: '/api', // vite.config.js 프록시 설정
+  headers: {
+    'Content-Type': 'application/json',
+    // 이건 user10 token
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE3Mzg1MDc2MzIsImV4cCI6MTczODUxMTIzMn0.83WaKIOl5tVI0hIDUTUIAJrmlLsYiiHV2QK9uINDj3g',
+  },
+});
+
 const RoomListNotReadAPIResponse = (record) => ({
   id: record.roomId,
   book: record.bookTitle,
@@ -11,32 +20,26 @@ const RoomListNotReadAPIResponse = (record) => ({
   coverImage: record.imageUrl,
 });
 
-// "다 안읽었어요" API 함수
 export const fetchReadingRecords = async (userId) => {
   try {
-    const response = await fetch(
-      `${API_ENDPOINTS.READING_RECORDS}?userId=${userId}`
-    );
+    const response = await api.get(`/rooms/records`, {
+      params: { userId },
+    });
 
-    if (!response.ok) {
-      throw new Error('독서 기록을 불러오는데 실패했습니다.');
-    }
-
-    const data = await response.json();
-
-    if (data.code === 200) {
+    if (response.data.code === 200) {
       return {
         success: true,
-        data: data.data.recordList.map(RoomListNotReadAPIResponse),
+        data: response.data.data.recordList.map(RoomListNotReadAPIResponse),
         nickname: `user${userId}`,
       };
     } else {
-      throw new Error(data.message || '서버 응답 오류');
+      throw new Error(response.data.message || '서버 응답 오류');
     }
   } catch (error) {
+    console.error('API 요청 오류:', error);
     return {
       success: false,
-      error: error.message,
+      error: error.response?.data?.message || error.message,
       data: [],
     };
   }

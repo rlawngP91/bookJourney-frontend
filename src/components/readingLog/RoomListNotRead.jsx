@@ -46,7 +46,7 @@ const RoomListNotRead = ({ rooms }) => {
               <Tag>{room.people}</Tag>
               <MetaItem>
                 <img src={clockIcon} alt="recentEdited" className="icon" />
-                <span className="data">{room.recentEdit}전</span>
+                <span className="data">{room.recentEdit}</span>
               </MetaItem>
               <MetaItem>
                 <img src={progressIcon} alt="progress" className="icon" />
