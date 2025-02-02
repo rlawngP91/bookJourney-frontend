@@ -30,11 +30,13 @@ export const Button = styled.button`
   border-radius: 0; /* 둥근 테두리 제거 */
   outline: none; /* 포커스 시 나오는 아웃라인 제거 */
 
-  img {
+  svg {
+    fill: #6aa5f8;
   }
 
   div {
-    color: #a3a3a3;
+    color: ${(props) =>
+      props.$isActive ? '#6AA5F8' : '#A3A3A3'}; /* 현재 페이지면 파란색 */
     text-align: center;
     font-family: Pretendard;
     font-size: 10px;
