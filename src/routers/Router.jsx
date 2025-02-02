@@ -31,7 +31,7 @@ const Router = () => {
       element: <MakeReadwith />,
     },
     {
-      path: '/info',
+      path: '/rooms/:roomId',
       element: <Info />,
     },
     {
