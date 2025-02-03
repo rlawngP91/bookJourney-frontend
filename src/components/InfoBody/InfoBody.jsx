@@ -2,26 +2,39 @@ import React, { useState } from 'react';
 import { Wrapper, Popup, Container } from './InfoBody.styles';
 import star from '../../assets/star.svg';
 import filledstar from '../../assets/filledstar.svg';
+import { addFavorite, removeFavorite } from '../../apis/favorite';
 
 export default function InfoBody({ bookData }) {
-  const [isFavorite, setIsFavorite] = useState(false); // 즐겨찾기 상태
+  const [isFavorite, setIsFavorite] = useState(bookData?.favorite || false); // 초기값 설정
   const [showPopup, setShowPopup] = useState(false); // 팝업 상태
+  const [error, setError] = useState('');
 
-  const handleStarClick = () => {
-    if (isFavorite === true) {
-      setShowPopup(true); // 팝업 열기
+  const handleStarClick = async () => {
+    if (!bookData || !bookData.isbn) {
+      setError('ISBN 정보가 없습니다.');
+      return;
+    }
+
+    if (isFavorite) {
+      setShowPopup(true); // 즐겨찾기 삭제 확인 팝업
     } else {
-      setIsFavorite(true); // 즐겨찾기 활성화
+      try {
+        const updatedFavorite = await addFavorite(bookData.isbn);
+        setIsFavorite(updatedFavorite);
+      } catch (err) {
+        setError(err.message);
+      }
     }
   };
 
-  const handleCancel = () => {
-    setShowPopup(false); // 팝업 닫기
-  };
-
-  const handleDelete = () => {
-    setIsFavorite(false); // 즐겨찾기 해제
-    setShowPopup(false); // 팝업 닫기
+  const handleDelete = async () => {
+    try {
+      const updatedFavorite = await removeFavorite(bookData.isbn);
+      setIsFavorite(updatedFavorite);
+      setShowPopup(false);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   /*const handleOutsideClick = (e) => {
@@ -52,7 +65,7 @@ export default function InfoBody({ bookData }) {
             <div className="title">즐겨찾기 삭제</div>
             <div className="message">즐겨찾기 책에서 삭제할까요?</div>
             <div className="buttons">
-              <div className="cancel" onClick={handleCancel}>
+              <div className="cancel" onClick={() => setShowPopup(false)}>
                 취소
               </div>
               <div className="delete" onClick={handleDelete}>
@@ -62,6 +75,9 @@ export default function InfoBody({ bookData }) {
           </div>
         </Popup>
       )}
+
+      {/* 에러 메시지 */}
+      {error && <div style={{ color: 'red' }}>❌ {error}</div>}
     </Container>
   );
 }
