@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Wrapper } from './Home.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
@@ -25,6 +25,21 @@ const Home = () => {
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    console.log('[DEBUG] Home.jsx - accessToken:', accessToken);
+    console.log('[DEBUG] Home.jsx - refreshToken:', refreshToken);
+
+    if (!accessToken) {
+      console.warn(
+        '[WARNING] accessToken이 없습니다. 로그인 페이지로 이동합니다.'
+      );
+      window.location.href = '/login';
+    }
+  }, []);
 
   const handleRecordClick = () => {
     navigate('/record');
@@ -71,7 +86,7 @@ const Home = () => {
     <Wrapper>
       <Container>
         <StatusBar />
-{/* InfoPopup의 overlay */}
+        {/* InfoPopup의 overlay */}
         {(showInfoPopup || popup1Visible) && (
           <div className="overlay" onClick={handleCloseInfoPopup}></div>
         )}
