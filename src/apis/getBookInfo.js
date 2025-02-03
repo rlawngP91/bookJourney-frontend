@@ -3,7 +3,7 @@ import instance from './instance'; // Axios 인스턴스 가져오기
 export const getBookInfo = async () => {
   const accessToken =
     'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE3Mzg1NjIwMDcsImV4cCI6MTczODU2NTYwN30.jwDe5klrfF_30C_3uBz3X57rLv59TdbgM1KcS-7JSwo';
-  const isbn = '9791141977726'; // ✅ 임시 하드코딩된 ISBN 값
+  const isbn = '9791194374084'; // ✅ 임시 하드코딩된 ISBN 값
 
   try {
     const response = await instance.get(`/books/info/${isbn}`, {

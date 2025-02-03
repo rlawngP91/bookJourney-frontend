@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import RWHeader from '../../components/RWHeader/RWHeader';
 import RWFooter from '../../components/RWFooter/RWFooter';
 import { Wrapper, Button, ButtonContainer } from './MakeReadwith.styles';
@@ -7,15 +7,24 @@ import { createRoom } from '../../apis/room'; // 방 생성 API 호출
 
 export default function MakeReadwith() {
   const [selected, setSelected] = useState('혼자');
+  const isbn = '9791141977726'; // ✅ 하드코딩된 ISBN
+  const makeReadwithTogetherRef = useRef(null); // ✅ `MakeReadwithTogether` 참조
+
   const handleButtonClick = (option) => {
     setSelected(option); // 클릭한 버튼의 상태를 선택
   };
 
   const handleCreateRoom = async () => {
     if (selected === '혼자') {
-      // 혼자 방 생성 요청
+      // ✅ 혼자 읽기 방 생성 요청
       const roomData = {
-        recruitCount: 1, // 혼자일 경우 필수 데이터
+        isPublic: false, // ✅ 항상 false
+        roomName: null, // ❌ 방 이름 없음
+        progressStartDate: null, // ❌ 시작 날짜 없음
+        progressEndDate: null, // ❌ 종료 날짜 없음
+        recruitCount: 1, // ✅ 혼자 읽기 방은 1명
+        password: null, // ❌ 비밀번호 없음
+        isbn, // ✅ 하드코딩된 ISBN
       };
 
       try {
@@ -26,9 +35,9 @@ export default function MakeReadwith() {
         console.error(`❌ 방 생성 실패:`, error.message);
         alert(error.message);
       }
-    } else if (selected === '같이') {
-      // 같이 선택 시, MakeReadwithTogether 내부 버튼 클릭하도록 트리거
-      document.getElementById('group-create-room-btn')?.click();
+    } else if (selected === '같이' && makeReadwithTogetherRef.current) {
+      // ✅ 같이 읽기 데이터를 `MakeReadwithTogether`에서 가져와 방 생성 요청
+      makeReadwithTogetherRef.current.createGroupRoom();
     }
   };
 
@@ -51,7 +60,9 @@ export default function MakeReadwith() {
             <div>여러명이서 기록할래요</div>
           </Button>
         </ButtonContainer>
-        {selected === '같이' && <MakeReadwithTogether />}
+        {selected === '같이' && (
+          <MakeReadwithTogether ref={makeReadwithTogetherRef} />
+        )}
         <RWFooter onCreateRoom={handleCreateRoom} />
       </Wrapper>
     </>
