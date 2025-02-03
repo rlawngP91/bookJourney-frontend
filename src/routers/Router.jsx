@@ -3,7 +3,8 @@ import React from 'react';
 import Main from '../pages/Main/Main';
 import Test from '../pages/Test';
 import MakeReadwith from '../pages/MakeReadwith/MakeReadwith';
-import Info from '../pages/Info/Info';
+import RoomInfo from '../pages/Info/RoomInfo';
+import BookInfo from '../pages/Info/BookInfo';
 import Login from '../pages/login/Login';
 import Onboarding from '../pages/onboarding/Onboarding';
 import Signup from '../pages/signup/Signup';
@@ -32,7 +33,11 @@ const Router = () => {
     },
     {
       path: '/rooms/:roomId',
-      element: <Info />,
+      element: <RoomInfo />,
+    },
+    {
+      path: '/info/:isbn',
+      element: <BookInfo />,
     },
     {
       path: '/login',

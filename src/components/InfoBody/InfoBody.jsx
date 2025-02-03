@@ -3,7 +3,7 @@ import { Wrapper, Popup, Container } from './InfoBody.styles';
 import star from '../../assets/star.svg';
 import filledstar from '../../assets/filledstar.svg';
 
-export default function InfoBody() {
+export default function InfoBody({ bookData }) {
   const [isFavorite, setIsFavorite] = useState(false); // 즐겨찾기 상태
   const [showPopup, setShowPopup] = useState(false); // 팝업 상태
 
@@ -32,14 +32,18 @@ export default function InfoBody() {
       onClick={handleOutsideClick}
   };*/
 
+  if (!bookData) {
+    return <div>📖 책 정보를 불러오는 중...</div>;
+  }
+
   return (
     <Container>
       <Wrapper>
         <div className="title">
-          <div className="bookname">밤의 여행자들</div>
+          <div className="bookname">{bookData.bookTitle}</div>
           <img src={isFavorite ? filledstar : star} onClick={handleStarClick} />
         </div>
-        <div className="writer">윤고은 저</div>
+        <div className="writer">{bookData.authorName}</div>
       </Wrapper>
 
       {showPopup && (
