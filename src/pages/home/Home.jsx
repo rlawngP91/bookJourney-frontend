@@ -17,6 +17,7 @@ import DummyBook1 from '../../assets/dummyBook1.svg';
 import DummyBook2 from '../../assets/dummyBook2.svg';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 //import DummyBook3 from '../../assets/dummyBook3.svg';
+import apiClient from '../../apis/instance/apiClient';
 const Home = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
   //const [bookCount, setBookCount] = useState(0); // 백엔드에서 가져올 값
@@ -27,6 +28,7 @@ const Home = () => {
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
 
   useEffect(() => {
+    console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
     const accessToken = localStorage.getItem('accessToken');
     const refreshToken = localStorage.getItem('refreshToken');
 
@@ -39,6 +41,16 @@ const Home = () => {
       );
       window.location.href = '/login';
     }
+    //주석시작
+    apiClient
+      .get('/user/profile') // 🔥 API 요청 실행
+      .then((response) => {
+        console.log('[DEBUG] 사용자 정보 가져오기 성공:', response.data);
+      })
+      .catch((error) => {
+        console.error('[ERROR] 사용자 정보 가져오기 실패:', error);
+      });
+    //주석끝
   }, []);
 
   const handleRecordClick = () => {
