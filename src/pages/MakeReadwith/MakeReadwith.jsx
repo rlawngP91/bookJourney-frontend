@@ -4,8 +4,10 @@ import RWFooter from '../../components/RWFooter/RWFooter';
 import { Wrapper, Button, ButtonContainer } from './MakeReadwith.styles';
 import MakeReadwithTogether from '../../components/MakeReadwithTogether/MakeReadwithTogether';
 import { createRoom } from '../../apis/room'; // 방 생성 API 호출
+import { useNavigate } from 'react-router-dom';
 
 export default function MakeReadwith() {
+  const navigate = useNavigate(); // ✅ useNavigate 사용
   const [selected, setSelected] = useState('혼자');
   const isbn = '9791141977726'; // ✅ 하드코딩된 ISBN
   const makeReadwithTogetherRef = useRef(null); // ✅ `MakeReadwithTogether` 참조
@@ -15,29 +17,32 @@ export default function MakeReadwith() {
   };
 
   const handleCreateRoom = async () => {
-    if (selected === '혼자') {
-      // ✅ 혼자 읽기 방 생성 요청
-      const roomData = {
-        isPublic: false, // ✅ 항상 false
-        roomName: null, // ❌ 방 이름 없음
-        progressStartDate: null, // ❌ 시작 날짜 없음
-        progressEndDate: null, // ❌ 종료 날짜 없음
-        recruitCount: 1, // ✅ 혼자 읽기 방은 1명
-        password: null, // ❌ 비밀번호 없음
-        isbn, // ✅ 하드코딩된 ISBN
-      };
+    try {
+      let roomId = null;
 
-      try {
-        const roomId = await createRoom(roomData);
-        console.log(`🎉 혼자 기록하는 방 생성 성공! roomId: ${roomId}`);
-        alert('혼자 기록하는 방이 성공적으로 생성되었습니다!');
-      } catch (error) {
-        console.error(`❌ 방 생성 실패:`, error.message);
-        alert(error.message);
+      if (selected === '혼자') {
+        const roomData = {
+          isPublic: false,
+          roomName: null,
+          progressStartDate: null,
+          progressEndDate: null,
+          recruitCount: 1,
+          password: null,
+          isbn,
+        };
+
+        roomId = await createRoom(roomData);
+        console.log(`🎉 혼자 읽기 방 생성 성공! roomId: ${roomId}`);
+      } else if (selected === '같이' && makeReadwithTogetherRef.current) {
+        roomId = await makeReadwithTogetherRef.current.createGroupRoom();
       }
-    } else if (selected === '같이' && makeReadwithTogetherRef.current) {
-      // ✅ 같이 읽기 데이터를 `MakeReadwithTogether`에서 가져와 방 생성 요청
-      makeReadwithTogetherRef.current.createGroupRoom();
+
+      if (roomId) {
+        navigate('/readWith'); // ✅ 방 생성 후 '/readWith' 페이지로 이동, 추후 수정
+      }
+    } catch (error) {
+      console.error(`❌ 방 생성 실패:`, error.message);
+      alert(error.message);
     }
   };
 

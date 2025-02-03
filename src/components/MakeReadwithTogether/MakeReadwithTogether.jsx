@@ -118,6 +118,7 @@ const MakeReadwithTogether = forwardRef((props, ref) => {
       const roomId = await createRoom(roomData);
       console.log(`🎉 같이 읽는 방 생성 성공! roomId: ${roomId}`);
       alert('같이 읽는 방이 성공적으로 생성되었습니다!');
+      return roomId;
     } catch (error) {
       console.error(`❌ 방 생성 실패:`, error.message);
       alert(error.message);
