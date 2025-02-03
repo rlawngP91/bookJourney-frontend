@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, Header, Body, Container } from './Info.styles';
+import { Wrapper, Header, Body, Container } from './RoomInfo.styles';
 import Footer from '../../components/commons/Footer/Footer';
 import logo from '../../assets/logo.svg';
 import exit from '../../assets/exit.svg';
@@ -8,7 +8,7 @@ import ButtonGroup2 from '../../components/InfoBody/ButtonGroup2';
 import TabGroup2 from '../../components/InfoBody/TapGroup2';
 import InfoBody from '../../components/InfoBody/InfoBody';
 
-export default function Info() {
+export default function RoomInfo() {
   return (
     <Wrapper>
       <Container>
