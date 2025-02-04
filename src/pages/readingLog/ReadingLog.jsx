@@ -12,7 +12,7 @@ import arrowBtn from '../../assets/downarrow2.svg';
 import RoomListRead from '../../components/readingLog/RoomListRead';
 import Footer from '../../components/commons/Footer/Footer';
 import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
-import { mockRoomsRead } from '../../apis/mockData2';
+// import { mockRoomsRead } from '../../apis/mockData2';
 import {
   fetchReadingRecordsNotRead,
   fetchReadingRecordsRead,
@@ -26,7 +26,7 @@ const ReadingLog = () => {
   const [isRead, setIsRead] = useState(true);
   const [currentDate, setCurrentDate] = useState('2025년 2월');
   const [showDatePopup, setShowDatePopup] = useState(false);
-  const [rooms, setRooms] = useState(mockRoomsRead);
+  const [rooms, setRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

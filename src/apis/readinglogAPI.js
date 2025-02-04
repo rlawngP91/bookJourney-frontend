@@ -5,7 +5,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjUsImlhdCI6MTczODY0NjE3MSwiZXhwIjoxNzM4NjQ5NzcxfQ.JY4oEUGgolZn8IEvNo9ILg99lnSGo6702JeQNcvK9Zg',
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODY3MTMyMiwiZXhwIjoxNzM4Njc0OTIyfQ.nzL6TZVxxYzBf9YiOgfUkkSs0zXFQCgHSXtfReK2_Hw',
   },
 });
 
@@ -24,8 +24,7 @@ const RoomListReadAPIResponse = (record) => ({
   book: record.bookTitle,
   author: record.authorName,
   people: record.roomType === '같이읽기' ? '같이' : '혼자',
-  startdate: '2024.12.30', // 수정
-  enddate: '2025.01.20', // 수정
+  date: record.roomDate,
   coverImage: record.imageUrl,
 });
 

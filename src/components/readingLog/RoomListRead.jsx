@@ -12,9 +12,7 @@ const RoomListRead = ({ rooms }) => {
             <span className="roomBook">{room.book}</span>
             <div className="roomMeta">
               <Tag>{room.people}</Tag>
-              <span className="date">
-                {room.startdate} ~ {room.enddate}
-              </span>
+              <span className="date">{room.date}</span>
             </div>
           </BookInfo>
         </RoomItem>
