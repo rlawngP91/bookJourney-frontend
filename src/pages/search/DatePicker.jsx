@@ -26,8 +26,8 @@ const DateInput = styled.div`
   border-radius: 12px;
   text-align: center;
   cursor: pointer;
-  color: ${(props) => (props.isSelected ? '#FFF' : '#000')};
-  background-color: ${(props) => (props.isSelected ? '#A3C7FA' : 'white')};
+  color: ${(props) => (props.$isSelected ? '#FFF' : '#000')};
+  background-color: ${(props) => (props.$isSelected ? '#A3C7FA' : 'white')};
   flex: 1;
 `;
 
@@ -44,7 +44,7 @@ const Calendar = styled.div`
   position: absolute;
   z-index: 1;
   ${(props) =>
-    props.right &&
+    props.$right &&
     `
     right: 0;
   `}
@@ -85,16 +85,16 @@ const DateCell = styled.div`
   padding: 8px;
   cursor: pointer;
   border-radius: 25%;
-  background: ${(props) => (props.isSelected ? '#4F8BFF' : 'transparent')};
+  background: ${(props) => (props.$isSelected ? '#4F8BFF' : 'transparent')};
   color: ${(props) =>
-    props.isSelected ? 'white' : props.disabled ? '#D1D5DB' : 'inherit'};
+    props.$isSelected ? 'white' : props.disabled ? '#D1D5DB' : 'inherit'};
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
 
   &:hover {
     background: ${(props) =>
-      !props.isSelected && !props.disabled
+      !props.$isSelected && !props.disabled
         ? '#E5E7EB'
-        : props.isSelected
+        : props.$isSelected
           ? '#4F8BFF'
           : 'transparent'};
   }
@@ -184,8 +184,8 @@ const DatePicker = ({
       <DatePickerLabel>{label}</DatePickerLabel>
       <DateInputsContainer>
         <DateInput
-          date-has-value={startDate}
-          isSelected={showStartCalendar}
+          $date-has-value={startDate}
+          $isSelected={showStartCalendar}
           onClick={() => {
             setShowStartCalendar(!showStartCalendar);
             setShowEndCalendar(false);
@@ -195,8 +195,8 @@ const DatePicker = ({
         </DateInput>
         <RangeSeparator>~</RangeSeparator>
         <DateInput
-          date-has-value={endDate}
-          isSelected={showEndCalendar}
+          $date-has-value={endDate}
+          $isSelected={showEndCalendar}
           onClick={() => {
             setShowEndCalendar(!showEndCalendar);
             setShowStartCalendar(false);
@@ -224,7 +224,7 @@ const DatePicker = ({
             {getDaysInMonth(currentDate).map((date, index) => (
               <DateCell
                 key={index}
-                isSelected={isDateSelected(date, startDate)}
+                $isSelected={isDateSelected(date, startDate)}
                 disabled={isDateDisabled(date)}
                 onClick={() => date && handleStartDateClick(date)}
               >
@@ -236,7 +236,7 @@ const DatePicker = ({
       )}
 
       {showEndCalendar && (
-        <Calendar right="true">
+        <Calendar $right="true">
           <CalendarHeader>
             <ArrowButton onClick={handlePrevMonth}>&lt;</ArrowButton>
             <div>
@@ -253,7 +253,7 @@ const DatePicker = ({
             {getDaysInMonth(currentDate).map((date, index) => (
               <DateCell
                 key={index}
-                isSelected={isDateSelected(date, endDate)}
+                $isSelected={isDateSelected(date, endDate)}
                 disabled={
                   isDateDisabled(date) || (startDate && date < startDate)
                 }
