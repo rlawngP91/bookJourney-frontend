@@ -8,7 +8,7 @@ export default function MemberHeader({ memberList }) {
       {memberList.map((member, index) => (
         <Member
           key={index}
-          userRole={member.userRole}
+          userRole={member.userRole || ''}
           imageUrl={member.imageUrl}
           nickName={member.nickName}
           userPercentage={member.userPercentage}

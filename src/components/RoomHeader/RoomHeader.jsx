@@ -28,6 +28,7 @@ import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 import downarrow2 from '../../assets/downarrow2.svg';
 import uparrow from '../../assets/uparrow.svg';
 import userimage from '../../assets/userimage.svg';
+import { getInnerRoomInfo } from '../../apis/getInnerRoomInfo';
 
 export default function RoomHeader() {
   const [activeTab, setActiveTab] = useState('페이지별'); // 현재 탭 상태 관리
@@ -78,6 +79,28 @@ export default function RoomHeader() {
     setIsDropdownOpen(false); // 드롭다운 닫기
   };
 
+  const [roomInfo, setRoomInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchRoomData = async () => {
+      try {
+        const data = await getInnerRoomInfo();
+        setRoomInfo(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRoomData();
+  }, []);
+
+  if (loading) return <div>📖 방 정보를 불러오는 중...</div>;
+  if (error) return <div style={{ color: 'red' }}>❌ {error}</div>;
+
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -89,15 +112,15 @@ export default function RoomHeader() {
           </div>
         </Header>
         <Title>
-          <div>책제목</div>
-          <img src={lock} />
+          <div>{roomInfo.bookTitle}</div>
+          {!roomInfo.isPublic && <img src={lock} />}
         </Title>
-        <div className="roomname">어쩌구 저쩌구 독서방</div>
+        <div className="roomname">{roomInfo.roomName}</div>
         <Duration>
           <img src={grayclock} />
-          <div>D-10</div>
+          <div>{roomInfo.progressEndDate}</div>
           <img src={graynote} />
-          <div>75%</div>
+          <div>{roomInfo.roomPercentage}%</div>
           <img
             src={isExpanded ? grayarrowdown : grayarrowright}
             onClick={toggleUserList}
@@ -107,7 +130,7 @@ export default function RoomHeader() {
         {/* 참가 유저 목록 (isExpanded가 true일 때만 표시) */}
         {isExpanded && (
           <UserList>
-            <MemberHeader />
+            <MemberHeader memberList={roomInfo.memberList} />
           </UserList>
         )}
         <Tab>

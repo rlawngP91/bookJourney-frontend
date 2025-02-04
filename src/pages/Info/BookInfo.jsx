@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Wrapper, Header, Body, Container } from './RoomInfo.styles';
 import Footer from '../../components/commons/Footer/Footer';
 import logo from '../../assets/logo.svg';
@@ -9,14 +10,19 @@ import InfoBody from '../../components/InfoBody/InfoBody';
 import { getBookInfo } from '../../apis/getBookInfo';
 
 export default function BookInfo() {
+  const { isbn } = useParams();
   const [bookData, setBookData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchBookInfo = async () => {
+      if (!isbn) {
+        console.warn('🚨 책 정보가 없습니다. API 요청을 중단합니다.');
+      }
+
       try {
-        const data = await getBookInfo();
+        const data = await getBookInfo(isbn);
         console.log('📌 서버에서 받아온 책 정보:', data);
         setBookData(data);
       } catch (err) {
