@@ -6,7 +6,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     // 이건 user10 token
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE3Mzg1MDc2MzIsImV4cCI6MTczODUxMTIzMn0.83WaKIOl5tVI0hIDUTUIAJrmlLsYiiHV2QK9uINDj3g',
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODU3MDgxMiwiZXhwIjoxNzM4NTc0NDEyfQ.m_Y8CLOsGh51rumY6HO5QeqgVtIflmk5W3NQ-A31PDA',
   },
 });
 
@@ -15,28 +15,24 @@ export const recentsearchAPI = {
   getRecentSearches: async () => {
     try {
       const response = await api.get(`/recent-search`);
-      return response.data.data.recentSearchList;
+      return response.data.data.recentSearchList.map((item) => ({
+        id: item.recentSearchId,
+        text: item.recentSearch,
+      }));
     } catch (error) {
       console.error('Failed to fetch recent searches:', error);
       throw error;
     }
   },
 
-  // 최근 검색어 추가
-  addRecentSearch: async (searchTerm) => {
-    try {
-      const response = await axios.post(`/recent-search`, { searchTerm });
-      return response.data.data;
-    } catch (error) {
-      console.error('Failed to add recent search:', error);
-      throw error;
-    }
-  },
+  // 최근 검색어 추가 - search get요청으로 백엔드에서 처리
 
   // 특정 최근 검색어 삭제
   removeRecentSearch: async (searchId) => {
     try {
       const response = await axios.delete(`/recent-search/${searchId}`);
+      console.log('delete searchId');
+      console.log(searchId);
       return response.data;
     } catch (error) {
       console.error('Failed to remove recent search:', error);

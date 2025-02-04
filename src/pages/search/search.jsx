@@ -7,9 +7,10 @@ import { SearchResults } from './SearchResults';
 import { RecentSearches } from './RecentSearches';
 import { recentsearchAPI } from '../../apis/recentsearchAPI';
 import BookTypePopup from './BookTypePopup';
-import { getFilteredResults } from '../../utils/search';
-import { mockBooks, mockRooms } from '../../apis/mockData';
+// import { getFilteredResults } from '../../utils/search';
+// import { mockBooks, mockRooms } from '../../apis/mockData';
 import FilterPopup from './FilterPopup';
+import { searchAPI } from '../../apis/searchAPI';
 import {
   SearchWrapper,
   HeaderContainer,
@@ -27,12 +28,12 @@ export default function Search() {
   const [recentSearches, setRecentSearches] = useState([]);
 
   const [listType, setListType] = useState('책 목록');
-  const [books, setBooks] = useState(mockBooks);
-  const [rooms, setRooms] = useState(mockRooms);
+  const [books, setBooks] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
-  const [filters, setFilters] = useState({
-    category: '소설/시/희곡',
+  const [appliedFilters, setAppliedFilters] = useState({
+    category: null,
     deadline: {
       start: null,
       end: null,
@@ -41,59 +42,45 @@ export default function Search() {
       start: null,
       end: null,
     },
+    recordcnt: null,
   });
 
-  // 최근 검색어 목록 조회
-  useEffect(() => {
-    const fetchRecentSearches = async () => {
-      try {
-        const data = await recentsearchAPI.getRecentSearches();
-        setRecentSearches(data);
-      } catch (error) {
-        console.error('최근 검색어 조회 실패:', error);
-      }
-    };
-
-    fetchRecentSearches();
-  }, []);
+  const [setTempFilters] = useState({ ...appliedFilters });
 
   useEffect(() => {
     setShowPopup(true);
   }, []);
 
-  useEffect(() => {
-    const { filteredBooks, filteredRooms } = getFilteredResults(
-      searchQuery,
-      searchType,
-      mockBooks,
-      mockRooms,
-      filters
-    );
-
-    setBooks(filteredBooks);
-    setRooms(filteredRooms);
-  }, [searchQuery, searchType, filters]);
-
-  const handleSearch = (e) => {
-    const newQuery = e.target.value;
-    setSearchQuery(newQuery);
-
-    const { filteredBooks, filteredRooms } = getFilteredResults(
-      newQuery,
-      searchType,
-      mockBooks,
-      mockRooms,
-      filters
-    );
-
-    setBooks(filteredBooks);
-    setRooms(filteredRooms);
+  // 검색어 입력만
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
+  // searchBar 돋보기 Button
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return; // 빈 검색어는 무시
+
+    try {
+      await searchAPI.fetchSearchResults({
+        searchQuery,
+        searchType,
+        filters: appliedFilters,
+        setBooks,
+        setRooms,
+      });
+    } catch (error) {
+      console.error('Search failed:', error);
+    }
+  };
+
+  // searchBar X button
   const handleClearSearch = () => {
     setSearchQuery('');
+    setBooks([]);
+    setRooms([]);
   };
 
+  // searchType
   const handleTypeSelect = (typeId) => {
     const typeLabels = {
       book: '책 제목',
@@ -103,6 +90,48 @@ export default function Search() {
     setSearchType(typeLabels[typeId]);
     setShowPopup(false);
   };
+
+  // search Filter 적용
+  const handleFilterApply = async (newFilters) => {
+    const updatedFilters = {
+      ...newFilters,
+      recordcnt: newFilters.recordcnt,
+    };
+
+    setAppliedFilters(updatedFilters);
+    setShowFilterPopup(false);
+
+    try {
+      await searchAPI.fetchSearchResults({
+        searchQuery,
+        searchType,
+        filters: updatedFilters,
+        setBooks,
+        setRooms,
+      });
+    } catch (error) {
+      console.error('Filter apply failed:', error);
+    }
+  };
+
+  // 최근 검색어 목록 조회
+  useEffect(() => {
+    const fetchRecentSearches = async () => {
+      try {
+        const data = await recentsearchAPI.getRecentSearches();
+        setRecentSearches(
+          data.recentSearchList.data.recentSearchList.map((item) => ({
+            id: item.recentSearchId,
+            text: item.recentSearch,
+          }))
+        );
+      } catch (error) {
+        console.error('최근 검색어 조회 실패:', error);
+      }
+    };
+
+    fetchRecentSearches();
+  }, []);
 
   const removeRecentSearch = async (index) => {
     // 특정한 최근 검색어 삭제
@@ -124,22 +153,6 @@ export default function Search() {
     }
   };
 
-  const handleFilterApply = (newFilters) => {
-    setFilters(newFilters);
-
-    // 검색어와 다른 필터 적용 -> 필요한가..?
-    const { filteredBooks, filteredRooms } = getFilteredResults(
-      searchQuery,
-      searchType,
-      books,
-      rooms,
-      newFilters
-    );
-
-    setBooks(filteredBooks);
-    setRooms(filteredRooms);
-  };
-
   return (
     <SearchWrapper>
       <HeaderContainer>
@@ -152,15 +165,16 @@ export default function Search() {
       <ContentContainer>
         <SearchBar
           value={searchQuery}
-          onChange={handleSearch}
+          onChange={handleSearchChange}
           onClear={handleClearSearch}
           searchType={searchType}
           onTypeClick={() => setShowPopup(true)}
+          onSearch={handleSearch}
         />
 
         {!searchQuery && (
           <RecentSearches
-            recentSearches={recentSearches.map((item) => item.recentSearch)}
+            recentSearches={recentSearches.map((search) => search.text)}
             onClearAll={handleClearAll}
             onRemove={removeRecentSearch}
           />
@@ -196,9 +210,12 @@ export default function Search() {
 
       {showFilterPopup && (
         <FilterPopup
-          onClose={() => setShowFilterPopup(false)}
+          onClose={() => {
+            setShowFilterPopup(false);
+            setTempFilters({ ...appliedFilters }); // 팝업 닫을 때 임시 필터 초기화
+          }}
           onApply={handleFilterApply}
-          $currentFilters={filters}
+          $currentFilters={appliedFilters}
         />
       )}
 
