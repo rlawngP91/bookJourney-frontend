@@ -15,6 +15,12 @@ const Signup = () => {
       <UserInputField labelText="이메일" placeholder="이메일 입력" />
       <UserInputField labelText="" placeholder="인증코드 입력" />
       <span
+        className="email-check"
+        onClick={() => console.log('인증하기 클릭!')}
+      >
+        인증하기
+      </span>
+      <span
         className="duplicate-check"
         onClick={() => console.log('인증코드 확인 클릭!')}
       >
