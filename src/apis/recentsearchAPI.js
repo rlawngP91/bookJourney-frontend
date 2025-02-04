@@ -6,7 +6,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     // 이건 user10 token
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODU3MDgxMiwiZXhwIjoxNzM4NTc0NDEyfQ.m_Y8CLOsGh51rumY6HO5QeqgVtIflmk5W3NQ-A31PDA',
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjUsImlhdCI6MTczODY0NjE3MSwiZXhwIjoxNzM4NjQ5NzcxfQ.JY4oEUGgolZn8IEvNo9ILg99lnSGo6702JeQNcvK9Zg',
   },
 });
 
@@ -30,7 +30,7 @@ export const recentsearchAPI = {
   // 특정 최근 검색어 삭제
   removeRecentSearch: async (searchId) => {
     try {
-      const response = await axios.delete(`/recent-search/${searchId}`);
+      const response = await api.delete(`/recent-search/${searchId}`);
       console.log('delete searchId');
       console.log(searchId);
       return response.data;
@@ -43,7 +43,7 @@ export const recentsearchAPI = {
   // 모든 최근 검색어 삭제
   clearAllRecentSearches: async () => {
     try {
-      const response = await axios.delete(`/recent-search/all`);
+      const response = await api.delete(`/recent-search/all`);
       return response.data;
     } catch (error) {
       console.error('Failed to clear all recent searches:', error);

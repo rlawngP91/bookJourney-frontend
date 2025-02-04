@@ -119,12 +119,7 @@ export default function Search() {
     const fetchRecentSearches = async () => {
       try {
         const data = await recentsearchAPI.getRecentSearches();
-        setRecentSearches(
-          data.recentSearchList.data.recentSearchList.map((item) => ({
-            id: item.recentSearchId,
-            text: item.recentSearch,
-          }))
-        );
+        setRecentSearches(data);
       } catch (error) {
         console.error('최근 검색어 조회 실패:', error);
       }
@@ -133,16 +128,15 @@ export default function Search() {
     fetchRecentSearches();
   }, []);
 
-  const removeRecentSearch = async (index) => {
-    // 특정한 최근 검색어 삭제
+  const removeRecentSearch = async (searchId) => {
     try {
-      const searchId = recentSearches[index].recentSearchId;
       await recentsearchAPI.removeRecentSearch(searchId);
-      setRecentSearches(recentSearches.filter((_, i) => i !== index));
+      setRecentSearches(recentSearches.filter((item) => item.id !== searchId));
     } catch (error) {
       console.error('최근 검색어 삭제 실패:', error);
     }
   };
+
   const handleClearAll = async () => {
     // 최근 검색어 전체 삭제
     try {
@@ -176,7 +170,7 @@ export default function Search() {
           <RecentSearches
             recentSearches={recentSearches.map((search) => search.text)}
             onClearAll={handleClearAll}
-            onRemove={removeRecentSearch}
+            onRemove={(id) => removeRecentSearch(recentSearches[id].id)} // index를 사용하여 해당 아이템의 id에 접근
           />
         )}
 
