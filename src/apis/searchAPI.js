@@ -6,7 +6,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     // user2의 access token
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODU2NTY1NiwiZXhwIjoxNzM4NTY5MjU2fQ.pyMKKXyfDYh7LK0R2DlojNe725G3ksmFODEaoMVvpC8',
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjUsImlhdCI6MTczODY0NjE3MSwiZXhwIjoxNzM4NjQ5NzcxfQ.JY4oEUGgolZn8IEvNo9ILg99lnSGo6702JeQNcvK9Zg',
   },
 });
 
@@ -72,6 +72,8 @@ export const searchAPI = {
           coverImage: book.imageUrl,
         }));
         setBooks(mappedBooks);
+        console.log(mappedBooks.length);
+        console.log('book search success!');
       } else {
         setBooks([]);
       }
@@ -91,7 +93,8 @@ export const searchAPI = {
           isLocked: !room.public, // public이 false면 잠김
         }));
         setRooms(mappedRooms);
-        console.log('room success!');
+        console.log(mappedRooms.length);
+        console.log('room search success!');
       } else {
         setRooms([]);
       }

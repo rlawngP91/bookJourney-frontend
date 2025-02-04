@@ -4,9 +4,8 @@ const api = axios.create({
   baseURL: '/api', // vite.config.js 프록시 설정
   headers: {
     'Content-Type': 'application/json',
-    // 이건 user10 token
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE3Mzg1MDc2MzIsImV4cCI6MTczODUxMTIzMn0.83WaKIOl5tVI0hIDUTUIAJrmlLsYiiHV2QK9uINDj3g',
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjUsImlhdCI6MTczODY0NjE3MSwiZXhwIjoxNzM4NjQ5NzcxfQ.JY4oEUGgolZn8IEvNo9ILg99lnSGo6702JeQNcvK9Zg',
   },
 });
 
@@ -20,23 +19,60 @@ const RoomListNotReadAPIResponse = (record) => ({
   coverImage: record.imageUrl,
 });
 
-export const fetchReadingRecords = async (userId) => {
+const RoomListReadAPIResponse = (record) => ({
+  id: record.roomId,
+  book: record.bookTitle,
+  author: record.authorName,
+  people: record.roomType === '같이읽기' ? '같이' : '혼자',
+  startdate: '2024.12.30', // 수정
+  enddate: '2025.01.20', // 수정
+  coverImage: record.imageUrl,
+});
+
+export const fetchReadingRecordsNotRead = async (userId) => {
   try {
-    const response = await api.get(`/rooms/records`, {
+    const responseNotRead = await api.get(`/rooms/archive`, {
       params: { userId },
     });
 
-    if (response.data.code === 200) {
+    if (responseNotRead.data.code === 200) {
       return {
         success: true,
-        data: response.data.data.recordList.map(RoomListNotReadAPIResponse),
+        data: responseNotRead.data.data.recordList.map(
+          RoomListNotReadAPIResponse
+        ),
         nickname: `user${userId}`,
       };
     } else {
-      throw new Error(response.data.message || '서버 응답 오류');
+      throw new Error(responseNotRead.data.message || '서버 응답 오류');
     }
   } catch (error) {
-    console.error('API 요청 오류:', error);
+    console.error('다 안읽었어요 API 요청 오류:', error);
+    return {
+      success: false,
+      error: error.response?.data?.message || error.message,
+      data: [],
+    };
+  }
+};
+
+export const fetchReadingRecordsRead = async (userId) => {
+  try {
+    const responseRead = await api.get(`/rooms/archive/completed`, {
+      params: { userId },
+    });
+
+    if (responseRead.data.code === 200) {
+      return {
+        success: true,
+        data: responseRead.data.data.recordList.map(RoomListReadAPIResponse),
+        nickname: `user${userId}`,
+      };
+    } else {
+      throw new Error(responseRead.data.message || '서버 응답 오류');
+    }
+  } catch (error) {
+    console.error('다 읽었어요 API 요청 오류:', error);
     return {
       success: false,
       error: error.response?.data?.message || error.message,

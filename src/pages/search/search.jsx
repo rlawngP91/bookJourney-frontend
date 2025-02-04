@@ -101,16 +101,19 @@ export default function Search() {
     setAppliedFilters(updatedFilters);
     setShowFilterPopup(false);
 
-    try {
-      await searchAPI.fetchSearchResults({
-        searchQuery,
-        searchType,
-        filters: updatedFilters,
-        setBooks,
-        setRooms,
-      });
-    } catch (error) {
-      console.error('Filter apply failed:', error);
+    if (searchQuery) {
+      // 검색어가 있는 상태에서 필터가 적용된다면 search api request
+      try {
+        await searchAPI.fetchSearchResults({
+          searchQuery,
+          searchType,
+          filters: updatedFilters,
+          setBooks,
+          setRooms,
+        });
+      } catch (error) {
+        console.error('Filter apply failed:', error);
+      }
     }
   };
 

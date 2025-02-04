@@ -13,9 +13,13 @@ import RoomListRead from '../../components/readingLog/RoomListRead';
 import Footer from '../../components/commons/Footer/Footer';
 import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
 import { mockRoomsRead } from '../../apis/mockData2';
-import { fetchReadingRecords } from '../../apis/readinglogAPI';
+import {
+  fetchReadingRecordsNotRead,
+  fetchReadingRecordsRead,
+} from '../../apis/readinglogAPI';
 // import { mockRoomsNotRead } from '../../apis/mockData3';
 import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
+import PostSkeleton from '../../components/loading/PostSkeleton';
 
 const ReadingLog = () => {
   const [nickname, setNickname] = useState('NickName');
@@ -28,10 +32,10 @@ const ReadingLog = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!isRead) {
-        // "다 안읽었어요" 탭일 때 API 호출
+      if (isRead) {
+        // "다 읽었어요" 탭
         setIsLoading(true);
-        const result = await fetchReadingRecords(10); // userId를 적절한 값으로 변경
+        const result = await fetchReadingRecordsRead(10); // userId를 적절한 값으로 변경
 
         if (result.success) {
           setRooms(result.data);
@@ -42,8 +46,18 @@ const ReadingLog = () => {
         }
         setIsLoading(false);
       } else {
-        // "다 읽었어요" 탭일 때는 기존 mockData 사용
-        setRooms(mockRoomsRead);
+        // "다 안읽었어요" 탭
+        setIsLoading(true);
+        const result = await fetchReadingRecordsNotRead(10); // userId를 적절한 값으로 변경
+
+        if (result.success) {
+          setRooms(result.data);
+          setNickname(result.nickname);
+        } else {
+          setError(result.error);
+          setRooms([]);
+        }
+        setIsLoading(false);
       }
     };
 
@@ -60,7 +74,8 @@ const ReadingLog = () => {
     console.log('Date picker clicked');
   };
 
-  if (isLoading) return <div>로딩 중...</div>;
+  // 여기에 skeleton code..?
+  if (isLoading) return <PostSkeleton />;
   if (error) return <div>오류가 발생했습니다: {error}</div>;
 
   return (
