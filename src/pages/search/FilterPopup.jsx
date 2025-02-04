@@ -38,8 +38,8 @@ const CategoryButton = styled.button`
   padding: 12px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  background: ${(props) => (props.isSelected ? '#4F8BFF' : 'white')};
-  color: ${(props) => (props.isSelected ? 'white' : 'black')};
+  background: ${(props) => (props.$isSelected ? '#4F8BFF' : 'white')};
+  color: ${(props) => (props.$isSelected ? 'white' : 'black')};
 `;
 
 const ApplyButton = styled.button`
@@ -97,7 +97,7 @@ const FilterPopup = ({ onClose, onApply }) => {
           {categories.map((category) => (
             <CategoryButton
               key={category}
-              isSelected={selectedCategory === category}
+              $isSelected={selectedCategory === category}
               onClick={() => setSelectedCategory(category)}
             >
               {category}
