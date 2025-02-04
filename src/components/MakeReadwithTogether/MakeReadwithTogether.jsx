@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { Wrapper, Button } from './MakeReadwithTogether.styles';
 import { createRoom } from '../../apis/room'; // 방 생성 API 호출
-import { useParams } from 'react-router-dom'; // ✅ URL에서 파라미터 가져오기
+//import { useParams } from 'react-router-dom'; // ✅ URL에서 파라미터 가져오기
 
-export default function MakeReadwithTogether() {
-  const { roomId } = useParams();
-  const [isbn, setIsbn] = useState('');
+const MakeReadwithTogether = forwardRef((props, ref) => {
+  const isbn = '9791141977726'; // ✅ 하드코딩된 ISBN 값
+
+  //  const { roomId } = useParams();
+  //  const [isbn, setIsbn] = useState('');
 
   const today = new Date();
   const formattedDate = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
@@ -22,7 +24,7 @@ export default function MakeReadwithTogether() {
   const [passwordError, setPasswordError] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  // ✅ 동적으로 roomId 값을 받아서 방 정보 가져오기
+  /*   // ✅ 동적으로 roomId 값을 받아서 방 정보 가져오기
   useEffect(() => {
     const fetchRoomInfo = async () => {
       if (!roomId) return; // roomId가 없으면 실행하지 않음
@@ -36,20 +38,7 @@ export default function MakeReadwithTogether() {
     };
 
     fetchRoomInfo();
-  }, [roomId]); // roomId 변경 시마다 실행
-
-  /*   // ISBN 가져오기 (GET /rooms/{roomId})
-  useEffect(() => {
-    const fetchIsbn = async () => {
-      try {
-        const roomData = await getRoomInfo(1); // 실제 roomId 값 적용 필요
-        setIsbn(roomData.isbn);
-      } catch (error) {
-        console.error('❌ ISBN 가져오기 실패:', error);
-      }
-    };
-    fetchIsbn();
-  }, []); */
+  }, [roomId]); // roomId 변경 시마다 실행 */
 
   // 방 이름 입력 핸들러
   const handleRoomNameChange = (e) => {
@@ -108,22 +97,20 @@ export default function MakeReadwithTogether() {
     setEndDate(value);
   };
 
-  // 방 생성 API 호출
-  const handleCreateGroupRoom = async () => {
-    if (!roomName.trim()) return setRoomNameError('* 방 이름을 입력해주세요');
-    if (!participants || participants < 2 || participants > 50)
-      return setParticipantsError('* 최소 2명 ~ 최대 50명입니다');
-    if (selected === '비공개' && password.length < 4)
-      return setPasswordError('* 숫자 4자리를 입력해주세요');
+  // ✅ 부모 컴포넌트에서 호출할 수 있도록 `createGroupRoom` 함수 노출
+  useImperativeHandle(ref, () => ({
+    createGroupRoom,
+  }));
 
+  // 방 생성 API 호출
+  const createGroupRoom = async () => {
     const roomData = {
-      roomName,
+      roomName: roomName || null, // 방 이름이 없으면 null
       progressStartDate: formattedDate,
-      progressEndDate: endDate,
-      recruitCount: parseInt(participants, 10),
-      password: selected === '비공개' ? password : null,
-      isbn,
-      public: selected === '공개',
+      progressEndDate: endDate || null, // 종료 날짜 없으면 null
+      recruitCount: participants ? parseInt(participants, 10) : null,
+      password: selected === '비공개' && password ? password : null,
+      isbn, // ✅ 하드코딩된 ISBN 포함
       isPublic: selected === '공개',
     };
 
@@ -131,6 +118,7 @@ export default function MakeReadwithTogether() {
       const roomId = await createRoom(roomData);
       console.log(`🎉 같이 읽는 방 생성 성공! roomId: ${roomId}`);
       alert('같이 읽는 방이 성공적으로 생성되었습니다!');
+      return roomId;
     } catch (error) {
       console.error(`❌ 방 생성 실패:`, error.message);
       alert(error.message);
@@ -219,13 +207,12 @@ export default function MakeReadwithTogether() {
             {passwordError && <div className="error">{passwordError}</div>}
           </div>
         )}
-
-        <button
-          id="group-create-room-btn"
-          style={{ display: 'none' }}
-          onClick={handleCreateGroupRoom}
-        />
       </Wrapper>
     </>
   );
-}
+});
+
+// ✅ displayName 추가하여 경고 해결
+MakeReadwithTogether.displayName = 'MakeReadwithTogether';
+
+export default MakeReadwithTogether;
