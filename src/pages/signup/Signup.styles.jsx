@@ -59,6 +59,14 @@ export const SignupContainer = styled.div`
     margin: 0;
   }
 
+  .pwd-result-msg {
+    position: absolute;
+    top: 530px;
+    right: 40px;
+    color: red;
+    margin: 0;
+  }
+
   .password-input {
     position: absolute;
     margin-top: 60.24px;

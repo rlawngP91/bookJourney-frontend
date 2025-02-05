@@ -130,9 +130,7 @@ const Signup = () => {
 
       {/* 비밀번호 불일치 메시지 */}
       {!passwordMatch && (
-        <p style={{ color: 'red', margin: '0' }}>
-          비밀번호가 일치하지 않습니다.
-        </p>
+        <p className="pwd-result-msg">비밀번호가 일치하지 않습니다.</p>
       )}
 
       <img
