@@ -1,13 +1,4 @@
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: '/api', // vite.config.js 프록시 설정
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODY3MTMyMiwiZXhwIjoxNzM4Njc0OTIyfQ.nzL6TZVxxYzBf9YiOgfUkkSs0zXFQCgHSXtfReK2_Hw',
-  },
-});
+import instance from './instance';
 
 const RoomListNotReadAPIResponse = (record) => ({
   id: record.roomId,
@@ -30,7 +21,7 @@ const RoomListReadAPIResponse = (record) => ({
 
 export const fetchReadingRecordsNotRead = async (userId) => {
   try {
-    const responseNotRead = await api.get(`/rooms/archive`, {
+    const responseNotRead = await instance.get(`/rooms/archive`, {
       params: { userId },
     });
 
@@ -57,7 +48,7 @@ export const fetchReadingRecordsNotRead = async (userId) => {
 
 export const fetchReadingRecordsRead = async (userId) => {
   try {
-    const responseRead = await api.get(`/rooms/archive/completed`, {
+    const responseRead = await instance.get(`/rooms/archive/completed`, {
       params: { userId },
     });
 

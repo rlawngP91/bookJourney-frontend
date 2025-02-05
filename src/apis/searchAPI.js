@@ -1,14 +1,4 @@
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: '/api', // vite.config.js 프록시 설정
-  headers: {
-    'Content-Type': 'application/json',
-    // user2의 access token
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjUsImlhdCI6MTczODY0NjE3MSwiZXhwIjoxNzM4NjQ5NzcxfQ.JY4oEUGgolZn8IEvNo9ILg99lnSGo6702JeQNcvK9Zg',
-  },
-});
+import instance from './instance';
 
 export const searchAPI = {
   fetchSearchResults: async ({
@@ -57,10 +47,10 @@ export const searchAPI = {
         paramsRoom.append('recordCount', filters.recordcnt);
       }
 
-      const responseBook = await api.get(
+      const responseBook = await instance.get(
         `/books/search?${paramsBook.toString()}`
       );
-      const responseRoom = await api.get(
+      const responseRoom = await instance.get(
         `/rooms/search?${paramsRoom.toString()}`
       );
 

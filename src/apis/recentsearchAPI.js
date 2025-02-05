@@ -1,20 +1,10 @@
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: '/api', // vite.config.js 프록시 설정
-  headers: {
-    'Content-Type': 'application/json',
-    // 이건 user10 token
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjUsImlhdCI6MTczODY0NjE3MSwiZXhwIjoxNzM4NjQ5NzcxfQ.JY4oEUGgolZn8IEvNo9ILg99lnSGo6702JeQNcvK9Zg',
-  },
-});
+import instance from './instance';
 
 export const recentsearchAPI = {
   // 최근 검색어 목록 조회
   getRecentSearches: async () => {
     try {
-      const response = await api.get(`/recent-search`);
+      const response = await instance.get(`/recent-search`);
       return response.data.data.recentSearchList.map((item) => ({
         id: item.recentSearchId,
         text: item.recentSearch,
@@ -30,7 +20,7 @@ export const recentsearchAPI = {
   // 특정 최근 검색어 삭제
   removeRecentSearch: async (searchId) => {
     try {
-      const response = await api.delete(`/recent-search/${searchId}`);
+      const response = await instance.delete(`/recent-search/${searchId}`);
       console.log('delete searchId');
       console.log(searchId);
       return response.data;
@@ -43,7 +33,7 @@ export const recentsearchAPI = {
   // 모든 최근 검색어 삭제
   clearAllRecentSearches: async () => {
     try {
-      const response = await api.delete(`/recent-search/all`);
+      const response = await instance.delete(`/recent-search/all`);
       return response.data;
     } catch (error) {
       console.error('Failed to clear all recent searches:', error);
