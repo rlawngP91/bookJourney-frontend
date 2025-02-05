@@ -16,6 +16,9 @@ export const Container = styled.div`
     position: absolute;
     top: 243px;
     left: 118px;
+    width: 158px;
+    height: 158px;
+    border-radius: 50%;
   }
 
   .plus-btn {
