@@ -51,6 +51,14 @@ export const SignupContainer = styled.div`
     left: 295px;
   }
 
+  .verfication-result-message {
+    position: absolute;
+    top: 356px;
+    right: 40px;
+    color: red;
+    margin: 0;
+  }
+
   .password-input {
     position: absolute;
     margin-top: 60.24px;
