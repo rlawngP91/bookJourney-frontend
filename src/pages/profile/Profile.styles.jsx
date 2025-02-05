@@ -88,4 +88,14 @@ export const Container = styled.div`
       font-weight: 500;
     }
   }
+
+  .nickname-result-msg {
+    position: absolute;
+    top: 495px;
+    left: 34px;
+    font-family: Pretendard;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+  }
 `;
