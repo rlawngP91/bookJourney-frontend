@@ -40,23 +40,21 @@ export default function TabGroup2({ roomData }) {
           <InfoContainer>
             <div className="line">
               <div className="first">출판사</div>
-              <div>은행나무</div>
+              <div>roomData.publisher</div>
             </div>
             <div className="line">
               <div className="first">출간일</div>
-              <div>2025년 1월 1일</div>
+              <div>roomData.publishedDate</div>
             </div>
             <div className="line">
               <div className="first">ISBN</div>
-              <div>12341234134</div>
+              <div>roomData.isbn</div>
             </div>
           </InfoContainer>
-          <div className="underbar"></div>
+          <div className="underbar" />
           <BookDetail>
             <div className="introduce">책 소개</div>
-            <div className="detail">
-              ~~~~~~~aaadfasdfqwefasdfasdfasdfasdf~~~~~~~알라딘 불러오기~~~~~~~~
-            </div>
+            <div className="detail">roomData.description</div>
           </BookDetail>
         </>
       ) : (

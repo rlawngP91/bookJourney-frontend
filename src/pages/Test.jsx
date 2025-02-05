@@ -1,12 +1,10 @@
 import React from 'react';
-import Footer from '../components/commons/Footer/Footer';
-import RWFooter from '../components/RWFooter/RWFooter';
+import Reply from '../components/Reply/Reply';
 
 export default function Test() {
   return (
     <>
-      <Footer />
-      <RWFooter />
+      <Reply />
     </>
   );
 }
