@@ -20,7 +20,7 @@ import ReadWith from '../pages/ReadWith/ReadWith';
 const Router = () => {
   const router = createBrowserRouter([
     {
-      path: '/test/:recordId',
+      path: '/test',
       element: <Test />,
     },
     {
@@ -80,7 +80,7 @@ const Router = () => {
       element: <ReadingLog nickname="TestUser" />,
     },
     {
-      path: '/readWith',
+      path: '/rooms/:roomId/info',
       element: <ReadWith />,
     },
   ]);

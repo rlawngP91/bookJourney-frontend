@@ -17,7 +17,7 @@ export const getInnerRoomInfo = async (roomId) => {
       },
     });
 
-    return response.data.data; // ✅ API 응답에서 data 부분만 반환
+    return response.data.data;
   } catch (error) {
     if (error.response) {
       const { code, message } = error.response.data;

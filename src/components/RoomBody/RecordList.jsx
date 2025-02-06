@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUserRecords } from '../../apis/getUserRecords';
+import { getUserRecords } from '../../apis/getPageRecords';
 import Record from './Record';
 
 export default function RecordList() {
