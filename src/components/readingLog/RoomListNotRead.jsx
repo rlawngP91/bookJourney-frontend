@@ -30,7 +30,7 @@ const RoomListNotRead = ({ rooms }) => {
     <Container>
       {rooms.map((room) => (
         <RoomItem key={room.id}>
-          <img src={room.coverImage} alt={room.title} className="book-cover" />
+          <img src={room.coverImage} className="book-cover" />
           <BookInfo>
             <p className="roomAuthor">{room.author}</p>
             <div className="bookMetaContainer">
@@ -46,7 +46,7 @@ const RoomListNotRead = ({ rooms }) => {
               <Tag>{room.people}</Tag>
               <MetaItem>
                 <img src={clockIcon} alt="recentEdited" className="icon" />
-                <span className="data">{room.recentEdit}전</span>
+                <span className="data">{room.recentEdit}</span>
               </MetaItem>
               <MetaItem>
                 <img src={progressIcon} alt="progress" className="icon" />
