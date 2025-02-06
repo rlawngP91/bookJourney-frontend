@@ -5,10 +5,12 @@ import Footer from '../../components/commons/Footer/Footer';
 import { SearchBar } from './SearchBar';
 import { SearchResults } from './SearchResults';
 import { RecentSearches } from './RecentSearches';
+import { recentsearchAPI } from '../../apis/recentsearchAPI';
 import BookTypePopup from './BookTypePopup';
-import { getFilteredResults } from '../../utils/search';
-import { mockBooks, mockRooms } from '../../apis/mockData';
+// import { getFilteredResults } from '../../utils/search';
+// import { mockBooks, mockRooms } from '../../apis/mockData';
 import FilterPopup from './FilterPopup';
+import { searchAPI } from '../../apis/searchAPI';
 import {
   SearchWrapper,
   HeaderContainer,
@@ -23,23 +25,15 @@ export default function Search() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [searchType, setSearchType] = useState('책 제목');
-  const [recentSearches, setRecentSearches] = useState([
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '해리포터',
-    '밤의여행자들',
-  ]);
+  const [recentSearches, setRecentSearches] = useState([]);
 
   const [listType, setListType] = useState('책 목록');
-  const [books, setBooks] = useState(mockBooks);
-  const [rooms, setRooms] = useState(mockRooms);
+  const [books, setBooks] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
-  const [filters, setFilters] = useState({
-    category: '소설/시/희곡',
+  const [appliedFilters, setAppliedFilters] = useState({
+    category: null,
     deadline: {
       start: null,
       end: null,
@@ -48,45 +42,45 @@ export default function Search() {
       start: null,
       end: null,
     },
+    recordcnt: null,
   });
+
+  const [setTempFilters] = useState({ ...appliedFilters });
 
   useEffect(() => {
     setShowPopup(true);
   }, []);
 
-  useEffect(() => {
-    const { filteredBooks, filteredRooms } = getFilteredResults(
-      searchQuery,
-      searchType,
-      mockBooks,
-      mockRooms,
-      filters
-    );
-
-    setBooks(filteredBooks);
-    setRooms(filteredRooms);
-  }, [searchQuery, searchType, filters]);
-
-  const handleSearch = (e) => {
-    const newQuery = e.target.value;
-    setSearchQuery(newQuery);
-
-    const { filteredBooks, filteredRooms } = getFilteredResults(
-      newQuery,
-      searchType,
-      mockBooks,
-      mockRooms,
-      filters
-    );
-
-    setBooks(filteredBooks);
-    setRooms(filteredRooms);
+  // 검색어 입력만
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
+  // searchBar 돋보기 Button
+  const handleSearch = async () => {
+    if (!searchQuery.trim()) return; // 빈 검색어는 무시
+
+    try {
+      await searchAPI.fetchSearchResults({
+        searchQuery,
+        searchType,
+        filters: appliedFilters,
+        setBooks,
+        setRooms,
+      });
+    } catch (error) {
+      console.error('Search failed:', error);
+    }
+  };
+
+  // searchBar X button
   const handleClearSearch = () => {
     setSearchQuery('');
+    setBooks([]);
+    setRooms([]);
   };
 
+  // searchType
   const handleTypeSelect = (typeId) => {
     const typeLabels = {
       book: '책 제목',
@@ -97,28 +91,63 @@ export default function Search() {
     setShowPopup(false);
   };
 
-  const removeRecentSearch = (index) => {
-    setRecentSearches(recentSearches.filter((_, i) => i !== index));
+  // search Filter 적용
+  const handleFilterApply = async (newFilters) => {
+    const updatedFilters = {
+      ...newFilters,
+      recordcnt: newFilters.recordcnt,
+    };
+
+    setAppliedFilters(updatedFilters);
+    setShowFilterPopup(false);
+
+    if (searchQuery) {
+      // 검색어가 있는 상태에서 필터가 적용된다면 search api request
+      try {
+        await searchAPI.fetchSearchResults({
+          searchQuery,
+          searchType,
+          filters: updatedFilters,
+          setBooks,
+          setRooms,
+        });
+      } catch (error) {
+        console.error('Filter apply failed:', error);
+      }
+    }
   };
 
-  const handleClearAll = () => {
-    setRecentSearches([]);
+  // 최근 검색어 목록 조회
+  useEffect(() => {
+    const fetchRecentSearches = async () => {
+      try {
+        const data = await recentsearchAPI.getRecentSearches();
+        setRecentSearches(data);
+      } catch (error) {
+        console.error('최근 검색어 조회 실패:', error);
+      }
+    };
+
+    fetchRecentSearches();
+  }, []);
+
+  const removeRecentSearch = async (searchId) => {
+    try {
+      await recentsearchAPI.removeRecentSearch(searchId);
+      setRecentSearches(recentSearches.filter((item) => item.id !== searchId));
+    } catch (error) {
+      console.error('최근 검색어 삭제 실패:', error);
+    }
   };
 
-  const handleFilterApply = (newFilters) => {
-    setFilters(newFilters);
-
-    // 검색어와 다른 필터 적용 -> 필요한가..?
-    const { filteredBooks, filteredRooms } = getFilteredResults(
-      searchQuery,
-      searchType,
-      books,
-      rooms,
-      newFilters
-    );
-
-    setBooks(filteredBooks);
-    setRooms(filteredRooms);
+  const handleClearAll = async () => {
+    // 최근 검색어 전체 삭제
+    try {
+      await recentsearchAPI.clearAllRecentSearches();
+      setRecentSearches([]);
+    } catch (error) {
+      console.error('전체 검색어 삭제 실패:', error);
+    }
   };
 
   return (
@@ -133,17 +162,18 @@ export default function Search() {
       <ContentContainer>
         <SearchBar
           value={searchQuery}
-          onChange={handleSearch}
+          onChange={handleSearchChange}
           onClear={handleClearSearch}
           searchType={searchType}
           onTypeClick={() => setShowPopup(true)}
+          onSearch={handleSearch}
         />
 
         {!searchQuery && (
           <RecentSearches
-            recentSearches={recentSearches}
+            recentSearches={recentSearches.map((search) => search.text)}
             onClearAll={handleClearAll}
-            onRemove={removeRecentSearch}
+            onRemove={(id) => removeRecentSearch(recentSearches[id].id)} // index를 사용하여 해당 아이템의 id에 접근
           />
         )}
 
@@ -177,9 +207,12 @@ export default function Search() {
 
       {showFilterPopup && (
         <FilterPopup
-          onClose={() => setShowFilterPopup(false)}
+          onClose={() => {
+            setShowFilterPopup(false);
+            setTempFilters({ ...appliedFilters }); // 팝업 닫을 때 임시 필터 초기화
+          }}
           onApply={handleFilterApply}
-          $currentFilters={filters}
+          $currentFilters={appliedFilters}
         />
       )}
 
