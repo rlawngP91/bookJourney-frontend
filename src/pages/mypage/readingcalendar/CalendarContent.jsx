@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import CalendarBookInfoPopup from './CalendarBookInfoPopup';
 import bookIcon from '../../../assets/bookexample.svg';
 
 const CalendarGrid = styled.div`
@@ -43,6 +44,37 @@ const BookImage = styled.img`
 
 const CalendarContent = ({ selectedDate }) => {
   const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedBooks, setSelectedBooks] = useState([]);
+
+  //mockData
+  const bookDetailData = {
+    7: [
+      {
+        image: bookIcon,
+        author: '리처드 도킨스 저',
+        title: '이기적 유전자',
+        status: '혼자',
+        period: '2024.12.30 ~ 2025.01.20',
+      },
+    ],
+    14: [
+      {
+        image: bookIcon,
+        author: '리처드도킨스 저',
+        title: '이기적 유전자',
+        status: '같이',
+        period: '2024.12.30 ~ 2025.01.20',
+      },
+      {
+        image: bookIcon,
+        author: '리처드 도킨스 저',
+        title: '이기적 유전자',
+        status: '같이',
+        period: '2024.12.30 ~ 2025.01.20',
+      },
+    ],
+  };
 
   // 예시 데이터: 날짜별 책 이미지
   const bookData = {
@@ -66,24 +98,19 @@ const CalendarContent = ({ selectedDate }) => {
     0
   );
 
-  // 첫째 날의 요일 (0: 일요일, 6: 토요일)
   const firstDayOffset = firstDayOfMonth.getDay();
 
-  // 해당 월의 총 일수
   const daysInMonth = lastDayOfMonth.getDate();
 
-  // 날짜 배열 생성
   const dates = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-  // 첫 날의 요일에 맞춰 빈 칸 추가
   const emptyDays = Array(firstDayOffset).fill(null);
   const allDays = [...emptyDays, ...dates];
 
   const handleDateClick = (date) => {
     if (bookData[date]) {
-      console.log(
-        `Clicked date: ${date}, Month: ${selectedDate.getMonth() + 1}, Year: ${selectedDate.getFullYear()}`
-      );
+      setSelectedBooks(bookDetailData[date]);
+      setIsPopupOpen(true);
     }
   };
 
@@ -109,6 +136,11 @@ const CalendarContent = ({ selectedDate }) => {
           )}
         </DateCell>
       ))}
+      <CalendarBookInfoPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        books={selectedBooks}
+      />
     </CalendarGrid>
   );
 };
