@@ -104,7 +104,6 @@ export const Container = styled.div`
   z-index: 1000; /* 다른 요소 위로 올림 */
   display: flex;
   align-items: center;
-  justify-content: center;
   background-color: #fff;
   flex-direction: column;
   border-radius: 9px;

@@ -5,20 +5,13 @@ const accessToken =
 
 export const getPageRecords = async (
   roomId,
-  sortingType = '페이지 순',
+  sortingType = '페이지순',
   pageStart,
   pageEnd
 ) => {
   if (!roomId) {
     throw new Error('❌ roomId가 필요합니다.');
   }
-
-  console.log('📌 API 요청:', {
-    url: `/api/records/${roomId}/page`,
-    sortingType: sortingType,
-    pageStart,
-    pageEnd,
-  });
 
   try {
     const response = await instance.get(`/records/${roomId}/page`, {
@@ -33,7 +26,6 @@ export const getPageRecords = async (
       },
     });
 
-    console.log('✅ API 응답 데이터:', response.data);
     return response.data.data.recordList;
   } catch (error) {
     console.error('roomId:', roomId);

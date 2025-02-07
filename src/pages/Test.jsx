@@ -1,9 +1,9 @@
 import React from 'react';
-import RoomBody from '../components/RoomBody/RoomBody';
+import Reply from '../components/Reply/Reply';
 export default function Test() {
   return (
     <>
-      <RoomBody />
+      <Reply />
     </>
   );
 }

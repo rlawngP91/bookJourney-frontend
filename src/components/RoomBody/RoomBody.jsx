@@ -7,16 +7,13 @@ import { getPageRecords } from '../../apis/getPageRecords';
 import { getEntireRecords } from '../../apis/getEntireRecords';
 
 export default function RoomBody({ roomData }) {
-  // ✅ roomId 가져오기
-  const roomId = roomData?.roomId;
-
   // ✅ 탭 상태 ("페이지별" / "전체")
   const [activeTab, setActiveTab] = useState('페이지별');
   const handleTabClick = (tab) => setActiveTab(tab);
 
   // ✅ 정렬 방식 드롭다운 상태
   const [isPageOrderOpen, setIsPageOrderOpen] = useState(false);
-  const [pageOrder, setPageOrder] = useState('페이지 순'); // 기본 정렬 방식
+  const [pageOrder, setPageOrder] = useState('페이지순'); // 기본 정렬 방식
 
   // ✅ 페이지 범위 드롭다운 상태 ("페이지별" 탭 전용)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -56,7 +53,6 @@ export default function RoomBody({ roomData }) {
     setIsDropdownOpen(false);
   };
 
-  console.log(roomId);
   // ✅ 데이터 불러오기
   useEffect(() => {
     if (!roomData) return; // roomData가 없으면 실행 X
@@ -79,7 +75,6 @@ export default function RoomBody({ roomData }) {
         } else {
           data = await getEntireRecords(roomId, pageOrder);
         }
-        console.log('✅ API 응답 데이터:', data);
         setRecords(data);
       } catch (err) {
         console.error('❌ API 호출 오류:', err);
@@ -164,7 +159,7 @@ export default function RoomBody({ roomData }) {
           </button>
           {isPageOrderOpen && (
             <div className="dropdown-menu2">
-              {['페이지 순', '최신등록 순', '답글 많은 순'].map((option) => (
+              {['페이지순', '최신 등록순', '답글 많은 순'].map((option) => (
                 <div
                   key={option}
                   className="dropdown-item"

@@ -5,6 +5,7 @@ import good from '../../assets/good.svg';
 import alreadygood from '../../assets/alreadygood.svg';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 import styled from 'styled-components';
+import { postRecordLike } from '../../apis/postRecordLike'; // ✅ 좋아요 API 추가
 
 export const Review = styled.div`
   width: 100%;
@@ -33,7 +34,7 @@ export const Review = styled.div`
         font-size: 12.574px;
         font-style: normal;
         font-weight: 500;
-        line-height: 17.963px; /* 142.857% */
+        line-height: 17.963px;
       }
 
       .time {
@@ -42,7 +43,7 @@ export const Review = styled.div`
         font-size: 11.158px;
         font-style: normal;
         font-weight: 400;
-        line-height: 17.963px; /* 160.988% */
+        line-height: 17.963px;
       }
     }
 
@@ -66,7 +67,7 @@ export const Review = styled.div`
       font-size: 10.778px;
       font-style: normal;
       font-weight: 600;
-      line-height: 14.37px; /* 133.333% */
+      line-height: 14.37px;
       letter-spacing: 0.359px;
     }
 
@@ -76,7 +77,7 @@ export const Review = styled.div`
       font-size: 12px;
       font-style: normal;
       font-weight: 400;
-      line-height: 17.963px; /* 149.691% */
+      line-height: 17.963px;
       width: 80%;
     }
   }
@@ -93,18 +94,33 @@ export const Review = styled.div`
     font-size: 10.012px;
     font-style: normal;
     font-weight: 400;
-    line-height: 15.402px; /* 153.846% */
+    line-height: 15.402px;
   }
 `;
 
 export default function Record({ record }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // 햄버거 메뉴 열림 상태 관리
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // ✅ 햄버거 메뉴 열림 상태 관리
+  const [isLiked, setIsLiked] = useState(record.like); // ✅ 좋아요 상태 관리
+  const [likeCount, setLikeCount] = useState(record.recordLikeCount); // ✅ 좋아요 개수 관리
+
+  // ✅ 좋아요 버튼 클릭 이벤트
+  const handleLikeClick = async () => {
+    try {
+      const liked = await postRecordLike(record.recordId);
+
+      // ✅ 서버 응답을 기반으로 UI 업데이트
+      setIsLiked(liked);
+      setLikeCount((prevCount) => (liked ? prevCount + 1 : prevCount - 1));
+    } catch (error) {
+      console.error(`❌ 좋아요 처리 중 오류: ${error.message}`);
+    }
+  };
 
   return (
     <Review>
       <div className="head">
         <div className="main">
-          <img src={record.imageUrl} />
+          <img src={record.imageUrl} alt="User Profile" />
           <div className="name">{record.nickName}</div>
           <div className="time">{record.createdAt}</div>
         </div>
@@ -118,10 +134,17 @@ export default function Record({ record }) {
         <div className="content">{record.content}</div>
       </div>
       <div className="bottom">
-        <img src={reply} />
+        <img src={reply} alt="댓글" />
         <div>{record.commentCount}</div>
-        <img src={record.like ? alreadygood : good} alt="좋아요" />
-        <div>{record.recordLikeCount}</div>
+
+        {/* ✅ 좋아요 버튼 */}
+        <img
+          src={isLiked ? alreadygood : good}
+          alt="좋아요"
+          onClick={handleLikeClick}
+          style={{ cursor: 'pointer' }}
+        />
+        <div>{likeCount}</div>
       </div>
     </Review>
   );

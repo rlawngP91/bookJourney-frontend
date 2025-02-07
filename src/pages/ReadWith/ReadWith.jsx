@@ -38,9 +38,9 @@ export default function ReadWith() {
     const fetchRecords = async () => {
       try {
         if (!roomData) return;
-        const pageRecordsData = await getPageRecords(roomId, '페이지 순');
+        const pageRecordsData = await getPageRecords(roomId, '페이지순');
         setPageRecords(pageRecordsData);
-        const recordsData = await getEntireRecords(roomId, '페이지 순');
+        const recordsData = await getEntireRecords(roomId, '페이지순');
         setRecords(recordsData);
       } catch (err) {
         setError(err.message);
