@@ -6,7 +6,8 @@ import Title from '../../assets/title.svg';
 import Star from './star.svg';
 import Bell from './bell.svg';
 import Book from './book.svg';
-import Second from '../../assets/second.svg';
+import Gray from './gray.svg';
+import Blue from './blue.svg';
 import Footer from '../../components/commons/Footer/Footer';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import Book2 from './book2.svg';
@@ -26,6 +27,12 @@ const Home = () => {
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
+
+  // 토글 상태: 0, 1, 2 중 하나만 선택됨 (기본은 0)
+  const [selectedToggle, setSelectedToggle] = useState(0);
+
+  // 베스트셀러 리스트 (추후 API 호출로 받아올 예정)
+  const [bestSellerList, setBestSellerList] = useState([]);
 
   useEffect(() => {
     console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
@@ -51,6 +58,13 @@ const Home = () => {
         console.error('[ERROR] 사용자 정보 가져오기 실패:', error);
       });
     //주석끝
+
+    // 임시로 베스트셀러 목록 설정 (추후 API 호출로 대체)
+    setBestSellerList([
+      { imageUrl: Book },
+      { imageUrl: DummyBook2 },
+      { imageUrl: Book }, // 기존에 사용하던 Book 이미지를 임시로 사용
+    ]);
   }, []);
 
   const handleRecordClick = () => {
@@ -133,9 +147,32 @@ const Home = () => {
           닉네임 <span>님</span>
         </span>
         <span className="welcome">환영합니다!</span>
-        <img className="book" src={Book} alt="책" />
+
+        {/* 베스트셀러 이미지 영역 */}
+        <div className="best-seller-container">
+          {bestSellerList.length > 0 && (
+            <img
+              className="best-seller"
+              src={
+                bestSellerList[selectedToggle]
+                  ? bestSellerList[selectedToggle].imageUrl
+                  : bestSellerList[0].imageUrl
+              }
+              alt="베스트셀러"
+            />
+          )}
+        </div>
         <span className="description">*자기계발 베스트 셀러</span>
-        <img className="circles" src={Second} alt="두번째 토글" />
+        <div className="circle-container">
+          {[0, 1, 2].map((index) => (
+            <img
+              key={index}
+              src={selectedToggle === index ? Blue : Gray}
+              alt={`토글${index + 1}`}
+              onClick={() => setSelectedToggle(index)}
+            />
+          ))}
+        </div>
         <div className="record-container">
           <div className="progress">
             <span className="progress-title">

@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   .start-btn {
     position: absolute;
-    top: 656px;
+    bottom: 163px;
     left: 20px;
   }
 
@@ -54,7 +54,7 @@ export const Container = styled.div`
     left: 30px;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3열 */
-    grid-template-rows: repeat(4, 1fr); /* 4행 */
+    grid-template-rows: repeat(5, 1fr); /* 4행 */
     gap: 17px 11px; /* 세로 17px, 가로 11px 간격 */
   }
 
