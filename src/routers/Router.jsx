@@ -16,6 +16,7 @@ import Bookmark from '../pages/bookmark/Bookmark';
 import Record from '../pages/record/Record';
 import ReadingLog from '../pages/readingLog/ReadingLog';
 import ReadWith from '../pages/ReadWith/ReadWith';
+import ReadingCalendar from '../pages/mypage/readingcalendar/ReadingCalendar';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -82,6 +83,10 @@ const Router = () => {
     {
       path: '/readWith',
       element: <ReadWith />,
+    },
+    {
+      path: '/mypage-calendar',
+      element: <ReadingCalendar />,
     },
   ]);
 
