@@ -10,7 +10,7 @@ const HeaderWrapper = styled.div`
   left: 0;
   top: 0;
   align-items: center;
-  background-color: #fff;
+  background-color: #f6f7f9;
 `;
 
 const BackButton = styled.button`
