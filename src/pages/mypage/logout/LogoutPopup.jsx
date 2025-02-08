@@ -14,7 +14,7 @@ export default function LogoutPopup({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/home');
+    navigate('/login');
     onClose();
   };
 
