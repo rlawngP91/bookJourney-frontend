@@ -30,26 +30,21 @@ export default function Reply({ recordId, onClose }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const textareaRef = useRef(null);
 
-  // ✅ 기록(Record)의 좋아요 상태
-  const [isLikedRecord, setIsLikedRecord] = useState(false);
+  // ✅ 좋아요 상태 및 카운트
+  const [isLikedRecord, setIsLikedRecord] = useState(null);
   const [likeCountRecord, setLikeCountRecord] = useState(0);
 
   useEffect(() => {
     fetchComments();
   }, []);
 
-  // ✅ 서버에서 댓글 및 기록 정보 가져오기
   const fetchComments = async () => {
     setLoading(true);
     try {
       const data = await getReplys(recordId);
-
-      // ✅ 서버에서 받은 데이터 상태 업데이트
       setRecordInfo(data.recordInfo);
-      setIsLikedRecord(Boolean(data.recordInfo.like)); // ✅ 좋아요 상태 반영
+      setIsLikedRecord(Boolean(data.recordInfo.like));
       setLikeCountRecord(data.recordInfo.recordLikeCount);
-
-      // ✅ 댓글 목록 좋아요 상태 반영
       const updatedComments = data.comments.map((comment) => ({
         ...comment,
         isLiked: Boolean(comment.like),
@@ -62,7 +57,6 @@ export default function Reply({ recordId, onClose }) {
     }
   };
 
-  // ✅ recordInfo가 변경될 때 좋아요 상태 업데이트
   useEffect(() => {
     if (recordInfo) {
       setIsLikedRecord(Boolean(recordInfo.like));
@@ -70,10 +64,9 @@ export default function Reply({ recordId, onClose }) {
     }
   }, [recordInfo]);
 
-  // ✅ 댓글 작성 핸들러
+  // ✅ 댓글 전송
   const handleSendComment = async () => {
     if (!newComment.trim()) return;
-
     try {
       await postReply(recordId, newComment);
       setNewComment('');
@@ -86,26 +79,19 @@ export default function Reply({ recordId, onClose }) {
     }
   };
 
-  const handleChange = (e) => {
-    setNewComment(e.target.value);
-    if (textareaRef.current) {
-      textareaRef.current.style.height = '20px';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
-
-  // ✅ 기록 좋아요 버튼 클릭 핸들러
+  // ✅ 기록 좋아요
   const handleRecordLike = async () => {
     try {
       const liked = await postRecordLike(recordId);
       setIsLikedRecord(liked);
       setLikeCountRecord((prev) => (liked ? prev + 1 : prev - 1));
+      setTimeout(fetchComments, 300); // ✅ 좋아요 후 최신 데이터 불러오기
     } catch (error) {
       console.error('❌ 기록 좋아요 오류:', error);
     }
   };
 
-  // ✅ 댓글 좋아요 버튼 클릭 핸들러
+  // ✅ 댓글 좋아요
   const handleCommentLike = async (commentId) => {
     try {
       const liked = await postReplyLike(commentId);
@@ -122,6 +108,7 @@ export default function Reply({ recordId, onClose }) {
             : comment
         )
       );
+      setTimeout(fetchComments, 300); // ✅ 좋아요 후 최신 데이터 불러오기
     } catch (error) {
       console.error('❌ 댓글 좋아요 오류:', error);
     }
@@ -173,10 +160,6 @@ export default function Reply({ recordId, onClose }) {
                   <div className="name">{comment.nickName}</div>
                   <div className="time">{comment.createdAt}</div>
                 </div>
-                <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
-                {isMenuOpen && (
-                  <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
-                )}
               </div>
               <div className="body">
                 <div className="content">{comment.content}</div>
@@ -197,9 +180,9 @@ export default function Reply({ recordId, onClose }) {
           <div className="input">
             <Textarea
               ref={textareaRef}
-              placeholder="기록 추가하기"
+              placeholder="댓글 추가하기"
               value={newComment}
-              onChange={handleChange}
+              onChange={(e) => setNewComment(e.target.value)}
               maxLength={1000}
             />
             <img

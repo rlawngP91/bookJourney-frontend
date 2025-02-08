@@ -51,10 +51,10 @@ export const Review = styled.div`
   .body {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 18px;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 25.5px;
+    padding-left: 1px;
 
     .page {
       color: #6aa5f8;
