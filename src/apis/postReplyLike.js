@@ -1,7 +1,7 @@
 import instance from './instance';
 
 const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODg1MzMxMSwiZXhwIjoxNzM5NDU4MTExfQ.-_RKG4l1VjnNU-L1gjzBe-zcjlCLq7YK1A4IXpG2ocU';
+  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
 
 /**
  * 댓글 좋아요 API

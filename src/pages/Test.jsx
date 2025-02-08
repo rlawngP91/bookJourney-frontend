@@ -1,9 +1,9 @@
 import React from 'react';
-import Reply from '../components/Reply/Reply';
+import RecordPopup from '../components/popup/recordPopup/RecordPopup';
 export default function Test() {
   return (
     <>
-      <Reply />
+      <RecordPopup />
     </>
   );
 }

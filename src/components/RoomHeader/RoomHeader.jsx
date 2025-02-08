@@ -17,7 +17,8 @@ import grayarrowright from '../../assets/grayarrowright.svg';
 import grayarrowdown from '../../assets/grayarrowdown.svg';
 import MemberHeader from '../Member/MemberHeader';
 import usePopup from '../../hooks/usePopup';
-import { useNavigate } from 'react-router-dom'; // ✅ useNavigate 추가
+import RecordPopup from '../popup/recordPopup/RecordPopup';
+import { useNavigate } from 'react-router-dom';
 
 export default function RoomHeader({ roomData }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -102,12 +103,7 @@ export default function RoomHeader({ roomData }) {
       )}
 
       {popupType === 'pen' && (
-        <Popup>
-          <div className="popup-content">
-            <p>Pen 관련 팝업 내용</p>
-            <button onClick={closePopup}>닫기</button>
-          </div>
-        </Popup>
+        <RecordPopup roomId={roomData.roomId} onClose={closePopup} />
       )}
 
       {popupType === 'exit' && (

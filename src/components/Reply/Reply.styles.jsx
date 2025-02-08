@@ -13,7 +13,11 @@ export const Comment = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  padding: 75px 25px 0px 25px;
+  padding: 45px 25px 0px 25px;
+
+  .close {
+    padding-bottom: 30px;
+  }
 
   .head {
     display: flex;
@@ -207,28 +211,39 @@ export const ReviewList = styled.div`
   flex-direction: column;
   background-color: #fff;
   padding: 46px 25px 90px 55px;
+  max-height: 400px;
+  overflow-y: auto;
+
+  /* ✅ 크롬, 사파리에서 스크롤바 숨김 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Footer = styled.div`
-  position: fixed;
+  position: absolute; /* ✅ 부모(Container) 내에서 위치 조정 */
   bottom: 0;
-  z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
+  z-index: 1000; /* ✅ 다른 요소 위에 나타나도록 설정 */
   width: 393px;
-  height: 88px;
+  height: auto; /* ✅ 높이를 자동 조절 */
   background: #fff;
   align-items: center;
   justify-content: center;
   display: flex;
+  padding: 0px 25px 20px 25px;
+  box-sizing: border-box;
+  transition: height 0.2s ease-out; /* ✅ 자연스럽게 높이 변화 */
 
   .input {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 342px;
     padding: 9.553px 15.285px;
     align-items: center;
-    justify-content: space-between;
-    gap: 7.642px;
     border-radius: 9px;
     background-color: #eff1f5;
+    height: auto;
 
     color: #a09cab;
     font-family: Pretendard;
@@ -237,4 +252,35 @@ export const Footer = styled.div`
     font-weight: 400;
     line-height: 19.106px; /* 133.333% */
   }
+`;
+
+export const Input = styled.input`
+  display: flex;
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
+  border-radius: 9px; /* 둥근 모서리 */
+  font-size: 14px;
+  outline: none; /* 클릭 시 기본 아웃라인 제거 */
+  color: #000; /* 글자색 */
+  width: 100%; /* 부모 요소 크기만큼 확장 */
+`;
+
+export const Textarea = styled.textarea`
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
+  resize: none;
+  overflow: hidden;
+  height: 20px; /* ✅ 기본 높이 */
+  max-height: 244px; /* ✅ 최대 높이 설정 */
+  border-radius: 9px;
+  color: #000;
+  width: 100%;
+  position: relative;
+  top: 0; /* ✅ 기본적으로 위에서 시작 */
+  transition: margin-top 0.2s ease-out; /* ✅ 자연스럽게 위로 확장되도록 설정 */
 `;

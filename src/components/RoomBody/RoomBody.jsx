@@ -1,26 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Wrapper, Tab, Category, Filter } from './RoomBody.styles';
+import { Wrapper, Tab, Category, Filter, Footer } from './RoomBody.styles';
 import downarrow2 from '../../assets/downarrow2.svg';
+import send from '../../assets/send.svg';
 import uparrow from '../../assets/uparrow.svg';
 import Record from './Record';
 import { getPageRecords } from '../../apis/getPageRecords';
 import { getEntireRecords } from '../../apis/getEntireRecords';
 
 export default function RoomBody({ roomData }) {
-  // ✅ 탭 상태 ("페이지별" / "전체")
   const [activeTab, setActiveTab] = useState('페이지별');
   const handleTabClick = (tab) => setActiveTab(tab);
 
   // ✅ 정렬 방식 드롭다운 상태
-  const [isPageOrderOpen, setIsPageOrderOpen] = useState(false);
-  const [pageOrder, setPageOrder] = useState('페이지순'); // 기본 정렬 방식
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
+  const [order, setOrder] = useState('페이지순'); // 기본 정렬 방식
 
   // ✅ 페이지 범위 드롭다운 상태 ("페이지별" 탭 전용)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [startPage, setStartPage] = useState('');
   const [endPage, setEndPage] = useState('');
   const dropdownRef = useRef(null);
-  const pageOrderRef = useRef(null);
+  const orderRef = useRef(null);
 
   // ✅ 기록 데이터 상태
   const [records, setRecords] = useState([]);
@@ -29,10 +29,9 @@ export default function RoomBody({ roomData }) {
 
   // ✅ 정렬 방식 변경 시 호출
   const handleSortingChange = (newSortingType) => {
-    setPageOrder(newSortingType);
+    setOrder(newSortingType);
   };
 
-  // ✅ 페이지 범위 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -55,9 +54,8 @@ export default function RoomBody({ roomData }) {
 
   // ✅ 데이터 불러오기
   useEffect(() => {
-    if (!roomData) return; // roomData가 없으면 실행 X
-
-    console.log('✅ roomData가 설정됨:', roomData);
+    if (!roomData) return;
+    console.log('✅ roomData 설정됨:', roomData);
 
     const roomId = roomData.roomId;
     if (!roomId) {
@@ -71,9 +69,9 @@ export default function RoomBody({ roomData }) {
       try {
         let data;
         if (activeTab === '페이지별') {
-          data = await getPageRecords(roomId, pageOrder, startPage, endPage);
+          data = await getPageRecords(roomId, order, startPage, endPage);
         } else {
-          data = await getEntireRecords(roomId, pageOrder);
+          data = await getEntireRecords(roomId, order);
         }
         setRecords(data);
       } catch (err) {
@@ -85,7 +83,7 @@ export default function RoomBody({ roomData }) {
     };
 
     fetchRecords();
-  }, [roomData, activeTab, pageOrder, startPage, endPage]);
+  }, [roomData, activeTab, order, startPage, endPage]);
 
   return (
     <Wrapper>
@@ -105,72 +103,102 @@ export default function RoomBody({ roomData }) {
       </Tab>
 
       <Filter>
-        {/* ✅ "페이지별" 탭에서만 페이지 범위 선택 가능 */}
+        {/* ✅ 페이지별 탭 - 페이지 범위 선택 & 정렬 가능 */}
         {activeTab === '페이지별' && (
-          <div className="dropdown" ref={dropdownRef}>
+          <>
+            <div className="dropdown" ref={dropdownRef}>
+              <button
+                className="dropdown-button"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                {startPage && endPage
+                  ? `${startPage} p ~ ${endPage} p`
+                  : '페이지 범위'}
+                <img
+                  src={isDropdownOpen ? uparrow : downarrow2}
+                  alt="arrow"
+                  className="arrow-icon"
+                />
+              </button>
+              {isDropdownOpen && (
+                <div className="dropdown-menu">
+                  <input
+                    type="number"
+                    className="page-input"
+                    placeholder="시작"
+                    value={startPage}
+                    onChange={(e) => setStartPage(e.target.value)}
+                  />
+                  <span className="page-separator">~</span>
+                  <input
+                    type="number"
+                    className="page-input"
+                    placeholder="끝"
+                    value={endPage}
+                    onChange={(e) => setEndPage(e.target.value)}
+                  />
+                  <button onClick={applyPageRange}>적용</button>
+                </div>
+              )}
+            </div>
+            <div className="dropdown" ref={orderRef}>
+              <button
+                className="dropdown-button"
+                onClick={() => setIsOrderOpen(!isOrderOpen)}
+              >
+                {order}
+                <img
+                  src={isOrderOpen ? uparrow : downarrow2}
+                  alt="arrow"
+                  className="arrow-icon"
+                />
+              </button>
+              {isOrderOpen && (
+                <div className="dropdown-menu2">
+                  {['페이지순', '최신 등록순', '답글 많은 순'].map((option) => (
+                    <div
+                      key={option}
+                      className="dropdown-item"
+                      onClick={() => handleSortingChange(option)}
+                    >
+                      {option}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* ✅ 전체 탭 - 정렬 방식만 변경 가능 */}
+        {activeTab === '전체' && (
+          <div className="dropdown" ref={orderRef}>
             <button
               className="dropdown-button"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              onClick={() => setIsOrderOpen(!isOrderOpen)}
             >
-              {startPage && endPage
-                ? `${startPage} p ~ ${endPage} p`
-                : '페이지 범위'}
+              {order}
               <img
-                src={isDropdownOpen ? uparrow : downarrow2}
+                src={isOrderOpen ? uparrow : downarrow2}
                 alt="arrow"
                 className="arrow-icon"
               />
             </button>
-            {isDropdownOpen && (
-              <div className="dropdown-menu">
-                <input
-                  type="number"
-                  className="page-input"
-                  placeholder="시작"
-                  value={startPage}
-                  onChange={(e) => setStartPage(e.target.value)}
-                />
-                <span className="page-separator">~</span>
-                <input
-                  type="number"
-                  className="page-input"
-                  placeholder="끝"
-                  value={endPage}
-                  onChange={(e) => setEndPage(e.target.value)}
-                />
-                <button onClick={applyPageRange}>적용</button>
+            {isOrderOpen && (
+              <div className="dropdown-menu2">
+                {['페이지순', '최신 등록순', '답글 많은 순'].map((option) => (
+                  <div
+                    key={option}
+                    className="dropdown-item"
+                    onClick={() => handleSortingChange(option)}
+                  >
+                    {option}
+                  </div>
+                ))}
               </div>
             )}
           </div>
         )}
-
-        {/* ✅ 정렬(페이지 순) 드롭다운 */}
-        <div className="dropdown" ref={pageOrderRef}>
-          <button
-            className="dropdown-button"
-            onClick={() => setIsPageOrderOpen(!isPageOrderOpen)}
-          >
-            {pageOrder}
-            <img
-              src={isPageOrderOpen ? uparrow : downarrow2}
-              alt="arrow"
-              className="arrow-icon"
-            />
-          </button>
-          {isPageOrderOpen && (
-            <div className="dropdown-menu2">
-              {['페이지순', '최신 등록순', '답글 많은 순'].map((option) => (
-                <div
-                  key={option}
-                  className="dropdown-item"
-                  onClick={() => handleSortingChange(option)}
-                >
-                  {option}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
       </Filter>
 
       {/* ✅ 기록 데이터 렌더링 */}
@@ -185,6 +213,13 @@ export default function RoomBody({ roomData }) {
           <Record key={record.recordId} record={record} />
         ))
       )}
+
+      <Footer>
+        <div className="input">
+          <div>기록 추가하기</div>
+          <img src={send} alt="send" />
+        </div>
+      </Footer>
     </Wrapper>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Wrapper,
   Comment,
@@ -6,7 +6,9 @@ import {
   Review,
   ReviewList,
   Footer,
+  Textarea,
 } from './Reply.styles';
+import xbox from '../../assets/xbox.svg';
 import send from '../../assets/send.svg';
 import hamburgermenu from '../../assets/hamburgermenu.svg';
 import good from '../../assets/good.svg';
@@ -14,49 +16,103 @@ import alreadygood from '../../assets/alreadygood.svg';
 import reply from '../../assets/reply.svg';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 import { getReplys } from '../../apis/getReplys';
-import { postReplyLike } from '../../apis/postReplyLike'; // ✅ 좋아요 API 추가
+import { postReply } from '../../apis/postReply';
+import { postReplyLike } from '../../apis/postReplyLike';
+import { postRecordLike } from '../../apis/postRecordLike';
 import userimage from '../../assets/userimage.svg';
 
-export default function Reply() {
-  const [recordInfo, setRecordInfo] = useState(null); // ✅ 기록 상세 정보
-  const [comments, setComments] = useState([]); // ✅ 댓글 목록
+export default function Reply({ recordId, onClose }) {
+  const [recordInfo, setRecordInfo] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const recordId = 1; // ✅ recordId 설정
+  const textareaRef = useRef(null); // ✅ textarea 높이 조절을 위한 ref
+
+  // ✅ 기록(Record)의 좋아요 상태
+  const [isLikedRecord, setIsLikedRecord] = useState(false);
+  const [likeCountRecord, setLikeCountRecord] = useState(0);
 
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const data = await getReplys(recordId);
-        setRecordInfo(data.recordInfo);
-        setComments(data.comments); // ✅ 댓글 목록에 liked 값 포함
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchComments();
   }, []);
 
-  /**
-   * ✅ 좋아요 버튼 클릭 핸들러
-   * @param {number} commentId - 좋아요를 누를 댓글 ID
-   */
-  const handleLike = async (commentId) => {
+  // ✅ 서버에서 댓글 및 기록 정보 가져오기
+  const fetchComments = async () => {
+    setLoading(true);
     try {
-      const liked = await postReplyLike(commentId); // ✅ 좋아요 API 호출
-      console.log(`✅ 댓글 ${commentId} 좋아요 상태 변경:`, liked);
+      const data = await getReplys(recordId);
+      setRecordInfo(data.recordInfo);
 
-      // ✅ comments 상태에서 해당 댓글의 liked 값 업데이트
+      // ✅ 기록 좋아요 상태 반영
+      setIsLikedRecord(data.recordInfo.like);
+      setLikeCountRecord(data.recordInfo.recordLikeCount);
+
+      // ✅ 댓글 목록 좋아요 상태 반영
+      setComments(
+        data.comments.map((comment) => ({
+          ...comment,
+          isLiked: comment.like,
+        }))
+      );
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ✅ 댓글 작성 핸들러
+  const handleSendComment = async () => {
+    if (!newComment.trim()) return;
+
+    try {
+      await postReply(recordId, newComment);
+      setNewComment('');
+      fetchComments(); // ✅ 댓글 작성 후 목록 새로고침
+      if (textareaRef.current) {
+        textareaRef.current.style.height = '20px'; // ✅ 전송 후 높이 초기화
+      }
+    } catch (error) {
+      console.error('❌ 댓글 전송 오류:', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setNewComment(e.target.value);
+    if (textareaRef.current) {
+      textareaRef.current.style.height = '20px'; // ✅ 기본 높이 초기화
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // ✅ 입력된 텍스트에 따라 높이 조절
+
+      // ✅ 부모 요소를 고려하여 위로만 늘어나도록 설정
+      const newHeight = textareaRef.current.scrollHeight;
+      const defaultHeight = 20; // 기본 높이
+      textareaRef.current.style.marginTop = `${-(newHeight - defaultHeight)}px`; // ✅ 위로만 확장되도록 음수 margin 적용
+    }
+  };
+
+  // ✅ 기록 좋아요 버튼 클릭 핸들러
+  const handleRecordLike = async () => {
+    try {
+      const liked = await postRecordLike(recordId);
+      setIsLikedRecord(liked);
+      setLikeCountRecord((prev) => (liked ? prev + 1 : prev - 1));
+    } catch (error) {
+      console.error('❌ 기록 좋아요 오류:', error);
+    }
+  };
+
+  // ✅ 댓글 좋아요 버튼 클릭 핸들러
+  const handleCommentLike = async (commentId) => {
+    try {
+      const liked = await postReplyLike(commentId);
       setComments((prevComments) =>
         prevComments.map((comment) =>
           comment.commentId === commentId
             ? {
                 ...comment,
-                like: liked,
+                isLiked: liked,
                 commentLikeCount: liked
                   ? comment.commentLikeCount + 1
                   : comment.commentLikeCount - 1,
@@ -65,19 +121,21 @@ export default function Reply() {
         )
       );
     } catch (error) {
-      console.error('❌ 좋아요 요청 실패:', error);
+      console.error('❌ 댓글 좋아요 오류:', error);
     }
   };
 
-  if (loading) return <div>📖 댓글을 불러오는 중...</div>;
+  if (loading) return;
   if (error) return <div style={{ color: 'red' }}>❌ {error}</div>;
   if (!recordInfo) return <div>📭 기록 정보를 불러올 수 없습니다.</div>;
-  if (comments.length === 0) return <div>📭 댓글이 없습니다.</div>;
 
   return (
     <Wrapper>
       <Container>
         <Comment>
+          <div className="close">
+            <img src={xbox} onClick={onClose} style={{ cursor: 'pointer' }} />
+          </div>
           <div className="head">
             <div className="main">
               <img src={recordInfo.imageUrl} alt="User" />
@@ -95,8 +153,13 @@ export default function Reply() {
           <div className="bottom">
             <img src={reply} alt="댓글" />
             <div>{recordInfo.commentCount}</div>
-            <img src={good} alt="좋아요" />
-            <div>{recordInfo.recordLikeCount}</div>
+            <img
+              src={isLikedRecord ? alreadygood : good}
+              alt="좋아요"
+              onClick={handleRecordLike}
+              style={{ cursor: 'pointer' }}
+            />
+            <div>{likeCountRecord}</div>
           </div>
         </Comment>
         <ReviewList>
@@ -117,12 +180,11 @@ export default function Reply() {
                 <div className="content">{comment.content}</div>
               </div>
               <div className="bottom">
-                {/* ✅ 좋아요 버튼 클릭 이벤트 추가 */}
                 <img
-                  src={comment.like ? alreadygood : good}
+                  src={comment.isLiked ? alreadygood : good}
                   alt="좋아요"
-                  onClick={() => handleLike(comment.commentId)}
-                  style={{ cursor: 'pointer' }} // ✅ 클릭 가능하게 변경
+                  onClick={() => handleCommentLike(comment.commentId)}
+                  style={{ cursor: 'pointer' }}
                 />
                 <div>{comment.commentLikeCount}</div>
               </div>
@@ -131,8 +193,19 @@ export default function Reply() {
         </ReviewList>
         <Footer>
           <div className="input">
-            <div>댓글 추가하기</div>
-            <img src={send} alt="댓글 추가" />
+            <Textarea
+              ref={textareaRef}
+              placeholder="기록 추가하기"
+              value={newComment}
+              onChange={handleChange}
+              maxLength={1000}
+            />
+            <img
+              src={send}
+              alt="댓글 추가"
+              onClick={handleSendComment}
+              style={{ cursor: 'pointer' }}
+            />
           </div>
         </Footer>
       </Container>

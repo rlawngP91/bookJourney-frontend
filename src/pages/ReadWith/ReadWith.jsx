@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Wrapper, Footer } from './ReadWith.styles';
+import { Wrapper } from './ReadWith.styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 import RoomBody from '../../components/RoomBody/RoomBody';
-import send from '../../assets/send.svg';
 import { getInnerRoomInfo } from '../../apis/getInnerRoomInfo';
 import { getEntireRecords } from '../../apis/getEntireRecords';
 import { getPageRecords } from '../../apis/getPageRecords';
@@ -68,12 +67,6 @@ export default function ReadWith() {
           pageRecords={pageRecords}
         />
       )}
-      <Footer>
-        <div className="input">
-          <div>기록 추가하기</div>
-          <img src={send} alt="send" />
-        </div>
-      </Footer>
     </Wrapper>
   );
 }

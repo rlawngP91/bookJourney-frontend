@@ -5,7 +5,8 @@ import good from '../../assets/good.svg';
 import alreadygood from '../../assets/alreadygood.svg';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 import styled from 'styled-components';
-import { postRecordLike } from '../../apis/postRecordLike'; // ✅ 좋아요 API 추가
+import { postRecordLike } from '../../apis/postRecordLike';
+import Reply from '../../components/Reply/Reply'; // ✅ Reply 컴포넌트 추가
 
 export const Review = styled.div`
   width: 100%;
@@ -30,20 +31,14 @@ export const Review = styled.div`
 
       .name {
         color: #000;
-        font-family: Pretendard;
         font-size: 12.574px;
-        font-style: normal;
         font-weight: 500;
-        line-height: 17.963px;
       }
 
       .time {
         color: #939393;
-        font-family: Pretendard;
         font-size: 11.158px;
-        font-style: normal;
         font-weight: 400;
-        line-height: 17.963px;
       }
     }
 
@@ -59,25 +54,19 @@ export const Review = styled.div`
     gap: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-left: 25.5px;
 
     .page {
       color: #6aa5f8;
       text-align: center;
-      font-family: Pretendard;
       font-size: 10.778px;
-      font-style: normal;
       font-weight: 600;
-      line-height: 14.37px;
-      letter-spacing: 0.359px;
     }
 
     .content {
       color: #000;
-      font-family: Pretendard;
       font-size: 12px;
-      font-style: normal;
       font-weight: 400;
-      line-height: 17.963px;
       width: 80%;
     }
   }
@@ -90,25 +79,21 @@ export const Review = styled.div`
     justify-content: end;
 
     color: #000;
-    font-family: Roboto;
     font-size: 10.012px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 15.402px;
   }
 `;
 
 export default function Record({ record }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // ✅ 햄버거 메뉴 열림 상태 관리
-  const [isLiked, setIsLiked] = useState(record.like); // ✅ 좋아요 상태 관리
-  const [likeCount, setLikeCount] = useState(record.recordLikeCount); // ✅ 좋아요 개수 관리
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(record.like);
+  const [likeCount, setLikeCount] = useState(record.recordLikeCount);
+  const [isReplyOpen, setIsReplyOpen] = useState(false); // ✅ 댓글 팝업 상태 추가
 
   // ✅ 좋아요 버튼 클릭 이벤트
   const handleLikeClick = async () => {
     try {
       const liked = await postRecordLike(record.recordId);
-
-      // ✅ 서버 응답을 기반으로 UI 업데이트
       setIsLiked(liked);
       setLikeCount((prevCount) => (liked ? prevCount + 1 : prevCount - 1));
     } catch (error) {
@@ -117,35 +102,55 @@ export default function Record({ record }) {
   };
 
   return (
-    <Review>
-      <div className="head">
-        <div className="main">
-          <img src={record.imageUrl} alt="User Profile" />
-          <div className="name">{record.nickName}</div>
-          <div className="time">{record.createdAt}</div>
+    <>
+      <Review>
+        <div className="head">
+          <div className="main">
+            <img src={record.imageUrl} alt="User Profile" />
+            <div className="name">{record.nickName}</div>
+            <div className="time">{record.createdAt}</div>
+          </div>
+          <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+          {isMenuOpen && <HamburgerMenu onClose={() => setIsMenuOpen(false)} />}
         </div>
-        <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
-        {isMenuOpen && <HamburgerMenu onClose={() => setIsMenuOpen(false)} />}
-      </div>
-      <div className="body">
-        <div className="page">
-          {record.recordPage ? `${record.recordPage}p` : ''}
+        <div className="body">
+          <div className="page">
+            {record.recordPage ? `${record.recordPage}p` : ''}
+          </div>
+          <div className="content">{record.content}</div>
         </div>
-        <div className="content">{record.content}</div>
-      </div>
-      <div className="bottom">
-        <img src={reply} alt="댓글" />
-        <div>{record.commentCount}</div>
+        <div className="bottom">
+          <img
+            src={reply}
+            alt="댓글"
+            onClick={() => setIsReplyOpen(true)} // ✅ 댓글 버튼 클릭 시 팝업 열기
+            style={{ cursor: 'pointer' }}
+          />
+          {isReplyOpen && (
+            <Reply
+              recordId={record.recordId}
+              onClose={() => setIsReplyOpen(false)}
+            />
+          )}
+          <div>{record.commentCount}</div>
 
-        {/* ✅ 좋아요 버튼 */}
-        <img
-          src={isLiked ? alreadygood : good}
-          alt="좋아요"
-          onClick={handleLikeClick}
-          style={{ cursor: 'pointer' }}
+          <img
+            src={isLiked ? alreadygood : good}
+            alt="좋아요"
+            onClick={handleLikeClick}
+            style={{ cursor: 'pointer' }}
+          />
+          <div>{likeCount}</div>
+        </div>
+      </Review>
+
+      {/* ✅ Reply 팝업 */}
+      {isReplyOpen && (
+        <Reply
+          recordId={record.recordId}
+          onClose={() => setIsReplyOpen(false)}
         />
-        <div>{likeCount}</div>
-      </div>
-    </Review>
+      )}
+    </>
   );
 }
