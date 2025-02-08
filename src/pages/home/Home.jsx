@@ -209,39 +209,39 @@ const Home = () => {
               />
               <div className="book-scroll-container">
                 <BookFrame
-                  imageSrc={DummyBook1}
+                  imageUrl={DummyBook1}
                   bookTitle="밤의 여행자들"
-                  hour={1}
-                  percentage={50}
-                  readType="같이"
-                  writer="윤고은"
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
+                  readType="같이읽기"
+                  authorName="윤고은"
                   onDotsClick={handleDotsClick}
                 />
                 <BookFrame
-                  imageSrc={DummyBook2}
+                  imageUrl={DummyBook2}
                   bookTitle="모든 삶은 흐른다"
-                  hour={1}
-                  percentage={50}
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
                   readType="혼자"
-                  writer="로랑스 드빌레르"
+                  authorName="로랑스 드빌레르"
                   onDotsClick={handleDotsClick}
                 />
                 <BookFrame
-                  imageSrc={DummyBook2}
+                  imageUrl={DummyBook2}
                   readType="혼자"
                   bookTitle="말의 품격"
-                  hour={1}
-                  percentage={50}
-                  writer="이기주"
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
+                  authorName="이기주"
                   onDotsClick={handleDotsClick}
                 />
                 <BookFrame
-                  imageSrc={DummyBook1}
-                  readType="같이"
+                  imageUrl={DummyBook1}
+                  readType="같이읽기"
                   bookTitle="말의 품격"
-                  hour={1}
-                  percentage={50}
-                  writer="이기주"
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
+                  authorName="이기주"
                   onDotsClick={handleDotsClick}
                 />
               </div>
