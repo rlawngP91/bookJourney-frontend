@@ -2,19 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { InputWrapper, StyledInput, LabelText } from './UserInputField.styles';
 
-const UserInputField = ({ placeholder, labelText }) => {
+const UserInputField = ({ placeholder, labelText, value, onChange }) => {
   return (
     <InputWrapper>
-      {/* labelText는 값이 있을 때만 표시 */}
-      <LabelText>{labelText}</LabelText>
-      <StyledInput placeholder={placeholder} />
+      {/* labelText가 있을 때만 표시 */}
+      {labelText && <LabelText>{labelText}</LabelText>}
+      <StyledInput
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </InputWrapper>
   );
 };
 
 UserInputField.propTypes = {
-  placeholder: PropTypes.string.isRequired, //placeholder는 필수
-  labelText: PropTypes.string, // labelText는 선택
+  placeholder: PropTypes.string.isRequired,
+  labelText: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default UserInputField;
