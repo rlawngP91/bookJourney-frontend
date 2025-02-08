@@ -1,9 +1,11 @@
 import React from 'react';
-import RecordPopup from '../components/popup/recordPopup/RecordPopup';
+import PageRecord from '../components/RoomBody/pageRecord';
+import Home from '../pages/home/Home';
 export default function Test() {
   return (
     <>
-      <RecordPopup />
+      <PageRecord />
+      <Home />
     </>
   );
 }

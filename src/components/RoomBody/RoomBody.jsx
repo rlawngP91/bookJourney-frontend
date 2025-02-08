@@ -4,12 +4,17 @@ import downarrow2 from '../../assets/downarrow2.svg';
 import send from '../../assets/send.svg';
 import uparrow from '../../assets/uparrow.svg';
 import Record from './Record';
+import PageRecord from './PageRecord';
+import EntireRecord from './EntireRecord';
 import { getPageRecords } from '../../apis/getPageRecords';
 import { getEntireRecords } from '../../apis/getEntireRecords';
 
 export default function RoomBody({ roomData }) {
   const [activeTab, setActiveTab] = useState('페이지별');
   const handleTabClick = (tab) => setActiveTab(tab);
+
+  // ✅ 기록 추가 팝업 상태
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // ✅ 정렬 방식 드롭다운 상태
   const [isOrderOpen, setIsOrderOpen] = useState(false);
@@ -26,6 +31,8 @@ export default function RoomBody({ roomData }) {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const roomId = roomData?.roomId; // ✅ roomId 가져오기
 
   // ✅ 정렬 방식 변경 시 호출
   const handleSortingChange = (newSortingType) => {
@@ -54,14 +61,8 @@ export default function RoomBody({ roomData }) {
 
   // ✅ 데이터 불러오기
   useEffect(() => {
-    if (!roomData) return;
+    if (!roomId) return;
     console.log('✅ roomData 설정됨:', roomData);
-
-    const roomId = roomData.roomId;
-    if (!roomId) {
-      console.log('❌ roomId가 없음, API 호출 안함');
-      return;
-    }
 
     const fetchRecords = async () => {
       setLoading(true);
@@ -83,7 +84,7 @@ export default function RoomBody({ roomData }) {
     };
 
     fetchRecords();
-  }, [roomData, activeTab, order, startPage, endPage]);
+  }, [roomId, activeTab, order, startPage, endPage]);
 
   return (
     <Wrapper>
@@ -103,7 +104,6 @@ export default function RoomBody({ roomData }) {
       </Tab>
 
       <Filter>
-        {/* ✅ 페이지별 탭 - 페이지 범위 선택 & 정렬 가능 */}
         {activeTab === '페이지별' && (
           <>
             <div className="dropdown" ref={dropdownRef}>
@@ -169,39 +169,8 @@ export default function RoomBody({ roomData }) {
             </div>
           </>
         )}
-
-        {/* ✅ 전체 탭 - 정렬 방식만 변경 가능 */}
-        {activeTab === '전체' && (
-          <div className="dropdown" ref={orderRef}>
-            <button
-              className="dropdown-button"
-              onClick={() => setIsOrderOpen(!isOrderOpen)}
-            >
-              {order}
-              <img
-                src={isOrderOpen ? uparrow : downarrow2}
-                alt="arrow"
-                className="arrow-icon"
-              />
-            </button>
-            {isOrderOpen && (
-              <div className="dropdown-menu2">
-                {['페이지순', '최신 등록순', '답글 많은 순'].map((option) => (
-                  <div
-                    key={option}
-                    className="dropdown-item"
-                    onClick={() => handleSortingChange(option)}
-                  >
-                    {option}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
       </Filter>
 
-      {/* ✅ 기록 데이터 렌더링 */}
       {loading ? (
         <div>📖 기록을 불러오는 중...</div>
       ) : error ? (
@@ -214,12 +183,25 @@ export default function RoomBody({ roomData }) {
         ))
       )}
 
+      {/* ✅ 기록 추가하기 버튼 */}
       <Footer>
-        <div className="input">
+        <div
+          className="input"
+          onClick={() => setIsPopupOpen(true)}
+          style={{ cursor: 'pointer' }}
+        >
           <div>기록 추가하기</div>
           <img src={send} alt="send" />
         </div>
       </Footer>
+
+      {/* ✅ 팝업 조건부 렌더링 (roomId를 props로 전달) */}
+      {isPopupOpen &&
+        (activeTab === '페이지별' ? (
+          <PageRecord onClose={() => setIsPopupOpen(false)} roomId={roomId} />
+        ) : (
+          <EntireRecord onClose={() => setIsPopupOpen(false)} roomId={roomId} />
+        ))}
     </Wrapper>
   );
 }

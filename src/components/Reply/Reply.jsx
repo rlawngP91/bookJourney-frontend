@@ -28,7 +28,7 @@ export default function Reply({ recordId, onClose }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const textareaRef = useRef(null); // ✅ textarea 높이 조절을 위한 ref
+  const textareaRef = useRef(null);
 
   // ✅ 기록(Record)의 좋아요 상태
   const [isLikedRecord, setIsLikedRecord] = useState(false);
@@ -43,25 +43,32 @@ export default function Reply({ recordId, onClose }) {
     setLoading(true);
     try {
       const data = await getReplys(recordId);
-      setRecordInfo(data.recordInfo);
 
-      // ✅ 기록 좋아요 상태 반영
-      setIsLikedRecord(data.recordInfo.like);
+      // ✅ 서버에서 받은 데이터 상태 업데이트
+      setRecordInfo(data.recordInfo);
+      setIsLikedRecord(Boolean(data.recordInfo.like)); // ✅ 좋아요 상태 반영
       setLikeCountRecord(data.recordInfo.recordLikeCount);
 
       // ✅ 댓글 목록 좋아요 상태 반영
-      setComments(
-        data.comments.map((comment) => ({
-          ...comment,
-          isLiked: comment.like,
-        }))
-      );
+      const updatedComments = data.comments.map((comment) => ({
+        ...comment,
+        isLiked: Boolean(comment.like),
+      }));
+      setComments(updatedComments);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
+
+  // ✅ recordInfo가 변경될 때 좋아요 상태 업데이트
+  useEffect(() => {
+    if (recordInfo) {
+      setIsLikedRecord(Boolean(recordInfo.like));
+      setLikeCountRecord(recordInfo.recordLikeCount);
+    }
+  }, [recordInfo]);
 
   // ✅ 댓글 작성 핸들러
   const handleSendComment = async () => {
@@ -70,9 +77,9 @@ export default function Reply({ recordId, onClose }) {
     try {
       await postReply(recordId, newComment);
       setNewComment('');
-      fetchComments(); // ✅ 댓글 작성 후 목록 새로고침
+      fetchComments();
       if (textareaRef.current) {
-        textareaRef.current.style.height = '20px'; // ✅ 전송 후 높이 초기화
+        textareaRef.current.style.height = '20px';
       }
     } catch (error) {
       console.error('❌ 댓글 전송 오류:', error);
@@ -82,13 +89,8 @@ export default function Reply({ recordId, onClose }) {
   const handleChange = (e) => {
     setNewComment(e.target.value);
     if (textareaRef.current) {
-      textareaRef.current.style.height = '20px'; // ✅ 기본 높이 초기화
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // ✅ 입력된 텍스트에 따라 높이 조절
-
-      // ✅ 부모 요소를 고려하여 위로만 늘어나도록 설정
-      const newHeight = textareaRef.current.scrollHeight;
-      const defaultHeight = 20; // 기본 높이
-      textareaRef.current.style.marginTop = `${-(newHeight - defaultHeight)}px`; // ✅ 위로만 확장되도록 음수 margin 적용
+      textareaRef.current.style.height = '20px';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
 
@@ -125,7 +127,7 @@ export default function Reply({ recordId, onClose }) {
     }
   };
 
-  if (loading) return;
+  if (loading) return <div>📖 댓글을 불러오는 중...</div>;
   if (error) return <div style={{ color: 'red' }}>❌ {error}</div>;
   if (!recordInfo) return <div>📭 기록 정보를 불러올 수 없습니다.</div>;
 

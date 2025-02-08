@@ -134,6 +134,7 @@ export const Footer = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
+  border: none; /* 테두리 제거 */
 
   .input {
     display: flex;

@@ -243,7 +243,7 @@ export const Footer = styled.div`
     align-items: center;
     border-radius: 9px;
     background-color: #eff1f5;
-    height: auto;
+    max-height: 244px;
 
     color: #a09cab;
     font-family: Pretendard;
@@ -251,6 +251,7 @@ export const Footer = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 19.106px; /* 133.333% */
+    transition: ease-out; /* ✅ 자연스럽게 위로 확장되도록 설정 */
   }
 `;
 
@@ -282,5 +283,5 @@ export const Textarea = styled.textarea`
   width: 100%;
   position: relative;
   top: 0; /* ✅ 기본적으로 위에서 시작 */
-  transition: margin-top 0.2s ease-out; /* ✅ 자연스럽게 위로 확장되도록 설정 */
+  transition: ease-out; /* ✅ 자연스럽게 위로 확장되도록 설정 */
 `;

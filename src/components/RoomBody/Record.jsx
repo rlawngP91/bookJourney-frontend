@@ -143,14 +143,6 @@ export default function Record({ record }) {
           <div>{likeCount}</div>
         </div>
       </Review>
-
-      {/* ✅ Reply 팝업 */}
-      {isReplyOpen && (
-        <Reply
-          recordId={record.recordId}
-          onClose={() => setIsReplyOpen(false)}
-        />
-      )}
     </>
   );
 }
