@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   MyPageContainer,
@@ -16,8 +16,19 @@ import calendarIcon from '../../assets/mypage-calendar.svg';
 import accountIcon from '../../assets/mypage-account.svg';
 import logoutIcon from '../../assets/mypage-logout.svg';
 
+import LogoutPopup from './logout/LogoutPopup';
+
 export default function MyPage() {
   const navigate = useNavigate();
+  const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false);
+
+  const handleLogoutClick = () => {
+    setIsLogoutPopupOpen(true);
+  };
+
+  const closeLogoutPopup = () => {
+    setIsLogoutPopupOpen(false);
+  };
 
   const menuItems = [
     {
@@ -38,7 +49,7 @@ export default function MyPage() {
     {
       icon: <img src={logoutIcon} alt="logout" />,
       text: '로그아웃',
-      onClick: () => navigate('/mypage/logout'),
+      onClick: handleLogoutClick,
     },
   ];
 
@@ -58,6 +69,7 @@ export default function MyPage() {
           </MenuItem>
         ))}
       </MenuContainer>
+      <LogoutPopup isOpen={isLogoutPopupOpen} onClose={closeLogoutPopup} />
     </MyPageContainer>
   );
 }
