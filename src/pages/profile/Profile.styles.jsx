@@ -16,6 +16,9 @@ export const Container = styled.div`
     position: absolute;
     top: 243px;
     left: 118px;
+    width: 158px;
+    height: 158px;
+    border-radius: 50%;
   }
 
   .plus-btn {
@@ -87,5 +90,15 @@ export const Container = styled.div`
       font-style: normal;
       font-weight: 500;
     }
+  }
+
+  .nickname-result-msg {
+    position: absolute;
+    top: 495px;
+    left: 34px;
+    font-family: Pretendard;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
   }
 `;
