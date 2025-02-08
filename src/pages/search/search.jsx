@@ -121,6 +121,15 @@ export default function Search() {
     }
   };
 
+  const handleChipClick = (text) => {
+    setSearchQuery(text);
+    setIsSearchExecuted(false); // 검색결과초기화
+    // 바로 최근검색어로 검색 API
+    // setTimeout(() => {
+    //   handleSearch();
+    // }, 0);
+  };
+
   // 최근 검색어 목록 조회
   useEffect(() => {
     const fetchRecentSearches = async () => {
@@ -178,6 +187,7 @@ export default function Search() {
             recentSearches={recentSearches.map((search) => search.text)}
             onClearAll={handleClearAll}
             onRemove={(id) => removeRecentSearch(recentSearches[id].id)} // index를 사용하여 해당 아이템의 id에 접근
+            onChipClick={handleChipClick}
           />
         )}
 

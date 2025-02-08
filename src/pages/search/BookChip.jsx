@@ -13,6 +13,7 @@ const ChipWrapper = styled.div`
   width: 74.475px;
   height: 30.783px;
   flex-shrink: 0;
+  cursor: pointer;
 
   span {
     white-space: nowrap;
@@ -38,11 +39,18 @@ const ChipWrapper = styled.div`
   }
 `;
 
-export const BookChip = ({ text, onRemove }) => {
+export const BookChip = ({ text, onRemove, onClick }) => {
   return (
-    <ChipWrapper>
+    <ChipWrapper onClick={() => onClick(text)}>
       <span>{text}</span>
-      <img src={deleteIcon} alt="remove" onClick={onRemove} />
+      <img
+        src={deleteIcon}
+        alt="remove"
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemove();
+        }}
+      />
     </ChipWrapper>
   );
 };
