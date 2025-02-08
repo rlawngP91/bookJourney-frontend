@@ -3,7 +3,10 @@ import instance from './instance';
 const accessToken =
   'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
 
-export const getEntireRecords = async (roomId, sortingType = '페이지순') => {
+export const getEntireRecords = async (
+  roomId,
+  sortingType = '최신 등록 순'
+) => {
   if (!roomId) {
     throw new Error('❌ roomId가 필요합니다.');
   }

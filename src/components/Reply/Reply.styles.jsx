@@ -223,7 +223,7 @@ export const ReviewList = styled.div`
 export const Footer = styled.div`
   position: absolute; /* ✅ 부모(Container) 내에서 위치 조정 */
   bottom: 0;
-  z-index: 1000; /* ✅ 다른 요소 위에 나타나도록 설정 */
+  z-index: 3000; /* ✅ 다른 요소 위에 나타나도록 설정 */
   width: 393px;
   height: auto; /* ✅ 높이를 자동 조절 */
   background: #fff;

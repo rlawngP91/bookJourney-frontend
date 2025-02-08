@@ -1,13 +1,34 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 100%;
+  width: 393px;
   height: auto;
   background-color: #f6f7f9;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   padding: 0px 25px 0px 25px;
+`;
+
+export const Container = styled.div`
+  width: 393px;
+  height: 453.5px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0px 25px;
+  /* ✅ 내용이 height를 넘어가면 스크롤 */
+  overflow-y: auto;
+
+  /* ✅ 스크롤바 투명하게 만들기 */
+  &::-webkit-scrollbar {
+    width: 0; /* 크기 0으로 설정 (투명) */
+    height: 0;
+  }
+
+  /* ✅ Firefox에서 스크롤 숨기기 */
+  scrollbar-width: none;
 `;
 
 export const Tab = styled.div`
@@ -38,10 +59,11 @@ export const Category = styled.div`
 export const Filter = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 393px;
   height: 60px;
   gap: 10px;
-
+  padding: 0px 25px;
+  box-sizing: border-box;
   .dropdown {
     position: relative;
   }
@@ -126,15 +148,18 @@ export const Filter = styled.div`
 
 export const Footer = styled.div`
   position: fixed;
+  left: 0;
   bottom: 0;
-  z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
+  z-index: 500; /* 다른 요소 위에 나타나도록 설정 */
   width: 393px;
-  height: 88px;
+  height: 90px;
   background: #fff;
   align-items: center;
   justify-content: center;
   display: flex;
   border: none; /* 테두리 제거 */
+  box-sizing: border-box;
+  padding: 0px 25px;
 
   .input {
     display: flex;

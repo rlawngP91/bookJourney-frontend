@@ -27,7 +27,7 @@ export default function PageRecord({ onClose, roomId }) {
 
     setLoading(true);
     try {
-      // ✅ postPageRecord API 호출
+      // ✅ postRecord API 호출
       const response = await postRecord(roomId, Number(page), text);
       console.log('✅ 기록 저장 성공:', response);
       alert('✅ 기록이 성공적으로 저장되었습니다.');
@@ -44,6 +44,7 @@ export default function PageRecord({ onClose, roomId }) {
       <Wrapper>
         <Box>
           <Container>
+            {/* 닫기 버튼 */}
             <div
               className="close"
               onClick={onClose}
@@ -51,7 +52,11 @@ export default function PageRecord({ onClose, roomId }) {
             >
               <img src={xbox} alt="닫기" />
             </div>
+
+            {/* 제목 */}
             <div className="title">어떤 페이지에 대한 기록인가요?</div>
+
+            {/* 페이지 입력 */}
             <div className="inputpage">
               <Page
                 type="text"
@@ -63,6 +68,8 @@ export default function PageRecord({ onClose, roomId }) {
               />
               <div className="p">p</div>
             </div>
+
+            {/* 기록 내용 입력 */}
             <Input
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -70,12 +77,15 @@ export default function PageRecord({ onClose, roomId }) {
               type="text"
               placeholder="기록을 입력하세요..."
             />
+
+            {/* 하단 버튼 및 글자수 표시 */}
             <div className="bottom">
               <div className="page">
                 <div className="now">{text.length}</div>
                 <div className="slash">/</div>
                 <div>1000</div>
               </div>
+
               <button
                 className="send"
                 onClick={handleRecordSubmit}

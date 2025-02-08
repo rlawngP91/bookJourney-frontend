@@ -6,15 +6,15 @@ import alreadygood from '../../assets/alreadygood.svg';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
 import styled from 'styled-components';
 import { postRecordLike } from '../../apis/postRecordLike';
-import Reply from '../../components/Reply/Reply'; // ✅ Reply 컴포넌트 추가
+import Reply from '../../components/Reply/Reply';
 
 export const Review = styled.div`
   width: 100%;
-  height: auto;
+  height: 116.31px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: #f6f7f9;
+  background-color: #fff;
   padding-bottom: 20px;
 
   .head {

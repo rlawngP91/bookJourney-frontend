@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  bottom: 0;
+  left: 0;
   position: fixed; /* 화면에 고정된 위치 */
   z-index: 2000; /* 다른 요소 위로 올림 */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
-  width: 100%;
-  height: 100%;
+
+  width: 393px;
+  height: 852px;
 `;
 
 export const Page = styled.input`
