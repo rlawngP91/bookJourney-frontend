@@ -313,15 +313,18 @@ export const DateButton = styled.button`
   background: #f3f4f6;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 12px 16px;
   cursor: pointer;
   text-align: center;
+  width: 112px;
+  height: 38px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14px;
 `;
 
 export const PopupOverlay = styled.div`
   width: 393px;
-  height: 800px;
-  background-color: rgba(175, 162, 162, 0.3);
+  height: 852px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,11 +335,11 @@ export const PopupContent = styled.div`
   top: 0;
   left: 0;
   width: 393px;
-  height: 600px;
-  background-color: rgba(0, 0, 0, 0.3);
+  height: 852px;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1100;
 `;
 /*
 export const Aa = styled.input`

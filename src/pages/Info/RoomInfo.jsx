@@ -7,6 +7,7 @@ import exit from '../../assets/exit.svg';
 import ButtonGroup from '../../components/InfoBody/ButtonGroup';
 import ButtonGroup2 from '../../components/InfoBody/ButtonGroup2';
 import TabGroup2 from '../../components/InfoBody/TapGroup2';
+import TabGroup1 from '../../components/InfoBody/TabGroup1';
 import InfoBody from '../../components/InfoBody/InfoBody';
 import { getRoomInfo } from '../../apis/getRoomInfo';
 
@@ -68,9 +69,17 @@ export default function RoomInfo() {
         </Header>
         <Body>
           <InfoBody roomData={roomData} />
-          {roomData?.member ? <ButtonGroup /> : <ButtonGroup2 />}{' '}
-          {/* 조건부 렌더링 */}
-          <TabGroup2 roomData={roomData} />
+          {roomData?.recruitCount === 1 && roomData?.member ? (
+            <>
+              <ButtonGroup />
+              <TabGroup1 roomData={roomData} />
+            </>
+          ) : (
+            <>
+              {roomData?.member ? <ButtonGroup /> : <ButtonGroup2 />}
+              <TabGroup2 roomData={roomData} />
+            </>
+          )}
         </Body>
       </Container>
       <Footer />

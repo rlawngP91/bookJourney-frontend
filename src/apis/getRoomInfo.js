@@ -46,7 +46,7 @@ export const getRoomInfo = async (roomId) => {
 
 export const getRoomInfo = async (roomId) => {
   const accessToken =
-    'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE3Mzg1NjIwMDcsImV4cCI6MTczODU2NTYwN30.jwDe5klrfF_30C_3uBz3X57rLv59TdbgM1KcS-7JSwo';
+    'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczOTA4Nzc4MCwiZXhwIjoxNzM5NjkyNTgwfQ.JIYHIBYGnKVhoRwTNUPI6ymx3GyXkoF-zTb1mnoAyjI';
 
   try {
     const response = await instance.get(`/rooms/${roomId}`, {

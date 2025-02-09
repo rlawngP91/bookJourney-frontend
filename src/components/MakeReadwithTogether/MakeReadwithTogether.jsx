@@ -10,7 +10,7 @@ import { createRoom } from '../../apis/room'; // 방 생성 API 호출
 import DatePicker from './DatePicker';
 
 const MakeReadwithTogether = forwardRef((props, ref) => {
-  const isbn = '9791141977726'; // ✅ 하드코딩된 ISBN 값
+  const isbn = '9791198860538'; // ✅ 하드코딩된 ISBN 값
 
   const today = new Date();
   const formattedToday = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;

@@ -5,10 +5,17 @@ const DatePickerContainer = styled.div`
   background: white;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 16px;
+  padding: 0px 16px;
   position: absolute;
   z-index: 10;
-  width: 300px;
+  width: 393px;
+  height: 555px;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
 `;
 
 const CalendarHeader = styled.div`
@@ -18,7 +25,7 @@ const CalendarHeader = styled.div`
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 16px;
+  padding-bottom: 45px;
 `;
 
 const CalendarGrid = styled.div`
@@ -69,16 +76,26 @@ const DateCell = styled.div.withConfig({
 `;
 
 const ConfirmButton = styled.button`
-  background: #4f8bff;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  width: 100%;
-  margin-top: 16px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
+  width: 351px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  border: 1px solid #cecbcb;
+  background: #6aa5f8;
+
+  margin-top: 76px;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 106.667% */
+  letter-spacing: 0.5px;
+
+  outline: none; /* 기본 포커스 스타일 제거 */
+  &:focus {
+    outline: none; /* 포커스 상태에서도 기본 포커스 스타일 제거 */
+  }
 `;
 
 const DatePicker = ({ onEndDateChange, onClose }) => {
