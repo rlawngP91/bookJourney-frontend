@@ -18,6 +18,8 @@ export default function TabGroup2({ roomData }) {
     setActiveTab(tab); // 클릭한 탭으로 상태 변경
   };
 
+  const safeRoomData = roomData || {};
+
   return (
     <Wrapper>
       <div className="category">
@@ -40,21 +42,21 @@ export default function TabGroup2({ roomData }) {
           <InfoContainer>
             <div className="line">
               <div className="first">출판사</div>
-              <div>{roomData.publisher}</div>
+              <div>{safeRoomData?.publisher || ''}</div>
             </div>
             <div className="line">
               <div className="first">출간일</div>
-              <div>{roomData.publishedDate}</div>
+              <div>{safeRoomData?.publishedDate || ''}</div>
             </div>
             <div className="line">
               <div className="first">ISBN</div>
-              <div>{roomData.isbn}</div>
+              <div>{safeRoomData?.isbn || ''}</div>
             </div>
           </InfoContainer>
           <div className="underbar" />
           <BookDetail>
             <div className="introduce">책 소개</div>
-            <div className="detail">{roomData.description}</div>
+            <div className="detail">{safeRoomData?.description || ''}</div>
           </BookDetail>
         </>
       ) : (
@@ -62,38 +64,38 @@ export default function TabGroup2({ roomData }) {
           <InfoContainer2>
             <div className="header">
               <img src={lock} />
-              <div>{roomData.roomName}</div>
+              <div>{safeRoomData?.roomName}</div>
               <div className="detail">
                 <div className="gap">
                   <img src={clock2} />
-                  <div>{roomData.recruitDday}</div>
+                  <div>{safeRoomData?.recruitDday}</div>
                 </div>
                 <div className="gap">
                   <img src={note} />
-                  <div>{roomData.roomPercentage}%</div>
+                  <div>{safeRoomData?.roomPercentage}%</div>
                 </div>
               </div>
             </div>
             <div className="duration">
               <div className="title">기간</div>
-              <div className="text">{roomData.progressStartDate}</div>
+              <div className="text">{safeRoomData?.progressStartDate}</div>
               <div className="text">~</div>
-              <div className="text">{roomData.progressEndDate}</div>
+              <div className="text">{safeRoomData?.progressEndDate}</div>
             </div>
             <div className="duration">
               <div className="title">모집 마감일</div>
-              <div className="text">{roomData.recruitDday}</div>
-              <div className="text">{roomData.recruitEndDate}</div>
+              <div className="text">{safeRoomData?.recruitDday}</div>
+              <div className="text">{safeRoomData?.recruitEndDate}</div>
             </div>
           </InfoContainer2>
           <div className="underbar" />
           <BookDetail>
             <div className="numcontainer">
-              <div className="now">{roomData.memberList.length}</div>
+              <div className="now">{safeRoomData?.memberList.length}</div>
               <div className="of">/</div>
-              <div className="total">{roomData.recruitCount}</div>
+              <div className="total">{safeRoomData?.recruitCount}</div>
             </div>
-            <MemberHeader memberList={roomData.memberList} />
+            <MemberHeader memberList={safeRoomData?.memberList} />
           </BookDetail>
         </>
       )}

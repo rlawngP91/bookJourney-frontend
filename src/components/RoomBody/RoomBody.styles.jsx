@@ -39,7 +39,7 @@ export const Tab = styled.div`
 `;
 
 export const Category = styled.div`
-  padding-top: 40px;
+  padding-top: 30px;
   margin: auto;
   height: 23px;
   width: 133px;

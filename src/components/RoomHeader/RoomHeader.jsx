@@ -88,7 +88,7 @@ export default function RoomHeader({ roomData }) {
       {/* 참가 유저 목록 (isExpanded가 true일 때만 표시) */}
       {isExpanded && (
         <UserList>
-          <MemberHeader memberList={roomData.memberList} />
+          <MemberHeader memberList={roomData.memberList} hideRole={true} />
         </UserList>
       )}
 

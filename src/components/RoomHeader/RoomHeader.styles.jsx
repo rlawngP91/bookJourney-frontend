@@ -78,7 +78,7 @@ export const Body = styled.div`
 `;
 
 export const UserList = styled.div`
-  padding-top: 30px;
+  padding-top: 25px;
 `;
 
 export const Popup = styled.div`

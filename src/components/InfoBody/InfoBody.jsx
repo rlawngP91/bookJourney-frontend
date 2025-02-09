@@ -50,7 +50,7 @@ export default function InfoBody({ roomData }) {
 
   // ✅ bookData가 없으면 로딩 메시지를 먼저 보여줌
   if (!roomData) {
-    return <div>📖 책 정보를 불러오는 중...</div>;
+    return;
   }
 
   return (
