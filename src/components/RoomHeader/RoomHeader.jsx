@@ -20,6 +20,7 @@ import MemberHeader from '../Member/MemberHeader';
 import usePopup from '../../hooks/usePopup';
 import RecordPopup from '../popup/recordPopup/RecordPopup';
 import { useNavigate } from 'react-router-dom';
+import { exitRoom } from '../../apis/deleteRoom';
 
 export default function RoomHeader({ roomData }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -30,11 +31,18 @@ export default function RoomHeader({ roomData }) {
     setIsExpanded(!isExpanded);
   };
 
-  // roomData가 아직 전달되지 않은 경우 로딩 상태 처리
-  if (!roomData) return <div>📖 방 정보를 불러오는 중...</div>;
-
   // usePopup 훅 사용
   const { popupType, openPopup, closePopup } = usePopup();
+
+  // ✅ "나가기" 버튼 클릭 핸들러 추가
+  const handleExitRoom = async () => {
+    try {
+      await exitRoom(roomData.roomId); // API 호출
+      navigate('/'); // 성공 시 홈으로 이동
+    } catch (error) {
+      console.error('❌ 방 나가기 오류:', error);
+    }
+  };
 
   return (
     <Wrapper>
@@ -112,15 +120,17 @@ export default function RoomHeader({ roomData }) {
           <div className="exit">
             <div className="title">방 나가기</div>
             <div className="message">
-              <div>
-                <p>{`남긴 기록이 모두 삭제됩니다.\n방을 나가시겠습니까?`}</p>
-              </div>
+              <p>
+                남긴 기록이 모두 삭제됩니다.
+                <br />
+                방을 나가시겠습니까?
+              </p>
             </div>
             <div className="buttons">
               <div className="cancel" onClick={() => closePopup(true)}>
                 취소
               </div>
-              <div className="delete" onClick={() => navigate('/')}>
+              <div className="delete" onClick={handleExitRoom}>
                 나가기
               </div>
             </div>

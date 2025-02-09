@@ -54,8 +54,8 @@ export default function ReadWith() {
   }, [roomData]); // ✅ roomData가 변경될 때만 실행
 
   // ✅ 로딩 및 에러 처리
-  if (loading) return <div>📖 데이터를 불러오는 중...</div>;
-  if (error) return <div style={{ color: 'red' }}>❌ {error}</div>;
+  if (loading) return;
+  if (error) return;
   return (
     <Wrapper>
       <RoomHeader roomData={roomData} />

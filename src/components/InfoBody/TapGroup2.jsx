@@ -14,10 +14,6 @@ import MemberHeader from '../Member/MemberHeader';
 export default function TabGroup2({ roomData }) {
   const [activeTab, setActiveTab] = useState('책정보'); // 현재 탭 상태 관리
 
-  if (!roomData) {
-    return <div>📖 방 정보를 불러오는 중...</div>;
-  }
-
   const handleTabClick = (tab) => {
     setActiveTab(tab); // 클릭한 탭으로 상태 변경
   };

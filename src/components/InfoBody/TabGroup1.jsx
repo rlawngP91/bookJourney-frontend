@@ -10,11 +10,6 @@ export default function TabGroup1({ bookData, roomData }) {
   const safeBookData = bookData || {}; // `null`이나 `undefined`이면 빈 객체 사용
   const safeRoomData = roomData || {};
 
-  // 둘 다 없으면 로딩 메시지 표시
-  if (!bookData && !roomData) {
-    return <div>📖 책 정보를 불러오는 중...</div>;
-  }
-
   return (
     <Wrapper>
       <Category>책 정보</Category>
