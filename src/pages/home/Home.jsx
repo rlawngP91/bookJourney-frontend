@@ -5,7 +5,7 @@ import StatusBar from '../../components/statusbar/StatusBar';
 import Title from '../../assets/title.svg';
 import Star from './star.svg';
 import Bell from './bell.svg';
-import Book from './book.svg';
+//import Book from './book.svg';
 import Gray from './gray.svg';
 import Blue from './blue.svg';
 import Footer from '../../components/commons/Footer/Footer';
@@ -27,12 +27,9 @@ const Home = () => {
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
-
-  // 토글 상태: 0, 1, 2 중 하나만 선택됨 (기본은 0)
-  const [selectedToggle, setSelectedToggle] = useState(0);
-
-  // 베스트셀러 리스트 (추후 API 호출로 받아올 예정)
-  const [bestSellerList, setBestSellerList] = useState([]);
+  const [nickName, setNickName] = useState(''); // 로그인된 유저 닉네임
+  const [bestSellerList, setBestSellerList] = useState([]); // 베스트셀러 리스트
+  const [selectedToggle, setSelectedToggle] = useState(0); // 토글 상태: 0, 1, 2 중 하나만 선택됨 (기본은 0)
 
   useEffect(() => {
     console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
@@ -48,23 +45,19 @@ const Home = () => {
       );
       window.location.href = '/login';
     }
-    //주석시작
+    //주석시작. 서버에서 닉네임과 베스트셀러 리스트 가져오기
     apiClient
-      .get('/user/profile') // 🔥 API 요청 실행
+      .get('/books/best-sellers')
       .then((response) => {
-        console.log('[DEBUG] 사용자 정보 가져오기 성공:', response.data);
+        console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
+        if (response.data.code === 200) {
+          setNickName(response.data.data.nickName); // 닉네임 저장
+          setBestSellerList(response.data.data.bestSellerList); // 베스트셀러 리스트 저장
+        }
       })
       .catch((error) => {
-        console.error('[ERROR] 사용자 정보 가져오기 실패:', error);
+        console.error('[ERROR] 베스트셀러 데이터 가져오기 실패:', error);
       });
-    //주석끝
-
-    // 임시로 베스트셀러 목록 설정 (추후 API 호출로 대체)
-    setBestSellerList([
-      { imageUrl: Book },
-      { imageUrl: DummyBook2 },
-      { imageUrl: Book }, // 기존에 사용하던 Book 이미지를 임시로 사용
-    ]);
   }, []);
 
   const handleRecordClick = () => {
@@ -144,7 +137,8 @@ const Home = () => {
         />
         <img className="bell" src={Bell} alt="벨 아이콘" />
         <span className="user-name">
-          닉네임 <span>님</span>
+          {nickName}
+          <span>님</span>
         </span>
         <span className="welcome">환영합니다!</span>
 

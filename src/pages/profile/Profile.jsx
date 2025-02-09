@@ -8,6 +8,7 @@ import ProfileImgPlaceholder from './profileImg.svg';
 import Plus from './plus.svg';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import { checkNicknameAvailability } from '../../apis/verification';
+import { uploadProfileImage } from '../../apis/profileApi';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Profile = () => {
 
   // 프로필 이미지 관련 state (미리보기 URL과 파일 객체)
   const [profileImg, setProfileImg] = useState(ProfileImgPlaceholder);
-  //<<<<api만들고 다시 const [profileFile, setProfileFile] = useState(null);
+  const [profileFile, setProfileFile] = useState(null);
 
   // file input DOM 접근을 위한 ref 생성
   const fileInputRef = useRef(null);
@@ -47,10 +48,23 @@ const Profile = () => {
     }
   };
 
-  const handleNextButtonClick = () => {
-    // [TODO] 백엔드에 프로필 이미지 파일(profileFile) 업로드를 위한 처리 추가하기
-    sessionStorage.setItem('nickname', nickname); // 세션에 닉네임 저장
-    navigate('/category'); // "/category"로 이동
+  const handleNextButtonClick = async () => {
+    try {
+      let uploadedImageUrl = '';
+
+      if (profileFile) {
+        console.log('[DEBUG] 프로필 이미지 업로드 시작...');
+        uploadedImageUrl = await uploadProfileImage(profileFile); // 프로필 이미지 업로드 요청
+        console.log('[DEBUG] 업로드된 프로필 이미지 URL:', uploadedImageUrl);
+      }
+
+      sessionStorage.setItem('nickname', nickname); // 닉네임 저장
+      sessionStorage.setItem('profileImage', uploadedImageUrl); // 프로필 이미지 URL 저장
+      navigate('/category'); // ✅ "/category"로 이동
+    } catch (error) {
+      console.error('[ERROR] 프로필 업로드 또는 세션 저장 실패:', error);
+      alert(error.message); // 실패 시 사용자에게 알림
+    }
   };
 
   const handlerBackBtnClick = () => {
@@ -68,7 +82,7 @@ const Profile = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      //<<<< api만들고 다시 setProfileFile(file);
+      setProfileFile(file);
       // 브라우저에서 제공하는 URL.createObjectURL로 미리보기 URL 생성
       const previewUrl = URL.createObjectURL(file);
       setProfileImg(previewUrl);
