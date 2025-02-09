@@ -4,20 +4,18 @@ import star from '../../assets/star.svg';
 import filledstar from '../../assets/filledstar.svg';
 import { addFavorite, deleteFavorite } from '../../apis/favorite';
 
-export default function InfoBody({ bookData }) {
+export default function InfoBody({ roomData }) {
   const [isFavorite, setIsFavorite] = useState(false); // ✅ 초기값 false로 설정
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState('');
 
-  // ✅ 부모 컴포넌트에서 받은 bookData.favorite 값이 변경될 때 isFavorite 업데이트
   useEffect(() => {
-    if (bookData) {
-      setIsFavorite(bookData.favorite);
+    if (roomData) {
+      setIsFavorite(roomData.favorite);
     }
-  }, [bookData]); // ✅ bookData가 변경될 때마다 실행
-
+  }, [roomData]);
   const handleStarClick = async () => {
-    if (!bookData || !bookData.isbn) {
+    if (!roomData || !roomData.isbn) {
       setError('ISBN 정보가 없습니다.');
       return;
     }
@@ -26,7 +24,7 @@ export default function InfoBody({ bookData }) {
       setShowPopup(true); // 즐겨찾기 삭제 확인 팝업 열기
     } else {
       try {
-        await addFavorite(bookData.isbn);
+        await addFavorite(roomData.isbn);
         setIsFavorite(true); // ✅ 즐겨찾기 추가 후 상태 업데이트
       } catch (err) {
         setError(err.message);
@@ -35,14 +33,14 @@ export default function InfoBody({ bookData }) {
   };
 
   const handleDelete = async () => {
-    if (!bookData || !bookData.isbn) {
+    if (!roomData || !roomData.isbn) {
       setError('ISBN 정보가 없습니다.');
       return;
     }
 
     try {
-      const favoriteIds = [bookData.favoriteId]; // 삭제할 favoriteId 배열
-      await deleteFavorite(bookData.isbn, favoriteIds);
+      const favoriteIds = [roomData.favoriteId]; // 삭제할 favoriteId 배열
+      await deleteFavorite(roomData.isbn, favoriteIds);
       setIsFavorite(false); // ✅ 삭제 후 즐겨찾기 상태 업데이트
       setShowPopup(false);
     } catch (err) {
@@ -50,7 +48,8 @@ export default function InfoBody({ bookData }) {
     }
   };
 
-  if (!bookData) {
+  // ✅ bookData가 없으면 로딩 메시지를 먼저 보여줌
+  if (!roomData) {
     return <div>📖 책 정보를 불러오는 중...</div>;
   }
 
@@ -58,14 +57,14 @@ export default function InfoBody({ bookData }) {
     <Container>
       <Wrapper>
         <div className="title">
-          <div className="bookname">{bookData.bookTitle}</div>
+          <div className="bookname">{roomData?.bookTitle || '제목 없음'}</div>
           <img
             src={isFavorite ? filledstar : star}
             onClick={handleStarClick}
             alt="즐겨찾기 버튼"
           />
         </div>
-        <div className="writer">{bookData.authorName}</div>
+        <div className="writer">{roomData?.authorName || '작가 정보 없음'}</div>
       </Wrapper>
 
       {showPopup && (

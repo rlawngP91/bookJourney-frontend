@@ -14,6 +14,10 @@ import MemberHeader from '../Member/MemberHeader';
 export default function TabGroup2({ roomData }) {
   const [activeTab, setActiveTab] = useState('책정보'); // 현재 탭 상태 관리
 
+  if (!roomData) {
+    return <div>📖 방 정보를 불러오는 중...</div>;
+  }
+
   const handleTabClick = (tab) => {
     setActiveTab(tab); // 클릭한 탭으로 상태 변경
   };
@@ -40,21 +44,21 @@ export default function TabGroup2({ roomData }) {
           <InfoContainer>
             <div className="line">
               <div className="first">출판사</div>
-              <div>roomData.publisher</div>
+              <div>{roomData.publisher}</div>
             </div>
             <div className="line">
               <div className="first">출간일</div>
-              <div>roomData.publishedDate</div>
+              <div>{roomData.publishedDate}</div>
             </div>
             <div className="line">
               <div className="first">ISBN</div>
-              <div>roomData.isbn</div>
+              <div>{roomData.isbn}</div>
             </div>
           </InfoContainer>
           <div className="underbar" />
           <BookDetail>
             <div className="introduce">책 소개</div>
-            <div className="detail">roomData.description</div>
+            <div className="detail">{roomData.description}</div>
           </BookDetail>
         </>
       ) : (

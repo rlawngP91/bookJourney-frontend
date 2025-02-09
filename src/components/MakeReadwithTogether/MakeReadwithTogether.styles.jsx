@@ -308,6 +308,36 @@ export const Button = styled.button`
     background: #e6f0ff;
   }
 `;
+
+export const DateButton = styled.button`
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  text-align: center;
+`;
+
+export const PopupOverlay = styled.div`
+  width: 393px;
+  height: 800px;
+  background-color: rgba(175, 162, 162, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PopupContent = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 393px;
+  height: 600px;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 /*
 export const Aa = styled.input`
   border: none;
