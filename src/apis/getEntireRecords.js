@@ -1,8 +1,5 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
-
 export const getEntireRecords = async (
   roomId,
   sortingType = '최신 등록 순'
@@ -13,10 +10,6 @@ export const getEntireRecords = async (
 
   try {
     const response = await instance.get(`/records/${roomId}/entire`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
       params: {
         sortingType: sortingType,
       },

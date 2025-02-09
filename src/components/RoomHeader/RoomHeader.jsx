@@ -6,6 +6,7 @@ import {
   Duration,
   UserList,
   Popup,
+  Popup2,
 } from './RoomHeader.styles';
 import xbox from '../../assets/xbox.svg';
 import pen from '../../assets/pen.svg';
@@ -107,12 +108,13 @@ export default function RoomHeader({ roomData }) {
       )}
 
       {popupType === 'exit' && (
-        <Popup>
+        <Popup2>
           <div className="exit">
             <div className="title">방 나가기</div>
             <div className="message">
-              <div>남긴 기록이 모두 삭제됩니다.</div>
-              <div>방을 나가시겠습니까?</div>
+              <div>
+                <p>{`남긴 기록이 모두 삭제됩니다.\n방을 나가시겠습니까?`}</p>
+              </div>
             </div>
             <div className="buttons">
               <div className="cancel" onClick={() => closePopup(true)}>
@@ -123,7 +125,7 @@ export default function RoomHeader({ roomData }) {
               </div>
             </div>
           </div>
-        </Popup>
+        </Popup2>
       )}
     </Wrapper>
   );

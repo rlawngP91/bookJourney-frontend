@@ -1,7 +1,7 @@
 import instance from './instance';
 
 const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
+  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczOTA4Nzc4MCwiZXhwIjoxNzM5NjkyNTgwfQ.JIYHIBYGnKVhoRwTNUPI6ymx3GyXkoF-zTb1mnoAyjI';
 
 export const postRecord = async (roomId, recordPage, content, recordTitle) => {
   if (!roomId) {

@@ -1,8 +1,5 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODg1MzMxMSwiZXhwIjoxNzM5NDU4MTExfQ.-_RKG4l1VjnNU-L1gjzBe-zcjlCLq7YK1A4IXpG2ocU';
-
 export const getPageRecords = async (
   roomId,
   sortingType = '페이지순',
@@ -15,10 +12,6 @@ export const getPageRecords = async (
 
   try {
     const response = await instance.get(`/records/${roomId}/page`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
       params: {
         sortingType: sortingType,
         ...(pageStart !== undefined && { pageStart }),

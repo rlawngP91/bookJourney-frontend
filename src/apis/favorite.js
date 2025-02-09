@@ -1,8 +1,5 @@
 import instance from './instance'; // Axios 인스턴스 가져오기
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEwLCJpYXQiOjE3Mzg1NjIwMDcsImV4cCI6MTczODU2NTYwN30.jwDe5klrfF_30C_3uBz3X57rLv59TdbgM1KcS-7JSwo';
-
 // ✅ 즐겨찾기 추가 (POST)
 export const addFavorite = async (isbn) => {
   if (!isbn) {
@@ -10,13 +7,7 @@ export const addFavorite = async (isbn) => {
   }
 
   try {
-    const response = await instance.post(
-      `/favorites/${isbn}`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    const response = await instance.post(`/favorites/${isbn}`, {});
 
     console.log(`✅ 즐겨찾기 추가 성공: ${JSON.stringify(response.data)}`);
     return response.data.data.favorite; // 서버 응답에서 favorite 상태 반환
@@ -66,10 +57,6 @@ export const deleteFavorite = async (isbn, favoriteIds) => {
     const response = await instance.delete(`/favorites/${isbn}`, {
       data: {
         favoriteIds, // 요청 바디에 삭제할 favoriteId 목록 포함
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
       },
     });
 

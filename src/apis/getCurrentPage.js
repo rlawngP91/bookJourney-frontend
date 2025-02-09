@@ -1,20 +1,12 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
-
 export const getCurrentPage = async (roomId) => {
   if (!roomId) {
     throw new Error('❌ roomId가 필요합니다.');
   }
 
   try {
-    const response = await instance.get(`/rooms/${roomId}/pages`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await instance.get(`/rooms/${roomId}/pages`);
 
     if (response.data.code === 200) {
       return response.data.data;

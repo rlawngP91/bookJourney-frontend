@@ -1,16 +1,8 @@
 import instance from './instance'; // Axios 인스턴스 가져오기
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczOTA4Nzc4MCwiZXhwIjoxNzM5NjkyNTgwfQ.JIYHIBYGnKVhoRwTNUPI6ymx3GyXkoF-zTb1mnoAyjI';
-
 export const getReplys = async (recordId) => {
   try {
-    const response = await instance.get(`/comments/${recordId}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await instance.get(`/comments/${recordId}`);
 
     return response.data.data;
   } catch (error) {

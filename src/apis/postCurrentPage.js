@@ -1,8 +1,5 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
-
 export const postCurrentPage = async (roomId, currentPage) => {
   if (!roomId) {
     throw new Error('❌ roomId가 필요합니다.');
@@ -15,13 +12,7 @@ export const postCurrentPage = async (roomId, currentPage) => {
   try {
     const response = await instance.post(
       `/records/${roomId}/pages?currentPage=${currentPage}`,
-      {},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      {}
     );
 
     if (response.data.code === 200) {

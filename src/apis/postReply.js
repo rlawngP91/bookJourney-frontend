@@ -1,8 +1,5 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
-
 /**
  * 댓글 작성 API
  * POST /comments
@@ -17,16 +14,7 @@ export const postReply = async (recordId, content) => {
   }
 
   try {
-    const response = await instance.post(
-      `/comments/${recordId}`,
-      { content },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`, // ✅ 헤더에 유저 토큰 추가
-        },
-      }
-    );
+    const response = await instance.post(`/comments/${recordId}`, { content });
 
     if (response.data.code === 200) {
       console.log('✅ 댓글 작성 성공:', response.data);

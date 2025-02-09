@@ -1,8 +1,5 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
-
 /**
  * 댓글 좋아요 API
  * POST /comments/{commentId}/likes
@@ -14,12 +11,7 @@ export const postReplyLike = async (commentId) => {
   if (!commentId) throw new Error('❌ commentId가 필요합니다.');
 
   try {
-    const response = await instance.post(`/comments/${commentId}/likes`, null, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await instance.post(`/comments/${commentId}/likes`);
     return response.data.data.liked; // true 또는 false 반환
   } catch (error) {
     console.error('❌ 좋아요 요청 실패:', error);

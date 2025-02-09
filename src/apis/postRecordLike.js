@@ -1,8 +1,5 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczODkxOTQwNCwiZXhwIjoxNzM5NTI0MjA0fQ.MxRvVeY3ChrPulDS1uSYDH78fSTT2HafXuD5sWp1kN8';
-
 export const postRecordLike = async (recordId) => {
   if (!recordId) {
     throw new Error('❌ recordId가 필요합니다.');
@@ -11,12 +8,7 @@ export const postRecordLike = async (recordId) => {
   try {
     console.log(`📌 좋아요 요청: POST /records/${recordId}/likes`);
 
-    const response = await instance.post(`/records/${recordId}/likes`, null, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await instance.post(`/records/${recordId}/likes`);
 
     console.log('✅ 좋아요 응답:', response.data);
 

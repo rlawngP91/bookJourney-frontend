@@ -1,16 +1,8 @@
 import instance from './instance'; // axios 인스턴스 경로 설정
 
 export const createRoom = async (roomData) => {
-  const accessToken =
-    'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczOTA4Nzc4MCwiZXhwIjoxNzM5NjkyNTgwfQ.JIYHIBYGnKVhoRwTNUPI6ymx3GyXkoF-zTb1mnoAyjI';
-
   try {
-    const response = await instance.post('/rooms', roomData, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await instance.post('/rooms', roomData);
 
     console.log('✅ 방 생성 성공:', response.data);
     return response.data.data; // roomId 반환
