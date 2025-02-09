@@ -81,7 +81,7 @@ const MakeReadwithTogether = forwardRef((props, ref) => {
       recruitCount: participants ? parseInt(participants, 10) : null,
       password: selected === '비공개' && password ? password : null,
       isbn,
-      isPublic: selected === '공개',
+      public: selected === '공개',
     };
 
     try {

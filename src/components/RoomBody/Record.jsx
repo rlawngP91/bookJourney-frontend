@@ -115,7 +115,7 @@ export default function Record({ record }) {
         </div>
         <div className="body">
           <div className="page">
-            {record.recordPage ? `${record.recordPage}p` : ''}
+            {record.recordPage ? `${record.recordPage}p` : record.recordTitle}
           </div>
           <div className="content">{record.content}</div>
         </div>

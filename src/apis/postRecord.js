@@ -1,8 +1,5 @@
 import instance from './instance';
 
-const accessToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczOTA4Nzc4MCwiZXhwIjoxNzM5NjkyNTgwfQ.JIYHIBYGnKVhoRwTNUPI6ymx3GyXkoF-zTb1mnoAyjI';
-
 export const postRecord = async (roomId, recordPage, content, recordTitle) => {
   if (!roomId) {
     throw new Error('❌ roomId가 필요합니다.');
@@ -32,12 +29,7 @@ export const postRecord = async (roomId, recordPage, content, recordTitle) => {
   }
 
   try {
-    const response = await instance.post(`/records/${roomId}`, requestData, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await instance.post(`/records/${roomId}`, requestData, {});
 
     if (response.data.code === 200) {
       console.log('✅ 기록 저장 성공:', response.data);

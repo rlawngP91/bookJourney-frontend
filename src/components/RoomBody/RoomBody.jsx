@@ -231,9 +231,9 @@ export default function RoomBody({ roomData }) {
 
       <Container>
         {loading ? (
-          <div>📖 기록을 불러오는 중...</div>
+          <></>
         ) : error ? (
-          <div style={{ color: 'red' }}>❌ {error}</div>
+          <></>
         ) : records.length === 0 ? (
           <div>📭 기록이 없습니다.</div>
         ) : (

@@ -70,7 +70,7 @@ export default function RoomHeader({ roomData }) {
       </Header>
       <Title>
         <div>{roomData.bookTitle}</div>
-        {!roomData.isPublic && <img src={lock} alt="Lock" />}
+        {!roomData.public && <img src={lock} alt="Lock" />}
       </Title>
       <div className="roomname">{roomData.roomName}</div>
       <Duration>
@@ -105,7 +105,15 @@ export default function RoomHeader({ roomData }) {
               <div className="cancel" onClick={() => navigate('/')}>
                 나가기
               </div>
-              <div className="delete">입력하기</div>
+              <div
+                className="delete"
+                onClick={() => {
+                  closePopup(); // 기존 팝업 닫기
+                  openPopup('pen'); // 새 팝업 열기
+                }}
+              >
+                입력하기
+              </div>
             </div>
           </div>
         </Popup>

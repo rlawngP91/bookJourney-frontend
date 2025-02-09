@@ -22,7 +22,7 @@ export default function MakeReadwith() {
 
       if (selected === '혼자') {
         const roomData = {
-          isPublic: false,
+          public: false,
           roomName: null,
           progressStartDate: null,
           progressEndDate: null,
