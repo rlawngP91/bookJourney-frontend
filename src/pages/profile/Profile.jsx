@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Profile.styles';
-import StatusBar from '../../components/statusbar/StatusBar';
 import ValidTestInput from '../signup/ValidTestInput';
 import Title from '../../assets/title.svg';
 import ProfileImgPlaceholder from './profileImg.svg';
@@ -52,15 +51,19 @@ const Profile = () => {
     try {
       let uploadedImageUrl = '';
 
-      if (profileFile) {
-        console.log('[DEBUG] 프로필 이미지 업로드 시작...');
-        uploadedImageUrl = await uploadProfileImage(profileFile); // 프로필 이미지 업로드 요청
-        console.log('[DEBUG] 업로드된 프로필 이미지 URL:', uploadedImageUrl);
+      if (!profileFile) {
+        console.error('[ERROR] 업로드할 프로필 이미지가 없습니다!');
+        alert('업로드할 프로필 이미지를 선택해주세요.');
+        return;
       }
+
+      console.log('[DEBUG] 프로필 이미지 업로드 시작...');
+      uploadedImageUrl = await uploadProfileImage(profileFile); // 프로필 이미지 업로드 요청
+      console.log('[DEBUG] 업로드된 프로필 이미지 URL:', uploadedImageUrl);
 
       sessionStorage.setItem('nickname', nickname); // 닉네임 저장
       sessionStorage.setItem('profileImage', uploadedImageUrl); // 프로필 이미지 URL 저장
-      navigate('/category'); // ✅ "/category"로 이동
+      navigate('/category'); // "/category"로 이동
     } catch (error) {
       console.error('[ERROR] 프로필 업로드 또는 세션 저장 실패:', error);
       alert(error.message); // 실패 시 사용자에게 알림
@@ -81,17 +84,22 @@ const Profile = () => {
   // 파일이 선택되었을 때 미리보기 URL 생성 및 state 업데이트
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setProfileFile(file);
-      // 브라우저에서 제공하는 URL.createObjectURL로 미리보기 URL 생성
-      const previewUrl = URL.createObjectURL(file);
-      setProfileImg(previewUrl);
+
+    if (!file) {
+      console.error('[ERROR] 선택된 파일이 없습니다!');
+      return;
     }
+
+    console.log(`[DEBUG] 선택된 파일:`, file);
+    setProfileFile(file);
+    // 브라우저에서 제공하는 URL.createObjectURL로 미리보기 URL 생성
+    const previewUrl = URL.createObjectURL(file);
+    setProfileImg(previewUrl);
+    console.log(`previewUrl =  ${previewUrl}`);
   };
 
   return (
     <Container>
-      <StatusBar />
       <img className="title" src={Title} alt="타이틀" />
       {/* 프로필 이미지 (미리보기) */}
       <img className="profileImg" src={profileImg} alt="프로필" />
