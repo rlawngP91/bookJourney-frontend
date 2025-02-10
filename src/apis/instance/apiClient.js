@@ -4,9 +4,6 @@ import { reissueAccessToken } from '../authApi'; // AccessToken 재발급 함수
 
 const apiClient = instance; // 기존 instance.js를 사용
 
-//const accessToken =
-//  'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQsImlhdCI6MTczODU1MDgwOCwiZXhwIjoxNzM4NTU0NDA4fQ.1zPjVYpRywLtNUSjm06p-wDvwkovOC1VEbu_qsJ96kE';
-
 export const setAccessToken = (token) => {
   localStorage.setItem('accessToken', token); // 토큰을 localStorage에도 저장
 };

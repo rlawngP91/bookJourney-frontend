@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Profile.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
 import ValidTestInput from '../signup/ValidTestInput';
 import Title from '../../assets/title.svg';
-import ProfileImg from './profileImg.svg';
+import ProfileImgPlaceholder from './profileImg.svg';
 import Plus from './plus.svg';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import { checkNicknameAvailability } from '../../apis/verification';
+import { uploadProfileImage } from '../../apis/profileApi';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -16,6 +17,13 @@ const Profile = () => {
   const [nicknameMessage, setNicknameMessage] = useState('');
   const [isNicknameValid, setIsNicknameValid] = useState(false);
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+
+  // 프로필 이미지 관련 state (미리보기 URL과 파일 객체)
+  const [profileImg, setProfileImg] = useState(ProfileImgPlaceholder);
+  const [profileFile, setProfileFile] = useState(null);
+
+  // file input DOM 접근을 위한 ref 생성
+  const fileInputRef = useRef(null);
 
   // 닉네임 중복 확인 함수
   const handleNicknameCheck = async () => {
@@ -40,27 +48,63 @@ const Profile = () => {
     }
   };
 
-  const handleNextButtonClick = () => {
-    sessionStorage.setItem('nickname', nickname); // 세션에 닉네임 저장
-    navigate('/category'); // "/category"로 이동
+  const handleNextButtonClick = async () => {
+    try {
+      let uploadedImageUrl = '';
+
+      if (profileFile) {
+        console.log('[DEBUG] 프로필 이미지 업로드 시작...');
+        uploadedImageUrl = await uploadProfileImage(profileFile); // 프로필 이미지 업로드 요청
+        console.log('[DEBUG] 업로드된 프로필 이미지 URL:', uploadedImageUrl);
+      }
+
+      sessionStorage.setItem('nickname', nickname); // 닉네임 저장
+      sessionStorage.setItem('profileImage', uploadedImageUrl); // 프로필 이미지 URL 저장
+      navigate('/category'); // ✅ "/category"로 이동
+    } catch (error) {
+      console.error('[ERROR] 프로필 업로드 또는 세션 저장 실패:', error);
+      alert(error.message); // 실패 시 사용자에게 알림
+    }
   };
 
   const handlerBackBtnClick = () => {
     navigate('/signup');
   };
 
+  // plus 버튼 클릭 시 파일 입력창 열기
+  const handlePlusBtnClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  // 파일이 선택되었을 때 미리보기 URL 생성 및 state 업데이트
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileFile(file);
+      // 브라우저에서 제공하는 URL.createObjectURL로 미리보기 URL 생성
+      const previewUrl = URL.createObjectURL(file);
+      setProfileImg(previewUrl);
+    }
+  };
+
   return (
     <Container>
       <StatusBar />
       <img className="title" src={Title} alt="타이틀" />
-      <img className="profileImg" src={ProfileImg} alt="프사" />
-      <div className="plus-btn">
-        <img
-          className="plus-icon"
-          src={Plus}
-          alt="플러스"
-          onClick={() => console.log('프로필 추가버튼 클릭!')}
-        />
+      {/* 프로필 이미지 (미리보기) */}
+      <img className="profileImg" src={profileImg} alt="프로필" />
+      {/* 파일 선택을 위한 hidden input */}
+      <input
+        type="file"
+        accept="image/*"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleFileChange}
+      />
+      <div className="plus-btn" onClick={handlePlusBtnClick}>
+        <img className="plus-icon" src={Plus} alt="플러스" />
       </div>
       <ValidTestInput
         labelText="닉네임"

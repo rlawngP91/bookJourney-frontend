@@ -20,6 +20,9 @@ const genres = [
   '교육 및 학습',
   '여행 및 취미',
   '만화',
+  '교육 및 학습',
+  '여행 및 취미',
+  '만화',
 ];
 
 const Category = () => {
@@ -95,7 +98,7 @@ const Category = () => {
       </div>
       <BlueBtn
         text="선택완료"
-        //disabled={selectedCount !== 3} // 3개 선택 시만 활성화
+        disabled={selectedCount !== 3} // 3개 선택 시만 활성화
         className="start-btn"
         onClick={handleBtnClick}
       />
