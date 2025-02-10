@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Category.styles';
-import StatusBar from '../../components/statusbar/StatusBar';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import Title from '../../assets/title.svg';
 import Item from './Item';
 import X from './x.svg';
 
 const genres = [
-  '문학',
-  '인문학',
+  '소설/시/희곡',
   '사회과학',
-  '자기계발',
-  '비즈니스 및 경제',
-  '과학 및 기술',
-  '예술 및 디자인',
-  '실용 / 생활',
-  '건강 및 웰니스',
-  '교육 및 학습',
-  '여행 및 취미',
+  '경제경영',
+  '역사',
+  '예술/대중문화',
+  '종교/역학',
+  '인문학',
+  '에세이',
+  '좋은부모',
   '만화',
+  '자기계발',
+  '건강/취미',
+  '과학',
+  '청소년',
+  '어린이',
+  '유아',
 ];
 
 const Category = () => {
@@ -34,6 +37,13 @@ const Category = () => {
   const selectedCount = selectedStates.filter((state) => state).length;
   //const canSelectMore = selectedCount < 3;
   const handleBtnClick = () => {
+    const selectedGenres = genres
+      .filter((_, index) => selectedStates[index])
+      .map((genre) => ({ genreName: genre.trim() })); // JSON 형식 변환
+
+    sessionStorage.setItem('favoriteGenres', JSON.stringify(selectedGenres)); // 세션 스토리지 저장
+    console.log('[DEBUG] 저장된 favoriteGenres:', selectedGenres);
+
     navigate('/onboarding');
   };
 
@@ -67,7 +77,6 @@ const Category = () => {
 
   return (
     <Container>
-      <StatusBar />
       {popupVisible && <div className="overlay"></div>}
 
       {popupVisible && ( // popup1Visible 상태에 따라 조건부 렌더링 추가
@@ -95,7 +104,7 @@ const Category = () => {
       </div>
       <BlueBtn
         text="선택완료"
-        //disabled={selectedCount !== 3} // 3개 선택 시만 활성화
+        disabled={selectedCount !== 3} // 3개 선택 시만 활성화
         className="start-btn"
         onClick={handleBtnClick}
       />

@@ -27,7 +27,7 @@ export const Button = styled.button`
 export default function ButtonGroup() {
   return (
     <ButtonGroupWrapper>
-      <Button>기록하러 가기or방 생성하기</Button>
+      <Button>기록하기</Button>
     </ButtonGroupWrapper>
   );
 }

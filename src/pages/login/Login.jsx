@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LoginContainer, ButtonContainer } from './Login.styles';
 import UserInputField from '../../components/userInputField/UserInputField';
 import StatusBar from '../../components/statusbar/StatusBar';
@@ -10,6 +11,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -93,7 +96,15 @@ const Login = () => {
 
       <button className="find-password">비밀번호를 잊으셨나요?</button>
       <div className="question">
-        계정이 없으신가요? <span className="sign-up">회원가입</span>
+        계정이 없으신가요?{' '}
+        <span
+          className="sign-up"
+          onClick={() => {
+            navigate('/signup');
+          }}
+        >
+          회원가입
+        </span>
       </div>
       <div className="agree">
         가입시 <span>이용약관</span> 및 <span>개인정보 처리방침</span>에

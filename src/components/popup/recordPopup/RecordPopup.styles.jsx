@@ -1,104 +1,143 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 393px;
-  height: 855px;
-  background: rgba(0, 0, 0, 0.42);
+  position: fixed; /* 화면에 고정된 위치 */
+  top: 50%; /* 화면의 중앙 */
+  left: 50%; /* 화면의 중앙 */
+  transform: translate(-50%, -50%); /* 완벽한 중앙 정렬 */
+  z-index: 2000; /* 다른 요소 위로 올림 */
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.42);
+  width: 100%;
+  height: 100%;
+`;
+
+export const Box = styled.div`
+  display: flex;
+  height: 350px;
+  width: 350px;
+  background-color: #fff;
+  flex-direction: column;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const Container = styled.div`
-  width: 268px;
-  height: 248px;
-  background-color: white;
-  border-radius: 10px;
-  //box-shadow: 3px 3px 10px #a3a3a3;
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
 
   .title {
-    position: absolute;
-    top: 37px;
-    left: auto;
+    text-align: center;
+
+    padding-top: 55px;
     color: #000;
     font-family: Pretendard;
-    font-size: 13px;
+    font-size: 15px;
     font-style: normal;
-    font-weight: 600;
-    line-height: 140%; /* 18.2px */
+    font-weight: 700;
+    line-height: 140%; /* 19.6px */
   }
 
-  .box {
+  .label {
+    padding-top: 25px;
+    color: #000;
+    font-family: Pretendard;
+    font-size: var(--sds-typography-body-size-small);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 19.6px */
+  }
+
+  .page {
+    padding-top: 40px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 
-    position: absolute;
-    top: 71px;
-    left: auto;
-
-    .label {
-      margin-bottom: 40px;
+    .slash {
       color: #000;
       text-align: center;
       font-family: Pretendard;
-      font-size: 12px;
+      font-size: 17.53px;
       font-style: normal;
-      font-weight: var(--sds-typography-body-font-weight-regular);
-      line-height: 140%; /* 16.8px */
+      font-weight: 400;
+      line-height: 140%; /* 24.542px */
+      gap: 8px;
     }
 
-    .page {
-      display: flex;
-      flex-direction: row;
-      gap: 22px;
-      align-items: center;
-      justify-content: center;
+    .last {
+      color: #000;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 17.53px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%; /* 24.542px */
+      gap: 12px;
+    }
 
-      .nowpage {
-        color: #a3a3a3;
-        font-family: Pretendard;
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 140%; /* 21px */
-      }
+    .totalpage {
+      width: 60.682px;
+      height: 48.545px;
+      line-height: 46px;
+      text-align: center;
+    }
 
-      .slash {
-        color: #000;
-        text-align: center;
-        font-family: Inter;
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 20px; /* 62.5% */
-      }
-
-      .totalpage {
-        color: #000;
-        font-family: Pretendard;
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 140%; /* 21px */
-      }
+    .p {
     }
   }
 
-  img {
-    position: absolute;
-    right: 15px;
-    top: 15px;
+  .last {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    color: #a3a3a3;
+    font-family: Pretendard;
+    font-size: 14.534px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 19.378px; /* 133.333% */
+    letter-spacing: 0.484px;
   }
+`;
+
+export const Input = styled.input`
+  width: 60.682px;
+  height: 48.545px;
+  flex-shrink: 0;
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 17.53px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 24.542px */
+  border-radius: 8px;
+  background-color: #eae7e7;
+  border: none; /* ✅ 테두리 없애기 */
+  outline: none; /* ✅ 클릭(포커스) 시 테두리 없애기 */
+  box-shadow: none; /* ✅ 그림자 제거 (일부 브라우저 기본 스타일) */
+`;
+
+export const Button = styled.button`
+  width: 250px;
+  height: 30px;
+  border-radius: 9px;
+  border: 1px solid #cecbcb;
+  background: #6aa5f8;
+  /* 기본 스타일 제거 */
+  border: none; /* 테두리 제거 */
+  outline: none; /* 포커스 시 나오는 아웃라인 제거 */
+
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 106.667% */
+  letter-spacing: 0.5px;
 `;

@@ -30,7 +30,7 @@ const Router = () => {
       element: <Main />,
     },
     {
-      path: '/makeReadwith',
+      path: '/rooms',
       element: <MakeReadwith />,
     },
     {
@@ -82,7 +82,7 @@ const Router = () => {
       element: <ReadingLog />,
     },
     {
-      path: '/readWith',
+      path: '/rooms/:roomId/info',
       element: <ReadWith />,
     },
     {

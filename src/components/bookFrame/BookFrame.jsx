@@ -5,44 +5,57 @@ import Clock from './clock.svg';
 import Note from './note.svg';
 import Dots from './dots.svg';
 const BookFrame = ({
-  imageSrc,
+  imageUrl,
   bookTitle,
   readType,
-  writer,
-  hour,
-  percentage,
+  authorName,
+  modifiedAt,
+  userPercentage,
   onDotsClick,
 }) => {
   // 전달된 props 값 확인
   //console.log('readType:', readType); // "같이" 또는 "혼자"가 출력되는지 확인
 
+  const displayReadType =
+    readType === '같이읽기'
+      ? '같이'
+      : readType === '혼자읽기'
+        ? '혼자'
+        : readType;
+
   return (
     <Container>
-      <img src={imageSrc} alt="책1" />
+      <img src={imageUrl} alt="책1" />
       <div className="title-container">
         <span className="bookTitle">{bookTitle}</span>
         <div
           className="read-type"
           style={{
-            backgroundColor: readType === '같이' ? '#6AA5F8' : '#A3C7FA',
+            backgroundColor: readType === '같이읽기' ? '#6AA5F8' : '#A3C7FA',
           }}
         >
-          {readType}
+          {displayReadType}
         </div>
       </div>
-      <p className="writer-space">{writer} 저</p>
+      <p className="writer-space">{authorName} 저</p>
       <div className="separate-line"></div>
       <div className="bottom">
         <img className="clock" src={Clock} alt="시계" />
-        <span className="hour">{hour}시간 전</span>
+        <span className="hour">{modifiedAt}</span>
         <img className="note" src={Note} alt="노트" />
-        <span className="percentage">{percentage}%</span>
+        <span className="percentage">{userPercentage}%</span>
         <img
           className="dots"
           src={Dots}
           alt="점3개"
           onClick={() =>
-            onDotsClick({ bookTitle, readType, writer, hour, percentage })
+            onDotsClick({
+              bookTitle,
+              readType,
+              authorName,
+              modifiedAt,
+              userPercentage,
+            })
           }
         />
       </div>
@@ -52,12 +65,12 @@ const BookFrame = ({
 
 // PropTypes 정의
 BookFrame.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
   readType: PropTypes.string.isRequired,
-  writer: PropTypes.string.isRequired,
-  hour: PropTypes.number.isRequired,
-  percentage: PropTypes.number.isRequired,
+  authorName: PropTypes.string.isRequired,
+  modifiedAt: PropTypes.string.isRequired,
+  userPercentage: PropTypes.number.isRequired,
   onDotsClick: PropTypes.func.isRequired,
 };
 

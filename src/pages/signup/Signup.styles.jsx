@@ -24,11 +24,8 @@ export const SignupContainer = styled.div`
     font-weight: 500;
   }
 
-  .duplicate-check {
-    position: absolute;
-    z-index: 100;
-    top: 320px;
-    left: 307px;
+  .duplicate-check,
+  .email-check {
     color: #a3a3a3;
     font-family: Pretendard;
     font-size: 11px;
@@ -38,6 +35,36 @@ export const SignupContainer = styled.div`
     letter-spacing: 0.5px;
     cursor: pointer;
     align-self: flex-end; /* 오른쪽 끝에 위치하게 설정 */
+  }
+
+  .duplicate-check {
+    position: absolute;
+    z-index: 100;
+    top: 319px;
+    left: 307px;
+  }
+
+  .email-check {
+    position: absolute;
+    z-index: 100;
+    top: 259px;
+    left: 295px;
+  }
+
+  .verfication-result-message {
+    position: absolute;
+    top: 356px;
+    right: 40px;
+    color: red;
+    margin: 0;
+  }
+
+  .pwd-result-msg {
+    position: absolute;
+    top: 530px;
+    right: 40px;
+    color: red;
+    margin: 0;
   }
 
   .password-input {

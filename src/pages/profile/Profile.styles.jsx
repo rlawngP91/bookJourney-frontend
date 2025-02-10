@@ -16,6 +16,9 @@ export const Container = styled.div`
     position: absolute;
     top: 243px;
     left: 118px;
+    width: 158px;
+    height: 158px;
+    border-radius: 50%;
   }
 
   .plus-btn {
@@ -43,7 +46,7 @@ export const Container = styled.div`
   .duplicate-check {
     position: absolute;
     z-index: 100;
-    top: 459px;
+    top: 487px;
     left: 307px;
     color: #a3a3a3;
     font-family: Pretendard;
@@ -58,7 +61,7 @@ export const Container = styled.div`
 
   & > *:nth-child(5) {
     position: absolute;
-    top: 444px;
+    top: 472px;
   }
 
   .btn-container {
@@ -87,5 +90,15 @@ export const Container = styled.div`
       font-style: normal;
       font-weight: 500;
     }
+  }
+
+  .nickname-result-msg {
+    position: absolute;
+    top: 523px;
+    left: 34px;
+    font-family: Pretendard;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
   }
 `;

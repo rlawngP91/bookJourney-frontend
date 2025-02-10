@@ -1,27 +1,17 @@
 // ValidTestInput.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { InputWrapper, StyledInput, LabelText, AlertText } from './ValidTestInput.styles';
+import { InputWrapper, StyledInput, LabelText } from './ValidTestInput.styles';
 
-const ValidTestInput = ({ placeholder, labelText, validateInput }) => {
-  const [inputValue, setInputValue] = useState('');
-  const [isValid, setIsValid] = useState(true); // true: valid or not checked, false: invalid
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-    setIsValid(validateInput(value));
-  };
-
+const ValidTestInput = ({ placeholder, labelText, value, onChange }) => {
   return (
     <InputWrapper>
       <LabelText>{labelText}</LabelText>
-      <StyledInput 
-        placeholder={placeholder} 
-        value={inputValue} 
-        onChange={handleChange} 
+      <StyledInput
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
       />
-      {!isValid && <AlertText>이미 존재하는 아이디입니다.</AlertText>}
     </InputWrapper>
   );
 };
@@ -29,7 +19,9 @@ const ValidTestInput = ({ placeholder, labelText, validateInput }) => {
 ValidTestInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
-  validateInput: PropTypes.func.isRequired, // Function to validate the input
+  value: PropTypes.string.isRequired, // 입력값을 부모에서 관리
+  onChange: PropTypes.func.isRequired, // 입력 핸들러 (부모에서 제어)
+  //  errorMessage: PropTypes.string, // 오류 메시지 (닉네임 중복 시 표시)
 };
 
 export default ValidTestInput;

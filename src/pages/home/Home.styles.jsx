@@ -79,7 +79,7 @@ export const Container = styled.div`
     letter-spacing: var(--Label-Medium-Tracking, 0.5px);
   }
 
-  .book {
+  .best-seller {
     position: absolute;
     top: 212px;
     left: 123px;
@@ -100,10 +100,14 @@ export const Container = styled.div`
     letter-spacing: 0.1px;
   }
 
-  .circles {
+  .circle-container {
     position: absolute;
     top: 429px;
     left: 168px;
+    display: flex;
+    gap: 12px;
+    width: 54px;
+    cursor: pointer;
   }
 
   .record-container {
