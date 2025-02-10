@@ -46,7 +46,7 @@ export const Container = styled.div`
   .duplicate-check {
     position: absolute;
     z-index: 100;
-    top: 459px;
+    top: 487px;
     left: 307px;
     color: #a3a3a3;
     font-family: Pretendard;
@@ -59,9 +59,9 @@ export const Container = styled.div`
     align-self: flex-end; /* 오른쪽 끝에 위치하게 설정 */
   }
 
-  & > *:nth-child(6) {
+  & > *:nth-child(5) {
     position: absolute;
-    top: 444px;
+    top: 472px;
   }
 
   .btn-container {
@@ -94,7 +94,7 @@ export const Container = styled.div`
 
   .nickname-result-msg {
     position: absolute;
-    top: 495px;
+    top: 523px;
     left: 34px;
     font-family: Pretendard;
     font-size: 11px;
