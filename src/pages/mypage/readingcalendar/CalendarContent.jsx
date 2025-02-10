@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CalendarBookInfoPopup from './CalendarBookInfoPopup';
 import bookIcon from '../../../assets/bookexample.svg';
+import { mypageReadingCalendarAPI } from '../../../apis/mypageReadingCalendarAPI';
 
 const CalendarGrid = styled.div`
   display: grid;
@@ -47,6 +48,9 @@ const CalendarContent = ({ selectedDate }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedBooks, setSelectedBooks] = useState([]);
 
+  const [calendarData, setCalendarData] = useState({});
+  const [loading, setLoading] = useState(true);
+
   //mockData
   const bookDetailData = {
     7: [
@@ -77,14 +81,19 @@ const CalendarContent = ({ selectedDate }) => {
   };
 
   // 예시 데이터: 날짜별 책 이미지
-  const bookData = {
-    7: bookIcon,
-    13: bookIcon,
-    14: bookIcon,
-    16: bookIcon,
-    21: bookIcon,
-    30: bookIcon,
-  };
+  // const bookData = {
+  //   7: bookIcon,
+  //   13: bookIcon,
+  //   14: bookIcon,
+  //   16: bookIcon,
+  //   21: bookIcon,
+  //   30: bookIcon,
+  // };
+  useEffect(() => {
+    setLoading(true);
+    setCalendarData(mypageReadingCalendarAPI.fetchCalendarData(selectedDate));
+    setLoading(false);
+  }, [selectedDate]);
 
   // 선택된 월의 첫째 날과 마지막 날 계산
   const firstDayOfMonth = new Date(
@@ -108,11 +117,15 @@ const CalendarContent = ({ selectedDate }) => {
   const allDays = [...emptyDays, ...dates];
 
   const handleDateClick = (date) => {
-    if (bookData[date]) {
-      setSelectedBooks(bookDetailData[date]);
+    if (calendarData[date]) {
+      setSelectedBooks(bookDetailData[date] || []);
       setIsPopupOpen(true);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <CalendarGrid>
@@ -123,14 +136,14 @@ const CalendarContent = ({ selectedDate }) => {
       {allDays.map((date, index) => (
         <DateCell
           key={index}
-          $hasImage={bookData[date]}
+          $hasImage={calendarData[date]}
           onClick={() => date && handleDateClick(date)}
         >
           {date && (
             <>
               <DateNumber>{date}</DateNumber>
-              {bookData[date] && (
-                <BookImage src={bookData[date]} alt={`Book on ${date}`} />
+              {calendarData[date] && (
+                <BookImage src={calendarData[date]} alt={`Book on ${date}`} />
               )}
             </>
           )}
