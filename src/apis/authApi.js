@@ -32,7 +32,7 @@ export const login = async (email, password) => {
     if (responseData.code === 200) {
       console.log('[DEBUG] 응답 데이터 구조:', responseData.data);
 
-      // ✅ accessToken을 API 요청 헤더에 추가 (자동 적용)
+      //accessToken을 API 요청 헤더에 추가 (자동 적용)
       //setAccessToken(accessToken);
 
       //accessToken을 localStorage 또는 sessionStorage에 저장
@@ -51,7 +51,7 @@ export const login = async (email, password) => {
   }
 };
 
-// ✅ AccessToken 재발급 API 요청 함수
+// AccessToken 재발급 API 요청 함수
 export const reissueAccessToken = async () => {
   try {
     const refreshToken = localStorage.getItem('refreshToken'); // 로컬 스토리지에서 refreshToken 가져오기

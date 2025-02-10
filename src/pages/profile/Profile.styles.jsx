@@ -59,7 +59,7 @@ export const Container = styled.div`
     align-self: flex-end; /* 오른쪽 끝에 위치하게 설정 */
   }
 
-  & > *:nth-child(5) {
+  & > *:nth-child(6) {
     position: absolute;
     top: 444px;
   }
