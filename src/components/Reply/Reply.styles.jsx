@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 393px;
-  height: 853px;
+  bottom: 0;
+  left: 0;
+  position: fixed; /* 화면에 고정된 위치 */
+  z-index: 2000; /* 다른 요소 위로 올림 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
+  width: 393px;
+  height: 852px;
 `;
 
 export const Comment = styled.div`
@@ -14,6 +21,8 @@ export const Comment = styled.div`
   flex-direction: column;
   background-color: #fff;
   padding: 45px 25px 0px 25px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 
   .close {
     padding-bottom: 30px;
@@ -105,12 +114,12 @@ export const Container = styled.div`
   width: 393px;
   position: fixed;
   bottom: 0;
-  z-index: 1000; /* 다른 요소 위로 올림 */
   display: flex;
   align-items: center;
   background-color: #fff;
   flex-direction: column;
-  border-radius: 9px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
@@ -223,9 +232,9 @@ export const ReviewList = styled.div`
 export const Footer = styled.div`
   position: absolute; /* ✅ 부모(Container) 내에서 위치 조정 */
   bottom: 0;
-  z-index: 3000; /* ✅ 다른 요소 위에 나타나도록 설정 */
+  z-index: 1000; /* ✅ 다른 요소 위에 나타나도록 설정 */
   width: 393px;
-  height: auto; /* ✅ 높이를 자동 조절 */
+  height: 90px; /* ✅ 높이를 자동 조절 */
   background: #fff;
   align-items: center;
   justify-content: center;

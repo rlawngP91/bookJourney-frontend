@@ -238,7 +238,11 @@ export default function RoomBody({ roomData }) {
           <div>📭 기록이 없습니다.</div>
         ) : (
           records.map((record) => (
-            <Record key={record.recordId} record={record} />
+            <Record
+              key={record.recordId}
+              record={record}
+              activeTab={activeTab}
+            />
           ))
         )}
       </Container>

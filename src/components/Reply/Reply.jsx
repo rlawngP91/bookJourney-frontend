@@ -85,7 +85,6 @@ export default function Reply({ recordId, onClose }) {
       const liked = await postRecordLike(recordId);
       setIsLikedRecord(liked);
       setLikeCountRecord((prev) => (liked ? prev + 1 : prev - 1));
-      setTimeout(fetchComments, 300); // ✅ 좋아요 후 최신 데이터 불러오기
     } catch (error) {
       console.error('❌ 기록 좋아요 오류:', error);
     }
@@ -108,13 +107,12 @@ export default function Reply({ recordId, onClose }) {
             : comment
         )
       );
-      setTimeout(fetchComments, 300); // ✅ 좋아요 후 최신 데이터 불러오기
     } catch (error) {
       console.error('❌ 댓글 좋아요 오류:', error);
     }
   };
 
-  if (loading) return <div>📖 댓글을 불러오는 중...</div>;
+  if (loading) return;
   if (error) return <div style={{ color: 'red' }}>❌ {error}</div>;
   if (!recordInfo) return <div>📭 기록 정보를 불러올 수 없습니다.</div>;
 
