@@ -61,8 +61,8 @@ const Profile = () => {
       uploadedImageUrl = await uploadProfileImage(profileFile); // 프로필 이미지 업로드 요청
       console.log('[DEBUG] 업로드된 프로필 이미지 URL:', uploadedImageUrl);
 
-      sessionStorage.setItem('nickname', nickname); // 닉네임 저장
-      sessionStorage.setItem('profileImage', uploadedImageUrl); // 프로필 이미지 URL 저장
+      sessionStorage.setItem('nickName', nickname); // 닉네임 저장
+      sessionStorage.setItem('imageUrl', uploadedImageUrl); // 프로필 이미지 URL 저장
       navigate('/category'); // "/category"로 이동
     } catch (error) {
       console.error('[ERROR] 프로필 업로드 또는 세션 저장 실패:', error);
