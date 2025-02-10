@@ -13,4 +13,7 @@ export const Wrapper = styled.div`
   background-color: transparent;
   position: relative;
   box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
 `;

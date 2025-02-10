@@ -24,10 +24,10 @@ export const Button = styled.button`
   outline: none; /* 포커스 시 나오는 아웃라인 제거 */
 `;
 
-export default function ButtonGroup() {
+export default function ButtonGroup3() {
   return (
     <ButtonGroupWrapper>
-      <Button>기록하기</Button>
+      <Button>방 생성하기</Button>
     </ButtonGroupWrapper>
   );
 }
