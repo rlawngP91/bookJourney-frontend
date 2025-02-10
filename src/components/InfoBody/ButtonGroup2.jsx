@@ -36,7 +36,7 @@ export default function ButtonGroup2() {
   return (
     <ButtonGroupWrapper>
       <Button>미리보기</Button>
-      <Button>같이읽기</Button>
+      <Button>기록하기</Button>
     </ButtonGroupWrapper>
   );
 }

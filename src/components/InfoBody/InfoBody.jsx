@@ -1,26 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Wrapper, Popup, Container } from './InfoBody.styles';
 import star from '../../assets/star.svg';
 import filledstar from '../../assets/filledstar.svg';
-import { addFavorite, removeFavorite } from '../../apis/favorite';
+import { addFavorite, deleteFavorite } from '../../apis/favorite';
 
-export default function InfoBody({ bookData }) {
-  const [isFavorite, setIsFavorite] = useState(bookData?.favorite || false); // 초기값 설정
-  const [showPopup, setShowPopup] = useState(false); // 팝업 상태
+export default function InfoBody({ roomData }) {
+  const [isFavorite, setIsFavorite] = useState(false); // ✅ 초기값 false로 설정
+  const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    if (roomData) {
+      setIsFavorite(roomData.favorite);
+    }
+  }, [roomData]);
   const handleStarClick = async () => {
-    if (!bookData || !bookData.isbn) {
+    if (!roomData || !roomData.isbn) {
       setError('ISBN 정보가 없습니다.');
       return;
     }
 
     if (isFavorite) {
-      setShowPopup(true); // 즐겨찾기 삭제 확인 팝업
+      setShowPopup(true); // 즐겨찾기 삭제 확인 팝업 열기
     } else {
       try {
-        const updatedFavorite = await addFavorite(bookData.isbn);
-        setIsFavorite(updatedFavorite);
+        await addFavorite(roomData.isbn);
+        setIsFavorite(true); // ✅ 즐겨찾기 추가 후 상태 업데이트
       } catch (err) {
         setError(err.message);
       }
@@ -28,35 +33,38 @@ export default function InfoBody({ bookData }) {
   };
 
   const handleDelete = async () => {
+    if (!roomData || !roomData.isbn) {
+      setError('ISBN 정보가 없습니다.');
+      return;
+    }
+
     try {
-      const updatedFavorite = await removeFavorite(bookData.isbn);
-      setIsFavorite(updatedFavorite);
+      const favoriteIds = [roomData.favoriteId]; // 삭제할 favoriteId 배열
+      await deleteFavorite(roomData.isbn, favoriteIds);
+      setIsFavorite(false); // ✅ 삭제 후 즐겨찾기 상태 업데이트
       setShowPopup(false);
     } catch (err) {
       setError(err.message);
     }
   };
 
-  /*const handleOutsideClick = (e) => {
-    // 팝업 외부 클릭 시만 팝업 닫기
-    if (!e.target.closest('.popup')) {
-      setShowPopup(false);
-    }
-      onClick={handleOutsideClick}
-  };*/
-
-  if (!bookData) {
-    return <div>📖 책 정보를 불러오는 중...</div>;
+  // ✅ bookData가 없으면 로딩 메시지를 먼저 보여줌
+  if (!roomData) {
+    return;
   }
 
   return (
     <Container>
       <Wrapper>
         <div className="title">
-          <div className="bookname">{bookData.bookTitle}</div>
-          <img src={isFavorite ? filledstar : star} onClick={handleStarClick} />
+          <div className="bookname">{roomData?.bookTitle || '제목 없음'}</div>
+          <img
+            src={isFavorite ? filledstar : star}
+            onClick={handleStarClick}
+            alt="즐겨찾기 버튼"
+          />
         </div>
-        <div className="writer">{bookData.authorName}</div>
+        <div className="writer">{roomData?.authorName || '작가 정보 없음'}</div>
       </Wrapper>
 
       {showPopup && (
