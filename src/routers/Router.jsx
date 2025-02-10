@@ -77,7 +77,7 @@ const Router = () => {
     },
     {
       path: '/readinglog',
-      element: <ReadingLog nickname="TestUser" />,
+      element: <ReadingLog />,
     },
     {
       path: '/rooms/:roomId/info',

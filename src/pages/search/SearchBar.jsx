@@ -96,7 +96,14 @@ export const SearchBar = ({
   onClear,
   searchType,
   onTypeClick,
+  onSearch, // 돋보기 버튼
 }) => {
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onSearch(); // Enter 키 눌렀을 때 검색 실행
+    }
+  };
+
   return (
     <SearchBarWrapper>
       <SearchInput>
@@ -106,6 +113,7 @@ export const SearchBar = ({
           placeholder={`${searchType} 검색`}
           value={value}
           onChange={onChange}
+          onKeyDown={handleKeyPress}
         />
         <IconContainer>
           {value && (
@@ -114,7 +122,7 @@ export const SearchBar = ({
             </DeleteIconWrapper>
           )}
           <SearchIconWrapper>
-            <img src={searchIcon} alt="search" />
+            <img src={searchIcon} alt="search" onClick={onSearch} />
           </SearchIconWrapper>
         </IconContainer>
       </SearchInput>

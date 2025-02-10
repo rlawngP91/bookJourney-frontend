@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Wrapper } from './Home.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
 import Title from '../../assets/title.svg';
 import Star from './star.svg';
 import Bell from './bell.svg';
-import Book from './book.svg';
-import Second from '../../assets/second.svg';
+//import Book from './book.svg';
+import Gray from './gray.svg';
+import Blue from './blue.svg';
 import Footer from '../../components/commons/Footer/Footer';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import Book2 from './book2.svg';
@@ -17,6 +18,7 @@ import DummyBook1 from '../../assets/dummyBook1.svg';
 import DummyBook2 from '../../assets/dummyBook2.svg';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 //import DummyBook3 from '../../assets/dummyBook3.svg';
+import apiClient from '../../apis/instance/apiClient';
 const Home = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
   //const [bookCount, setBookCount] = useState(0); // 백엔드에서 가져올 값
@@ -25,6 +27,38 @@ const Home = () => {
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
+  const [nickName, setNickName] = useState(''); // 로그인된 유저 닉네임
+  const [bestSellerList, setBestSellerList] = useState([]); // 베스트셀러 리스트
+  const [selectedToggle, setSelectedToggle] = useState(0); // 토글 상태: 0, 1, 2 중 하나만 선택됨 (기본은 0)
+
+  useEffect(() => {
+    console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    console.log('[DEBUG] Home.jsx - accessToken:', accessToken);
+    console.log('[DEBUG] Home.jsx - refreshToken:', refreshToken);
+
+    if (!accessToken) {
+      console.warn(
+        '[WARNING] accessToken이 없습니다. 로그인 페이지로 이동합니다.'
+      );
+      window.location.href = '/login';
+    }
+    //주석시작. 서버에서 닉네임과 베스트셀러 리스트 가져오기
+    apiClient
+      .get('/books/best-sellers')
+      .then((response) => {
+        console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
+        if (response.data.code === 200) {
+          setNickName(response.data.data.nickName); // 닉네임 저장
+          setBestSellerList(response.data.data.bestSellerList); // 베스트셀러 리스트 저장
+        }
+      })
+      .catch((error) => {
+        console.error('[ERROR] 베스트셀러 데이터 가져오기 실패:', error);
+      });
+  }, []);
 
   const handleRecordClick = () => {
     navigate('/record');
@@ -71,7 +105,7 @@ const Home = () => {
     <Wrapper>
       <Container>
         <StatusBar />
-{/* InfoPopup의 overlay */}
+        {/* InfoPopup의 overlay */}
         {(showInfoPopup || popup1Visible) && (
           <div className="overlay" onClick={handleCloseInfoPopup}></div>
         )}
@@ -103,12 +137,36 @@ const Home = () => {
         />
         <img className="bell" src={Bell} alt="벨 아이콘" />
         <span className="user-name">
-          닉네임 <span>님</span>
+          {nickName}
+          <span>님</span>
         </span>
         <span className="welcome">환영합니다!</span>
-        <img className="book" src={Book} alt="책" />
+
+        {/* 베스트셀러 이미지 영역 */}
+        <div className="best-seller-container">
+          {bestSellerList.length > 0 && (
+            <img
+              className="best-seller"
+              src={
+                bestSellerList[selectedToggle]
+                  ? bestSellerList[selectedToggle].imageUrl
+                  : bestSellerList[0].imageUrl
+              }
+              alt="베스트셀러"
+            />
+          )}
+        </div>
         <span className="description">*자기계발 베스트 셀러</span>
-        <img className="circles" src={Second} alt="두번째 토글" />
+        <div className="circle-container">
+          {[0, 1, 2].map((index) => (
+            <img
+              key={index}
+              src={selectedToggle === index ? Blue : Gray}
+              alt={`토글${index + 1}`}
+              onClick={() => setSelectedToggle(index)}
+            />
+          ))}
+        </div>
         <div className="record-container">
           <div className="progress">
             <span className="progress-title">
@@ -145,39 +203,39 @@ const Home = () => {
               />
               <div className="book-scroll-container">
                 <BookFrame
-                  imageSrc={DummyBook1}
+                  imageUrl={DummyBook1}
                   bookTitle="밤의 여행자들"
-                  hour={1}
-                  percentage={50}
-                  readType="같이"
-                  writer="윤고은"
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
+                  readType="같이읽기"
+                  authorName="윤고은"
                   onDotsClick={handleDotsClick}
                 />
                 <BookFrame
-                  imageSrc={DummyBook2}
+                  imageUrl={DummyBook2}
                   bookTitle="모든 삶은 흐른다"
-                  hour={1}
-                  percentage={50}
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
                   readType="혼자"
-                  writer="로랑스 드빌레르"
+                  authorName="로랑스 드빌레르"
                   onDotsClick={handleDotsClick}
                 />
                 <BookFrame
-                  imageSrc={DummyBook2}
+                  imageUrl={DummyBook2}
                   readType="혼자"
                   bookTitle="말의 품격"
-                  hour={1}
-                  percentage={50}
-                  writer="이기주"
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
+                  authorName="이기주"
                   onDotsClick={handleDotsClick}
                 />
                 <BookFrame
-                  imageSrc={DummyBook1}
-                  readType="같이"
+                  imageUrl={DummyBook1}
+                  readType="같이읽기"
                   bookTitle="말의 품격"
-                  hour={1}
-                  percentage={50}
-                  writer="이기주"
+                  modifiedAt="1시간 전"
+                  userPercentage={50}
+                  authorName="이기주"
                   onDotsClick={handleDotsClick}
                 />
               </div>

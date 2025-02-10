@@ -32,7 +32,7 @@ const SliderRange = styled.div`
   background: #4f8bff;
   border-radius: 2px;
   left: 0;
-  width: ${(props) => props.percentage}%;
+  width: ${(props) => props.$percentage}%;
 `;
 
 const SliderThumb = styled.div`
@@ -42,7 +42,7 @@ const SliderThumb = styled.div`
   border-radius: 50%;
   position: absolute;
   top: 50%;
-  left: ${(props) => props.percentage}%;
+  left: ${(props) => props.$percentage}%;
   transform: translate(-50%, -50%);
   cursor: pointer;
   transition: box-shadow 0.2s;
@@ -64,7 +64,7 @@ const TicksContainer = styled.div`
 
 const Tick = styled.div`
   font-size: 14px;
-  color: ${(props) => (props.active ? '#4F8BFF' : '#6B7280')};
+  color: ${(props) => (props.$active ? '#4F8BFF' : '#6B7280')};
 `;
 
 const CountSlider = ({ onValueChange }) => {
@@ -139,15 +139,15 @@ const CountSlider = ({ onValueChange }) => {
     <SliderContainer>
       <Label>기록 수</Label>
       <SliderTrack ref={trackRef} onClick={handleTrackClick}>
-        <SliderRange percentage={calculatePercentage(value)} />
+        <SliderRange $percentage={calculatePercentage(value)} />
         <SliderThumb
-          percentage={calculatePercentage(value)}
+          $percentage={calculatePercentage(value)}
           onMouseDown={handleMouseDown}
         />
       </SliderTrack>
       <TicksContainer>
         {ticks.map((tick, index) => (
-          <Tick key={index} active={value === tick.value}>
+          <Tick key={index} $active={value === tick.value}>
             {tick.label}
           </Tick>
         ))}
