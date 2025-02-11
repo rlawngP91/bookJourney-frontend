@@ -2,7 +2,12 @@ import React from 'react';
 import { BookListSection, ChipsContainer, SectionTitle } from './search.styles';
 import { BookChip } from './BookChip';
 
-export const RecentSearches = ({ recentSearches, onClearAll, onRemove }) => {
+export const RecentSearches = ({
+  recentSearches,
+  onClearAll,
+  onRemove,
+  onChipClick,
+}) => {
   if (!recentSearches.length) return null;
 
   return (
@@ -17,6 +22,7 @@ export const RecentSearches = ({ recentSearches, onClearAll, onRemove }) => {
             key={index}
             text={search}
             onRemove={() => onRemove(index)}
+            onClick={onChipClick}
           />
         ))}
       </ChipsContainer>
