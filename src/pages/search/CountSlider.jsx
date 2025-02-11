@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const SliderContainer = styled.div`
@@ -67,8 +67,8 @@ const Tick = styled.div`
   color: ${(props) => (props.$active ? '#4F8BFF' : '#6B7280')};
 `;
 
-const CountSlider = ({ onValueChange }) => {
-  const [value, setValue] = useState(0);
+const CountSlider = ({ initialValue, onValueChange }) => {
+  const [value, setValue] = useState(initialValue);
   const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
 
@@ -79,6 +79,10 @@ const CountSlider = ({ onValueChange }) => {
     { label: '100 개', value: 75 },
     { label: '전체', value: 100 },
   ];
+
+  useEffect(() => {
+    onValueChange?.(value);
+  }, [value, onValueChange]);
 
   const calculatePercentage = (val) => {
     return (val / 100) * 100;

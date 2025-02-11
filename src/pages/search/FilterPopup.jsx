@@ -52,12 +52,25 @@ const ApplyButton = styled.button`
   margin-top: 24px;
 `;
 
-const FilterPopup = ({ onClose, onApply }) => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [deadlineStartDate, setDeadlineStartDate] = useState(null);
-  const [deadlineEndDate, setDeadlineEndDate] = useState(null);
-  const [periodStartDate, setPeriodStartDate] = useState(null);
-  const [periodEndDate, setPeriodEndDate] = useState(null);
+const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
+  const [selectedCategory, setSelectedCategory] = useState(
+    $currentFilters.category || ''
+  );
+  const [deadlineStartDate, setDeadlineStartDate] = useState(
+    $currentFilters.deadline?.start || null
+  );
+  const [deadlineEndDate, setDeadlineEndDate] = useState(
+    $currentFilters.deadline?.end || null
+  );
+  const [periodStartDate, setPeriodStartDate] = useState(
+    $currentFilters.period?.start || null
+  );
+  const [periodEndDate, setPeriodEndDate] = useState(
+    $currentFilters.period?.end || null
+  );
+  const [recordCount, setRecordCount] = useState(
+    $currentFilters.recordcnt || 0
+  );
 
   const categories = [
     '소설/시/희곡',
@@ -81,12 +94,16 @@ const FilterPopup = ({ onClose, onApply }) => {
   const handleApply = () => {
     onApply({
       category: selectedCategory,
-      deadlineStart: deadlineStartDate,
-      deadlineEnd: deadlineEndDate,
-      periodStart: periodStartDate,
-      periodEnd: periodEndDate,
+      deadline: {
+        start: deadlineStartDate,
+        end: deadlineEndDate,
+      },
+      period: {
+        start: periodStartDate,
+        end: periodEndDate,
+      },
+      recordcnt: recordCount,
     });
-    onClose();
   };
 
   return (
@@ -121,7 +138,10 @@ const FilterPopup = ({ onClose, onApply }) => {
           onEndDateChange={setPeriodEndDate}
         />
 
-        <CountSlider onValueChange={(value) => console.log(value)} />
+        <CountSlider
+          initialValue={$currentFilters.recordcnt || 0}
+          onValueChange={(value) => setRecordCount(value)}
+        />
 
         <ApplyButton onClick={handleApply}>적용</ApplyButton>
       </PopupContainer>

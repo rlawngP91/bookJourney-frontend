@@ -13,7 +13,7 @@ export const searchAPI = {
       const paramsBook = new URLSearchParams({
         searchTerm: searchQuery,
         searchType: searchType,
-        page: '1',
+        page: '0',
       });
 
       const paramsRoom = new URLSearchParams({
@@ -44,7 +44,20 @@ export const searchAPI = {
       }
       // recordcnt 필터 추가
       if (filters.recordcnt) {
-        paramsRoom.append('recordCount', filters.recordcnt);
+        // 0(0개), 25(10개), 50(50개), 75(100개), 100(전체보기)
+        let realrecordval = 0;
+        if (filters.recordcnt == 0) {
+          realrecordval = 0;
+        } else if (filters.recordcnt == 25) {
+          realrecordval = 10;
+        } else if (filters.recordcnt == 50) {
+          realrecordval = 50;
+        } else if (filters.recordcnt == 75) {
+          realrecordval = 100;
+        }
+        if (filters.recordcnt !== 100) {
+          paramsRoom.append('recordCount', realrecordval);
+        }
       }
 
       const responseBook = await instance.get(
