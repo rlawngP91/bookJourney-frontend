@@ -34,6 +34,7 @@ export const SearchResults = ({
                 {filteredBooks.map((book) => (
                   <BookItem
                     key={book.id}
+                    id={book.id}
                     title={book.title}
                     author={book.author}
                     coverImage={book.coverImage}
@@ -55,6 +56,7 @@ export const SearchResults = ({
                 {filteredRooms.map((room) => (
                   <RoomItem
                     key={room.id}
+                    id={room.id}
                     book={room.book}
                     author={room.author}
                     title={room.title}
