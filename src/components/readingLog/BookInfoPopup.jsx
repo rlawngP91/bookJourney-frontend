@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import infomationIcon from '../../assets/infomation.svg';
 
@@ -46,9 +47,11 @@ const PopupItem = styled.div`
 `;
 
 const BookInfoPopup = ({ onClose, onBookInfoClick, roomId }) => {
+  const navigate = useNavigate();
+
   const handleBookInfoClick = () => {
-    console.log(roomId);
     onBookInfoClick();
+    navigate(`/rooms/${roomId}`);
   };
 
   const handleOverlayClick = (e) => {
