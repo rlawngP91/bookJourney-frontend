@@ -16,6 +16,8 @@ import Bookmark from '../pages/bookmark/Bookmark';
 import Record from '../pages/record/Record';
 import ReadingLog from '../pages/readingLog/ReadingLog';
 import ReadWith from '../pages/ReadWith/ReadWith';
+import Mypage from '../pages/mypage/mypage';
+import ReadingCalendar from '../pages/mypage/readingcalendar/ReadingCalendar';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -82,6 +84,14 @@ const Router = () => {
     {
       path: '/rooms/:roomId/info',
       element: <ReadWith />,
+    },
+    {
+      path: '/mypage',
+      element: <Mypage />,
+    },
+    {
+      path: '/mypage/calendar',
+      element: <ReadingCalendar />,
     },
   ]);
 

@@ -1,27 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Bookmark.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
 import Arrow from '../../assets/arrow.svg';
 import Box from './Box';
-import BookCover from '../../assets/bookmarkDummy.svg';
+import { bookmarkAPI } from '../../apis/bookmarkAPI';
+// import BookCover from '../../assets/bookmarkDummy.svg';
 
 const Bookmark = () => {
   const [isDeleteMode, setIsDeleteMode] = useState(false); // 삭제 모드 상태
-  const [books, setBooks] = useState([
-    {
-      imgSrc: BookCover,
-      writer: '리처드 도킨스',
-      bookTitle: '이기적 유전자',
-      isChecked: false,
-    },
-    {
-      imgSrc: BookCover,
-      writer: '리처드 도킨스',
-      bookTitle: '이기적 유전자2',
-      isChecked: false,
-    },
-  ]);
+  const [books, setBooks] = useState([]);
+  useEffect(() => {
+    const fetchBookmarks = async () => {
+      try {
+        const data = await bookmarkAPI.getBookmarks();
+        setBooks(data);
+      } catch (error) {
+        console.error('북마크된 책 불러오기 실패 : ', error);
+      }
+    };
+
+    fetchBookmarks();
+  }, []);
+  // const [books, setBooks] = useState([
+  //   {
+  //     imgSrc: BookCover,
+  //     writer: '리처드 도킨스',
+  //     bookTitle: '이기적 유전자',
+  //     isChecked: false,
+  //   },
+  //   {
+  //     imgSrc: BookCover,
+  //     writer: '리처드 도킨스',
+  //     bookTitle: '이기적 유전자2',
+  //     isChecked: false,
+  //   },
+  // ]);
   const navigate = useNavigate(); // useNavigate 훅 사용
   const handleBackClick = () => {
     navigate('/home');
@@ -60,9 +74,22 @@ const Bookmark = () => {
   };
 
   // 선택 삭제 버튼 클릭 처리
-  const handleRemoveBooks = () => {
-    setBooks((prevBooks) => prevBooks.filter((book) => !book.isChecked));
-    setIsDeleteMode(false); // 삭제 모드 비활성화
+  const handleRemoveBooks = async () => {
+    try {
+      const selectedFavoriteIds = books
+        .filter((book) => book.isChecked)
+        .map((book) => ({
+          favoriteId: book.id,
+        }));
+
+      // API 호출
+      await bookmarkAPI.removeBookmarks(selectedFavoriteIds);
+
+      setBooks((prevBooks) => prevBooks.filter((book) => !book.isChecked));
+      setIsDeleteMode(false);
+    } catch (error) {
+      console.error('북마크 삭제 실패:', error);
+    }
   };
 
   // 팝업1에서 삭제 버튼 클릭 시 동작

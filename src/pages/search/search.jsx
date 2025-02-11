@@ -26,6 +26,7 @@ export default function Search() {
   const [showPopup, setShowPopup] = useState(false);
   const [searchType, setSearchType] = useState('책 제목');
   const [recentSearches, setRecentSearches] = useState([]);
+  const [isSearchExecuted, setIsSearchExecuted] = useState(false);
 
   const [listType, setListType] = useState('책 목록');
   const [books, setBooks] = useState([]);
@@ -60,6 +61,8 @@ export default function Search() {
   const handleSearch = async () => {
     if (!searchQuery.trim()) return; // 빈 검색어는 무시
 
+    setIsSearchExecuted(true);
+
     try {
       await searchAPI.fetchSearchResults({
         searchQuery,
@@ -78,6 +81,7 @@ export default function Search() {
     setSearchQuery('');
     setBooks([]);
     setRooms([]);
+    setIsSearchExecuted(false);
   };
 
   // searchType
@@ -115,6 +119,15 @@ export default function Search() {
         console.error('Filter apply failed:', error);
       }
     }
+  };
+
+  const handleChipClick = (text) => {
+    setSearchQuery(text);
+    setIsSearchExecuted(false); // 검색결과초기화
+    // 바로 최근검색어로 검색 API
+    // setTimeout(() => {
+    //   handleSearch();
+    // }, 0);
   };
 
   // 최근 검색어 목록 조회
@@ -169,36 +182,41 @@ export default function Search() {
           onSearch={handleSearch}
         />
 
-        {!searchQuery && (
+        {!isSearchExecuted && (
           <RecentSearches
             recentSearches={recentSearches.map((search) => search.text)}
             onClearAll={handleClearAll}
             onRemove={(id) => removeRecentSearch(recentSearches[id].id)} // index를 사용하여 해당 아이템의 id에 접근
+            onChipClick={handleChipClick}
           />
         )}
 
-        <ListTypeContainer $searchQuery={searchQuery}>
-          <ListTypeButton
-            onClick={() => setListType('책 목록')}
-            $isSelected={listType === '책 목록'}
-          >
-            책 목록
-          </ListTypeButton>
-          <ListTypeButton
-            onClick={() => setListType('같이읽기 목록')}
-            $isSelected={listType === '같이읽기 목록'}
-          >
-            같이읽기 목록
-          </ListTypeButton>
-        </ListTypeContainer>
+        {isSearchExecuted && (
+          <>
+            <ListTypeContainer $searchQuery={searchQuery}>
+              <ListTypeButton
+                onClick={() => setListType('책 목록')}
+                $isSelected={listType === '책 목록'}
+              >
+                책 목록
+              </ListTypeButton>
+              <ListTypeButton
+                onClick={() => setListType('같이읽기 목록')}
+                $isSelected={listType === '같이읽기 목록'}
+              >
+                같이읽기 목록
+              </ListTypeButton>
+            </ListTypeContainer>
 
-        <SearchResults
-          $searchQuery={searchQuery}
-          $searchType={searchType}
-          filteredBooks={books}
-          filteredRooms={rooms}
-          listType={listType}
-        />
+            <SearchResults
+              $searchQuery={searchQuery}
+              $searchType={searchType}
+              filteredBooks={books}
+              filteredRooms={rooms}
+              listType={listType}
+            />
+          </>
+        )}
       </ContentContainer>
 
       <FooterContainer>
