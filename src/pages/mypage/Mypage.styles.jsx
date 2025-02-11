@@ -18,7 +18,8 @@ export const ProfileImage = styled.div`
   width: 96px;
   height: 96px;
   border-radius: 50%;
-  background-color: #dbeafe;
+  background: ${({ $imageUrl }) =>
+    $imageUrl ? `url(${$imageUrl}) no-repeat center/cover` : '#DBEAFE'};
   margin-bottom: 16px;
 `;
 

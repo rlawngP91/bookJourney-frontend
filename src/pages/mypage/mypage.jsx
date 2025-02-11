@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   MyPageContainer,
@@ -15,12 +15,36 @@ import bookIcon from '../../assets/mypage-book.svg';
 import calendarIcon from '../../assets/mypage-calendar.svg';
 import accountIcon from '../../assets/mypage-account.svg';
 import logoutIcon from '../../assets/mypage-logout.svg';
-
 import LogoutPopup from './logout/LogoutPopup';
+import { mypageAPI } from '../../apis/mypageAPI';
 
 export default function MyPage() {
   const navigate = useNavigate();
   const [isLogoutPopupOpen, setIsLogoutPopupOpen] = useState(false);
+  const [profileData, setProfileData] = useState({
+    imageUrl: '',
+    nickname: '',
+    email: '',
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        setLoading(true);
+        const data = await mypageAPI.fetchProfileData();
+        if (data) {
+          setProfileData(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch profile data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
 
   const handleLogoutClick = () => {
     setIsLogoutPopupOpen(true);
@@ -53,12 +77,16 @@ export default function MyPage() {
     },
   ];
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <MyPageContainer>
       <ProfileSection>
-        <ProfileImage />
-        <NickName>닉네임</NickName>
-        <Email>이메일@.com</Email>
+        <ProfileImage $imageUrl={profileData.imageUrl} />
+        <NickName>{profileData.nickname}</NickName>
+        <Email>{profileData.email}</Email>
       </ProfileSection>
 
       <MenuContainer>
