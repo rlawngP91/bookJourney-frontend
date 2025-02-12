@@ -13,10 +13,19 @@ export const Container = styled.div`
   }
 
   .book-img {
+    width: 144.8px;
+    height: 206.2px;
+    border-radius: 9.821px;
+    border: 2.455px solid #d9d9d9;
     margin-bottom: 5.05px;
   }
 
   .bookTitle {
+    width: 101px;
+    overflow: hidden; // 을 사용해 영역을 감출 것
+    text-overflow: ellipsis; // 로 ... 을 만들기
+    white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
+    word-break: break-all;
     position: relative;
     left: 1px;
     color: #000;
@@ -49,6 +58,11 @@ export const Container = styled.div`
   }
 
   .writer-space {
+    width: 138px;
+    overflow: hidden; // 을 사용해 영역을 감출 것
+    text-overflow: ellipsis; // 로 ... 을 만들기
+    white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
+    word-break: break-all;
     margin: 0;
     color: #a3a3a3;
     font-variant-numeric: lining-nums proportional-nums;

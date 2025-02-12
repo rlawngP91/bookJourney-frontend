@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Wrapper } from './Home.styles';
-
 import Title from '../../assets/title.svg';
 import Star from './star.svg';
 import Bell from './bell.svg';
@@ -14,15 +13,17 @@ import BlueBtn from '../../components/blueBtn/BlueBtn';
 import Room from './Room';
 import Arrow from './arrow.svg';
 import BookFrame from '../../components/bookFrame/BookFrame';
-import DummyBook1 from '../../assets/dummyBook1.svg';
-import DummyBook2 from '../../assets/dummyBook2.svg';
+//import DummyBook1 from '../../assets/dummyBook1.svg';
+//import DummyBook2 from '../../assets/dummyBook2.svg';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 //import DummyBook3 from '../../assets/dummyBook3.svg';
 import apiClient from '../../apis/instance/apiClient';
 import { fetchPopularBook } from '../../apis/popularApi';
+import { fetchProgressRecords } from '../../apis/progressApi';
+import { deleteRecord } from '../../apis/deleteRecordApi';
 const Home = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
-  const [bookCount] = useState(4); // 백엔드에서 가져올 값
+  const [bookCount, setBookCount] = useState(0); // 백엔드에서 가져올 값
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
@@ -31,6 +32,7 @@ const Home = () => {
   const [selectedToggle, setSelectedToggle] = useState(0); // 토글 상태: 0, 1, 2 중 하나만 선택됨 (기본은 0)
   const [popularBook, setPopularBook] = useState(null);
   const [isbn, setIsbn] = useState('');
+  const [recordList, setRecordList] = useState([]);
 
   useEffect(() => {
     console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
@@ -59,6 +61,7 @@ const Home = () => {
       .catch((error) => {
         console.error('[ERROR] 베스트셀러 데이터 가져오기 실패:', error);
       });
+
     // 인기 도서 정보 가져오기
     fetchPopularBook()
       .then((data) => {
@@ -73,7 +76,34 @@ const Home = () => {
       .catch((error) => {
         console.error('[ERROR] 인기 도서 정보 가져오기 실패:', error);
       });
+
+    // 진행중인 기록 가져오기
+    fetchProgressRecords('최신순')
+      .then((records) => {
+        setRecordList(records); // recordList 업데이트
+        setBookCount(records.length); // bookCount 업데이트
+      })
+      .catch((error) =>
+        console.error('[ERROR] 진행 기록 가져오기 실패:', error)
+      );
   }, []);
+
+  // 책 클릭 시 해당 roomId의 상세 페이지로 이동
+  const handleBookFrameClick = (event, record) => {
+    event.stopPropagation(); // ✅ 이벤트 버블링 방지
+
+    const targetClass = event.target.classList; // ✅ 클릭된 요소의 클래스 확인
+
+    if (targetClass.contains('dots')) {
+      // ✅ 점 3개 클릭 시 InfoPopup 표시
+      setSelectedBook(record);
+      setShowInfoPopup(true);
+    } else {
+      // ✅ 책 표지를 클릭한 경우 상세 페이지로 이동
+      console.log(`[DEBUG] 클릭된 책의 roomId: ${record.roomId}`);
+      navigate(`/rooms/${record.roomId}/info`);
+    }
+  };
 
   //left-side 클릭 시 상세 페이지 이동
   const handleBookClick = () => {
@@ -86,7 +116,6 @@ const Home = () => {
   const handleRecordClick = () => {
     navigate('/record');
   };
-
   const handleBookmarkClick = () => {
     navigate('/bookmark');
   };
@@ -96,11 +125,13 @@ const Home = () => {
     navigate('/search'); // '/search'로 네비게이션
   };
 
+  /*
   // InfoPopup 관련
   const handleDotsClick = (book) => {
     setSelectedBook(book); // 선택된 책 업데이트
     setShowInfoPopup(true); // InfoPopup 표시
   };
+  */
 
   const handleCloseInfoPopup = () => {
     setShowInfoPopup(false); // InfoPopup 숨김
@@ -110,6 +141,7 @@ const Home = () => {
 
   const handleLine1Click = () => {
     console.log(`[${selectedBook.bookTitle}] 정보 보기`);
+    navigate(`/rooms/${selectedBook.roomId}/`);
     setShowInfoPopup(false); // InfoPopup 숨김
   };
 
@@ -119,9 +151,20 @@ const Home = () => {
     setShowInfoPopup(false); // InfoPopup 숨김
   };
 
-  const handleDeleteConfirmed = () => {
+  const handleDeleteConfirmed = async () => {
     console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
-    setPopup1Visible(false); // 팝업 띄우기기
+    const success = await deleteRecord(selectedBook.roomId);
+    if (success) {
+      console.log(`[SUCCESS] [${selectedBook.bookTitle}] 기록 삭제 완료`);
+      setRecordList((prevList) =>
+        prevList.filter((book) => book.roomId !== selectedBook.roomId)
+      ); // UI에서 삭제
+
+      setBookCount((prevCount) => prevCount - 1); //bookCount 감소
+      setPopup1Visible(false);
+    } else {
+      alert('삭제 요청에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -202,7 +245,7 @@ const Home = () => {
               }`}
             >
               <p className="line1">
-                여기는 <span className="nickname">닉네임</span> 님의
+                여기는 <span className="nickname">{nickName}</span> 님의
               </p>
               <p className="line2">독서 기록과 이야기가 담길</p>
               <p className="line3">특별한 공간입니다.</p>
@@ -224,42 +267,19 @@ const Home = () => {
                 onClick={handleRecordClick}
               />
               <div className="book-scroll-container">
-                <BookFrame
-                  imageUrl={DummyBook1}
-                  bookTitle="밤의 여행자들"
-                  modifiedAt="1시간 전"
-                  userPercentage={50}
-                  readType="같이읽기"
-                  authorName="윤고은"
-                  onDotsClick={handleDotsClick}
-                />
-                <BookFrame
-                  imageUrl={DummyBook2}
-                  bookTitle="모든 삶은 흐른다"
-                  modifiedAt="1시간 전"
-                  userPercentage={50}
-                  readType="혼자"
-                  authorName="로랑스 드빌레르"
-                  onDotsClick={handleDotsClick}
-                />
-                <BookFrame
-                  imageUrl={DummyBook2}
-                  readType="혼자"
-                  bookTitle="말의 품격"
-                  modifiedAt="1시간 전"
-                  userPercentage={50}
-                  authorName="이기주"
-                  onDotsClick={handleDotsClick}
-                />
-                <BookFrame
-                  imageUrl={DummyBook1}
-                  readType="같이읽기"
-                  bookTitle="말의 품격"
-                  modifiedAt="1시간 전"
-                  userPercentage={50}
-                  authorName="이기주"
-                  onDotsClick={handleDotsClick}
-                />
+                {recordList.map((record) => (
+                  <BookFrame
+                    key={record.roomId}
+                    imageUrl={record.imageUrl}
+                    bookTitle={record.bookTitle}
+                    roomType={record.roomType}
+                    authorName={record.authorName}
+                    modifiedAt={record.modifiedAt}
+                    userPercentage={record.userPercentage}
+                    onDotsClick={() => setSelectedBook(record)}
+                    onClick={(event) => handleBookFrameClick(event, record)} //책 클릭 시 상세 페이지로 이동
+                  />
+                ))}
               </div>
             </div>
             <span className="read-count-text">읽기 횟수가 많은 책</span>
@@ -294,7 +314,7 @@ const Home = () => {
                   </div>
                 </>
               ) : (
-                <p className="loading-message">인기 도서를 불러오는 중...</p> // ✅ 로딩 메시지 추가
+                <p className="loading-message">인기 도서를 불러오는 중...</p> //로딩 메시지 추가
               )}
             </div>
 

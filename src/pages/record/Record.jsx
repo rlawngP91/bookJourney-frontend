@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Record.styles';
 import StatusBar from '../../components/statusbar/StatusBar';
@@ -7,19 +7,44 @@ import Sort from './sort.svg';
 import Line from './line.svg';
 import Checked from '../bookmark/checked.svg';
 import Book from './Book';
+/*
 import Dummy1 from './dummy1.svg';
 import Dummy2 from './dummy2.svg';
 import Dummy3 from './dummy3.svg';
 import Dummy4 from './dummy4.svg';
+*/
+import apiClient from '../../apis/instance/apiClient';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
+import { fetchProgressRecords } from '../../apis/progressApi';
+import { deleteRecord } from '../../apis/deleteRecordApi';
 
 const Record = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
+  const [recordList, setRecordList] = useState([]); // 진행중인 기록 리스트
   const [showSortPopup, setShowSortPopup] = useState(false); // Sort 팝업 상태
   const [showInfoPopup, setShowInfoPopup] = useState(false); // InfoPopup 상태
   const [selectedOrder, setSelectedOrder] = useState('latest-order'); // 기본 선택: 최신순
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
+  const [nickName, setNickName] = useState(''); // 로그인된 유저 닉네임
+  useEffect(() => {
+    apiClient.get('/books/best-sellers').then((response) => {
+      console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
+      if (response.data.code === 200) {
+        setNickName(response.data.data.nickName); // 닉네임 저장
+      }
+    });
+
+    fetchProgressRecords(
+      selectedOrder === 'latest-order' ? '최신순' : '유저진행도순'
+    )
+      .then((records) => {
+        setRecordList(records);
+      })
+      .catch((error) =>
+        console.error('[ERROR] 진행 기록 가져오기 실패:', error)
+      );
+  }, [selectedOrder]);
 
   const handleBackClick = () => {
     navigate('/home');
@@ -39,6 +64,10 @@ const Record = () => {
     setShowSortPopup(false); // Sort 팝업 숨김
   };
 
+  const handleBookClick = (roomId) => {
+    navigate(`/rooms/${roomId}/info`);
+  };
+
   // InfoPopup 관련
   const handleDotsClick = (book) => {
     setSelectedBook(book); // 선택된 책 업데이트
@@ -52,6 +81,7 @@ const Record = () => {
   };
 
   const handleLine1Click = () => {
+    navigate(`/rooms/${selectedBook.roomId}/`);
     console.log(`[${selectedBook.bookTitle}] 정보 보기`);
     setShowInfoPopup(false); // InfoPopup 숨김
   };
@@ -62,9 +92,18 @@ const Record = () => {
     setShowInfoPopup(false); // InfoPopup 숨김
   };
 
-  const handleDeleteConfirmed = () => {
+  const handleDeleteConfirmed = async () => {
     console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
-    setPopup1Visible(false); // 팝업 띄우기기
+    const success = await deleteRecord(selectedBook.roomId);
+    if (success) {
+      console.log(`[SUCCESS] [${selectedBook.bookTitle}] 기록 삭제 완료`);
+      setRecordList((prevList) =>
+        prevList.filter((book) => book.roomId !== selectedBook.roomId)
+      );
+      setPopup1Visible(false);
+    } else {
+      alert('삭제 요청에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -108,7 +147,7 @@ const Record = () => {
           onClick={handleBackClick}
         />
         <p className="title-message">
-          <span className="nickname">닉네임</span>님의 진행중 기록
+          <span className="nickname">{nickName}</span>님의 진행중 기록
         </p>
         <p className="total">
           전체 <span className="number">5</span>
@@ -119,61 +158,20 @@ const Record = () => {
         </p>
       </div>
       <div className="content">
-        <Book
-          imageSrc={Dummy1}
-          bookTitle="밤의 여행자들"
-          readType="같이"
-          writer="윤고은"
-          hour={1}
-          percentage={50}
-          onDotsClick={handleDotsClick}
-        />
-        <Book
-          imageSrc={Dummy2}
-          bookTitle="모든 삶은 흐른다"
-          readType="혼자"
-          writer="로랑스 드빌레르"
-          hour={1}
-          percentage={100}
-          onDotsClick={handleDotsClick}
-        />
-        <Book
-          imageSrc={Dummy3}
-          bookTitle="말의 품격"
-          readType="혼자"
-          writer="이기주"
-          hour={1}
-          percentage={50}
-          onDotsClick={handleDotsClick}
-        />
-        <Book
-          imageSrc={Dummy4}
-          bookTitle="이기적 유전자"
-          readType="같이"
-          writer="리처드 도킨스"
-          hour={1}
-          percentage={50}
-          onDotsClick={handleDotsClick}
-        />
-        <Book
-          imageSrc={Dummy2}
-          bookTitle="모든 삶은 흐른다"
-          readType="혼자"
-          writer="로랑스 드빌레르"
-          hour={1}
-          percentage={100}
-          onDotsClick={handleDotsClick}
-        />
-        <Book
-          imageSrc={Dummy2}
-          bookTitle="모든 삶은 흐른다"
-          readType="혼자"
-          writer="로랑스 드빌레르"
-          hour={1}
-          percentage={100}
-          onDotsClick={handleDotsClick}
-        />
-        {/* 다른 Book 컴포넌트들 */}
+        {recordList.map((record) => (
+          <Book
+            key={record.roomId}
+            roomId={record.roomId}
+            imageUrl={record.imageUrl}
+            bookTitle={record.bookTitle}
+            roomType={record.roomType}
+            authorName={record.authorName}
+            modifiedAt={record.modifiedAt}
+            userPercentage={record.userPercentage}
+            onDotsClick={() => handleDotsClick(record)}
+            onClick={() => handleBookClick(record.roomId)}
+          />
+        ))}
       </div>
 
       {/* Sort 팝업 */}
