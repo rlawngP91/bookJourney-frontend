@@ -1,5 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  display: block;
+`;
 
 const ItemWrapper = styled.div`
   display: flex;
@@ -44,14 +51,20 @@ const Title = styled.h3`
   line-height: 1.4;
 `;
 
-export const BookItem = ({ title, author, coverImage }) => {
+// 클릭되면 /books/:isbn 넘기기 (isbn=book.id임)
+export const BookItem = ({ id, title, author, coverImage }) => {
   return (
-    <ItemWrapper>
-      <BookCover src={coverImage || '/api/placeholder/100/150'} alt={title} />
-      <BookInfo>
-        <Author>{author} 저</Author>
-        <Title>{title}</Title>
-      </BookInfo>
-    </ItemWrapper>
+    <StyledLink
+      to={`/info/${id}`}
+      style={{ textDecoration: 'none', color: 'inherit' }}
+    >
+      <ItemWrapper>
+        <BookCover src={coverImage || '/api/placeholder/100/150'} alt={title} />
+        <BookInfo>
+          <Author>{author} 저</Author>
+          <Title>{title}</Title>
+        </BookInfo>
+      </ItemWrapper>
+    </StyledLink>
   );
 };

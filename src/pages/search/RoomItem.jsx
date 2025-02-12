@@ -1,9 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import calendarIcon from '../../assets/note2.svg';
 import usersIcon from '../../assets/users2.svg';
 import lockIcon from '../../assets/lock2.svg';
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  display: block;
+`;
 const ItemWrapper = styled.div`
   display: flex;
   height: 123px;
@@ -108,7 +114,9 @@ const DateText = styled.p`
   line-height: 133%;
 `;
 
+// 클릭되면 /rooms/:roomId 으로 넘기기
 export const RoomItem = ({
+  id,
   book,
   author,
   coverImage,
@@ -121,32 +129,34 @@ export const RoomItem = ({
   isLocked,
 }) => {
   return (
-    <ItemWrapper>
-      <BookCoverWrapper>
-        <BookCover src={coverImage} alt={book} />
-        <Overlay $isLocked={isLocked} />
-        <LockIconWrapper $isLocked={isLocked}>
-          <LockIcon src={lockIcon} alt="locked" />
-        </LockIconWrapper>
-      </BookCoverWrapper>
-      <RoomInfo>
-        <Author>{author} 저</Author>
-        <Title>{book}</Title>
-        <StatusContainer>
-          <StatusItem>{title}</StatusItem>
-          <StatusItem>
-            <img src={usersIcon} alt="userInfo" />
-            {currentpeople}/{totalpeople}
-          </StatusItem>
-          <StatusItem>
-            <img src={calendarIcon} alt="calendar" />
-            {progress}%
-          </StatusItem>
-        </StatusContainer>
-        <DateText>
-          {startdate} ~ {enddate}
-        </DateText>
-      </RoomInfo>
-    </ItemWrapper>
+    <StyledLink to={`/rooms/${id}`}>
+      <ItemWrapper>
+        <BookCoverWrapper>
+          <BookCover src={coverImage} alt={book} />
+          <Overlay $isLocked={isLocked} />
+          <LockIconWrapper $isLocked={isLocked}>
+            <LockIcon src={lockIcon} alt="locked" />
+          </LockIconWrapper>
+        </BookCoverWrapper>
+        <RoomInfo>
+          <Author>{author} 저</Author>
+          <Title>{book}</Title>
+          <StatusContainer>
+            <StatusItem>{title}</StatusItem>
+            <StatusItem>
+              <img src={usersIcon} alt="userInfo" />
+              {currentpeople}/{totalpeople}
+            </StatusItem>
+            <StatusItem>
+              <img src={calendarIcon} alt="calendar" />
+              {progress}%
+            </StatusItem>
+          </StatusContainer>
+          <DateText>
+            {startdate} ~ {enddate}
+          </DateText>
+        </RoomInfo>
+      </ItemWrapper>
+    </StyledLink>
   );
 };
