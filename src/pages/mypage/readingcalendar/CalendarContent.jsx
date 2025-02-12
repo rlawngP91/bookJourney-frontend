@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CalendarBookInfoPopup from './CalendarBookInfoPopup';
-import bookIcon from '../../../assets/bookexample.svg';
+// import bookIcon from '../../../assets/bookexample.svg';
 import { mypageReadingCalendarAPI } from '../../../apis/mypageReadingCalendarAPI';
 
 const CalendarGrid = styled.div`
@@ -52,33 +52,33 @@ const CalendarContent = ({ selectedDate }) => {
   const [loading, setLoading] = useState(true);
 
   //mockData
-  const bookDetailData = {
-    7: [
-      {
-        image: bookIcon,
-        author: '리처드 도킨스 저',
-        title: '이기적 유전자',
-        status: '혼자',
-        period: '2024.12.30 ~ 2025.01.20',
-      },
-    ],
-    14: [
-      {
-        image: bookIcon,
-        author: '리처드도킨스 저',
-        title: '이기적 유전자',
-        status: '같이',
-        period: '2024.12.30 ~ 2025.01.20',
-      },
-      {
-        image: bookIcon,
-        author: '리처드 도킨스 저',
-        title: '이기적 유전자',
-        status: '같이',
-        period: '2024.12.30 ~ 2025.01.20',
-      },
-    ],
-  };
+  // const bookDetailData = {
+  //   7: [
+  //     {
+  //       image: bookIcon,
+  //       author: '리처드 도킨스 저',
+  //       title: '이기적 유전자',
+  //       status: '혼자',
+  //       period: '2024.12.30 ~ 2025.01.20',
+  //     },
+  //   ],
+  //   14: [
+  //     {
+  //       image: bookIcon,
+  //       author: '리처드도킨스 저',
+  //       title: '이기적 유전자',
+  //       status: '같이',
+  //       period: '2024.12.30 ~ 2025.01.20',
+  //     },
+  //     {
+  //       image: bookIcon,
+  //       author: '리처드 도킨스 저',
+  //       title: '이기적 유전자',
+  //       status: '같이',
+  //       period: '2024.12.30 ~ 2025.01.20',
+  //     },
+  //   ],
+  // };
 
   // 예시 데이터: 날짜별 책 이미지
   // const bookData = {
@@ -89,10 +89,22 @@ const CalendarContent = ({ selectedDate }) => {
   //   21: bookIcon,
   //   30: bookIcon,
   // };
+
   useEffect(() => {
-    setLoading(true);
-    setCalendarData(mypageReadingCalendarAPI.fetchCalendarData(selectedDate));
-    setLoading(false);
+    const fetchCalendarData = async () => {
+      setLoading(true);
+      try {
+        const data =
+          await mypageReadingCalendarAPI.fetchCalendarData(selectedDate);
+        setCalendarData(data);
+      } catch (error) {
+        console.error('Failed to fetch calendar data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCalendarData();
   }, [selectedDate]);
 
   // 선택된 월의 첫째 날과 마지막 날 계산
@@ -116,10 +128,23 @@ const CalendarContent = ({ selectedDate }) => {
   const emptyDays = Array(firstDayOffset).fill(null);
   const allDays = [...emptyDays, ...dates];
 
-  const handleDateClick = (date) => {
+  const handleDateClick = async (date) => {
     if (calendarData[date]) {
-      setSelectedBooks(bookDetailData[date] || []);
-      setIsPopupOpen(true);
+      try {
+        setLoading(true);
+        const detailData =
+          await mypageReadingCalendarAPI.fetchCalendarDataDetail(
+            selectedDate,
+            date
+          );
+        setSelectedBooks(detailData);
+        console.log(selectedBooks);
+        setIsPopupOpen(true);
+      } catch (error) {
+        console.error('Failed to fetch detail data:', error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
