@@ -27,6 +27,7 @@ export default function Search() {
   const [searchType, setSearchType] = useState('책 제목');
   const [recentSearches, setRecentSearches] = useState([]);
   const [isSearchExecuted, setIsSearchExecuted] = useState(false);
+  const [isLoading, setIsLoaing] = useState(false);
 
   const [listType, setListType] = useState('책 목록');
   const [books, setBooks] = useState([]);
@@ -62,6 +63,7 @@ export default function Search() {
     setIsSearchExecuted(true);
 
     try {
+      setIsLoaing(true);
       await searchAPI.fetchSearchResults({
         searchQuery,
         searchType,
@@ -71,6 +73,8 @@ export default function Search() {
       });
     } catch (error) {
       console.error('Search failed:', error);
+    } finally {
+      setIsLoaing(false);
     }
   };
 
@@ -100,6 +104,7 @@ export default function Search() {
 
     if (searchQuery) {
       try {
+        setIsLoaing(true);
         await searchAPI.fetchSearchResults({
           searchQuery,
           searchType,
@@ -109,6 +114,8 @@ export default function Search() {
         });
       } catch (error) {
         console.error('Filter apply failed:', error);
+      } finally {
+        setIsLoaing(false);
       }
     }
   };
@@ -116,6 +123,7 @@ export default function Search() {
   const handleChipClick = async (text) => {
     setSearchQuery(text);
     try {
+      setIsLoaing(true);
       await searchAPI.fetchSearchResults({
         searchQuery: text,
         searchType,
@@ -126,6 +134,8 @@ export default function Search() {
       setIsSearchExecuted(true);
     } catch (error) {
       console.error('Search failed:', error);
+    } finally {
+      setIsLoaing(false);
     }
   };
 
@@ -133,10 +143,13 @@ export default function Search() {
   useEffect(() => {
     const fetchRecentSearches = async () => {
       try {
+        setIsLoaing(true);
         const data = await recentsearchAPI.getRecentSearches();
         setRecentSearches(data);
       } catch (error) {
         console.error('최근 검색어 조회 실패:', error);
+      } finally {
+        setIsLoaing(false);
       }
     };
 
@@ -145,22 +158,31 @@ export default function Search() {
 
   const removeRecentSearch = async (searchId) => {
     try {
+      setIsLoaing(true);
       await recentsearchAPI.removeRecentSearch(searchId);
       setRecentSearches(recentSearches.filter((item) => item.id !== searchId));
     } catch (error) {
       console.error('최근 검색어 삭제 실패:', error);
+    } finally {
+      setIsLoaing(false);
     }
   };
 
   const handleClearAll = async () => {
     // 최근 검색어 전체 삭제
     try {
+      setIsLoaing(true);
       await recentsearchAPI.clearAllRecentSearches();
       setRecentSearches([]);
     } catch (error) {
       console.error('전체 검색어 삭제 실패:', error);
+    } finally {
+      setIsLoaing(false);
     }
   };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <SearchWrapper>

@@ -19,7 +19,6 @@ import {
 } from '../../apis/readinglogAPI';
 // import { mockRoomsNotRead } from '../../apis/mockData3';
 import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
-import PostSkeleton from '../../components/loading/PostSkeleton';
 
 const ReadingLog = () => {
   const [nickname, setNickname] = useState('NickName');
@@ -75,7 +74,7 @@ const ReadingLog = () => {
   };
 
   // 여기에 skeleton code..?
-  if (isLoading) return <PostSkeleton />;
+  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>오류가 발생했습니다: {error}</div>;
 
   return (
