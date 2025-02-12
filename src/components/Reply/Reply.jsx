@@ -157,6 +157,13 @@ export default function Reply({ recordId, onClose }) {
                   <img src={comment.imageUrl || userimage} alt="User Profile" />
                   <div className="name">{comment.nickName}</div>
                   <div className="time">{comment.createdAt}</div>
+                  <img
+                    src={hamburgermenu}
+                    onClick={() => setIsMenuOpen(true)}
+                  />
+                  {isMenuOpen && (
+                    <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                  )}
                 </div>
               </div>
               <div className="body">
