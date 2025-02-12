@@ -2,9 +2,9 @@ import instance from './instance';
 
 const favoriteBookAPIResponse = (item) => ({
   id: item.favoriteId,
-  imgSrc: item.imageUrl,
-  writer: item.authorName,
-  bookTitle: item.bookTitle,
+  imgSrc: item.bookInfo.imageUrl,
+  writer: item.bookInfo.authorName,
+  bookTitle: item.bookInfo.bookTitle,
   isChecked: false,
 });
 
@@ -14,7 +14,7 @@ export const bookmarkAPI = {
     try {
       const response = await instance.get(`/favorites`);
       if (response.data.code === 200) {
-        return response.data.data.bookList.map(favoriteBookAPIResponse);
+        return response.data.data.favoriteList.map(favoriteBookAPIResponse);
       } else {
         throw new Error(response.data.message || '서버 응답 오류');
       }
