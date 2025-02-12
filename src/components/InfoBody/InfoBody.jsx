@@ -4,28 +4,29 @@ import star from '../../assets/star.svg';
 import filledstar from '../../assets/filledstar.svg';
 import { addFavorite, deleteFavorite } from '../../apis/favorite';
 
-export default function InfoBody({ roomData }) {
-  const [isFavorite, setIsFavorite] = useState(false); // ✅ 초기값 false로 설정
+export default function InfoBody({ roomData, bookData }) {
+  const [isFavorite, setIsFavorite] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (roomData) {
-      setIsFavorite(roomData.favorite);
+    if (bookData) {
+      setIsFavorite(bookData.favorite);
     }
-  }, [roomData]);
+  }, [bookData]);
+
   const handleStarClick = async () => {
-    if (!roomData || !roomData.isbn) {
+    if (!bookData || !bookData.isbn) {
       setError('ISBN 정보가 없습니다.');
       return;
     }
 
     if (isFavorite) {
-      setShowPopup(true); // 즐겨찾기 삭제 확인 팝업 열기
+      setShowPopup(true);
     } else {
       try {
-        await addFavorite(roomData.isbn);
-        setIsFavorite(true); // ✅ 즐겨찾기 추가 후 상태 업데이트
+        await addFavorite(bookData.isbn);
+        setIsFavorite(true);
       } catch (err) {
         setError(err.message);
       }
@@ -33,59 +34,78 @@ export default function InfoBody({ roomData }) {
   };
 
   const handleDelete = async () => {
-    if (!roomData || !roomData.isbn) {
+    if (!bookData || !bookData.isbn) {
       setError('ISBN 정보가 없습니다.');
       return;
     }
 
     try {
-      const favoriteIds = [roomData.favoriteId]; // 삭제할 favoriteId 배열
-      await deleteFavorite(roomData.isbn, favoriteIds);
-      setIsFavorite(false); // ✅ 삭제 후 즐겨찾기 상태 업데이트
+      const favoriteIds = [bookData.favoriteId];
+      await deleteFavorite(bookData.isbn, favoriteIds);
+      setIsFavorite(false);
       setShowPopup(false);
     } catch (err) {
       setError(err.message);
     }
   };
 
-  // ✅ bookData가 없으면 로딩 메시지를 먼저 보여줌
-  if (!roomData) {
+  // 둘 다 없는 경우에만 로딩 혹은 아무것도 렌더링하지 않음
+  if (!roomData && !bookData) {
     return;
   }
 
-  return (
-    <Container>
-      <Wrapper>
-        <div className="title">
-          <div className="bookname">{roomData?.bookTitle || '제목 없음'}</div>
-          <img
-            src={isFavorite ? filledstar : star}
-            onClick={handleStarClick}
-            alt="즐겨찾기 버튼"
-          />
-        </div>
-        <div className="writer">{roomData?.authorName || '작가 정보 없음'}</div>
-      </Wrapper>
+  // roomData가 존재하면 roomData를 우선 렌더링
+  if (roomData) {
+    return (
+      <Container>
+        <Wrapper>
+          <div className="title">
+            <div className="bookname">{roomData.bookTitle || '제목 없음'}</div>
+          </div>
+          <div className="writer">
+            {roomData.authorName || '작가 정보 없음'}
+          </div>
+        </Wrapper>
+        {error && <div style={{ color: 'red' }}>❌ {error}</div>}
+      </Container>
+    );
+  }
 
-      {showPopup && (
-        <Popup className="popup" onClick={(e) => e.stopPropagation()}>
-          <div className="box">
-            <div className="title">즐겨찾기 삭제</div>
-            <div className="message">즐겨찾기 책에서 삭제할까요?</div>
-            <div className="buttons">
-              <div className="cancel" onClick={() => setShowPopup(false)}>
-                취소
-              </div>
-              <div className="delete" onClick={handleDelete}>
-                삭제
+  // roomData가 없고 bookData만 있을 경우 (즐겨찾기 기능 없이)
+  if (bookData) {
+    return (
+      <Container>
+        <Wrapper>
+          <div className="title">
+            <div className="bookname">{bookData.bookTitle || '제목 없음'}</div>
+            <img
+              src={isFavorite ? filledstar : star}
+              onClick={handleStarClick}
+              alt="즐겨찾기 버튼"
+              style={{ cursor: 'pointer' }}
+            />
+          </div>
+          <div className="writer">
+            {bookData.authorName || '작가 정보 없음'}
+          </div>
+        </Wrapper>
+        {showPopup && (
+          <Popup className="popup" onClick={(e) => e.stopPropagation()}>
+            <div className="box">
+              <div className="title">즐겨찾기 삭제</div>
+              <div className="message">즐겨찾기 책에서 삭제할까요?</div>
+              <div className="buttons">
+                <div className="cancel" onClick={() => setShowPopup(false)}>
+                  취소
+                </div>
+                <div className="delete" onClick={handleDelete}>
+                  삭제
+                </div>
               </div>
             </div>
-          </div>
-        </Popup>
-      )}
-
-      {/* 에러 메시지 */}
-      {error && <div style={{ color: 'red' }}>❌ {error}</div>}
-    </Container>
-  );
+          </Popup>
+        )}
+      </Container>
+    );
+  }
 }

@@ -81,8 +81,13 @@ export const Container = styled.div`
 
   .best-seller {
     position: absolute;
+    width: 139px;
+    height: 198px;
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
     top: 212px;
     left: 123px;
+    cursor: pointer;
   }
 
   .description {
@@ -393,6 +398,10 @@ export const Container = styled.div`
     font-size: 12px;
     font-style: normal;
     font-weight: var(--sds-typography-body-font-weight-regular);
+  }
+
+  .left-side {
+    cursor: pointer;
   }
 
   .popup-message2 {

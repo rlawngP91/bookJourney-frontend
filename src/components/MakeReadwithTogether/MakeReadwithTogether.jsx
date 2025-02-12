@@ -9,9 +9,7 @@ import {
 import { createRoom } from '../../apis/room'; // 방 생성 API 호출
 import DatePicker from './DatePicker';
 
-const MakeReadwithTogether = forwardRef((props, ref) => {
-  const isbn = '9791198860538'; // ✅ 하드코딩된 ISBN 값
-
+const MakeReadwithTogether = forwardRef(({ isbn }, ref) => {
   const today = new Date();
   const formattedToday = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
 
@@ -75,13 +73,13 @@ const MakeReadwithTogether = forwardRef((props, ref) => {
   // ✅ 방 생성 API 호출
   const createGroupRoom = async () => {
     const roomData = {
-      roomName: roomName || null,
+      roomName: roomName || '',
       progressStartDate: formattedToday,
-      progressEndDate: endDate || null,
-      recruitCount: participants ? parseInt(participants, 10) : null,
-      password: selected === '비공개' && password ? password : null,
+      progressEndDate: endDate || '',
+      recruitCount: participants ? parseInt(participants, 10) : '',
+      password: selected === '비공개' && password ? password : '',
       isbn,
-      public: selected === '공개',
+      isPublic: selected === '공개',
     };
 
     try {
