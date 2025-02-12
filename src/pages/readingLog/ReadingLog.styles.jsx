@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   width: 100%;
+  height: 100vh;
   background: #f6f7f9;
 
   .readinglog-title {
@@ -12,7 +13,7 @@ export const Container = styled.div`
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    margin-top: 35px;
+    padding-top: 35px;
     margin-bottom: 29px;
   }
 `;
