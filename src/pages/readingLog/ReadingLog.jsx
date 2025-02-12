@@ -19,7 +19,6 @@ import {
 } from '../../apis/readinglogAPI';
 // import { mockRoomsNotRead } from '../../apis/mockData3';
 import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
-import PostSkeleton from '../../components/loading/PostSkeleton';
 
 const ReadingLog = () => {
   const [nickname, setNickname] = useState('NickName');
@@ -35,7 +34,7 @@ const ReadingLog = () => {
       if (isRead) {
         // "다 읽었어요" 탭
         setIsLoading(true);
-        const result = await fetchReadingRecordsRead(10); // userId를 적절한 값으로 변경
+        const result = await fetchReadingRecordsRead();
 
         if (result.success) {
           setRooms(result.data);
@@ -48,7 +47,7 @@ const ReadingLog = () => {
       } else {
         // "다 안읽었어요" 탭
         setIsLoading(true);
-        const result = await fetchReadingRecordsNotRead(10); // userId를 적절한 값으로 변경
+        const result = await fetchReadingRecordsNotRead();
 
         if (result.success) {
           setRooms(result.data);
@@ -75,7 +74,7 @@ const ReadingLog = () => {
   };
 
   // 여기에 skeleton code..?
-  if (isLoading) return <PostSkeleton />;
+  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>오류가 발생했습니다: {error}</div>;
 
   return (

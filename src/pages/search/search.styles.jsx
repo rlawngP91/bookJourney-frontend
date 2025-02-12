@@ -50,7 +50,7 @@ export const SectionTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px 12px;
+  padding: 10px 16px 12px;
 
   span {
     font-family: Pretendard;
