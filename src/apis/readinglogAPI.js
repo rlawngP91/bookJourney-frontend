@@ -19,11 +19,9 @@ const RoomListReadAPIResponse = (record) => ({
   coverImage: record.imageUrl,
 });
 
-export const fetchReadingRecordsNotRead = async (userId) => {
+export const fetchReadingRecordsNotRead = async () => {
   try {
-    const responseNotRead = await instance.get(`/rooms/archive`, {
-      params: { userId },
-    });
+    const responseNotRead = await instance.get(`/rooms/archive`);
 
     if (responseNotRead.data.code === 200) {
       return {
@@ -31,7 +29,7 @@ export const fetchReadingRecordsNotRead = async (userId) => {
         data: responseNotRead.data.data.recordList.map(
           RoomListNotReadAPIResponse
         ),
-        nickname: `user${userId}`,
+        nickname: responseNotRead.data.data.nickName,
       };
     } else {
       throw new Error(responseNotRead.data.message || '서버 응답 오류');
@@ -46,17 +44,15 @@ export const fetchReadingRecordsNotRead = async (userId) => {
   }
 };
 
-export const fetchReadingRecordsRead = async (userId) => {
+export const fetchReadingRecordsRead = async () => {
   try {
-    const responseRead = await instance.get(`/rooms/archive/completed`, {
-      params: { userId },
-    });
+    const responseRead = await instance.get(`/rooms/archive/completed`);
 
     if (responseRead.data.code === 200) {
       return {
         success: true,
         data: responseRead.data.data.recordList.map(RoomListReadAPIResponse),
-        nickname: `user${userId}`,
+        nickname: responseRead.data.data.nickName,
       };
     } else {
       throw new Error(responseRead.data.message || '서버 응답 오류');
