@@ -120,57 +120,57 @@ const Record = () => {
       </div>
       <div className="content">
         <Book
-          imageSrc={Dummy1}
+          imageUrl={Dummy1}
           bookTitle="밤의 여행자들"
-          readType="같이"
-          writer="윤고은"
-          hour={1}
-          percentage={50}
+          roomType="같이"
+          authorName="윤고은"
+          modifiedAt={1}
+          userPercentage={50}
           onDotsClick={handleDotsClick}
         />
         <Book
-          imageSrc={Dummy2}
+          imageUrl={Dummy2}
           bookTitle="모든 삶은 흐른다"
-          readType="혼자"
-          writer="로랑스 드빌레르"
-          hour={1}
-          percentage={100}
+          roomType="혼자"
+          authorName="로랑스 드빌레르"
+          modifiedAt={1}
+          userPercentage={100}
           onDotsClick={handleDotsClick}
         />
         <Book
-          imageSrc={Dummy3}
+          imageUrl={Dummy3}
           bookTitle="말의 품격"
-          readType="혼자"
-          writer="이기주"
-          hour={1}
-          percentage={50}
+          roomType="혼자"
+          authorName="이기주"
+          modifiedAt={1}
+          userPercentage={50}
           onDotsClick={handleDotsClick}
         />
         <Book
-          imageSrc={Dummy4}
+          imageUrl={Dummy4}
           bookTitle="이기적 유전자"
-          readType="같이"
-          writer="리처드 도킨스"
-          hour={1}
-          percentage={50}
+          roomType="같이"
+          authorName="리처드 도킨스"
+          modifiedAt={1}
+          userPercentage={50}
           onDotsClick={handleDotsClick}
         />
         <Book
-          imageSrc={Dummy2}
+          imageUrl={Dummy2}
           bookTitle="모든 삶은 흐른다"
-          readType="혼자"
-          writer="로랑스 드빌레르"
-          hour={1}
-          percentage={100}
+          roomType="혼자"
+          authorName="로랑스 드빌레르"
+          modifiedAt={1}
+          userPercentage={100}
           onDotsClick={handleDotsClick}
         />
         <Book
-          imageSrc={Dummy2}
+          imageUrl={Dummy2}
           bookTitle="모든 삶은 흐른다"
-          readType="혼자"
-          writer="로랑스 드빌레르"
-          hour={1}
-          percentage={100}
+          roomType="혼자"
+          authorName="로랑스 드빌레르"
+          modifiedAt={1}
+          userPercentage={100}
           onDotsClick={handleDotsClick}
         />
         {/* 다른 Book 컴포넌트들 */}
