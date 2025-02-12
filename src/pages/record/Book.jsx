@@ -12,31 +12,36 @@ const Book = ({
   modifiedAt,
   userPercentage,
   onDotsClick,
+  onClick,
 }) => {
-  // 전달된 props 값 확인
-  //console.log('readType:', readType); // "같이" 또는 "혼자"가 출력되는지 확인
+  const displayReadType =
+    roomType === '같이읽기'
+      ? '같이'
+      : roomType === '혼자읽기'
+        ? '혼자'
+        : roomType;
 
   return (
     <Container>
-      <img className="book-img" src={imageUrl} alt="책1" />
+      <img className="book-img" src={imageUrl} alt="책1" onClick={onClick} />
       <div className="title-container">
         <span className="bookTitle">{bookTitle}</span>
         <div
           className="read-type"
           style={{
-            backgroundColor: roomType === '같이' ? '#6AA5F8' : '#A3C7FA',
+            backgroundColor: roomType === '같이읽기' ? '#6AA5F8' : '#A3C7FA',
           }}
         >
-          {roomType}
+          {displayReadType}
         </div>
       </div>
       <p className="writer-space">{authorName}</p>
       <div className="separate-line"></div>
       <div className="bottom">
         <img className="clock" src={Clock} alt="시계" />
-        <span className="hour">{modifiedAt}시간 전</span>
+        <span className="hour">{modifiedAt}</span>
         <img className="note" src={Note} alt="노트" />
-        <span className="percentage">{userPercentage}%</span>
+        <span className="percentage">{Math.round(userPercentage)} %</span>
         <img
           className="dots"
           src={Dots}
