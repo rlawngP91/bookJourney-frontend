@@ -10,7 +10,7 @@ const ChipWrapper = styled.div`
   border-radius: 20px;
   background: #f5f5f5;
   box-sizing: border-box;
-  width: 74.475px;
+  max-width: 365px;
   height: 30.783px;
   flex-shrink: 0;
   cursor: pointer;

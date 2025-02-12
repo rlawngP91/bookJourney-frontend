@@ -10,7 +10,6 @@ export const Container = styled.div`
 
 export const RoomItem = styled.div`
   display: flex;
-  width: 100%;
   height: 123px;
   gap: 16px;
   padding: 16px;
@@ -40,6 +39,7 @@ export const BookInfo = styled.div`
 
   .bookMetaContainer {
     display: flex;
+    padding-right: 10px;
     gap: 5px;
 
     .roomBook {
