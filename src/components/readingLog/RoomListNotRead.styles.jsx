@@ -39,6 +39,7 @@ export const BookInfo = styled.div`
 
   .bookMetaContainer {
     display: flex;
+    padding-right: 10px;
     gap: 5px;
 
     .roomBook {
