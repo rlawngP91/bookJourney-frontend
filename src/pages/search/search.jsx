@@ -113,13 +113,20 @@ export default function Search() {
     }
   };
 
-  const handleChipClick = (text) => {
+  const handleChipClick = async (text) => {
     setSearchQuery(text);
-    setIsSearchExecuted(false); // 검색결과초기화
-    // 바로 최근검색어로 검색 API
-    // setTimeout(() => {
-    //   handleSearch();
-    // }, 0);
+    try {
+      await searchAPI.fetchSearchResults({
+        searchQuery: text,
+        searchType,
+        filters: appliedFilters,
+        setBooks,
+        setRooms,
+      });
+      setIsSearchExecuted(true);
+    } catch (error) {
+      console.error('Search failed:', error);
+    }
   };
 
   // 최근 검색어 목록 조회
