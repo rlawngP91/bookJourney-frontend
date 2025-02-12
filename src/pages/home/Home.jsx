@@ -4,8 +4,6 @@ import { Container, Wrapper } from './Home.styles';
 import Title from '../../assets/title.svg';
 import Star from './star.svg';
 import Bell from './bell.svg';
-//import Book from './book.svg';
-//import Book2 from './book2.svg';
 import Gray from './gray.svg';
 import Blue from './blue.svg';
 import Footer from '../../components/commons/Footer/Footer';
@@ -13,10 +11,7 @@ import BlueBtn from '../../components/blueBtn/BlueBtn';
 import Room from './Room';
 import Arrow from './arrow.svg';
 import BookFrame from '../../components/bookFrame/BookFrame';
-//import DummyBook1 from '../../assets/dummyBook1.svg';
-//import DummyBook2 from '../../assets/dummyBook2.svg';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
-//import DummyBook3 from '../../assets/dummyBook3.svg';
 import apiClient from '../../apis/instance/apiClient';
 import { fetchPopularBook } from '../../apis/popularApi';
 import { fetchProgressRecords } from '../../apis/progressApi';
@@ -138,14 +133,6 @@ const Home = () => {
   const handleSearchClick = () => {
     navigate('/search'); // '/search'로 네비게이션
   };
-
-  /*
-  // InfoPopup 관련
-  const handleDotsClick = (book) => {
-    setSelectedBook(book); // 선택된 책 업데이트
-    setShowInfoPopup(true); // InfoPopup 표시
-  };
-  */
 
   const handleCloseInfoPopup = () => {
     setShowInfoPopup(false); // InfoPopup 숨김
