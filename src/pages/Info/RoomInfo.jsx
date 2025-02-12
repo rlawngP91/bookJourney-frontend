@@ -40,7 +40,7 @@ export default function RoomInfo() {
     };
 
     fetchData();
-  }, [roomId]); // roomId 변경 시마다 실행
+  }, [roomId]);
 
   return (
     <Wrapper>

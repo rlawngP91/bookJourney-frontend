@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const ButtonGroupWrapper = styled.div`
   width: 393px;
@@ -23,11 +24,16 @@ export const Button = styled.button`
   border: none; /* 테두리 제거 */
   outline: none; /* 포커스 시 나오는 아웃라인 제거 */
 `;
+//책검색해서 왔을때!
+export default function ButtonGroup3({ isbn }) {
+  const navigate = useNavigate();
 
-export default function ButtonGroup3() {
+  const handleClick = () => {
+    navigate(`/makereadwith/${isbn}`);
+  };
   return (
     <ButtonGroupWrapper>
-      <Button>방 생성하기</Button>
+      <Button onClick={handleClick}>방 생성하기</Button>
     </ButtonGroupWrapper>
   );
 }
