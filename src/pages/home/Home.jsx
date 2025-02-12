@@ -21,6 +21,7 @@ import apiClient from '../../apis/instance/apiClient';
 import { fetchPopularBook } from '../../apis/popularApi';
 import { fetchProgressRecords } from '../../apis/progressApi';
 import { deleteRecord } from '../../apis/deleteRecordApi';
+import { fetchRecruitRooms } from '../../apis/recruitRoomApi';
 const Home = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
   const [bookCount, setBookCount] = useState(0); // 백엔드에서 가져올 값
@@ -33,6 +34,8 @@ const Home = () => {
   const [popularBook, setPopularBook] = useState(null);
   const [isbn, setIsbn] = useState('');
   const [recordList, setRecordList] = useState([]);
+  const [recruitWeek, setRecruitWeek] = useState('');
+  const [recruitRooms, setRecruitRooms] = useState([]);
 
   useEffect(() => {
     console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
@@ -86,20 +89,31 @@ const Home = () => {
       .catch((error) =>
         console.error('[ERROR] 진행 기록 가져오기 실패:', error)
       );
+
+    fetchRecruitRooms()
+      .then((data) => {
+        if (data) {
+          setRecruitWeek(data.weekOfMonth); // 주차 정보 저장
+          setRecruitRooms(data.roomList); // 모집 중인 방 목록 저장
+        }
+      })
+      .catch((error) => {
+        console.error('[ERROR] 모집 중인 방 데이터 가져오기 실패:', error);
+      });
   }, []);
 
   // 책 클릭 시 해당 roomId의 상세 페이지로 이동
   const handleBookFrameClick = (event, record) => {
-    event.stopPropagation(); // ✅ 이벤트 버블링 방지
+    event.stopPropagation(); // 이벤트 버블링 방지
 
-    const targetClass = event.target.classList; // ✅ 클릭된 요소의 클래스 확인
+    const targetClass = event.target.classList; // 클릭된 요소의 클래스 확인
 
     if (targetClass.contains('dots')) {
-      // ✅ 점 3개 클릭 시 InfoPopup 표시
+      // 점 3개 클릭 시 InfoPopup 표시
       setSelectedBook(record);
       setShowInfoPopup(true);
     } else {
-      // ✅ 책 표지를 클릭한 경우 상세 페이지로 이동
+      // 책 표지를 클릭한 경우 상세 페이지로 이동
       console.log(`[DEBUG] 클릭된 책의 roomId: ${record.roomId}`);
       navigate(`/rooms/${record.roomId}/info`);
     }
@@ -319,43 +333,22 @@ const Home = () => {
             </div>
 
             <div className="recruiting-room-info">
-              <span className="recruiting-title">1월 첫째주 모집중인 방</span>
+              <span className="recruiting-title">
+                {recruitWeek} 모집중인 방
+              </span>
               <div className="room-wrapper">
-                <Room
-                  currentPeople={4}
-                  maxPeople={6}
-                  roomTitle="여기모여라 방"
-                  bookTitle="이기적 유전자"
-                  period="2024.12.30 ~ 2025.01.14"
-                />
-                <Room
-                  currentPeople={4}
-                  maxPeople={6}
-                  roomTitle="여기모여라 방"
-                  bookTitle="이기적 유전자"
-                  period="2024.12.30 ~ 2025.01.14"
-                />
-                <Room
-                  currentPeople={4}
-                  maxPeople={6}
-                  roomTitle="여기모여라 방"
-                  bookTitle="이기적 유전자"
-                  period="2024.12.30 ~ 2025.01.14"
-                />
-                <Room
-                  currentPeople={4}
-                  maxPeople={6}
-                  roomTitle="여기모여라 방"
-                  bookTitle="이기적 유전자"
-                  period="2024.12.30 ~ 2025.01.14"
-                />
-                <Room
-                  currentPeople={4}
-                  maxPeople={6}
-                  roomTitle="여기모여라 방"
-                  bookTitle="이기적 유전자"
-                  period="2024.12.30 ~ 2025.01.14"
-                />
+                {recruitRooms.map((room) => (
+                  <Room
+                    key={room.roomId}
+                    roomId={room.roomId}
+                    roomTitle={room.roomName}
+                    bookTitle={room.bookTitle}
+                    currentPeople={room.memberCount}
+                    maxPeople={room.recruitCount}
+                    progressStartDate={room.progressStartDate}
+                    progressEndDate={room.progressEndDate}
+                  />
+                ))}
                 <div className="footer-place-holder"></div>
               </div>
             </div>
