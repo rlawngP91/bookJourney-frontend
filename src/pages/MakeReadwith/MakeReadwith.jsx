@@ -4,12 +4,12 @@ import RWFooter from '../../components/RWFooter/RWFooter';
 import { Wrapper, Button, ButtonContainer } from './MakeReadwith.styles';
 import MakeReadwithTogether from '../../components/MakeReadwithTogether/MakeReadwithTogether';
 import { createRoom } from '../../apis/room'; // 방 생성 API 호출
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function MakeReadwith() {
   const navigate = useNavigate(); // ✅ useNavigate 사용
   const [selected, setSelected] = useState('혼자');
-  const isbn = '9791193937396'; // ✅ 하드코딩된 ISBN
+  const { isbn } = useParams();
   const makeReadwithTogetherRef = useRef(null); // ✅ `MakeReadwithTogether` 참조
 
   const handleButtonClick = (option) => {
@@ -22,12 +22,12 @@ export default function MakeReadwith() {
 
       if (selected === '혼자') {
         const roomData = {
-          public: false,
-          roomName: null,
-          progressStartDate: null,
-          progressEndDate: null,
+          isPublic: false,
+          roomName: '',
+          progressStartDate: '',
+          progressEndDate: '',
           recruitCount: 1,
-          password: null,
+          password: '',
           isbn,
         };
 
@@ -68,7 +68,7 @@ export default function MakeReadwith() {
           </Button>
         </ButtonContainer>
         {selected === '같이' && (
-          <MakeReadwithTogether ref={makeReadwithTogetherRef} />
+          <MakeReadwithTogether ref={makeReadwithTogetherRef} isbn={isbn} />
         )}
         <RWFooter onCreateRoom={handleCreateRoom} />
       </Wrapper>

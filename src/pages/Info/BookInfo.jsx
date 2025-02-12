@@ -64,7 +64,7 @@ export default function BookInfo() {
         </Header>
         <Body>
           <InfoBody bookData={bookData} />
-          <ButtonGroup3 />
+          <ButtonGroup3 isbn={bookData?.isbn} />
           <TabGroup1 bookData={bookData} />
         </Body>
       </Container>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ButtonGroupWrapper = styled.div`
   width: 393px;
@@ -31,12 +32,23 @@ export const Button = styled.button`
   line-height: 16px; /* 106.667% */
   letter-spacing: 0.5px;
 `;
-
+// 방참가 API 연동필요!
 export default function ButtonGroup2() {
+  const navigate = useNavigate();
+  const { roomId } = useParams(); // 라우터 경로의 :roomId 값을 가져옴
+
+  const handleRecordClick = () => {
+    if (roomId) {
+      navigate(`/rooms/${roomId}/info`);
+    } else {
+      console.error('roomId가 라우터 파라미터로 전달되지 않았습니다.');
+    }
+  };
+
   return (
     <ButtonGroupWrapper>
       <Button>미리보기</Button>
-      <Button>기록하기</Button>
+      <Button onClick={handleRecordClick}>기록하기</Button>
     </ButtonGroupWrapper>
   );
 }
