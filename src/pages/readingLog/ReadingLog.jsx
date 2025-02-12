@@ -34,7 +34,7 @@ const ReadingLog = () => {
       if (isRead) {
         // "다 읽었어요" 탭
         setIsLoading(true);
-        const result = await fetchReadingRecordsRead(10); // userId를 적절한 값으로 변경
+        const result = await fetchReadingRecordsRead();
 
         if (result.success) {
           setRooms(result.data);
@@ -47,7 +47,7 @@ const ReadingLog = () => {
       } else {
         // "다 안읽었어요" 탭
         setIsLoading(true);
-        const result = await fetchReadingRecordsNotRead(10); // userId를 적절한 값으로 변경
+        const result = await fetchReadingRecordsNotRead();
 
         if (result.success) {
           setRooms(result.data);
