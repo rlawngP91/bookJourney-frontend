@@ -30,6 +30,11 @@ export const Container = styled.div`
   }
 
   .room-title {
+    width: 130px;
+    overflow: hidden; // 을 사용해 영역을 감출 것
+    text-overflow: ellipsis; // 로 ... 을 만들기
+    white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
+    word-break: break-all;
     color: #000;
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
@@ -41,11 +46,12 @@ export const Container = styled.div`
     letter-spacing: 0.122px;
   }
 
-  .right-side {
-    padding-left: 72.4px;
-  }
-
   .book-title {
+    width: 134px;
+    overflow: hidden; // 을 사용해 영역을 감출 것
+    text-overflow: ellipsis; // 로 ... 을 만들기
+    white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
+    word-break: break-all;
     color: #000;
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
