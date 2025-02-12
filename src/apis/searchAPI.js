@@ -1,5 +1,16 @@
 import instance from './instance';
 
+const formatDate = (date) => {
+  if (!date) return null;
+
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+
+  return `${year}.${month}.${day}`;
+};
+
 export const searchAPI = {
   fetchSearchResults: async ({
     searchQuery,
@@ -13,7 +24,7 @@ export const searchAPI = {
       const paramsBook = new URLSearchParams({
         searchTerm: searchQuery,
         searchType: searchType,
-        page: '1',
+        page: '0',
       });
 
       const paramsRoom = new URLSearchParams({
@@ -27,24 +38,39 @@ export const searchAPI = {
         paramsBook.append('genre', filters.category);
         paramsRoom.append('genre', filters.category);
       }
-      // deadline 필터 추가
       if (filters.deadline?.start) {
-        paramsRoom.append('recruitStartDate', filters.deadline.start);
+        paramsRoom.append(
+          'recruitStartDate',
+          formatDate(filters.deadline.start)
+        );
       }
       if (filters.deadline?.end) {
-        paramsRoom.append('recruitEndDate', filters.deadline.end);
+        paramsRoom.append('recruitEndDate', formatDate(filters.deadline.end));
       }
 
-      // period 필터 추가
+      // period 필터 추가 - 포맷팅된 날짜 사용
       if (filters.period?.start) {
-        paramsRoom.append('roomStartDate', filters.period.start);
+        paramsRoom.append('roomStartDate', formatDate(filters.period.start));
       }
       if (filters.period?.end) {
-        paramsRoom.append('roomEndDate', filters.period.end);
+        paramsRoom.append('roomEndDate', formatDate(filters.period.end));
       }
       // recordcnt 필터 추가
       if (filters.recordcnt) {
-        paramsRoom.append('recordCount', filters.recordcnt);
+        // 0(0개), 25(10개), 50(50개), 75(100개), 100(전체보기)
+        let realrecordval = 0;
+        if (filters.recordcnt == 0) {
+          realrecordval = 0;
+        } else if (filters.recordcnt == 25) {
+          realrecordval = 10;
+        } else if (filters.recordcnt == 50) {
+          realrecordval = 50;
+        } else if (filters.recordcnt == 75) {
+          realrecordval = 100;
+        }
+        if (filters.recordcnt !== 100) {
+          paramsRoom.append('recordCount', realrecordval);
+        }
       }
 
       const responseBook = await instance.get(

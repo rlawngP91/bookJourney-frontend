@@ -46,8 +46,6 @@ export default function Search() {
     recordcnt: null,
   });
 
-  const [setTempFilters] = useState({ ...appliedFilters });
-
   useEffect(() => {
     setShowPopup(true);
   }, []);
@@ -97,21 +95,15 @@ export default function Search() {
 
   // search Filter 적용
   const handleFilterApply = async (newFilters) => {
-    const updatedFilters = {
-      ...newFilters,
-      recordcnt: newFilters.recordcnt,
-    };
-
-    setAppliedFilters(updatedFilters);
+    setAppliedFilters(newFilters);
     setShowFilterPopup(false);
 
     if (searchQuery) {
-      // 검색어가 있는 상태에서 필터가 적용된다면 search api request
       try {
         await searchAPI.fetchSearchResults({
           searchQuery,
           searchType,
-          filters: updatedFilters,
+          filters: newFilters,
           setBooks,
           setRooms,
         });
@@ -227,7 +219,6 @@ export default function Search() {
         <FilterPopup
           onClose={() => {
             setShowFilterPopup(false);
-            setTempFilters({ ...appliedFilters }); // 팝업 닫을 때 임시 필터 초기화
           }}
           onApply={handleFilterApply}
           $currentFilters={appliedFilters}
