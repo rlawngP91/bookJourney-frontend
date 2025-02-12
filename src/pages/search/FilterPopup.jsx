@@ -24,7 +24,7 @@ const PopupContainer = styled.div`
   padding: 24px;
   z-index: 51;
   max-height: 90vh;
-  overflow-y: hidden;
+  overflow-y: auto;
 `;
 
 const CategoryContainer = styled.div`
