@@ -168,6 +168,12 @@ const Home = () => {
     }
   };
 
+  const handleBestSellerClick = (isbn) => {
+    if (isbn) {
+      navigate(`/info/${isbn}`);
+    }
+  };
+
   return (
     <Wrapper>
       <Container>
@@ -217,6 +223,9 @@ const Home = () => {
                 bestSellerList[selectedToggle]
                   ? bestSellerList[selectedToggle].imageUrl
                   : bestSellerList[0].imageUrl
+              }
+              onClick={() =>
+                handleBestSellerClick(bestSellerList[selectedToggle]?.isbn)
               }
               alt="베스트셀러"
             />
