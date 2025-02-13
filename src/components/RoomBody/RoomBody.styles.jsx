@@ -223,6 +223,44 @@ export const Filter = styled.div`
   .dropdown-item:hover {
     background: #f0f0f0;
   }
+
+  .dropdown-menu3 {
+    position: absolute;
+    flex-direction: column;
+    width: 115px;
+    height: 80px;
+
+    box-sizing: border-box;
+    border-radius: 9px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: none;
+
+    top: 100%;
+    left: 0;
+    background-color: white;
+    padding: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    z-index: 10;
+
+    color: #a3a3a3;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.447px;
+    font-size: 14px;
+
+    .dropdown-item.selected {
+      color: #000;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.447px;
+    }
+  }
 `;
 
 export const Footer = styled.div`

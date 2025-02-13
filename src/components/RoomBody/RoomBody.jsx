@@ -233,7 +233,7 @@ export default function RoomBody({ roomData }) {
               />
             </button>
             {isEntireOrderOpen && (
-              <div className="dropdown-menu2">
+              <div className="dropdown-menu3">
                 {['최신 등록순', '답글 많은 순'].map((option) => (
                   <div
                     key={option}

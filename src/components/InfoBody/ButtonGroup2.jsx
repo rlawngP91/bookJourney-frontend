@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import RoomPasswordPopup from '../popup/roomPasswordPopup/RoomPasswordPopup';
 
 const ButtonGroupWrapper = styled.div`
   width: 393px;
@@ -33,22 +34,37 @@ export const Button = styled.button`
   letter-spacing: 0.5px;
 `;
 // 방참가 API 연동필요!
-export default function ButtonGroup2() {
+export default function ButtonGroup2({ roomData, roomId }) {
   const navigate = useNavigate();
-  const { roomId } = useParams(); // 라우터 경로의 :roomId 값을 가져옴
+
+  const [popupVisible, setPopupVisible] = useState(false);
 
   const handleRecordClick = () => {
-    if (roomId) {
-      navigate(`/rooms/${roomId}/info`);
+    if (roomData.member) {
+      // ✅ 멤버라면 네비게이트
+      if (roomId) {
+        navigate(`/rooms/${roomId}/info`);
+      } else {
+        console.error('roomId가 라우터 파라미터로 전달되지 않았습니다.');
+      }
     } else {
-      console.error('roomId가 라우터 파라미터로 전달되지 않았습니다.');
+      // ✅ 멤버가 아니라면 팝업 띄우기
+      setPopupVisible(true);
     }
   };
 
   return (
     <ButtonGroupWrapper>
-      <Button>미리보기</Button>
+      <Button onClick={() => navigate(`/rooms/${roomId}/info`)}>
+        미리보기
+      </Button>
       <Button onClick={handleRecordClick}>기록하기</Button>
+      {popupVisible && (
+        <RoomPasswordPopup
+          onClose={() => setPopupVisible(false)}
+          roomId={roomId}
+        />
+      )}
     </ButtonGroupWrapper>
   );
 }
