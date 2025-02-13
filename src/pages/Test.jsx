@@ -1,9 +1,9 @@
 import React from 'react';
-import DatePicker from '../components/MakeReadwithTogether/DatePicker';
+import title0 from '../assets/titles/title0.svg';
 export default function Test() {
   return (
     <>
-      <DatePicker />
+      <img src={title0} />
     </>
   );
 }

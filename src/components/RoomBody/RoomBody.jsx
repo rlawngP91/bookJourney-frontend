@@ -47,17 +47,25 @@ export default function RoomBody({ roomData }) {
   // ✅ 페이지별 정렬 방식 변경
   const handlePageSortingChange = (newSortingType) => {
     setPageOrder(newSortingType);
+    setIsPageOrderOpen(false);
   };
 
   // ✅ 전체 정렬 방식 변경
   const handleEntireSortingChange = (newSortingType) => {
     setEntireOrder(newSortingType);
+    setIsEntireOrderOpen(false);
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         applyPageRange();
+      }
+      if (orderRef.current && !orderRef.current.contains(event.target)) {
+        setIsPageOrderOpen(false);
+      }
+      if (orderRef.current && !orderRef.current.contains(event.target)) {
+        setIsEntireOrderOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -72,6 +80,12 @@ export default function RoomBody({ roomData }) {
       console.log(`📌 적용된 페이지 범위: ${startPage} ~ ${endPage}`);
     }
     setIsDropdownOpen(false);
+  };
+
+  // ✅ 페이지 범위 리셋 함수
+  const resetPageRange = () => {
+    setStartPage(''); // 페이지 범위 초기화
+    setEndPage('');
   };
 
   // ✅ 데이터 불러오기
@@ -138,7 +152,7 @@ export default function RoomBody({ roomData }) {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
                 {startPage && endPage
-                  ? `${startPage} p ~ ${endPage} p`
+                  ? `${startPage}p ~ ${endPage}p`
                   : '페이지 범위'}
                 <img
                   src={isDropdownOpen ? uparrow : downarrow2}
@@ -148,22 +162,29 @@ export default function RoomBody({ roomData }) {
               </button>
               {isDropdownOpen && (
                 <div className="dropdown-menu">
-                  <input
-                    type="number"
-                    className="page-input"
-                    placeholder="시작"
-                    value={startPage}
-                    onChange={(e) => setStartPage(e.target.value)}
-                  />
-                  <span className="page-separator">~</span>
-                  <input
-                    type="number"
-                    className="page-input"
-                    placeholder="끝"
-                    value={endPage}
-                    onChange={(e) => setEndPage(e.target.value)}
-                  />
-                  <button onClick={applyPageRange}>적용</button>
+                  <div className="header">
+                    <div className="range">페이지 범위</div>
+                  </div>
+                  <div className="body">
+                    <input
+                      type="number"
+                      className="page-input"
+                      placeholder="시작"
+                      value={startPage}
+                      onChange={(e) => setStartPage(e.target.value)}
+                    />
+                    <span className="page-separator">~</span>
+                    <input
+                      type="number"
+                      className="page-input"
+                      placeholder="끝"
+                      value={endPage}
+                      onChange={(e) => setEndPage(e.target.value)}
+                    />
+                  </div>
+                  <button className="reset-button" onClick={resetPageRange}>
+                    리셋
+                  </button>
                 </div>
               )}
             </div>
@@ -186,7 +207,7 @@ export default function RoomBody({ roomData }) {
                   {['페이지순', '최신 등록순', '답글 많은 순'].map((option) => (
                     <div
                       key={option}
-                      className="dropdown-item"
+                      className={`dropdown-item ${pageOrder === option ? 'selected' : ''}`}
                       onClick={() => handlePageSortingChange(option)}
                     >
                       {option}
@@ -217,7 +238,7 @@ export default function RoomBody({ roomData }) {
                 {['최신 등록순', '답글 많은 순'].map((option) => (
                   <div
                     key={option}
-                    className="dropdown-item"
+                    className={`dropdown-item ${pageOrder === option ? 'selected' : ''}`}
                     onClick={() => handleEntireSortingChange(option)}
                   >
                     {option}

@@ -58,7 +58,7 @@ export default function MyPage() {
     {
       icon: <img src={bookIcon} alt="book" />,
       text: '책산책 수집가',
-      onClick: () => navigate('/mypage/books'),
+      onClick: () => navigate('/mypage/collector'),
     },
     {
       icon: <img src={calendarIcon} alt="calendar" />,

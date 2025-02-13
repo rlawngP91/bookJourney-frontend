@@ -8,6 +8,10 @@ export const Wrapper = styled.div`
   background-color: #f6f7f9;
   box-sizing: border-box;
 
+  position: relative;
+  img {
+  }
+
   .center {
     padding-top: 60px;
     display: flex;
@@ -36,6 +40,10 @@ export const HeaderWrapper = styled.div`
   padding-left: 25px;
   gap: 108px;
 
+  position: absolute;
+  top: 0;
+  left: 0;
+
   width: 393px;
   height: 105px;
   flex-shrink: 0;
@@ -47,44 +55,4 @@ export const HeaderWrapper = styled.div`
   font-weight: 400;
   letter-spacing: 0.5px;
   padding-top: 81px;
-`;
-
-// 트랙 스타일
-export const TrackContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 500px; /* 길이 조절 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const SVGTrack = styled.svg`
-  position: absolute;
-  width: 90%;
-  height: 80%;
-`;
-
-export const ProgressPath = styled.path`
-  stroke: ${(props) => (props.completed ? '#6aa5f8' : '#d3d3d3')};
-  stroke-width: 10;
-  fill: none;
-  transition: stroke 0.3s ease-in-out;
-`;
-
-export const Milestone = styled.div`
-  position: absolute;
-  top: ${(props) => props.top}%;
-  left: ${(props) => props.left}%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 12px;
-  color: ${(props) => (props.completed ? '#000' : '#888')};
-`;
-
-export const LockIcon = styled.div`
-  width: 20px;
-  height: 20px;
-  background: ${(props) => (props.completed ? 'transparent' : 'gray')};
-  border-radius: 50%;
 `;
