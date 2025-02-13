@@ -8,17 +8,17 @@ import {
   NoItems,
   FooterContainer,
 } from './ReadingLog.styles';
+
 import arrowBtn from '../../assets/downarrow2.svg';
 import RoomListRead from '../../components/readingLog/RoomListRead';
-import Footer from '../../components/commons/Footer/Footer';
+import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
 import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
-// import { mockRoomsRead } from '../../apis/mockData2';
+import Footer from '../../components/commons/Footer/Footer';
+
 import {
   fetchReadingRecordsNotRead,
   fetchReadingRecordsRead,
 } from '../../apis/readinglogAPI';
-// import { mockRoomsNotRead } from '../../apis/mockData3';
-import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
 
 const ReadingLog = () => {
   const [nickname, setNickname] = useState('NickName');
@@ -34,7 +34,7 @@ const ReadingLog = () => {
       if (isRead) {
         // "다 읽었어요" 탭
         setIsLoading(true);
-        const result = await fetchReadingRecordsRead();
+        const result = await fetchReadingRecordsRead(currentDate);
 
         if (result.success) {
           setRooms(result.data);
@@ -47,7 +47,7 @@ const ReadingLog = () => {
       } else {
         // "다 안읽었어요" 탭
         setIsLoading(true);
-        const result = await fetchReadingRecordsNotRead();
+        const result = await fetchReadingRecordsNotRead(currentDate);
 
         if (result.success) {
           setRooms(result.data);
@@ -61,16 +61,14 @@ const ReadingLog = () => {
     };
 
     fetchData();
-  }, [isRead]);
+  }, [isRead, currentDate]);
 
   const handleFilterChange = (value) => {
     setIsRead(value);
   };
 
   const handleDateClick = () => {
-    // 여기에 날짜 팝업창 넣고
     setShowDatePopup(true);
-    console.log('Date picker clicked');
   };
 
   // 여기에 skeleton code..?
