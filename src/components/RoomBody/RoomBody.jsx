@@ -163,7 +163,9 @@ export default function RoomBody({ roomData }) {
               {isDropdownOpen && (
                 <div className="dropdown-menu">
                   <div className="header">
+                    <div className="o"> </div>
                     <div className="range">페이지 범위</div>
+                    <img src="reset" onClick={resetPageRange} />
                   </div>
                   <div className="body">
                     <input
@@ -182,9 +184,6 @@ export default function RoomBody({ roomData }) {
                       onChange={(e) => setEndPage(e.target.value)}
                     />
                   </div>
-                  <button className="reset-button" onClick={resetPageRange}>
-                    리셋
-                  </button>
                 </div>
               )}
             </div>

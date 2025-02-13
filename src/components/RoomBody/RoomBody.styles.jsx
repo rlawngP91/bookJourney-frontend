@@ -112,13 +112,15 @@ export const Filter = styled.div`
     background-color: #fff;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
+    .o {
+      width: 14px; //img랑 똑같이 가로주면됨
+    }
     .header {
       width: 100%;
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 25px;
+      justify-content: space-between;
       padding-top: 10px;
     }
 
@@ -127,7 +129,7 @@ export const Filter = styled.div`
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-
+      width: 100%;
       gap: 7px;
       padding-top: 14px;
     }
