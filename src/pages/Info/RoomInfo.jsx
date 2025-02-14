@@ -76,7 +76,11 @@ export default function RoomInfo() {
             </>
           ) : (
             <>
-              {roomData?.member ? <ButtonGroup /> : <ButtonGroup2 />}
+              {roomData?.member ? (
+                <ButtonGroup />
+              ) : (
+                <ButtonGroup2 roomData={roomData} roomId={roomId} />
+              )}
               <TabGroup2 roomData={roomData} />
             </>
           )}
