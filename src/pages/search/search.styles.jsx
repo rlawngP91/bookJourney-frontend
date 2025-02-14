@@ -76,10 +76,10 @@ export const BookList = styled.div`
 `;
 
 export const NoResultsMessage = styled.div`
-  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0;
+  margin-left: 147px;
+  margin-top: 275px;
   color: #666;
   font-family: Pretendard;
   font-size: 14px;

@@ -55,6 +55,9 @@ export default function Search() {
   // 검색어 입력만
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+    if (e.target.value == '') {
+      setIsSearchExecuted(false);
+    }
   };
 
   // searchBar 돋보기 Button
