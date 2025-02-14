@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginContainer, ButtonContainer } from './Login.styles';
 import UserInputField from '../../components/userInputField/UserInputField';
-import StatusBar from '../../components/statusbar/StatusBar';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import Title from '../../assets/title.svg';
 import { login } from '../../apis/authApi'; // 로그인 API 함수 가져오기
@@ -67,7 +66,6 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      <StatusBar />
       <img className="title" src={Title} alt="제목" />
 
       <UserInputField
