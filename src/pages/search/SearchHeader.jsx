@@ -5,7 +5,7 @@ import settingsIcon from '../../assets/searchsetting.svg';
 
 const HeaderWrapper = styled.div`
   position: fixed;
-  width: 100%;
+  width: 393px; // 반응형 100%
   height: 48px;
   left: 0;
   top: 0;
