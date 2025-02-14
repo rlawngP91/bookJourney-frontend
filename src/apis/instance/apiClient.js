@@ -1,5 +1,6 @@
 import instance from './index'; // 기본 axios 인스턴스 가져오기
 import { reissueAccessToken } from '../authApi'; // AccessToken 재발급 함수 가져오기
+import { logout } from '../logoutApi';
 //accessToken 포함 및 인터셉터 설정 파일
 
 const apiClient = instance; // 기존 instance.js를 사용
@@ -61,20 +62,16 @@ apiClient.interceptors.response.use(
           '[ERROR] AccessToken 재발급 실패 - 재로그인 필요:',
           refreshError
         );
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        localStorage.removeItem('userId');
-        window.location.href = '/login'; // 로그인 페이지로 이동
-        return Promise.reject(refreshError);
+        await logout();
+        window.location.href = '/login';
+        return Promise.reject(error);
       }
     }
 
     if (errorCode === 7005) {
       console.warn('[WARNING] 유효하지 않은 토큰! 로그아웃 처리.');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('userId');
-      window.location.href = '/login'; // 로그인 페이지로 이동
+      await logout();
+      window.location.href = '/login';
       return Promise.reject(error);
     }
 

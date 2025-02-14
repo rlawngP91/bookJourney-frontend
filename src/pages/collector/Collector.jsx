@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Wrapper, HeaderWrapper } from './Collector.styles';
 import leftarrow from '../../assets/leftarrow.svg';
@@ -19,16 +19,15 @@ import title12 from '../../assets/titles/title0'; */
 export default function Collector() {
   const navigate = useNavigate();
 
-  /*   const progress = 30;
-  const milestones = [
-    { id: 1, label: '책산책 여행 시작', count: 1, top: 20, left: 10 },
-    { id: 2, label: '기록 한 걸음', count: 50, top: 30, left: 20 },
-    { id: 3, label: '한 글자 한 글자', count: 100, top: 40, left: 35 },
-    { id: 4, label: '독서 탐험', count: 200, top: 50, left: 50 },
-    { id: 5, label: '생각 한 줄', count: 300, top: 60, left: 65 },
-    { id: 6, label: '문장 수집', count: 400, top: 70, left: 75 },
-    { id: 7, label: '독서 행진', count: 500, top: 80, left: 85 },
-  ]; */
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.warn('[WARNING] accessToken 없음 - 로그인 페이지로 이동');
+      navigate('/login'); // 로그인 페이지로 리디렉트
+      return;
+    }
+  });
   return (
     <>
       <Wrapper>
