@@ -308,6 +308,9 @@ const Home = () => {
                     userPercentage={record.userPercentage}
                     onDotsClick={() => setSelectedBook(record)}
                     onClick={(event) => handleBookFrameClick(event, record)} //책 클릭 시 상세 페이지로 이동
+                    active={
+                      selectedBook && selectedBook.roomId === record.roomId
+                    } // active prop 추가
                   />
                 ))}
               </div>

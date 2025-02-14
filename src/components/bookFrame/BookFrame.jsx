@@ -12,6 +12,7 @@ const BookFrame = ({
   modifiedAt,
   userPercentage,
   onClick,
+  active,
 }) => {
   const displayReadType =
     roomType === '같이읽기'
@@ -22,7 +23,12 @@ const BookFrame = ({
 
   return (
     <Container>
-      <img className="cover-img" src={imageUrl} alt="책1" onClick={onClick} />
+      <img
+        className={`cover-img ${active ? 'active' : ''}`}
+        src={imageUrl}
+        alt="책1"
+        onClick={onClick}
+      />
       <div className="title-container">
         <span className="bookTitle">{bookTitle}</span>
         <div
@@ -56,6 +62,7 @@ BookFrame.propTypes = {
   modifiedAt: PropTypes.string.isRequired,
   userPercentage: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
+  active: PropTypes.bool,
 };
 
 export default BookFrame;

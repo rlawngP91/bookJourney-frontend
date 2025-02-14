@@ -13,7 +13,8 @@ export const Container = styled.div`
 
   .right {
     position: relative;
-    width: 220px;
+    width: 205px;
+    padding-right: 15px;
   }
 
   .writer {
