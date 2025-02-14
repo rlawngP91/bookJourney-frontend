@@ -8,7 +8,13 @@ export const Container = styled.div`
   background-color: #fff;
   display: flex;
   cursor: pointer;
+
+  &:hover {
+    border: 1.114px solid #6aa5f8;
+  }
+
   .left-side {
+    border: none;
     margin-left: 14px;
     margin-right: 12.09px;
     img {
