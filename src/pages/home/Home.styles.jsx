@@ -140,6 +140,10 @@ export const Container = styled.div`
       display: none;
     }
 
+    .place-holder-list {
+      box-sizing: border-box;
+    }
+
     .place-holder-descrip {
       position: absolute;
       top: 113px;
@@ -347,7 +351,7 @@ export const Container = styled.div`
     padding-top: 77px;
     margin-left: 27px;
     height: 239px;
-    min-width: 380px;
+    min-width: 360px;
     /* 스크롤 설정 */
     overflow-x: scroll; /* X축 방향 스크롤 활성화 */
     overflow-y: hidden; /* Y축 스크롤 비활성화 */
