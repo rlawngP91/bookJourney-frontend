@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Record.styles';
-import StatusBar from '../../components/statusbar/StatusBar';
 import BackBtn from '../../assets/arrow.svg';
 import Sort from './sort.svg';
 import Line from './line.svg';
@@ -20,7 +19,7 @@ const Record = () => {
   const [selectedOrder, setSelectedOrder] = useState('latest-order'); // 기본 선택: 최신순
   const [selectedBook, setSelectedBook] = useState(null); // 현재 선택된 책 정보
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
-  const [nickName, setNickName] = useState(''); // 로그인된 유저 닉네임
+
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
 
@@ -32,9 +31,6 @@ const Record = () => {
 
     apiClient.get('/books/best-sellers').then((response) => {
       console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
-      if (response.data.code === 200) {
-        setNickName(response.data.data.nickName); // 닉네임 저장
-      }
     });
 
     const sortType = selectedOrder === 'latest-order' ? '최신순' : '진행도순';
@@ -118,7 +114,6 @@ const Record = () => {
 
   return (
     <Container>
-      <StatusBar />
       {/* Sort 팝업의 overlay */}
       {showSortPopup && (
         <div className="overlay" onClick={handleSortClose}></div>
@@ -156,9 +151,7 @@ const Record = () => {
           alt="뒤로가기"
           onClick={handleBackClick}
         />
-        <p className="title-message">
-          <span className="nickname">{nickName}</span>님의 진행중 기록
-        </p>
+        <p className="title-message">진행중 기록</p>
         <p className="total">
           전체 <span className="number">{recordList.length}</span>
         </p>

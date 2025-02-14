@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 316px;
+  width: 288px;
   height: 42.759px;
   flex-shrink: 0;
   position: relative; /* 위치가 겹치지 않게 하기 위해 relative 추가 */
@@ -16,6 +16,7 @@ export const StyledInput = styled.input`
   width: 100%;
   height: 100%;
   padding-left: 20px;
+  padding-right: 28px;
   border-radius: 21px;
   border: 1px solid white;
   background: #fff;
@@ -23,6 +24,11 @@ export const StyledInput = styled.input`
 
   ::placeholder {
     color: #aaa;
+  }
+
+  &:focus {
+    border: 1.7px solid #6aa5f8;
+    outline: none; /* 기본 outline 제거 */
   }
 `;
 

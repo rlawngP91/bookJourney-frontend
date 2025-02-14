@@ -14,10 +14,10 @@ export const Container = styled.div`
   }
 
   .title-message {
-    max-width: 251px;
+    width: 100%;
     position: absolute;
+    text-align: center;
     top: 82px;
-    right: 70px;
     margin: auto;
     padding: 0;
     color: #000;
@@ -48,6 +48,7 @@ export const Container = styled.div`
     top: 83px;
     left: 26px;
     cursor: pointer;
+    z-index: 1000;
   }
 
   .total {

@@ -15,6 +15,10 @@ export const Container = styled.div`
     border-radius: 8px;
   }
 
+  .cover-img.active {
+    border: 2px solid #6aa5f8;
+  }
+
   .title-container {
     display: flex;
     justify-content: space-between;
