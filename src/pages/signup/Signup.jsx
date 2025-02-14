@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignupContainer } from './Signup.styles';
-import StatusBar from '../../components/statusbar/StatusBar';
 import UserInputField from '../../components/userInputField/UserInputField';
 import Title from '../../assets/title.svg';
 import PasswordInput from './PasswordInput';
@@ -29,8 +28,8 @@ const Signup = () => {
   const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 상태
 
   const handleBtnClick = () => {
-    sessionStorage.setItem('email', email); // ✅ 세션에 이메일 저장
-    sessionStorage.setItem('password', password); // ✅ 세션에 비밀번호 저장
+    sessionStorage.setItem('email', email); // 세션에 이메일 저장
+    sessionStorage.setItem('password', password); // 세션에 비밀번호 저장
     navigate('/profile');
   };
 
@@ -81,7 +80,6 @@ const Signup = () => {
 
   return (
     <SignupContainer>
-      <StatusBar />
       <img className="title" src={Title} alt="타이틀" />
       <UserInputField
         labelText="이메일"

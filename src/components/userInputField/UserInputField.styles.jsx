@@ -24,6 +24,11 @@ export const StyledInput = styled.input`
   ::placeholder {
     color: #aaa;
   }
+
+  &:focus {
+    border: 1.7px solid #6aa5f8;
+    outline: none; /* 기본 outline 제거 */
+  }
 `;
 
 // labelText를 표시할 div 스타일링
