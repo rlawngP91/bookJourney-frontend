@@ -123,21 +123,26 @@ export default function Reply({ recordId, onClose }) {
           <div className="close">
             <img src={xbox} onClick={onClose} style={{ cursor: 'pointer' }} />
           </div>
-          <div className="head">
-            <div className="main">
+          <div className="h">
+            <div className="m">
               <img src={recordInfo.imageUrl} alt="User" />
-              <div className="name">{recordInfo.nickName}</div>
-              <div className="time">{recordInfo.createdAt}</div>
+              <div>{recordInfo.page}</div>
             </div>
-            <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
-            {isMenuOpen && (
-              <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
-            )}
+            <div className="tt">
+              <div className="left">
+                <div className="n">{recordInfo.nickName}</div>
+                <div className="t">{recordInfo.createdAt}</div>
+              </div>
+              <div>
+                <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+              </div>
+              {isMenuOpen && (
+                <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+              )}
+            </div>
           </div>
-          <div className="body">
-            <div className="content">{recordInfo.content}</div>
-          </div>
-          <div className="bottom">
+          <div className="c">{recordInfo.content}</div>
+          <div className="b">
             <img src={reply} alt="댓글" />
             <div>{recordInfo.commentCount}</div>
             <img
@@ -152,11 +157,11 @@ export default function Reply({ recordId, onClose }) {
         <ReviewList>
           {comments.map((comment) => (
             <Review key={comment.commentId}>
-              <div className="head">
-                <div className="main">
+              <div className="head2">
+                <div className="main2">
                   <img src={comment.imageUrl || userimage} alt="User Profile" />
-                  <div className="name">{comment.nickName}</div>
-                  <div className="time">{comment.createdAt}</div>
+                  <div className="name2">{comment.nickName}</div>
+                  <div className="time2">{comment.createdAt}</div>
                   <img
                     src={hamburgermenu}
                     onClick={() => setIsMenuOpen(true)}
@@ -166,10 +171,8 @@ export default function Reply({ recordId, onClose }) {
                   )}
                 </div>
               </div>
-              <div className="body">
-                <div className="content">{comment.content}</div>
-              </div>
-              <div className="bottom">
+              <div className="content2">{comment.content}</div>
+              <div className="bottom2">
                 <img
                   src={comment.isLiked ? alreadygood : good}
                   alt="좋아요"

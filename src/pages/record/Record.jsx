@@ -7,12 +7,6 @@ import Sort from './sort.svg';
 import Line from './line.svg';
 import Checked from '../bookmark/checked.svg';
 import Book from './Book';
-/*
-import Dummy1 from './dummy1.svg';
-import Dummy2 from './dummy2.svg';
-import Dummy3 from './dummy3.svg';
-import Dummy4 from './dummy4.svg';
-*/
 import apiClient from '../../apis/instance/apiClient';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 import { fetchProgressRecords } from '../../apis/progressApi';
@@ -28,6 +22,14 @@ const Record = () => {
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
   const [nickName, setNickName] = useState(''); // 로그인된 유저 닉네임
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.warn('[WARNING] accessToken 없음 - 로그인 페이지로 이동');
+      navigate('/login'); // 로그인 페이지로 리디렉트
+      return;
+    }
+
     apiClient.get('/books/best-sellers').then((response) => {
       console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
       if (response.data.code === 200) {
@@ -150,7 +152,7 @@ const Record = () => {
           <span className="nickname">{nickName}</span>님의 진행중 기록
         </p>
         <p className="total">
-          전체 <span className="number">5</span>
+          전체 <span className="number">{recordList.length}</span>
         </p>
         <p className="sort" onClick={handleSortClick}>
           {selectedOrder === 'latest-order' ? '최신순' : '유저진행도순'}

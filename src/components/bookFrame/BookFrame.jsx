@@ -40,7 +40,7 @@ const BookFrame = ({
         <img className="clock" src={Clock} alt="시계" />
         <span className="hour">{modifiedAt}</span>
         <img className="note" src={Note} alt="노트" />
-        <span className="percentage">{userPercentage}%</span>
+        <span className="percentage">{Math.round(userPercentage)}%</span>
         <img className="dots" src={Dots} alt="점3개" onClick={onClick} />
       </div>
     </Container>

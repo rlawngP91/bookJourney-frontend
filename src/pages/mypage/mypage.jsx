@@ -30,6 +30,13 @@ export default function MyPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.warn('[WARNING] accessToken 없음 - 로그인 페이지로 이동');
+      navigate('/login'); // 로그인 페이지로 리디렉트
+      return;
+    }
     const fetchProfileData = async () => {
       try {
         setLoading(true);
@@ -59,7 +66,7 @@ export default function MyPage() {
     {
       icon: <img src={bookIcon} alt="book" />,
       text: '책산책 수집가',
-      onClick: () => navigate('/mypage/books'),
+      onClick: () => navigate('/mypage/collector'),
     },
     {
       icon: <img src={calendarIcon} alt="calendar" />,

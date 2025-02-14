@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Slider from 'react-slick';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -80,7 +81,7 @@ export const Container = styled.div`
   }
 
   .best-seller {
-    position: absolute;
+    display: block;
     width: 139px;
     height: 198px;
     border-radius: 8px;
@@ -401,7 +402,12 @@ export const Container = styled.div`
   }
 
   .left-side {
+    box-sizing: border-box;
+    border-radius: 6.576px;
     cursor: pointer;
+    &:hover {
+      border: 1.8px solid #6aa5f8;
+    }
   }
 
   .popup-message2 {
@@ -442,5 +448,24 @@ export const Container = styled.div`
   .popup-delete {
     border-left: 0.5px solid #a3a3a3;
     color: #d25643;
+  }
+`;
+
+export const StyledSlider = styled(Slider)`
+  width: 100%;
+  height: 198px;
+  margin-top: 212px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+  }
+
+  .slick-track {
+    display: flex;
+    align-items: center;
   }
 `;

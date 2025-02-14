@@ -106,7 +106,15 @@ const Signup = () => {
 
       {/* 인증 요청 결과 메시지 */}
       {verificationMessage && (
-        <span className="verfication-result-message">
+        <span
+          className="verfication-result-message"
+          style={{
+            color:
+              verificationMessage === '인증 코드가 전송되었습니다.'
+                ? 'green'
+                : 'red',
+          }}
+        >
           {verificationMessage}
         </span>
       )}

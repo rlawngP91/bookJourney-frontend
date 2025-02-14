@@ -59,7 +59,6 @@ export default function ReadWith() {
   return (
     <Wrapper>
       <RoomHeader roomData={roomData} />
-      {/* ✅ roomData가 있을 때만 렌더링 */}
       {roomData && (
         <RoomBody
           roomData={roomData}

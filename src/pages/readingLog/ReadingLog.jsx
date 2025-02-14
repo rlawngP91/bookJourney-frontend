@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   FilterButtons,
@@ -21,6 +22,7 @@ import {
 } from '../../apis/readinglogAPI';
 
 const ReadingLog = () => {
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState('NickName');
   const [isRead, setIsRead] = useState(true);
   const [currentDate, setCurrentDate] = useState('2025년 2월');
@@ -30,6 +32,14 @@ const ReadingLog = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.warn('[WARNING] accessToken 없음 - 로그인 페이지로 이동');
+      navigate('/login'); // 로그인 페이지로 리디렉트
+      return;
+    }
+
     const fetchData = async () => {
       if (isRead) {
         // "다 읽었어요" 탭

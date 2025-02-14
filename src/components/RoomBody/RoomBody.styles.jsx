@@ -64,8 +64,14 @@ export const Filter = styled.div`
   gap: 10px;
   padding: 0px 25px;
   box-sizing: border-box;
+
   .dropdown {
     position: relative;
+
+    img {
+      width: 14px;
+      height: 14px;
+    }
   }
 
   .dropdown-button {
@@ -75,11 +81,12 @@ export const Filter = styled.div`
     align-items: center;
     gap: 5px;
     padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
     background: white;
     font-size: 14px;
     cursor: pointer;
+
+    border-radius: 9px;
+    border: 1px solid #000;
   }
 
   .arrow-icon {
@@ -91,58 +98,168 @@ export const Filter = styled.div`
     position: absolute;
     top: 100%;
     left: 0;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
     padding: 8px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 10;
+
+    border: none;
+    width: 133px;
+    height: 95px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background-color: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    .o {
+      width: 14px; //img랑 똑같이 가로주면됨
+    }
+    .header {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+    }
+
+    .body {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 7px;
+      padding-top: 14px;
+    }
   }
 
   .dropdown-menu2 {
     position: absolute;
     flex-direction: column;
-    width: 99px;
-    height: auto;
+    width: 115px;
+    height: 111px;
+
+    box-sizing: border-box;
+    border-radius: 9px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: none;
+
     top: 100%;
     left: 0;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 8px;
+    background-color: white;
+    padding: 15px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 10;
+
+    color: #a3a3a3;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.447px;
+    font-size: 14px;
+
+    .dropdown-item.selected {
+      color: #000;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.447px;
+    }
+  }
+
+  .range {
+    color: #a3a3a3;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.447px;
   }
 
   .page-input {
     width: 50px;
     padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: none;
+    border-radius: 9px;
     text-align: center;
     font-size: 14px;
     outline: none;
+
+    width: 41.25px;
+    height: 33px;
+    flex-shrink: 0;
+    background-color: #f6f3f3;
+
+    color: #000;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 11px;
+    font-style: normal;
+    line-height: 140%; /* 15.4px */
   }
 
+  .p,
   .page-separator {
-    font-size: 16px;
-    color: #555;
+    color: #000;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 11.917px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%; /* 16.683px */
   }
 
   .dropdown-item {
-    padding: 6px 10px;
     cursor: pointer;
     font-size: 14px;
   }
 
   .dropdown-item:hover {
     background: #f0f0f0;
+  }
+
+  .dropdown-menu3 {
+    position: absolute;
+    flex-direction: column;
+    width: 115px;
+    height: 80px;
+
+    box-sizing: border-box;
+    border-radius: 9px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: none;
+
+    top: 100%;
+    left: 0;
+    background-color: white;
+    padding: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    z-index: 10;
+
+    color: #a3a3a3;
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.447px;
+    font-size: 14px;
+
+    .dropdown-item.selected {
+      color: #000;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.447px;
+    }
   }
 `;
 

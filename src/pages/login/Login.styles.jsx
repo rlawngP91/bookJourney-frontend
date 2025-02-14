@@ -11,6 +11,15 @@ export const LoginContainer = styled.div`
     margin-bottom: 61px;
   }
 
+  .error-message {
+    position: relative;
+    color: red;
+    margin: 0;
+    display: inline-block;
+    top: -50px;
+    left: 140px;
+  }
+
   .title {
     position: relative;
     margin-top: 114px;
