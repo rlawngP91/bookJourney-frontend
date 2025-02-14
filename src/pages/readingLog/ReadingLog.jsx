@@ -14,6 +14,7 @@ import arrowBtn from '../../assets/downarrow2.svg';
 import RoomListRead from '../../components/readingLog/RoomListRead';
 import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
 import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
+import LoadingPage from '../../components/loading/loadingPage';
 import Footer from '../../components/commons/Footer/Footer';
 
 import {
@@ -29,7 +30,6 @@ const ReadingLog = () => {
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -50,7 +50,6 @@ const ReadingLog = () => {
           setRooms(result.data);
           setNickname(result.nickname);
         } else {
-          setError(result.error);
           setRooms([]);
         }
         setIsLoading(false);
@@ -63,7 +62,6 @@ const ReadingLog = () => {
           setRooms(result.data);
           setNickname(result.nickname);
         } else {
-          setError(result.error);
           setRooms([]);
         }
         setIsLoading(false);
@@ -81,9 +79,7 @@ const ReadingLog = () => {
     setShowDatePopup(true);
   };
 
-  // 여기에 skeleton code..?
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>오류가 발생했습니다: {error}</div>;
+  if (isLoading) return <LoadingPage />;
 
   return (
     <Container>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import logoIcon from '../../../assets/loadingbook.svg';
 import CalendarBookInfoPopup from './CalendarBookInfoPopup';
-// import bookIcon from '../../../assets/bookexample.svg';
 import { mypageReadingCalendarAPI } from '../../../apis/mypageReadingCalendarAPI';
 
 const CalendarGrid = styled.div`
@@ -43,6 +43,32 @@ const BookImage = styled.img`
   object-fit: cover;
 `;
 
+const float = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+const LoadingContent = styled.div`
+  color: #4b96f8;
+  font-style: normal;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    animation: ${float} 2s ease-in-out infinite;
+    animation-delay: ${(props) => props.$delay}s;
+  }
+`;
+
 const CalendarContent = ({ selectedDate }) => {
   const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -50,45 +76,6 @@ const CalendarContent = ({ selectedDate }) => {
 
   const [calendarData, setCalendarData] = useState({});
   const [loading, setLoading] = useState(true);
-
-  //mockData
-  // const bookDetailData = {
-  //   7: [
-  //     {
-  //       image: bookIcon,
-  //       author: '리처드 도킨스 저',
-  //       title: '이기적 유전자',
-  //       status: '혼자',
-  //       period: '2024.12.30 ~ 2025.01.20',
-  //     },
-  //   ],
-  //   14: [
-  //     {
-  //       image: bookIcon,
-  //       author: '리처드도킨스 저',
-  //       title: '이기적 유전자',
-  //       status: '같이',
-  //       period: '2024.12.30 ~ 2025.01.20',
-  //     },
-  //     {
-  //       image: bookIcon,
-  //       author: '리처드 도킨스 저',
-  //       title: '이기적 유전자',
-  //       status: '같이',
-  //       period: '2024.12.30 ~ 2025.01.20',
-  //     },
-  //   ],
-  // };
-
-  // 예시 데이터: 날짜별 책 이미지
-  // const bookData = {
-  //   7: bookIcon,
-  //   13: bookIcon,
-  //   14: bookIcon,
-  //   16: bookIcon,
-  //   21: bookIcon,
-  //   30: bookIcon,
-  // };
 
   useEffect(() => {
     const fetchCalendarData = async () => {
@@ -149,7 +136,11 @@ const CalendarContent = ({ selectedDate }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <LoadingContent $delay={0}>
+        <img src={logoIcon} />
+      </LoadingContent>
+    );
   }
 
   return (
