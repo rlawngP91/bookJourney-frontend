@@ -7,6 +7,9 @@ export const Container = styled.div`
   cursor: pointer;
 
   .cover-img {
+    &:hover {
+      border: 2px solid #6aa5f8;
+    }
     width: 118px;
     height: 168px;
     border-radius: 8px;
@@ -82,6 +85,7 @@ export const Container = styled.div`
 
   .hour,
   .percentage {
+    max-width: 45px;
     color: #a3a3a3;
     font-family: Inter;
     font-size: 8.788px;
@@ -113,7 +117,9 @@ export const Container = styled.div`
     left: 47.6px;
   }
 
-  .percentage {
-    margin-right: 25.5px;
+  .dots {
+    position: absolute;
+    top: 4px;
+    right: 3px;
   }
 `;

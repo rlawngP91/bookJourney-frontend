@@ -402,9 +402,12 @@ export const Container = styled.div`
   }
 
   .left-side {
+    box-sizing: border-box;
     border-radius: 6.576px;
-    border: 0.822px solid #d9d9d9;
     cursor: pointer;
+    &:hover {
+      border: 1.8px solid #6aa5f8;
+    }
   }
 
   .popup-message2 {
