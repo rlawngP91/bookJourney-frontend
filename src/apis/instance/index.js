@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: '/api', // vite.config.js 프록시 설정
+  baseURL: import.meta.env.PROD
+    ? 'https://book-journey.click' // 배포 환경
+    : '/api', // 개발 환경
   headers: {
     'Content-Type': 'application/json',
     Authorization:
