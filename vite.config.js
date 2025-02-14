@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://ec2-13-48-61-179.eu-north-1.compute.amazonaws.com', // API 서버 주소
+        target: 'https://book-journey.click', // API 서버 주소
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ''), // '/api'를 제거하고 요청 보내기

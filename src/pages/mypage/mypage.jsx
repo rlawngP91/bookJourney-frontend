@@ -15,6 +15,7 @@ import bookIcon from '../../assets/mypage-book.svg';
 import calendarIcon from '../../assets/mypage-calendar.svg';
 import accountIcon from '../../assets/mypage-account.svg';
 import logoutIcon from '../../assets/mypage-logout.svg';
+import Footer from '../../components/commons/Footer/Footer';
 import LogoutPopup from './logout/LogoutPopup';
 import { mypageAPI } from '../../apis/mypageAPI';
 
@@ -98,6 +99,7 @@ export default function MyPage() {
         ))}
       </MenuContainer>
       <LogoutPopup isOpen={isLogoutPopupOpen} onClose={closeLogoutPopup} />
+      <Footer />
     </MyPageContainer>
   );
 }

@@ -1,5 +1,22 @@
 import instance from './instance';
 
+const parseDateParams = (currentDate) => {
+  if (currentDate.includes('전체보기')) {
+    const year = currentDate.split('년')[0];
+    return { year };
+  }
+
+  const matches = currentDate.match(/(\d{4})년\s*(\d{1,2})월/);
+  if (!matches) {
+    throw new Error('잘못된 날짜 형식입니다');
+  }
+
+  return {
+    year: matches[1],
+    month: matches[2],
+  };
+};
+
 const RoomListNotReadAPIResponse = (record) => ({
   id: record.roomId,
   book: record.bookTitle,
@@ -19,9 +36,11 @@ const RoomListReadAPIResponse = (record) => ({
   coverImage: record.imageUrl,
 });
 
-export const fetchReadingRecordsNotRead = async () => {
+export const fetchReadingRecordsNotRead = async (currentDate) => {
   try {
-    const responseNotRead = await instance.get(`/rooms/archive`);
+    const dateParams = parseDateParams(currentDate);
+    const queryParams = new URLSearchParams(dateParams).toString();
+    const responseNotRead = await instance.get(`/rooms/archive?${queryParams}`);
 
     if (responseNotRead.data.code === 200) {
       return {
@@ -44,9 +63,13 @@ export const fetchReadingRecordsNotRead = async () => {
   }
 };
 
-export const fetchReadingRecordsRead = async () => {
+export const fetchReadingRecordsRead = async (currentDate) => {
   try {
-    const responseRead = await instance.get(`/rooms/archive/completed`);
+    const dateParams = parseDateParams(currentDate);
+    const queryParams = new URLSearchParams(dateParams).toString();
+    const responseRead = await instance.get(
+      `/rooms/archive/completed?${queryParams}`
+    );
 
     if (responseRead.data.code === 200) {
       return {
