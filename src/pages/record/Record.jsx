@@ -150,7 +150,7 @@ const Record = () => {
           <span className="nickname">{nickName}</span>님의 진행중 기록
         </p>
         <p className="total">
-          전체 <span className="number">5</span>
+          전체 <span className="number">{recordList.length}</span>
         </p>
         <p className="sort" onClick={handleSortClick}>
           {selectedOrder === 'latest-order' ? '최신순' : '유저진행도순'}
