@@ -24,11 +24,11 @@ import {
 
 const ReadingLog = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState('NickName');
   const [isRead, setIsRead] = useState(true);
   const [currentDate, setCurrentDate] = useState('2025년 2월');
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [rooms, setRooms] = useState([]);
+  // const [signupDate, setSignupDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const ReadingLog = () => {
 
         if (result.success) {
           setRooms(result.data);
-          setNickname(result.nickname);
+          // setSignupDate(result.signupDate);
         } else {
           setRooms([]);
         }
@@ -60,7 +60,7 @@ const ReadingLog = () => {
 
         if (result.success) {
           setRooms(result.data);
-          setNickname(result.nickname);
+          // setSignupDate(result.signupDate);
         } else {
           setRooms([]);
         }
@@ -83,7 +83,7 @@ const ReadingLog = () => {
 
   return (
     <Container>
-      <h1 className="readinglog-title">{nickname} 님의 독서기록장</h1>
+      <h1 className="readinglog-title">독서기록장</h1>
 
       <FilterButtons>
         <FilterLeftButton

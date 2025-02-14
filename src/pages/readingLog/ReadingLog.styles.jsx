@@ -98,11 +98,13 @@ export const DateSelector = styled.div`
 `;
 
 export const NoItems = styled.div`
-  text-align: center;
-  color: #64748b;
+  justify-content: center;
+  align-items: center;
+  margin-left: 147px;
+  margin-top: 275px;
+  color: #666;
   font-family: Pretendard;
-  font-size: 16px;
-  margin-top: 200px;
+  font-size: 14px;
 `;
 
 export const FooterContainer = styled.div`
