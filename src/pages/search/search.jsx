@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchHeader from './SearchHeader';
 import Footer from '../../components/commons/Footer/Footer';
 import { SearchBar } from './SearchBar';
 import { SearchResults } from './SearchResults';
 import { RecentSearches } from './RecentSearches';
-import { recentsearchAPI } from '../../apis/recentsearchAPI';
+
 import BookTypePopup from './BookTypePopup';
-// import { getFilteredResults } from '../../utils/search';
-// import { mockBooks, mockRooms } from '../../apis/mockData';
 import FilterPopup from './FilterPopup';
+import LoadingPage from '../../components/loading/loadingPage';
+
+import { recentsearchAPI } from '../../apis/recentsearchAPI';
 import { searchAPI } from '../../apis/searchAPI';
 import {
   SearchWrapper,
@@ -29,6 +30,10 @@ export default function Search() {
   const [isSearchExecuted, setIsSearchExecuted] = useState(false);
   const [isLoading, setIsLoaing] = useState(false);
 
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
   const [listType, setListType] = useState('책 목록');
   const [books, setBooks] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -47,10 +52,6 @@ export default function Search() {
     recordcnt: null,
   });
 
-  useEffect(() => {
-    setShowPopup(true);
-  }, []);
-
   // 검색어 입력만
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -58,19 +59,24 @@ export default function Search() {
 
   // searchBar 돋보기 Button
   const handleSearch = async () => {
-    if (!searchQuery.trim()) return; // 빈 검색어는 무시
+    if (!searchQuery.trim()) return;
 
     setIsSearchExecuted(true);
+    setPage(0);
+    setHasMore(true);
 
     try {
       setIsLoaing(true);
-      await searchAPI.fetchSearchResults({
+      const hasNextPage = await searchAPI.fetchSearchResults({
         searchQuery,
         searchType,
         filters: appliedFilters,
         setBooks,
         setRooms,
+        page: 0,
+        isLoadingMore: false,
       });
+      setHasMore(hasNextPage);
     } catch (error) {
       console.error('Search failed:', error);
     } finally {
@@ -180,8 +186,54 @@ export default function Search() {
       setIsLoaing(false);
     }
   };
+
+  const handleScroll = useCallback(() => {
+    if (isLoadingMore || !hasMore || !isSearchExecuted) return;
+
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollHeight - scrollTop - clientHeight < 100) {
+      setIsLoadingMore(true);
+      setPage((prev) => prev + 1);
+    }
+  }, [isLoadingMore, hasMore, isSearchExecuted]);
+
+  // 스크롤 이벤트 리스너 등록
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  // 페이지가 변경될 때마다 추가 데이터 로드
+  useEffect(() => {
+    const loadMoreData = async () => {
+      if (page > 0 && hasMore && isLoadingMore) {
+        try {
+          const hasNextPage = await searchAPI.fetchSearchResults({
+            searchQuery,
+            searchType,
+            filters: appliedFilters,
+            setBooks,
+            setRooms,
+            page,
+            isLoadingMore: true,
+          });
+          setHasMore(hasNextPage);
+        } catch (error) {
+          console.error('Failed to load more data:', error);
+        } finally {
+          setIsLoadingMore(false);
+        }
+      }
+    };
+
+    loadMoreData();
+  }, [page]);
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (

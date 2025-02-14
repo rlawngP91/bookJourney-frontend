@@ -18,19 +18,21 @@ export const searchAPI = {
     filters,
     setBooks,
     setRooms,
+    page = 0,
+    isLoadingMore = false,
   }) => {
     try {
       // API 요청 URL 구성
       const paramsBook = new URLSearchParams({
         searchTerm: searchQuery,
         searchType: searchType,
-        page: '0',
+        page: page.toString(),
       });
 
       const paramsRoom = new URLSearchParams({
         searchTerm: searchQuery,
         searchType: searchType,
-        page: '0',
+        page: page.toString(),
       });
 
       // 카테고리 필터 추가
@@ -87,9 +89,17 @@ export const searchAPI = {
           author: book.authorName,
           coverImage: book.imageUrl,
         }));
-        setBooks(mappedBooks);
+
+        if (isLoadingMore) {
+          setBooks((prevBooks) => [...prevBooks, ...mappedBooks]);
+        } else {
+          setBooks(mappedBooks);
+        }
+
         console.log(mappedBooks.length);
         console.log('book search success!');
+
+        return mappedBooks.length === 10; // 하나의 api에 10개 item get
       } else {
         setBooks([]);
       }
@@ -108,16 +118,26 @@ export const searchAPI = {
           enddate: room.progressEndDate, // 종료일
           isLocked: !room.public, // public이 false면 잠김
         }));
-        setRooms(mappedRooms);
+
+        if (isLoadingMore) {
+          setRooms((prevRooms) => [...prevRooms, ...mappedRooms]);
+        } else {
+          setRooms(mappedRooms);
+        }
+
         console.log(mappedRooms.length);
         console.log('room search success!');
+
+        return mappedRooms.length === 10;
       } else {
         setRooms([]);
       }
     } catch (error) {
       console.error('Search failed:', error);
-      setBooks([]);
-      setRooms([]);
+      if (!isLoadingMore) {
+        setBooks([]);
+        setRooms([]);
+      }
       throw error;
     }
   },
