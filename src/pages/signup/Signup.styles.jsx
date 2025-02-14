@@ -96,4 +96,15 @@ export const SignupContainer = styled.div`
     top: 656px;
     left: 20px;
   }
+
+  .pwd-error-msg {
+    position: absolute;
+    top: 532px;
+    right: 40px;
+    width: 185px;
+    margin: 0;
+    font-size: 13px;
+    color: red;
+    white-space: pre-line;
+  }
 `;

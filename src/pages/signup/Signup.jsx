@@ -4,8 +4,6 @@ import { SignupContainer } from './Signup.styles';
 import UserInputField from '../../components/userInputField/UserInputField';
 import Title from '../../assets/title.svg';
 import PasswordInput from './PasswordInput';
-import EyeIcon from '../../assets/eye.svg';
-import EyeOff from '../../assets/eyeoff.svg';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import {
   requestEmailVerification,
@@ -18,14 +16,16 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [verificationCode, setVerificationCode] = useState(''); // 인증번호 입력 값
   const [verificationMessage, setVerificationMessage] = useState('');
-  {
-    /*아래 추가 */
-  }
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [passwordError, setPasswordError] = useState(''); // 비번 양식
   const [isVerified, setIsVerified] = useState(false); // 인증 완료 상태
   const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 상태
+
+  // 비밀번호 정규식 (영어와 숫자 포함, 8~16자)
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
   const handleBtnClick = () => {
     sessionStorage.setItem('email', email); // 세션에 이메일 저장
@@ -59,10 +59,20 @@ const Signup = () => {
     }
   };
 
-  // 비밀번호 입력 핸들러
+  // 비밀번호 입력 핸들러: 정규식 검사 추가
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    checkPasswordMatch(e.target.value, confirmPassword);
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+
+    // 정규식 검사: 조건에 맞지 않으면 에러 메시지 설정
+    if (!passwordRegex.test(newPassword)) {
+      setPasswordError(
+        '비밀번호는 영어와 숫자를 포함하여 8자 이상 16자 이내로 설정해주세요.'
+      );
+    } else {
+      setPasswordError('');
+    }
+    checkPasswordMatch(newPassword, confirmPassword);
   };
 
   // 비밀번호 확인 입력 핸들러
@@ -125,6 +135,8 @@ const Signup = () => {
         value={password}
         onChange={handlePasswordChange}
       />
+      {/* 비밀번호 양식 오류 메시지 */}
+      {passwordError && <p className="pwd-error-msg">{passwordError}</p>}
       {/* 비밀번호 확인 입력 */}
       <PasswordInput
         labelText=""
@@ -135,22 +147,9 @@ const Signup = () => {
       />
 
       {/* 비밀번호 불일치 메시지 */}
-      {!passwordMatch && (
+      {!passwordMatch && !passwordError && (
         <p className="pwd-result-msg">비밀번호가 일치하지 않습니다.</p>
       )}
-
-      <img
-        className="eye-input"
-        src={EyeIcon}
-        alt="누르면 보이게"
-        onClick={() => console.log('Image1 clicked!')}
-      />
-      <img
-        className="eye-check"
-        src={EyeOff}
-        alt="누르면 보이게"
-        onClick={() => console.log('Image2 clicked!')}
-      />
       {/* 회원가입 버튼 (활성화 조건: 인증 완료 + 비밀번호 일치) */}
       <BlueBtn
         text="다음"
