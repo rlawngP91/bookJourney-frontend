@@ -19,6 +19,7 @@ import ReadWith from '../pages/ReadWith/ReadWith';
 import Mypage from '../pages/mypage/mypage';
 import ReadingCalendar from '../pages/mypage/readingcalendar/ReadingCalendar';
 import Collector from '../pages/collector/Collector';
+import Preview from '../pages/Preview/Preview';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -94,10 +95,13 @@ const Router = () => {
       path: '/mypage/calendar',
       element: <ReadingCalendar />,
     },
-
     {
       path: '/mypage/collector',
       element: <Collector />,
+    },
+    {
+      path: '/rooms/:roomId/preview',
+      element: <Preview />,
     },
   ]);
 

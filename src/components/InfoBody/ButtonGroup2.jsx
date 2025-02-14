@@ -55,7 +55,7 @@ export default function ButtonGroup2({ roomData, roomId }) {
 
   return (
     <ButtonGroupWrapper>
-      <Button onClick={() => navigate(`/rooms/${roomId}/info`)}>
+      <Button onClick={() => navigate(`/rooms/${roomId}/preview`)}>
         미리보기
       </Button>
       <Button onClick={handleRecordClick}>기록하기</Button>
