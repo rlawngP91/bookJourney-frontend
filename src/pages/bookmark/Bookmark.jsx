@@ -10,6 +10,14 @@ const Bookmark = () => {
   const [isDeleteMode, setIsDeleteMode] = useState(false); // 삭제 모드 상태
   const [books, setBooks] = useState([]);
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.warn('[WARNING] accessToken 없음 - 로그인 페이지로 이동');
+      navigate('/login'); // 로그인 페이지로 리디렉트
+      return;
+    }
+
     const fetchBookmarks = async () => {
       try {
         const data = await bookmarkAPI.getBookmarks();
