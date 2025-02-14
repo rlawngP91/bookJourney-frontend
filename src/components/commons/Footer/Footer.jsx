@@ -24,14 +24,14 @@ export default function Footer() {
         <div>홈</div>
       </Button>
       <Button
-        onClick={() => navigate('/bookmark')}
-        $isActive={isActive('/bookmark')}
+        onClick={() => navigate('/readinglog')}
+        $isActive={isActive('/readinglog')}
       >
         <img
-          src={isActive('/bookmark') ? bookwriteActive : bookwrite}
-          alt="도서기록장"
+          src={isActive('/readinglog') ? bookwriteActive : bookwrite}
+          alt="독서기록장"
         />{' '}
-        <div>도서기록장</div>
+        <div>독서기록장</div>
       </Button>
       <Button
         onClick={() => navigate('/search')}

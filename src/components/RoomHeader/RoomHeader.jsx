@@ -46,50 +46,93 @@ export default function RoomHeader({ roomData }) {
 
   return (
     <Wrapper>
-      <Header>
-        <img
-          src={xbox}
-          alt="Xbox"
-          onClick={() => openPopup('xbox')}
-          style={{ cursor: 'pointer' }}
-        />
-        <div>
-          <img
-            src={pen}
-            alt="Pen"
-            onClick={() => openPopup('pen')}
-            style={{ cursor: 'pointer' }}
-          />
-          <img
-            src={exit}
-            alt="Exit"
-            onClick={() => openPopup('exit')}
-            style={{ cursor: 'pointer' }}
-          />
-        </div>
-      </Header>
-      <Title>
-        <div>{roomData.bookTitle}</div>
-        {!roomData.public && <img src={lock} alt="Lock" />}
-      </Title>
-      <div className="roomname">{roomData.roomName}</div>
-      <Duration>
-        <img src={grayclock} alt="Clock" />
-        <div>{roomData.progressEndDate}</div>
-        <img src={graynote} alt="Note" />
-        <div>{roomData.roomPercentage}%</div>
-        <img
-          src={isExpanded ? grayarrowdown : grayarrowright}
-          onClick={toggleUserList}
-          style={{ cursor: 'pointer' }}
-          alt="Toggle User List"
-        />
-      </Duration>
-      {/* 참가 유저 목록 (isExpanded가 true일 때만 표시) */}
-      {isExpanded && (
-        <UserList>
-          <MemberHeader memberList={roomData.memberList} hideRole={true} />
-        </UserList>
+      {roomData.recruitCount === 1 ? (
+        <>
+          <Header>
+            <img
+              src={xbox}
+              alt="Xbox"
+              onClick={() => openPopup('xbox')}
+              style={{ cursor: 'pointer' }}
+            />
+            <div>
+              <img
+                src={pen}
+                alt="Pen"
+                onClick={() => openPopup('pen')}
+                style={{ cursor: 'pointer' }}
+              />
+              <img
+                src={exit}
+                alt="Exit"
+                onClick={() => openPopup('exit')}
+                style={{ cursor: 'pointer' }}
+              />
+            </div>
+          </Header>
+          <Title>
+            <div>{roomData.bookTitle}</div>
+          </Title>
+          <div className="roomname">{roomData.roomName}</div>
+          <Duration>
+            <div>
+              <img src={graynote} alt="Note" />
+            </div>
+            <div>{roomData.roomPercentage}%</div>
+          </Duration>
+        </>
+      ) : (
+        <>
+          <Header>
+            <img
+              src={xbox}
+              alt="Xbox"
+              onClick={() => openPopup('xbox')}
+              style={{ cursor: 'pointer' }}
+            />
+            <div>
+              <img
+                src={pen}
+                alt="Pen"
+                onClick={() => openPopup('pen')}
+                style={{ cursor: 'pointer' }}
+              />
+              <img
+                src={exit}
+                alt="Exit"
+                onClick={() => openPopup('exit')}
+                style={{ cursor: 'pointer' }}
+              />
+            </div>
+          </Header>
+          <Title>
+            <div>{roomData.bookTitle}</div>
+            {!roomData.public && <img src={lock} alt="Lock" />}
+          </Title>
+          <div className="roomname">{roomData.roomName}</div>
+          <Duration>
+            <div>
+              <img src={grayclock} alt="Clock" />
+            </div>
+            <div>{roomData.progressEndDate}</div>
+            <div>
+              <img src={graynote} alt="Note" />
+            </div>
+            <div>{roomData.roomPercentage}%</div>
+            <img
+              src={isExpanded ? grayarrowdown : grayarrowright}
+              onClick={toggleUserList}
+              style={{ cursor: 'pointer' }}
+              alt="Toggle User List"
+            />
+          </Duration>
+          {/* 참가 유저 목록 (isExpanded가 true일 때만 표시) */}
+          {isExpanded && (
+            <UserList>
+              <MemberHeader memberList={roomData.memberList} hideRole={true} />
+            </UserList>
+          )}
+        </>
       )}
 
       {/* 각 팝업 조건부 렌더링 */}

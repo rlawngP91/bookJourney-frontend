@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Wrapper } from './ReadWith.styles';
-import RoomHeader from '../../components/RoomHeader/RoomHeader';
-import RoomBody from '../../components/RoomBody/RoomBody';
+import { Wrapper } from './Preview.styles';
+import PreviewHeader from './PreviewHeader';
+import PreviewBody from './PreviewBody';
 import { getInnerRoomInfo } from '../../apis/getInnerRoomInfo';
 import { getEntireRecords } from '../../apis/getEntireRecords';
 import { getPageRecords } from '../../apis/getPageRecords';
 
-export default function ReadWith() {
+export default function Preview() {
   const { roomId } = useParams();
 
   const [roomData, setRoomData] = useState(null); // 방 정보
@@ -58,9 +58,9 @@ export default function ReadWith() {
   if (error) return;
   return (
     <Wrapper>
-      <RoomHeader roomData={roomData} />
+      <PreviewHeader roomData={roomData} />
       {roomData && (
-        <RoomBody
+        <PreviewBody
           roomData={roomData}
           records={records}
           pageRecords={pageRecords}

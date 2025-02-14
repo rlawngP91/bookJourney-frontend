@@ -1,9 +1,9 @@
 import React from 'react';
-import DatePicker from '../components/MakeReadwithTogether/DatePicker';
+import p0 from '../assets/collectorpopup/p0.svg';
 export default function Test() {
   return (
     <>
-      <DatePicker />
+      <img src={p0} />
     </>
   );
 }

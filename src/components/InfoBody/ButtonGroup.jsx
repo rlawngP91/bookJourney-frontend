@@ -22,6 +22,13 @@ export const Button = styled.button`
   /* 기본 스타일 제거 */
   border: none; /* 테두리 제거 */
   outline: none; /* 포커스 시 나오는 아웃라인 제거 */
+
+  color: #fff;
+  font-family: Pretandard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 `;
 //이미 방에 들어가 있는 경우 (혼자건 같이건)
 export default function ButtonGroup() {

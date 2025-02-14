@@ -38,15 +38,14 @@ export const Title = styled.div`
   flex-direction: row;
   gap: 8px;
   align-items: center;
+  padding-right: 25px;
 
   div {
     color: #000;
-    text-align: center;
     font-family: Inter;
     font-size: 20.553px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
   }
 
   img {
@@ -66,9 +65,9 @@ export const Duration = styled.div`
   font-size: 11px;
   font-style: normal;
   font-weight: 600;
-  line-height: 18.08px; /* 164.366% */
 
-  img {
+  div {
+    line-height: 13.5px;
   }
 `;
 
