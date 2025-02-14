@@ -402,6 +402,8 @@ export const Container = styled.div`
   }
 
   .left-side {
+    border-radius: 6.576px;
+    border: 0.822px solid #d9d9d9;
     cursor: pointer;
   }
 

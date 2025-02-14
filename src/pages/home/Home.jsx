@@ -172,16 +172,6 @@ const Home = () => {
     }
   };
 
-  {
-    /** 
-  const handleBestSellerClick = (isbn) => {
-    if (isbn) {
-      navigate(`/info/${isbn}`);
-    }
-  };
-  */
-  }
-
   const settings = {
     dots: false, // 하단 dot 표시 제거
     infinite: true, // 무한 루프
