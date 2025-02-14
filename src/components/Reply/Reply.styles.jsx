@@ -28,19 +28,20 @@ export const Comment = styled.div`
     padding-bottom: 30px;
   }
 
-  .head {
+  .h {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 9px;
     justify-content: space-between;
 
-    .main {
+    .m {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 15px;
 
-      .name {
+      .n {
         color: #000;
         font-family: Pretendard;
         font-size: 12.574px;
@@ -49,7 +50,7 @@ export const Comment = styled.div`
         line-height: 17.963px; /* 142.857% */
       }
 
-      .time {
+      .t {
         color: #939393;
         font-family: Pretendard;
         font-size: 11.158px;
@@ -59,41 +60,45 @@ export const Comment = styled.div`
       }
     }
 
+    .tt {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .left {
+        gap: 17px;
+        display: flex;
+        flex-direction: row;
+        .n {
+          color: #000;
+          font-family: Pretendard;
+          font-size: 12.574px;
+          font-style: normal;
+          font-weight: 500;
+        }
+        .t {
+          color: #939393;
+          font-family: Pretendard;
+          font-size: 11.158px;
+          font-style: normal;
+          font-weight: 400;
+        }
+      }
+    }
+
     img {
       width: 26px;
       height: 26px;
     }
   }
 
-  .body {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+  .c {
     padding: 10px 25px 10px 9px;
-
-    .page {
-      color: #6aa5f8;
-      text-align: center;
-      font-family: Pretendard;
-      font-size: 10.778px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 14.37px; /* 133.333% */
-      letter-spacing: 0.359px;
-    }
-
-    .content {
-      color: #000;
-      font-family: Pretendard;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 17.963px; /* 149.691% */
-      width: 80%;
-    }
+    width: 80%;
   }
 
-  .bottom {
+  .b {
     display: flex;
     flex-direction: row;
     gap: 7px;
@@ -132,72 +137,53 @@ export const Review = styled.div`
   background-color: #fff;
   padding-bottom: 20px;
 
-  .head {
+  .head2 {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
-    .main {
+    .main2 {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 15px;
 
-      .name {
+      .name2 {
         color: #000;
         font-family: Pretendard;
         font-size: 12.574px;
         font-style: normal;
         font-weight: 500;
-        line-height: 17.963px; /* 142.857% */
       }
 
-      .time {
+      .time2 {
         color: #939393;
         font-family: Pretendard;
         font-size: 11.158px;
         font-style: normal;
         font-weight: 400;
-        line-height: 17.963px; /* 160.988% */
       }
     }
 
     img {
       width: 26px;
       height: 26px;
+      border-radius: 50%;
     }
   }
 
-  .body {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    padding: 10px 0px 10px 40px;
-
-    .page {
-      color: #6aa5f8;
-      text-align: center;
-      font-family: Pretendard;
-      font-size: 10.778px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 14.37px; /* 133.333% */
-      letter-spacing: 0.359px;
-    }
-
-    .content {
-      color: #000;
-      font-family: Pretendard;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 17.963px; /* 149.691% */
-      width: 80%;
-    }
+  .content2 {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 17.963px; /* 149.691% */
+    width: 80%;
   }
 
-  .bottom {
+  .bottom2 {
     display: flex;
     flex-direction: row;
     gap: 7px;
