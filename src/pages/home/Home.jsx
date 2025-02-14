@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Wrapper } from './Home.styles';
+//import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Container, Wrapper, StyledSlider } from './Home.styles';
 import Title from '../../assets/title.svg';
 import Star from './star.svg';
 import Bell from './bell.svg';
@@ -31,6 +34,7 @@ const Home = () => {
   const [recordList, setRecordList] = useState([]);
   const [recruitWeek, setRecruitWeek] = useState('');
   const [recruitRooms, setRecruitRooms] = useState([]);
+  const sliderRef = useRef(null); // 슬라이더 참조
 
   useEffect(() => {
     console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
@@ -168,10 +172,32 @@ const Home = () => {
     }
   };
 
+  {
+    /** 
   const handleBestSellerClick = (isbn) => {
     if (isbn) {
       navigate(`/info/${isbn}`);
     }
+  };
+  */
+  }
+
+  const settings = {
+    dots: false, // 하단 dot 표시 제거
+    infinite: true, // 무한 루프
+    speed: 500, // 슬라이드 전환 속도
+    slidesToShow: 1, // 한 번에 표시할 슬라이드 개수
+    slidesToScroll: 1, // 한 번에 넘어가는 슬라이드 개수
+    autoplay: true, // 자동 재생
+    autoplaySpeed: 5000, // 자동 슬라이드 속도 (3초)
+    arrows: false, // 좌우 화살표 숨김
+    beforeChange: (current, next) => setSelectedToggle(next), // 슬라이드 변경 시 선택된 토글 변경
+  };
+
+  // 토글 클릭 시 해당 인덱스로 이동하는 함수
+  const handleToggleClick = (index) => {
+    setSelectedToggle(index);
+    sliderRef.current.slickGoTo(index);
   };
 
   return (
@@ -214,31 +240,35 @@ const Home = () => {
         </span>
         <span className="welcome">환영합니다!</span>
 
-        {/* 베스트셀러 이미지 영역 */}
-        <div className="best-seller-container">
-          {bestSellerList.length > 0 && (
-            <img
-              className="best-seller"
-              src={
-                bestSellerList[selectedToggle]
-                  ? bestSellerList[selectedToggle].imageUrl
-                  : bestSellerList[0].imageUrl
-              }
-              onClick={() =>
-                handleBestSellerClick(bestSellerList[selectedToggle]?.isbn)
-              }
-              alt="베스트셀러"
-            />
+        {/*캐러셀 추가 */}
+        <StyledSlider ref={sliderRef} {...settings}>
+          {bestSellerList.length > 0 ? (
+            bestSellerList.map((book, index) => (
+              <div key={index} className="best-seller-container">
+                <img
+                  className="best-seller"
+                  src={book.imageUrl}
+                  alt={`베스트셀러 ${index + 1}`}
+                  onClick={() => navigate(`/info/${book.isbn}`)}
+                />
+              </div>
+            ))
+          ) : (
+            <p className="loading-message">
+              베스트셀러 데이터를 불러오는 중...
+            </p> // 데이터가 없을 때 표시
           )}
-        </div>
+        </StyledSlider>
+
         <span className="description">*자기계발 베스트 셀러</span>
+
         <div className="circle-container">
           {[0, 1, 2].map((index) => (
             <img
               key={index}
               src={selectedToggle === index ? Blue : Gray}
               alt={`토글${index + 1}`}
-              onClick={() => setSelectedToggle(index)}
+              onClick={() => handleToggleClick(index)}
             />
           ))}
         </div>
