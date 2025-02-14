@@ -22,6 +22,14 @@ const Record = () => {
   const [popup1Visible, setPopup1Visible] = useState(false); // #popup1 상태
   const [nickName, setNickName] = useState(''); // 로그인된 유저 닉네임
   useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.warn('[WARNING] accessToken 없음 - 로그인 페이지로 이동');
+      navigate('/login'); // 로그인 페이지로 리디렉트
+      return;
+    }
+
     apiClient.get('/books/best-sellers').then((response) => {
       console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
       if (response.data.code === 200) {
