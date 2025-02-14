@@ -24,6 +24,9 @@ export const SearchResults = ({
 
   return (
     <>
+      {listType === '책 목록' && $searchType == '방 이름' && (
+        <NoResultsMessage>검색 결과가 없습니다</NoResultsMessage>
+      )}
       {listType === '책 목록' && $searchType !== '방 이름' && (
         <>
           {hasBookResults ? (
