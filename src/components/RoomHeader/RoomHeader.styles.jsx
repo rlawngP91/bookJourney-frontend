@@ -65,10 +65,6 @@ export const Duration = styled.div`
   font-size: 11px;
   font-style: normal;
   font-weight: 600;
-
-  div {
-    line-height: 13.5px;
-  }
 `;
 
 export const Body = styled.div`

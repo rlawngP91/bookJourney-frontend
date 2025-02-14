@@ -173,6 +173,7 @@ export const Review2 = styled.div`
     color: #000;
     font-size: 10.012px;
     font-weight: 400;
+    padding-right: 12px;
   }
 `;
 

@@ -29,6 +29,7 @@ export default function Reply({ recordId, onClose }) {
   const [error, setError] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const textareaRef = useRef(null);
+  const footerRef = useRef(null);
 
   // ✅ 좋아요 상태 및 카운트
   const [isLikedRecord, setIsLikedRecord] = useState(null);
@@ -112,6 +113,19 @@ export default function Reply({ recordId, onClose }) {
     }
   };
 
+  const handleInput = (e) => {
+    setNewComment(e.target.value);
+
+    if (textareaRef.current) {
+      const textHeight = textareaRef.current.scrollHeight;
+
+      // ✅ 최대 244px까지만 커지도록 제한
+      const newHeight = Math.min(textHeight, 244);
+
+      textareaRef.current.style.height = `${newHeight}px`;
+    }
+  };
+
   if (loading) return;
   if (error) return <div style={{ color: 'red' }}>❌ {error}</div>;
   if (!recordInfo) return <div>📭 기록 정보를 불러올 수 없습니다.</div>;
@@ -123,75 +137,136 @@ export default function Reply({ recordId, onClose }) {
           <div className="close">
             <img src={xbox} onClick={onClose} style={{ cursor: 'pointer' }} />
           </div>
-          <div className="h">
-            <div className="m">
-              <img src={recordInfo.imageUrl} alt="User" />
-              <div>{recordInfo.page}</div>
-            </div>
-            <div className="tt">
-              <div className="left">
-                <div className="n">{recordInfo.nickName}</div>
-                <div className="t">{recordInfo.createdAt}</div>
+          {recordInfo.recordTitle ? (
+            // recordTitle이 존재할 경우 렌더링
+            <div className="all">
+              <div className="h">
+                <div className="m">
+                  <img src={recordInfo.imageUrl} alt="User" />
+                </div>
               </div>
-              <div>
-                <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+              <div className="gg">
+                <div className="tt">
+                  <div className="f">
+                    <div className="n">{recordInfo.nickName}</div>
+                    <div className="t">{recordInfo.createdAt}</div>
+                  </div>
+                  <div>
+                    <img
+                      src={hamburgermenu}
+                      onClick={() => setIsMenuOpen(true)}
+                    />
+                    {isMenuOpen && (
+                      <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                    )}
+                  </div>
+                </div>
+                <div className="title2">{recordInfo.recordTitle}</div>
+                <div className="c">{recordInfo.content}</div>
+                <div className="b">
+                  <img src={reply} alt="댓글" />
+                  <div>{recordInfo.commentCount}</div>
+                  <img
+                    src={isLikedRecord ? alreadygood : good}
+                    alt="좋아요"
+                    onClick={handleRecordLike}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <div>{likeCountRecord}</div>
+                </div>
               </div>
-              {isMenuOpen && (
-                <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
-              )}
             </div>
-          </div>
-          <div className="c">{recordInfo.content}</div>
-          <div className="b">
-            <img src={reply} alt="댓글" />
-            <div>{recordInfo.commentCount}</div>
-            <img
-              src={isLikedRecord ? alreadygood : good}
-              alt="좋아요"
-              onClick={handleRecordLike}
-              style={{ cursor: 'pointer' }}
-            />
-            <div>{likeCountRecord}</div>
-          </div>
+          ) : (
+            // recordPage가 존재할 경우 렌더링
+            <div className="all">
+              <div className="h">
+                <div className="m">
+                  <img src={recordInfo.imageUrl} alt="User" />
+                  <div className="p">{recordInfo.recordPage}p</div>
+                </div>
+              </div>
+              <div className="gg">
+                <div className="tt">
+                  <div className="f">
+                    <div className="n">{recordInfo.nickName}</div>
+                    <div className="t">{recordInfo.createdAt}</div>
+                  </div>
+                  <div>
+                    <img
+                      src={hamburgermenu}
+                      onClick={() => setIsMenuOpen(true)}
+                    />
+                    {isMenuOpen && (
+                      <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                    )}
+                  </div>
+                </div>
+                <div className="c">{recordInfo.content}</div>
+                <div className="b">
+                  <img src={reply} alt="댓글" />
+                  <div>{recordInfo.commentCount}</div>
+                  <img
+                    src={isLikedRecord ? alreadygood : good}
+                    alt="좋아요"
+                    onClick={handleRecordLike}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <div>{likeCountRecord}</div>
+                </div>
+              </div>
+            </div>
+          )}
         </Comment>
+
         <ReviewList>
           {comments.map((comment) => (
             <Review key={comment.commentId}>
               <div className="head2">
-                <div className="main2">
-                  <img src={comment.imageUrl || userimage} alt="User Profile" />
-                  <div className="name2">{comment.nickName}</div>
-                  <div className="time2">{comment.createdAt}</div>
-                  <img
-                    src={hamburgermenu}
-                    onClick={() => setIsMenuOpen(true)}
-                  />
-                  {isMenuOpen && (
-                    <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
-                  )}
+                <div className="ll">
+                  <div className="l">
+                    <div>
+                      <img
+                        src={comment.imageUrl || userimage}
+                        alt="User Profile"
+                      />
+                    </div>
+                    <div className="nt2">
+                      <div className="name2">{comment.nickName}</div>
+                      <div className="time2">{comment.createdAt}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <img
+                      src={hamburgermenu}
+                      onClick={() => setIsMenuOpen(true)}
+                    />
+                    {isMenuOpen && (
+                      <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="content2">{comment.content}</div>
-              <div className="bottom2">
-                <img
-                  src={comment.isLiked ? alreadygood : good}
-                  alt="좋아요"
-                  onClick={() => handleCommentLike(comment.commentId)}
-                  style={{ cursor: 'pointer' }}
-                />
-                <div>{comment.commentLikeCount}</div>
+                <div className="content2">{comment.content}</div>
+                <div className="bottom2">
+                  <img
+                    src={comment.isLiked ? alreadygood : good}
+                    alt="좋아요"
+                    onClick={() => handleCommentLike(comment.commentId)}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <div>{comment.commentLikeCount}</div>
+                </div>
               </div>
             </Review>
           ))}
         </ReviewList>
-        <Footer>
+        <Footer ref={footerRef}>
           <div className="input">
             <Textarea
               ref={textareaRef}
               placeholder="댓글 추가하기"
               value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              maxLength={1000}
+              onChange={handleInput}
+              maxLength={500}
             />
             <img
               src={send}

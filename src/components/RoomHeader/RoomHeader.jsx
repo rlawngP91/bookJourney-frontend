@@ -111,13 +111,9 @@ export default function RoomHeader({ roomData }) {
           </Title>
           <div className="roomname">{roomData.roomName}</div>
           <Duration>
-            <div>
-              <img src={grayclock} alt="Clock" />
-            </div>
+            <img src={grayclock} alt="Clock" />
             <div>{roomData.progressEndDate}</div>
-            <div>
-              <img src={graynote} alt="Note" />
-            </div>
+            <img src={graynote} alt="Note" />
             <div>{roomData.roomPercentage}%</div>
             <img
               src={isExpanded ? grayarrowdown : grayarrowright}

@@ -28,74 +28,103 @@ export const Comment = styled.div`
     padding-bottom: 30px;
   }
 
-  .h {
+  .all {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 9px;
-    justify-content: space-between;
+    gap: 14px;
 
-    .m {
+    .h {
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 15px;
+      flex-direction: column;
+      gap: 10px;
 
-      .n {
-        color: #000;
-        font-family: Pretendard;
-        font-size: 12.574px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 17.963px; /* 142.857% */
-      }
+      .m {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 9px;
 
-      .t {
-        color: #939393;
-        font-family: Pretendard;
-        font-size: 11.158px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 17.963px; /* 160.988% */
+        img {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+        }
+
+        .p {
+          color: #6aa5f8;
+          text-align: center;
+          font-family: Pretendard;
+          font-size: 10.778px;
+          font-style: normal;
+          font-weight: 600;
+        }
       }
     }
 
-    .tt {
+    .gg {
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      height: auto;
+      width: 343px;
 
-      .left {
-        gap: 17px;
+      .tt {
         display: flex;
         flex-direction: row;
-        .n {
-          color: #000;
-          font-family: Pretendard;
-          font-size: 12.574px;
-          font-style: normal;
-          font-weight: 500;
-        }
-        .t {
-          color: #939393;
-          font-family: Pretendard;
-          font-size: 11.158px;
-          font-style: normal;
-          font-weight: 400;
+        align-items: center;
+        justify-content: space-between;
+
+        .f {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 20px;
+          .n {
+            color: #000;
+            font-family: Pretendard;
+            font-size: 12.574px;
+            font-style: normal;
+            font-weight: 500;
+          }
+          .t {
+            color: #939393;
+            font-family: Pretendard;
+            font-size: 11.158px;
+            font-style: normal;
+            font-weight: 400;
+          }
         }
       }
     }
 
-    img {
-      width: 26px;
-      height: 26px;
+    .title2 {
+      padding: 8px 0px;
+      color: #6aa5f8;
+      font-family: Pretendard;
+      font-size: 10.778px;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .pic {
+      width: 14px;
+      height: 14px;
     }
   }
 
   .c {
-    padding: 10px 25px 10px 9px;
-    width: 80%;
+    padding: 6.5px 25px 10px 0px;
+    width: 244px;
+    height: auto;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+
+    /* ✅ 줄바꿈 강제 적용 */
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .b {
@@ -104,13 +133,10 @@ export const Comment = styled.div`
     gap: 7px;
     align-items: center;
     justify-content: end;
-
     color: #000;
-    font-family: Roboto;
     font-size: 10.012px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 15.402px; /* 153.846% */
+    padding-right: 10px;
   }
 `;
 
@@ -139,62 +165,74 @@ export const Review = styled.div`
 
   .head2 {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
 
-    .main2 {
+    .ll {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
+
+      .l {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+
+        img {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+        }
+
+        .nt2 {
+          display: flex;
+          flex-direction: row;
+          gap: 20px;
+
+          .name2 {
+            color: #000;
+            font-family: Pretendard;
+            font-size: 12.574px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 26px;
+          }
+
+          .time2 {
+            color: #939393;
+            font-family: Pretendard;
+            font-size: 11.158px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 26px;
+          }
+        }
+      }
+    }
+
+    .content2 {
+      color: #000;
+      font-family: Pretendard;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      width: 80%;
+      padding-left: 38px;
+      padding-bottom: 10px;
+    }
+
+    .bottom2 {
+      display: flex;
+      flex-direction: row;
+      gap: 7px;
       align-items: center;
-      gap: 15px;
-
-      .name2 {
-        color: #000;
-        font-family: Pretendard;
-        font-size: 12.574px;
-        font-style: normal;
-        font-weight: 500;
-      }
-
-      .time2 {
-        color: #939393;
-        font-family: Pretendard;
-        font-size: 11.158px;
-        font-style: normal;
-        font-weight: 400;
-      }
+      justify-content: end;
+      color: #000;
+      font-family: Roboto;
+      font-size: 10.012px;
+      font-style: normal;
+      font-weight: 400;
+      padding-right: 10px;
     }
-
-    img {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-    }
-  }
-
-  .content2 {
-    color: #000;
-    font-family: Pretendard;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 17.963px; /* 149.691% */
-    width: 80%;
-  }
-
-  .bottom2 {
-    display: flex;
-    flex-direction: row;
-    gap: 7px;
-    align-items: center;
-    justify-content: end;
-    color: #000;
-    font-family: Roboto;
-    font-size: 10.012px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 15.402px; /* 153.846% */
   }
 `;
 
@@ -205,7 +243,7 @@ export const ReviewList = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  padding: 46px 25px 90px 55px;
+  padding: 46px 25px 0px 55px;
   max-height: 400px;
   overflow-y: auto;
 
@@ -216,52 +254,34 @@ export const ReviewList = styled.div`
 `;
 
 export const Footer = styled.div`
-  position: absolute; /* ✅ 부모(Container) 내에서 위치 조정 */
+  position: absolute;
   bottom: 0;
-  z-index: 1000; /* ✅ 다른 요소 위에 나타나도록 설정 */
+  z-index: 1000;
   width: 393px;
-  height: 90px; /* ✅ 높이를 자동 조절 */
+  height: auto; /* ✅ 자동 조절 */
+  max-height: 244px; /* ✅ 최대 높이 설정 */
   background: #fff;
   align-items: center;
   justify-content: center;
   display: flex;
   padding: 0px 25px 20px 25px;
   box-sizing: border-box;
-  transition: height 0.2s ease-out; /* ✅ 자연스럽게 높이 변화 */
+  transition: height 0.2s ease-out;
+  flex-direction: column-reverse;
+  overflow: hidden; /* ✅ Footer가 244px을 초과하지 않도록 제한 */
 
   .input {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 342px;
-    padding: 9.553px 15.285px;
+    width: 322px;
+    padding: 9px 15.285px;
     align-items: center;
     border-radius: 9px;
     background-color: #eff1f5;
-    max-height: 244px;
-
-    color: #a09cab;
-    font-family: Pretendard;
-    font-size: 14.33px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 19.106px; /* 133.333% */
-    transition: ease-out; /* ✅ 자연스럽게 위로 확장되도록 설정 */
+    transition: ease-out;
+    max-height: 244px; /* ✅ input도 244px을 초과하지 않도록 제한 */
   }
-`;
-
-export const Input = styled.input`
-  display: flex;
-  flex-grow: 1;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  font-size: 14px;
-  border-radius: 9px; /* 둥근 모서리 */
-  font-size: 14px;
-  outline: none; /* 클릭 시 기본 아웃라인 제거 */
-  color: #000; /* 글자색 */
-  width: 100%; /* 부모 요소 크기만큼 확장 */
 `;
 
 export const Textarea = styled.textarea`
@@ -270,13 +290,18 @@ export const Textarea = styled.textarea`
   background-color: transparent;
   font-size: 14px;
   resize: none;
-  overflow: hidden;
-  height: 20px; /* ✅ 기본 높이 */
+  overflow-y: auto; /* ✅ 내부 스크롤 활성화 */
+  min-height: 40px; /* ✅ 기본 높이 */
   max-height: 244px; /* ✅ 최대 높이 설정 */
   border-radius: 9px;
   color: #000;
   width: 100%;
   position: relative;
-  top: 0; /* ✅ 기본적으로 위에서 시작 */
-  transition: ease-out; /* ✅ 자연스럽게 위로 확장되도록 설정 */
+  transition: height 0.2s ease-out;
+
+  /* ✅ 스크롤바 숨기기 */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
 `;
