@@ -6,7 +6,7 @@ export const LoginContainer = styled.div`
   height: 852px;
   background-color: #f6f7f9;
 
-  & > *:nth-child(4) {
+  & > *:nth-child(3) {
     margin-top: 50px;
     margin-bottom: 61px;
   }

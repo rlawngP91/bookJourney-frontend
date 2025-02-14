@@ -72,7 +72,7 @@ export const Container = styled.div`
     align-items: center;
     gap: 3px;
     position: absolute;
-    top: 126px;
+    top: 128px;
     right: 35px;
     margin: 0;
     color: #000;
