@@ -265,7 +265,7 @@ const Home = () => {
         <div className="record-container">
           <div className="progress">
             <span className="progress-title">
-              진행중인 기록&nbsp;&nbsp;
+              진행중 기록&nbsp;&nbsp;
               <span className="recording-count">{bookCount}</span>
             </span>
             {/* 조건부 렌더링 */}
