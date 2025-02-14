@@ -16,8 +16,11 @@ export const Container = styled.div`
     width: 144.8px;
     height: 206.2px;
     border-radius: 9.821px;
-    border: 2.455px solid #d9d9d9;
     margin-bottom: 5.05px;
+    box-sizing: border-box;
+    &:hover {
+      border: 2.455px solid #6aa5f8;
+    }
   }
 
   .bookTitle {

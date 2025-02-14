@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Bookmark.styles';
-import StatusBar from '../../components/statusbar/StatusBar';
 import Arrow from '../../assets/arrow.svg';
 import Box from './Box';
 import { bookmarkAPI } from '../../apis/bookmarkAPI';
@@ -116,8 +115,6 @@ const Bookmark = () => {
 
   return (
     <Container>
-      <StatusBar />
-
       {/* 배경 오버레이 */}
       {(popup1Visible || popup2Visible) && <div className="overlay"></div>}
 

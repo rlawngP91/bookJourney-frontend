@@ -7,12 +7,6 @@ import Sort from './sort.svg';
 import Line from './line.svg';
 import Checked from '../bookmark/checked.svg';
 import Book from './Book';
-/*
-import Dummy1 from './dummy1.svg';
-import Dummy2 from './dummy2.svg';
-import Dummy3 from './dummy3.svg';
-import Dummy4 from './dummy4.svg';
-*/
 import apiClient from '../../apis/instance/apiClient';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 import { fetchProgressRecords } from '../../apis/progressApi';

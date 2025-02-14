@@ -14,11 +14,11 @@ export const Container = styled.div`
   }
 
   .title-message {
+    max-width: 251px;
     position: absolute;
     top: 82px;
-    left: 120px;
-    width: 191px;
-    margin: 0;
+    right: 70px;
+    margin: auto;
     padding: 0;
     color: #000;
     font-family: Pretendard;
@@ -29,6 +29,11 @@ export const Container = styled.div`
   }
 
   .nickname {
+    width: 100px;
+    overflow: hidden; // 을 사용해 영역을 감출 것
+    text-overflow: ellipsis; // 로 ... 을 만들기
+    white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
+    word-break: break-all;
     color: #000;
     text-align: center;
     font-family: Pretendard;

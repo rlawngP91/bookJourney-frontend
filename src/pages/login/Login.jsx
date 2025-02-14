@@ -87,7 +87,7 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       {/* 버튼 컨테이너 */}
       <ButtonContainer>
