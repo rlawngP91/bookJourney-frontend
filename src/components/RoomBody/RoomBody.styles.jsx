@@ -10,6 +10,25 @@ export const Wrapper = styled.div`
   padding: 0px 25px 0px 25px;
 `;
 
+export const NoRecord = styled.div`
+  width: 393px;
+  height: 453.5px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0px 25px;
+  margin-left: -25px;
+
+  color: #a3a3a3;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 453.5px;
+`;
+
 export const Container = styled.div`
   width: 393px;
   height: 453.5px;

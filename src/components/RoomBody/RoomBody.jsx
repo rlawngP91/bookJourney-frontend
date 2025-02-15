@@ -6,6 +6,7 @@ import {
   Category,
   Filter,
   Footer,
+  NoRecord,
 } from './RoomBody.styles';
 import downarrow2 from '../../assets/downarrow2.svg';
 import send from '../../assets/send.svg';
@@ -255,7 +256,7 @@ export default function RoomBody({ roomData }) {
         ) : error ? (
           <></>
         ) : records.length === 0 ? (
-          <div>📭 기록이 없습니다.</div>
+          <NoRecord>기록이 없습니다</NoRecord>
         ) : (
           records.map((record) => (
             <Record

@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 export const Box = styled.div`
   display: flex;
   height: 350px;
-  width: 350px;
+  width: 360px;
   background-color: #fff;
   flex-direction: column;
   border-radius: 8px;
@@ -32,7 +32,7 @@ export const Container = styled.div`
   .title {
     text-align: center;
 
-    padding-top: 55px;
+    padding-top: 40px;
     color: #000;
     font-family: Pretendard;
     font-size: 15px;
@@ -82,7 +82,7 @@ export const Container = styled.div`
     }
 
     .totalpage {
-      width: 60.682px;
+      width: 45.682px;
       height: 48.545px;
       line-height: 46px;
       text-align: center;
@@ -121,6 +121,8 @@ export const Input = styled.input`
   border: none; /* ✅ 테두리 없애기 */
   outline: none; /* ✅ 클릭(포커스) 시 테두리 없애기 */
   box-shadow: none; /* ✅ 그림자 제거 (일부 브라우저 기본 스타일) */
+
+  border: 1px solid #6aa5f8;
 `;
 
 export const Button = styled.button`
@@ -137,7 +139,5 @@ export const Button = styled.button`
   font-family: Pretendard;
   font-size: 15px;
   font-style: normal;
-  font-weight: 500;
-  line-height: 16px; /* 106.667% */
-  letter-spacing: 0.5px;
+  font-weight: 600;
 `;

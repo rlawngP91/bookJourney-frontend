@@ -147,7 +147,7 @@ export const Popup = styled.div`
       .delete {
         width: 134px;
         height: 47px;
-        color: #d25643;
+        color: #6aa5f8;
         font-family: Pretendard;
         font-size: 13px;
         font-style: normal;

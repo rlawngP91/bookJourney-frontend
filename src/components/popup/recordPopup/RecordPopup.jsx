@@ -60,11 +60,11 @@ export default function RecordPopup({ onClose, roomId }) {
                   placeholder="0"
                 />
                 <div className="slash">/</div>
-                <div className="totalpage">{bookPage}</div>
-                <div className="p">P</div>
+                <div className="totalpage">{bookPage || ''}</div>
+                <div className="p">p</div>
               </div>
               <div className="last">
-                *지난번에는 {currentPage || '0'}p까지 읽었어요
+                *지난번에는 {currentPage || ''}p까지 읽었어요
               </div>
             </div>
             {error && (
