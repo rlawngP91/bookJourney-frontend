@@ -79,6 +79,9 @@ export const Review = styled.div`
       font-weight: 400;
       width: 90%;
       padding-bottom: 10px;
+      word-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      overflow-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      white-space: pre-wrap; /* ✅ 줄바꿈 유지 */
     }
 
     .bottom {
@@ -166,6 +169,9 @@ export const Review2 = styled.div`
       font-weight: 400;
       width: 90%;
       height: auto;
+      word-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      overflow-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      white-space: pre-wrap; /* ✅ 줄바꿈 유지 */
     }
   }
 

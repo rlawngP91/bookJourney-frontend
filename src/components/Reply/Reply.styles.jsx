@@ -225,6 +225,9 @@ export const Review = styled.div`
       width: 80%;
       padding-left: 38px;
       padding-bottom: 10px;
+      word-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      overflow-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      white-space: pre-wrap; /* ✅ 줄바꿈 유지 */
     }
 
     .bottom2 {
