@@ -16,7 +16,6 @@ export const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     gap: 15px;
-    box-sizing: border-box;
     padding: 0px 20px 0px 20px;
   }
 
@@ -27,12 +26,13 @@ export const Wrapper = styled.div`
 `;
 
 export const Category = styled.div`
-  padding-top: 40px;
+  padding-top: 30px;
   margin: auto;
-  height: 25px;
+  height: 60px;
   width: 108px;
   border: none;
   outline: none;
+  box-sizing: border-box;
   border-bottom: ${({ $isActive }) =>
     $isActive ? '3px solid #6aa5f8' : 'none'};
   background: #fef7f7;
@@ -156,7 +156,8 @@ export const BookDetail = styled.div`
   height: 100%;
   width: 393px;
   flex-direction: column;
-  padding: 65px 55px 100px 55px;
+  padding: 65px 55px 30px 55px;
+  margin-bottom: 90px;
   box-sizing: border-box;
 
   gap: 15px;
