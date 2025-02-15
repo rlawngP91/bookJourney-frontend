@@ -9,6 +9,7 @@ import {
 import lock from '../../assets/lock.svg';
 import clock2 from '../../assets/clock2.svg';
 import note from '../../assets/note.svg';
+import group from '../../assets/group.svg';
 import MemberHeader from '../Member/MemberHeader';
 
 export default function TabGroup2({ roomData }) {
@@ -53,7 +54,6 @@ export default function TabGroup2({ roomData }) {
               <div>{safeRoomData?.isbn || ''}</div>
             </div>
           </InfoContainer>
-          <div className="underbar" />
           <BookDetail>
             <div className="introduce">책 소개</div>
             <div className="detail">{safeRoomData?.description || ''}</div>
@@ -63,7 +63,7 @@ export default function TabGroup2({ roomData }) {
         <>
           <InfoContainer2>
             <div className="header">
-              <img src={lock} />
+              {!roomData.public && <img src={lock} />}
               <div>{safeRoomData?.roomName}</div>
               <div className="detail">
                 <div className="gap">
@@ -88,14 +88,19 @@ export default function TabGroup2({ roomData }) {
               <div className="text">{safeRoomData?.recruitEndDate}</div>
             </div>
           </InfoContainer2>
-          <div className="underbar" />
           <BookDetail>
             <div className="numcontainer">
-              <div className="now">{safeRoomData?.memberList.length}</div>
-              <div className="of">/</div>
-              <div className="total">{safeRoomData?.recruitCount}</div>
+              <img src={group} />
+              <div className="set">
+                <div className="now">{safeRoomData?.memberList.length}</div>
+                <div className="of">/</div>
+                <div className="total">{safeRoomData?.recruitCount}</div>
+              </div>
             </div>
-            <MemberHeader memberList={safeRoomData?.memberList} />
+            <MemberHeader
+              memberList={safeRoomData?.memberList}
+              hideRole={true}
+            />
           </BookDetail>
         </>
       )}

@@ -75,7 +75,7 @@ export default function PageRecord({ onClose, roomId }) {
               onChange={(e) => setText(e.target.value)}
               maxLength={1000} // ✅ 1000자 제한
               type="text"
-              placeholder="기록을 입력하세요..."
+              placeholder="기록을 입력해주세요"
             />
 
             {/* 하단 버튼 및 글자수 표시 */}
@@ -86,17 +86,16 @@ export default function PageRecord({ onClose, roomId }) {
                 <div>1000</div>
               </div>
 
-              <button
+              <div
                 className="send"
                 onClick={handleRecordSubmit}
                 disabled={loading}
                 style={{
-                  backgroundColor: loading ? '#ccc' : '#6aa5f8',
                   cursor: loading ? 'not-allowed' : 'pointer',
                 }}
               >
                 {loading ? '기록 중...' : '기록'}
-              </button>
+              </div>
             </div>
           </Container>
         </Box>

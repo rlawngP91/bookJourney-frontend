@@ -65,10 +65,6 @@ export const Duration = styled.div`
   font-size: 11px;
   font-style: normal;
   font-weight: 600;
-
-  div {
-    line-height: 13.5px;
-  }
 `;
 
 export const Body = styled.div`
@@ -151,7 +147,7 @@ export const Popup = styled.div`
       .delete {
         width: 134px;
         height: 47px;
-        color: #d25643;
+        color: #6aa5f8;
         font-family: Pretendard;
         font-size: 13px;
         font-style: normal;

@@ -6,6 +6,7 @@ import RoomBody from '../../components/RoomBody/RoomBody';
 import { getInnerRoomInfo } from '../../apis/getInnerRoomInfo';
 import { getEntireRecords } from '../../apis/getEntireRecords';
 import { getPageRecords } from '../../apis/getPageRecords';
+import LoadingPage from '../../components/loading/loadingPage';
 
 export default function ReadWith() {
   const { roomId } = useParams();
@@ -54,7 +55,7 @@ export default function ReadWith() {
   }, [roomData]); // ✅ roomData가 변경될 때만 실행
 
   // ✅ 로딩 및 에러 처리
-  if (loading) return;
+  if (loading) return <LoadingPage />;
   if (error) return;
   return (
     <Wrapper>

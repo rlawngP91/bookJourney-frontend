@@ -169,20 +169,36 @@ export const BookDetail = styled.div`
 
   .numcontainer {
     position: absolute;
-    left: 50%;
+    left: 45.5%;
     margin-left: -10px;
-    margin-top: -40px;
+    margin-top: -60px;
 
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 
-    .now {
-    }
-    .of {
-    }
-    .total {
+    gap: 6.5px;
+
+    width: 57px;
+    height: 24px;
+    border-radius: 5.605px;
+    border: 1px solid #6aa5f8;
+    .set {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .now,
+      .of,
+      .total {
+        color: #6aa5f8;
+        font-family: Pretendard;
+        font-size: 10.4px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 12.8px; /* 123.077% */
+        letter-spacing: 0.4px;
+      }
     }
   }
 `;

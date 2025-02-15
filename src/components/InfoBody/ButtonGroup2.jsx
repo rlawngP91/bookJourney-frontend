@@ -26,7 +26,7 @@ export const Button = styled.button`
   outline: none; /* 포커스 시 나오는 아웃라인 제거 */
 
   color: #fff;
-  font-family: var(--Label-Small-Font, Roboto);
+  font-family: Pretandard;
   font-size: 15px;
   font-style: normal;
   font-weight: 500;

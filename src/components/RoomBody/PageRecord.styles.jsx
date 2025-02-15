@@ -101,7 +101,7 @@ export const Container = styled.div`
 
     .send {
       color: #6aa5f8;
-      font-family: Inter;
+      font-family: Pretendard;
       font-size: 14px;
       font-style: normal;
       font-weight: 700;
