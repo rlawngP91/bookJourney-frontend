@@ -286,36 +286,55 @@ export const Footer = styled.div`
 
   .input {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 322px;
-    padding: 9px 15.285px;
-    align-items: center;
-    border-radius: 9px;
+    flex-direction: column;
+    width: 343px;
     background-color: #eff1f5;
-    transition: ease-out;
-    max-height: 244px; /* ✅ input도 244px을 초과하지 않도록 제한 */
-  }
-`;
+    border-radius: 9px;
+    box-sizing: border-box;
+    padding: 23px 17px 17px 17px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    min-height: 115px;
+    gap: 17px;
 
-export const Textarea = styled.textarea`
-  border: none;
-  outline: none;
-  background-color: transparent;
-  font-size: 14px;
-  resize: none;
-  overflow-y: auto; /* ✅ 내부 스크롤 활성화 */
-  min-height: 40px; /* ✅ 기본 높이 */
-  max-height: 244px; /* ✅ 최대 높이 설정 */
-  border-radius: 9px;
-  color: #000;
-  width: 100%;
-  position: relative;
-  transition: height 0.2s ease-out;
+    .textarea {
+      width: 100%;
+      font-size: 14px;
+      resize: none;
+      overflow-y: auto; /* 내부 스크롤 */
+      border: none;
+      outline: none;
+      background-color: transparent;
+      max-height: 244px; /* ✅ 최대 높이 설정 */
+      min-height: 47px;
+      box-sizing: border-box; /* ✅ height 계산 시 padding 포함 */
 
-  /* ✅ 스크롤바 숨기기 */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+      gap: 15px;
+      /* 스크롤바 숨기기 */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .textarea::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+
+    .after {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .char-count {
+        color: #a3a3a3;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+      }
+
+      .send-button {
+        cursor: pointer;
+      }
+    }
   }
 `;

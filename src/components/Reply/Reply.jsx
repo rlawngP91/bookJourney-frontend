@@ -6,7 +6,6 @@ import {
   Review,
   ReviewList,
   Footer,
-  Textarea,
 } from './Reply.styles';
 import xbox from '../../assets/xbox.svg';
 import send from '../../assets/send.svg';
@@ -28,8 +27,21 @@ export default function Reply({ recordId, onClose }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const textareaRef = useRef(null);
   const footerRef = useRef(null);
+  const textareaRef = useRef(null);
+  const maxLength = 1000; // 최대 글자 수
+
+  const handleInput = (e) => {
+    setNewComment(e.target.value);
+
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${Math.min(
+        textareaRef.current.scrollHeight,
+        244
+      )}px`;
+    }
+  };
 
   // ✅ 좋아요 상태 및 카운트
   const [isLikedRecord, setIsLikedRecord] = useState(null);
@@ -110,19 +122,6 @@ export default function Reply({ recordId, onClose }) {
       );
     } catch (error) {
       console.error('❌ 댓글 좋아요 오류:', error);
-    }
-  };
-
-  const handleInput = (e) => {
-    setNewComment(e.target.value);
-
-    if (textareaRef.current) {
-      const textHeight = textareaRef.current.scrollHeight;
-
-      // ✅ 최대 244px까지만 커지도록 제한
-      const newHeight = Math.min(textHeight, 244);
-
-      textareaRef.current.style.height = `${newHeight}px`;
     }
   };
 
@@ -273,19 +272,27 @@ export default function Reply({ recordId, onClose }) {
         </ReviewList>
         <Footer ref={footerRef}>
           <div className="input">
-            <Textarea
+            <textarea
               ref={textareaRef}
-              placeholder="댓글 추가하기"
+              className="textarea"
               value={newComment}
               onChange={handleInput}
-              maxLength={500}
+              maxLength={maxLength}
+              placeholder="댓글 추가하기"
             />
-            <img
-              src={send}
-              alt="댓글 추가"
-              onClick={handleSendComment}
-              style={{ cursor: 'pointer' }}
-            />
+            <div className="after">
+              <div className="char-count">
+                {newComment.length} / {maxLength}
+              </div>
+              <div>
+                <img
+                  src={send}
+                  alt="댓글 추가"
+                  className="send-button"
+                  onClick={handleSendComment}
+                />
+              </div>
+            </div>
           </div>
         </Footer>
       </Container>
