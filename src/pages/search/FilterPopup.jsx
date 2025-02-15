@@ -38,14 +38,14 @@ const CategoryButton = styled.button`
   padding: 12px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  background: ${(props) => (props.$isSelected ? '#4F8BFF' : 'white')};
+  background: ${(props) => (props.$isSelected ? '#A3C7FA' : 'white')};
   color: ${(props) => (props.$isSelected ? 'white' : 'black')};
 `;
 
 const ApplyButton = styled.button`
   width: 100%;
   padding: 16px;
-  background: #4f8bff;
+  background: #6aa5f8;
   color: white;
   border: none;
   border-radius: 8px;
@@ -91,6 +91,12 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
     '유아',
   ];
 
+  const handleCategoryClick = (category) => {
+    setSelectedCategory((prevCategory) =>
+      prevCategory === category ? '' : category
+    );
+  };
+
   const handleApply = () => {
     onApply({
       category: selectedCategory,
@@ -115,7 +121,7 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
             <CategoryButton
               key={category}
               $isSelected={selectedCategory === category}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => handleCategoryClick(category)}
             >
               {category}
             </CategoryButton>
