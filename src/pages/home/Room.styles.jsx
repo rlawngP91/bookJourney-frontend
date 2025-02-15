@@ -8,7 +8,8 @@ export const Container = styled.div`
   background-color: #fff;
   display: flex;
   cursor: pointer;
-
+  box-sizing: border-box;
+  border: 1.114px solid transparent;
   &:hover {
     border: 1.114px solid #6aa5f8;
   }
@@ -54,24 +55,19 @@ export const Container = styled.div`
 
   .book-title {
     width: 134px;
+    text-align: center;
     overflow: hidden; // 을 사용해 영역을 감출 것
     text-overflow: ellipsis; // 로 ... 을 만들기
     white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
     word-break: break-all;
     color: #000;
-    font-variant-numeric: lining-nums proportional-nums;
-    font-feature-settings: 'dlig' on;
-    font-family: Pretendard;
     font-size: 12.17px;
     font-style: normal;
     font-weight: 500;
-    line-height: 24.341px; /* 200% */
-    letter-spacing: 0.122px;
   }
 
   .period {
     color: #b3b3b3;
-    font-family: Pretendard;
     font-size: 11.031px;
     font-style: normal;
     font-weight: 500;

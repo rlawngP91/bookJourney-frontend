@@ -209,6 +209,7 @@ const Record = () => {
       {/* InfoPopup */}
       {showInfoPopup && selectedBook && (
         <InfoPopup
+          className="info-popup"
           onLine1Click={handleLine1Click}
           onLine2Click={handleLine2Click}
         />
