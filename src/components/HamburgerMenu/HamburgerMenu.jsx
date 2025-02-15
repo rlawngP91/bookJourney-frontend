@@ -36,7 +36,7 @@ export default function HamburgerMenu({
     <>
       <Wrapper>
         <Container>
-          <Button onClick={handleDelete}>삭제하기</Button>{' '}
+          <Button onClick={handleDelete}>삭제하기</Button>
           {/* ✅ 삭제 기능 추가 */}
           <Button2 onClick={onClose}>취소</Button2>
         </Container>

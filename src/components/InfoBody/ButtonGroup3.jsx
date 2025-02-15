@@ -20,6 +20,14 @@ export const Button = styled.button`
   border: 1px solid #cecbcb;
   background: #6aa5f8;
 
+  color: #fff;
+  font-family: Pretandard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 106.667% */
+  letter-spacing: 0.5px;
+
   /* 기본 스타일 제거 */
   border: none; /* 테두리 제거 */
   outline: none; /* 포커스 시 나오는 아웃라인 제거 */
