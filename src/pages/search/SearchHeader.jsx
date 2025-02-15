@@ -12,8 +12,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
-  background: #ffffff;
+  background: #f6f7f9;
 `;
 
 const BackButton = styled.button`
@@ -24,7 +23,7 @@ const BackButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: -8px;
+  padding-left: 24px;
 
   img {
     width: 18px;
@@ -51,7 +50,7 @@ const SettingsButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 26px;
+  padding-right: 24px;
 
   img {
     width: 17px;

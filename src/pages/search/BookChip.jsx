@@ -4,11 +4,12 @@ import deleteIcon from '../../assets/deleteBookChip.svg';
 
 const ChipWrapper = styled.div`
   display: flex;
-  padding: 8px 12px;
+  padding: 7.8px 11px;
   align-items: center;
   gap: 4px;
-  border-radius: 20px;
-  background: #f5f5f5;
+  border-radius: 16.79px;
+  border: 1px solid #6aa5f8;
+  background: #fff;
   box-sizing: border-box;
   max-width: 365px;
   height: 30.783px;
@@ -32,10 +33,10 @@ const ChipWrapper = styled.div`
   }
 
   img {
-    width: 6.951px;
-    height: 6.951px;
-    cursor: pointer;
+    width: 8.41px;
+    height: 8.41px;
     flex-shrink: 0;
+    cursor: pointer;
   }
 `;
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import checkmark from '../../assets/checkmark.svg';
 
 const Overlay = styled.div`
   position: fixed;

@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const SearchWrapper = styled.div`
   display: flex;
   width: 393px; //없으면 반응형으로 됨
   flex-direction: column;
-  height: 100vh; // min-height 대신 height 사용
-  background: #ffffff;
+  min-height: 100vh; // min-height 대신 height 사용
+  background: #f6f7f9;
   position: relative;
 `;
 
@@ -15,7 +15,7 @@ export const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  background: #ffffff;
+  background: #f6f7f9;
   z-index: 10;
 `;
 
@@ -118,5 +118,31 @@ export const ListTypeButton = styled.button`
     min-width: ${(props) => (props.$isSelected ? 'calc(100% - 15px)' : '0')};
     height: 2px;
     background-color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#FFF')};
+  }
+`;
+
+export const float = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+export const LoadingContent = styled.div`
+  color: #4b96f8;
+  font-style: normal;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    animation: ${float} 2s ease-in-out infinite;
+    animation-delay: ${(props) => props.$delay}s;
   }
 `;

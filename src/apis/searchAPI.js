@@ -2,143 +2,145 @@ import instance from './instance';
 
 const formatDate = (date) => {
   if (!date) return null;
-
   const d = new Date(date);
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
-
   return `${year}.${month}.${day}`;
 };
 
-export const searchAPI = {
-  fetchSearchResults: async ({
-    searchQuery,
-    searchType,
-    filters,
-    setBooks,
-    setRooms,
-    page = 0,
-    isLoadingMore = false,
-  }) => {
-    try {
-      // API 요청 URL 구성
-      const paramsBook = new URLSearchParams({
-        searchTerm: searchQuery,
-        searchType: searchType,
-        page: page.toString(),
-      });
+export const fetchBookSearchResults = async ({
+  searchQuery,
+  searchType,
+  filters,
+  setBooks,
+  page = 0,
+  isLoadingMore = false,
+}) => {
+  try {
+    const paramsBook = new URLSearchParams({
+      searchTerm: searchQuery,
+      searchType: searchType,
+      page: page.toString(),
+    });
 
-      const paramsRoom = new URLSearchParams({
-        searchTerm: searchQuery,
-        searchType: searchType,
-        page: page.toString(),
-      });
-
-      // 카테고리 필터 추가
-      if (filters.category) {
-        paramsBook.append('genre', filters.category);
-        paramsRoom.append('genre', filters.category);
-      }
-      if (filters.deadline?.start) {
-        paramsRoom.append(
-          'recruitStartDate',
-          formatDate(filters.deadline.start)
-        );
-      }
-      if (filters.deadline?.end) {
-        paramsRoom.append('recruitEndDate', formatDate(filters.deadline.end));
-      }
-
-      // period 필터 추가 - 포맷팅된 날짜 사용
-      if (filters.period?.start) {
-        paramsRoom.append('roomStartDate', formatDate(filters.period.start));
-      }
-      if (filters.period?.end) {
-        paramsRoom.append('roomEndDate', formatDate(filters.period.end));
-      }
-      // recordcnt 필터 추가
-      if (filters.recordcnt) {
-        // 0(0개), 25(10개), 50(50개), 75(100개), 100(전체보기)
-        let realrecordval = 0;
-        if (filters.recordcnt == 0) {
-          realrecordval = 0;
-        } else if (filters.recordcnt == 25) {
-          realrecordval = 10;
-        } else if (filters.recordcnt == 50) {
-          realrecordval = 50;
-        } else if (filters.recordcnt == 75) {
-          realrecordval = 100;
-        }
-        if (filters.recordcnt !== 100) {
-          paramsRoom.append('recordCount', realrecordval);
-        }
-      }
-
-      const responseBook = await instance.get(
-        `/books/search?${paramsBook.toString()}`
-      );
-      const responseRoom = await instance.get(
-        `/rooms/search?${paramsRoom.toString()}`
-      );
-
-      if (responseBook.data.code === 200 && responseBook.data.data.bookList) {
-        const mappedBooks = responseBook.data.data.bookList.map((book) => ({
-          id: book.isbn, // ISBN을 id로 사용
-          title: book.bookTitle.replace(/&lt;/g, '<').replace(/&gt;/g, '>'), // HTML 엔티티 디코딩
-          author: book.authorName,
-          coverImage: book.imageUrl,
-        }));
-
-        if (isLoadingMore) {
-          setBooks((prevBooks) => [...prevBooks, ...mappedBooks]);
-        } else {
-          setBooks(mappedBooks);
-        }
-
-        console.log(mappedBooks.length);
-        console.log('book search success!');
-
-        return mappedBooks.length === 10; // 하나의 api에 10개 item get
-      } else {
-        setBooks([]);
-      }
-
-      if (responseRoom.data.code === 200 && responseRoom.data.data.roomList) {
-        const mappedRooms = responseRoom.data.data.roomList.map((room) => ({
-          id: room.roomId,
-          book: room.bookTitle, // 책 제목
-          author: room.authorName, // 작가 이름
-          coverImage: room.imageUrl, // 이미지 URL
-          title: room.roomName, // 방 이름
-          currentpeople: room.memberCount, // 현재 인원
-          totalpeople: room.recruitCount, // 총 모집 인원
-          progress: room.roomPercentage, // 진행률
-          startdate: room.progressStartDate, // 시작일
-          enddate: room.progressEndDate, // 종료일
-          isLocked: !room.public, // public이 false면 잠김
-        }));
-
-        if (isLoadingMore) {
-          setRooms((prevRooms) => [...prevRooms, ...mappedRooms]);
-        } else {
-          setRooms(mappedRooms);
-        }
-
-        console.log(mappedRooms.length);
-        console.log('room search success!');
-
-        return mappedRooms.length === 10;
-      } else {
-        setRooms([]);
-      }
-    } catch (error) {
-      console.error('Search failed:', error);
-      if (!isLoadingMore) {
-        setBooks([]);
-        setRooms([]);
-      }
-      throw error;
+    if (filters.category) {
+      paramsBook.append('genre', filters.category);
     }
-  },
+
+    const responseBook = await instance.get(
+      `/books/search?${paramsBook.toString()}`
+    );
+
+    if (responseBook.data.code === 200 && responseBook.data.data.bookList) {
+      const mappedBooks = responseBook.data.data.bookList.map((book) => ({
+        id: book.isbn,
+        title: book.bookTitle.replace(/&lt;/g, '<').replace(/&gt;/g, '>'),
+        author: book.authorName,
+        coverImage: book.imageUrl,
+      }));
+
+      if (isLoadingMore) {
+        setBooks((prevBooks) => [...prevBooks, ...mappedBooks]);
+      } else {
+        setBooks(mappedBooks);
+      }
+
+      console.log(mappedBooks.length);
+      console.log('book search success!');
+      return mappedBooks.length === 10;
+    } else {
+      if (!isLoadingMore) setBooks([]);
+      return false;
+    }
+  } catch (error) {
+    console.error('Book search failed:', error);
+    if (!isLoadingMore) setBooks([]);
+    throw error;
+  }
+};
+
+export const fetchRoomSearchResults = async ({
+  searchQuery,
+  searchType,
+  filters,
+  setRooms,
+  page = 0,
+  isLoadingMore = false,
+}) => {
+  try {
+    const paramsRoom = new URLSearchParams({
+      searchTerm: searchQuery,
+      searchType: searchType,
+      page: page.toString(),
+    });
+
+    if (filters.category) {
+      paramsRoom.append('genre', filters.category);
+    }
+    if (filters.deadline?.start) {
+      paramsRoom.append('recruitStartDate', formatDate(filters.deadline.start));
+    }
+    if (filters.deadline?.end) {
+      paramsRoom.append('recruitEndDate', formatDate(filters.deadline.end));
+    }
+    if (filters.period?.start) {
+      paramsRoom.append('roomStartDate', formatDate(filters.period.start));
+    }
+    if (filters.period?.end) {
+      paramsRoom.append('roomEndDate', formatDate(filters.period.end));
+    }
+    if (filters.recordcnt) {
+      let realrecordval = 0;
+      if (filters.recordcnt == 0) {
+        realrecordval = 0;
+      } else if (filters.recordcnt == 25) {
+        realrecordval = 10;
+      } else if (filters.recordcnt == 50) {
+        realrecordval = 50;
+      } else if (filters.recordcnt == 75) {
+        realrecordval = 100;
+      }
+      if (filters.recordcnt !== 100) {
+        paramsRoom.append('recordCount', realrecordval);
+      }
+    }
+
+    const responseRoom = await instance.get(
+      `/rooms/search?${paramsRoom.toString()}`
+    );
+
+    if (responseRoom.data.code === 200 && responseRoom.data.data.roomList) {
+      const mappedRooms = responseRoom.data.data.roomList.map((room) => ({
+        id: room.roomId,
+        book: room.bookTitle,
+        author: room.authorName,
+        coverImage: room.imageUrl,
+        title: room.roomName,
+        currentpeople: room.memberCount,
+        totalpeople: room.recruitCount,
+        progress: room.roomPercentage,
+        startdate: room.progressStartDate,
+        enddate: room.progressEndDate,
+        isLocked: !room.public,
+      }));
+
+      if (isLoadingMore) {
+        setRooms((prevRooms) => [...prevRooms, ...mappedRooms]);
+      } else {
+        setRooms(mappedRooms);
+      }
+
+      console.log(mappedRooms.length);
+      console.log('room search success!');
+      return mappedRooms.length === 10;
+    } else {
+      if (!isLoadingMore) setRooms([]);
+      return false;
+    }
+  } catch (error) {
+    console.error('Room search failed:', error);
+    if (!isLoadingMore) setRooms([]);
+    throw error;
+  }
 };
