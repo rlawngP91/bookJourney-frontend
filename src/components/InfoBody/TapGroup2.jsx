@@ -9,6 +9,7 @@ import {
 import lock from '../../assets/lock.svg';
 import clock2 from '../../assets/clock2.svg';
 import note from '../../assets/note.svg';
+import group from '../../assets/group.svg';
 import MemberHeader from '../Member/MemberHeader';
 
 export default function TabGroup2({ roomData }) {
@@ -89,9 +90,12 @@ export default function TabGroup2({ roomData }) {
           </InfoContainer2>
           <BookDetail>
             <div className="numcontainer">
-              <div className="now">{safeRoomData?.memberList.length}</div>
-              <div className="of">/</div>
-              <div className="total">{safeRoomData?.recruitCount}</div>
+              <img src={group} />
+              <div className="set">
+                <div className="now">{safeRoomData?.memberList.length}</div>
+                <div className="of">/</div>
+                <div className="total">{safeRoomData?.recruitCount}</div>
+              </div>
             </div>
             <MemberHeader
               memberList={safeRoomData?.memberList}
