@@ -7,6 +7,8 @@ export const Container = styled.div`
   cursor: pointer;
 
   .cover-img {
+    box-sizing: border-box;
+    border: 2px solid transparent;
     &:hover {
       border: 2px solid #6aa5f8;
     }

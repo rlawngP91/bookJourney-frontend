@@ -22,7 +22,7 @@ export const LoginContainer = styled.div`
 
   .title {
     position: relative;
-    margin-top: 114px;
+    margin-top: 97px;
     margin-left: 155px;
     margin-bottom: 160px;
   }

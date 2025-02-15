@@ -8,6 +8,8 @@ export const Container = styled.div`
   display: flex;
 
   .cover {
+    width: 84px;
+    height: 123px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
@@ -55,7 +57,7 @@ export const Container = styled.div`
   .check-icon {
     width: 24px;
     height: 24px;
-    margin-top: 64px;
+    margin-top: 49.5px;
     left: 300px;
     cursor: pointer;
   }

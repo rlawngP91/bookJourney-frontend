@@ -18,6 +18,7 @@ export const Container = styled.div`
     border-radius: 9.821px;
     margin-bottom: 5.05px;
     box-sizing: border-box;
+    border: 2.455px solid transparent;
     &:hover {
       border: 2.455px solid #6aa5f8;
     }

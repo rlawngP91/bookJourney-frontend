@@ -339,7 +339,9 @@ const Home = () => {
                     </span>
                     <div className="bottom-side">
                       <p className="introduction-letter">
-                        &quot;{popularBook.description}&quot;
+                        &quot;
+                        {popularBook.description || '책 소개가 없습니다'}
+                        &quot;
                       </p>
                     </div>
                   </div>
@@ -378,6 +380,7 @@ const Home = () => {
         <InfoPopup
           onLine1Click={handleLine1Click}
           onLine2Click={handleLine2Click}
+          className="info-popup"
         />
       )}
     </Wrapper>
