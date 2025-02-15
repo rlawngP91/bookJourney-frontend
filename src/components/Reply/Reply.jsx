@@ -172,7 +172,11 @@ export default function Reply({ recordId, onClose }) {
                     onClick={handleRecordLike}
                     style={{ cursor: 'pointer' }}
                   />
-                  <div>{likeCountRecord}</div>
+                  <div
+                    className={`isLikedRecord ${isLikedRecord ? 'liked' : ''}`}
+                  >
+                    {likeCountRecord}
+                  </div>
                 </div>
               </div>
             </div>
@@ -211,7 +215,11 @@ export default function Reply({ recordId, onClose }) {
                     onClick={handleRecordLike}
                     style={{ cursor: 'pointer' }}
                   />
-                  <div>{likeCountRecord}</div>
+                  <div
+                    className={`isLikedRecord ${isLikedRecord ? 'liked' : ''}`}
+                  >
+                    {likeCountRecord}
+                  </div>
                 </div>
               </div>
             </div>
@@ -253,7 +261,11 @@ export default function Reply({ recordId, onClose }) {
                     onClick={() => handleCommentLike(comment.commentId)}
                     style={{ cursor: 'pointer' }}
                   />
-                  <div>{comment.commentLikeCount}</div>
+                  <div
+                    className={`isLikedRecord ${comment.isLiked ? 'liked' : ''}`}
+                  >
+                    {comment.commentLikeCount}
+                  </div>
                 </div>
               </div>
             </Review>

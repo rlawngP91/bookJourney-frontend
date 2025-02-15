@@ -133,10 +133,17 @@ export const Comment = styled.div`
     gap: 7px;
     align-items: center;
     justify-content: end;
-    color: #000;
     font-size: 10.012px;
     font-weight: 400;
     padding-right: 10px;
+
+    .isLikedRecord {
+      color: #000;
+    }
+
+    .isLikedRecord.liked {
+      color: #6aa5f8;
+    }
   }
 `;
 
@@ -226,12 +233,19 @@ export const Review = styled.div`
       gap: 7px;
       align-items: center;
       justify-content: end;
-      color: #000;
       font-family: Roboto;
       font-size: 10.012px;
       font-style: normal;
       font-weight: 400;
       padding-right: 10px;
+
+      .isLikedRecord {
+        color: #000;
+      }
+
+      .isLikedRecord.liked {
+        color: #6aa5f8;
+      }
     }
   }
 `;

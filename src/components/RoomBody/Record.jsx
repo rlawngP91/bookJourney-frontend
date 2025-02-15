@@ -88,10 +88,16 @@ export const Review = styled.div`
       align-items: center;
       justify-content: end;
 
-      color: #000;
       font-size: 10.012px;
       font-weight: 400;
-      img {
+      padding-right: 12px;
+
+      .like-count {
+        color: #000;
+      }
+
+      .like-count.liked {
+        color: #6aa5f8;
       }
     }
   }
@@ -170,10 +176,17 @@ export const Review2 = styled.div`
     align-items: center;
     justify-content: end;
 
-    color: #000;
     font-size: 10.012px;
     font-weight: 400;
     padding-right: 12px;
+
+    .like-count {
+      color: #000;
+    }
+
+    .like-count.liked {
+      color: #6aa5f8;
+    }
   }
 `;
 
@@ -237,7 +250,9 @@ export default function Record({ record, activeTab, isPreview }) {
                   onClick={handleLikeClick}
                   style={{ cursor: 'pointer' }}
                 />
-                <div>{likeCount}</div>
+                <div className={`like-count ${isLiked ? 'liked' : ''}`}>
+                  {likeCount}
+                </div>
               </div>
             )}
           </div>
@@ -283,7 +298,9 @@ export default function Record({ record, activeTab, isPreview }) {
                 onClick={handleLikeClick}
                 style={{ cursor: 'pointer' }}
               />
-              <div>{likeCount}</div>
+              <div className={`like-count ${isLiked ? 'liked' : ''}`}>
+                {likeCount}
+              </div>
             </div>
           )}
         </Review2>
