@@ -20,6 +20,7 @@ import Mypage from '../pages/mypage/mypage';
 import ReadingCalendar from '../pages/mypage/readingcalendar/ReadingCalendar';
 import Collector from '../pages/collector/Collector';
 import Preview from '../pages/Preview/Preview';
+import Account from '../pages/mypage/accountInfo/Account';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -102,6 +103,10 @@ const Router = () => {
     {
       path: '/rooms/:roomId/preview',
       element: <Preview />,
+    },
+    {
+      path: '/mypage/account',
+      element: <Account />,
     },
   ]);
 

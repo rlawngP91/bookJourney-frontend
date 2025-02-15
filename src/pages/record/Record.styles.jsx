@@ -235,4 +235,9 @@ export const Container = styled.div`
     border-left: 0.5px solid #a3a3a3;
     color: #d25643;
   }
+
+  .info-popup {
+    position: absolute;
+    bottom: 0;
+  }
 `;

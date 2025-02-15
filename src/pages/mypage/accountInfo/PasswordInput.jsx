@@ -7,6 +7,7 @@ const PasswordInput = ({
   className,
   value,
   onChange,
+  isMatch,
 }) => {
   return (
     <InputWrapper className={className}>
@@ -16,6 +17,7 @@ const PasswordInput = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        isMatch={isMatch}
       />
     </InputWrapper>
   );
@@ -27,6 +29,7 @@ PasswordInput.propTypes = {
   className: PropTypes.string, // 클래스명은 필수 아님
   value: PropTypes.string.isRequired, // value는 필수
   onChange: PropTypes.func,
+  isMatch: PropTypes.bool,
 };
 
 export default PasswordInput;

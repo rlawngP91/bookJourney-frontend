@@ -93,7 +93,7 @@ export const Container = styled.div`
 
   .description {
     position: absolute;
-    top: 396px;
+    top: 416px;
     right: 19px;
     color: #a3a3a3;
     font-variant-numeric: lining-nums proportional-nums;
@@ -407,6 +407,7 @@ export const Container = styled.div`
 
   .left-side {
     box-sizing: border-box;
+    border: 1.8px solid transparent;
     border-radius: 6.576px;
     cursor: pointer;
     &:hover {
@@ -471,5 +472,10 @@ export const StyledSlider = styled(Slider)`
   .slick-track {
     display: flex;
     align-items: center;
+  }
+
+  .info-popup {
+    position: absolute;
+    bottom: 0;
   }
 `;

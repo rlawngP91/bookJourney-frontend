@@ -35,7 +35,7 @@ export default function Collector() {
           <img
             src={leftarrow}
             alt="뒤로가기"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/mypage')}
             style={{ cursor: 'pointer' }}
           />
           <div>책산책 수집가</div>

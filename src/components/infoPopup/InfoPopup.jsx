@@ -4,9 +4,9 @@ import Bar from './bar.svg';
 import InfoCircle from './InfoCircle.svg';
 import Trash from './trash.svg';
 
-const InfoPopup = ({ onLine1Click, onLine2Click }) => {
+const InfoPopup = ({ onLine1Click, onLine2Click, className }) => {
   return (
-    <Container>
+    <Container className={className}>
       <img className="line" src={Bar} alt="선" />
       <div className="first-line" onClick={onLine1Click}>
         <img className="left-img" src={InfoCircle} alt="인포아이콘" />
