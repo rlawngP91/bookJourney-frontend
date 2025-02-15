@@ -177,7 +177,7 @@ export const Review2 = styled.div`
   }
 `;
 
-export default function Record({ record, activeTab }) {
+export default function Record({ record, activeTab, isPreview }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(record.like);
   const [likeCount, setLikeCount] = useState(record.recordLikeCount);
@@ -208,12 +208,60 @@ export default function Record({ record, activeTab }) {
                 <div className="name">{record.nickName}</div>
                 <div className="time">{record.createdAt}</div>
               </div>
-              <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+              {!isPreview && (
+                <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+              )}
               {isMenuOpen && (
                 <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
               )}
             </div>
             <div className="content">{record.content}</div>
+            {!isPreview && (
+              <div className="bottom">
+                <img
+                  src={reply}
+                  alt="댓글"
+                  onClick={() => setIsReplyOpen(true)} // ✅ 댓글 버튼 클릭 시 팝업 열기
+                  style={{ cursor: 'pointer' }}
+                />
+                {isReplyOpen && (
+                  <Reply
+                    recordId={record.recordId}
+                    onClose={() => setIsReplyOpen(false)}
+                  />
+                )}
+                <div>{record.commentCount}</div>
+                <img
+                  src={isLiked ? alreadygood : good}
+                  alt="좋아요"
+                  onClick={handleLikeClick}
+                  style={{ cursor: 'pointer' }}
+                />
+                <div>{likeCount}</div>
+              </div>
+            )}
+          </div>
+        </Review>
+      ) : (
+        <Review2>
+          <div className="head">
+            <div className="main">
+              <img src={record.imageUrl} alt="User Profile" />
+              <div className="name">{record.nickName}</div>
+              <div className="time">{record.createdAt}</div>
+            </div>
+            {!isPreview && (
+              <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+            )}
+            {isMenuOpen && (
+              <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+            )}
+          </div>
+          <div className="body">
+            <div className="page">{record.recordTitle}</div>
+            <div className="content">{record.content}</div>
+          </div>
+          {!isPreview && (
             <div className="bottom">
               <img
                 src={reply}
@@ -228,6 +276,7 @@ export default function Record({ record, activeTab }) {
                 />
               )}
               <div>{record.commentCount}</div>
+
               <img
                 src={isLiked ? alreadygood : good}
                 alt="좋아요"
@@ -236,48 +285,7 @@ export default function Record({ record, activeTab }) {
               />
               <div>{likeCount}</div>
             </div>
-          </div>
-        </Review>
-      ) : (
-        <Review2>
-          <div className="head">
-            <div className="main">
-              <img src={record.imageUrl} alt="User Profile" />
-              <div className="name">{record.nickName}</div>
-              <div className="time">{record.createdAt}</div>
-            </div>
-            <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
-            {isMenuOpen && (
-              <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
-            )}
-          </div>
-          <div className="body">
-            <div className="page">{record.recordTitle}</div>
-            <div className="content">{record.content}</div>
-          </div>
-          <div className="bottom">
-            <img
-              src={reply}
-              alt="댓글"
-              onClick={() => setIsReplyOpen(true)} // ✅ 댓글 버튼 클릭 시 팝업 열기
-              style={{ cursor: 'pointer' }}
-            />
-            {isReplyOpen && (
-              <Reply
-                recordId={record.recordId}
-                onClose={() => setIsReplyOpen(false)}
-              />
-            )}
-            <div>{record.commentCount}</div>
-
-            <img
-              src={isLiked ? alreadygood : good}
-              alt="좋아요"
-              onClick={handleLikeClick}
-              style={{ cursor: 'pointer' }}
-            />
-            <div>{likeCount}</div>
-          </div>
+          )}
         </Review2>
       )}
     </>

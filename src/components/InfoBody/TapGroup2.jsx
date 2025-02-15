@@ -53,7 +53,6 @@ export default function TabGroup2({ roomData }) {
               <div>{safeRoomData?.isbn || ''}</div>
             </div>
           </InfoContainer>
-          <div className="underbar" />
           <BookDetail>
             <div className="introduce">책 소개</div>
             <div className="detail">{safeRoomData?.description || ''}</div>
@@ -88,14 +87,16 @@ export default function TabGroup2({ roomData }) {
               <div className="text">{safeRoomData?.recruitEndDate}</div>
             </div>
           </InfoContainer2>
-          <div className="underbar" />
           <BookDetail>
             <div className="numcontainer">
               <div className="now">{safeRoomData?.memberList.length}</div>
               <div className="of">/</div>
               <div className="total">{safeRoomData?.recruitCount}</div>
             </div>
-            <MemberHeader memberList={safeRoomData?.memberList} />
+            <MemberHeader
+              memberList={safeRoomData?.memberList}
+              hideRole={true}
+            />
           </BookDetail>
         </>
       )}

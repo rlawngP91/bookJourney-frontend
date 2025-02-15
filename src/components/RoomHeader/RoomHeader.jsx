@@ -8,7 +8,7 @@ import {
   Popup,
   Popup2,
 } from './RoomHeader.styles';
-import xbox from '../../assets/xbox.svg';
+import xbox from '../../assets/leftarrow.svg';
 import pen from '../../assets/pen.svg';
 import exit from '../../assets/exit.svg';
 import lock from '../../assets/lock.svg';

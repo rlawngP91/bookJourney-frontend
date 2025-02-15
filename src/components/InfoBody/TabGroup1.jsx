@@ -33,7 +33,6 @@ export default function TabGroup1({ bookData, roomData }) {
           <div>{safeBookData?.isbn ?? safeRoomData?.isbn ?? '정보 없음'}</div>
         </div>
       </InfoContainer>
-      <div className="underbar" />
       <BookDetail>
         <div className="introduce">책 소개</div>
         <div className="detail">
