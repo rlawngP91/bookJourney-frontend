@@ -79,6 +79,9 @@ export const Review = styled.div`
       font-weight: 400;
       width: 90%;
       padding-bottom: 10px;
+      word-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      overflow-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      white-space: pre-wrap; /* ✅ 줄바꿈 유지 */
     }
 
     .bottom {
@@ -88,10 +91,16 @@ export const Review = styled.div`
       align-items: center;
       justify-content: end;
 
-      color: #000;
       font-size: 10.012px;
       font-weight: 400;
-      img {
+      padding-right: 12px;
+
+      .like-count {
+        color: #000;
+      }
+
+      .like-count.liked {
+        color: #6aa5f8;
       }
     }
   }
@@ -160,6 +169,9 @@ export const Review2 = styled.div`
       font-weight: 400;
       width: 90%;
       height: auto;
+      word-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      overflow-wrap: break-word; /* ✅ 긴 단어 줄바꿈 */
+      white-space: pre-wrap; /* ✅ 줄바꿈 유지 */
     }
   }
 
@@ -170,13 +182,21 @@ export const Review2 = styled.div`
     align-items: center;
     justify-content: end;
 
-    color: #000;
     font-size: 10.012px;
     font-weight: 400;
+    padding-right: 12px;
+
+    .like-count {
+      color: #000;
+    }
+
+    .like-count.liked {
+      color: #6aa5f8;
+    }
   }
 `;
 
-export default function Record({ record, activeTab }) {
+export default function Record({ record, activeTab, isPreview }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(record.like);
   const [likeCount, setLikeCount] = useState(record.recordLikeCount);
@@ -207,12 +227,68 @@ export default function Record({ record, activeTab }) {
                 <div className="name">{record.nickName}</div>
                 <div className="time">{record.createdAt}</div>
               </div>
-              <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+              {!isPreview && (
+                <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+              )}
               {isMenuOpen && (
-                <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                <HamburgerMenu
+                  onClose={() => setIsMenuOpen(false)}
+                  recordId={record.recordId}
+                />
               )}
             </div>
             <div className="content">{record.content}</div>
+            {!isPreview && (
+              <div className="bottom">
+                <img
+                  src={reply}
+                  alt="댓글"
+                  onClick={() => setIsReplyOpen(true)} // ✅ 댓글 버튼 클릭 시 팝업 열기
+                  style={{ cursor: 'pointer' }}
+                />
+                {isReplyOpen && (
+                  <Reply
+                    recordId={record.recordId}
+                    onClose={() => setIsReplyOpen(false)}
+                  />
+                )}
+                <div>{record.commentCount}</div>
+                <img
+                  src={isLiked ? alreadygood : good}
+                  alt="좋아요"
+                  onClick={handleLikeClick}
+                  style={{ cursor: 'pointer' }}
+                />
+                <div className={`like-count ${isLiked ? 'liked' : ''}`}>
+                  {likeCount}
+                </div>
+              </div>
+            )}
+          </div>
+        </Review>
+      ) : (
+        <Review2>
+          <div className="head">
+            <div className="main">
+              <img src={record.imageUrl} alt="User Profile" />
+              <div className="name">{record.nickName}</div>
+              <div className="time">{record.createdAt}</div>
+            </div>
+            {!isPreview && (
+              <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+            )}
+            {isMenuOpen && (
+              <HamburgerMenu
+                onClose={() => setIsMenuOpen(false)}
+                recordId={record.recordId}
+              />
+            )}
+          </div>
+          <div className="body">
+            <div className="page">{record.recordTitle}</div>
+            <div className="content">{record.content}</div>
+          </div>
+          {!isPreview && (
             <div className="bottom">
               <img
                 src={reply}
@@ -227,56 +303,18 @@ export default function Record({ record, activeTab }) {
                 />
               )}
               <div>{record.commentCount}</div>
+
               <img
                 src={isLiked ? alreadygood : good}
                 alt="좋아요"
                 onClick={handleLikeClick}
                 style={{ cursor: 'pointer' }}
               />
-              <div>{likeCount}</div>
+              <div className={`like-count ${isLiked ? 'liked' : ''}`}>
+                {likeCount}
+              </div>
             </div>
-          </div>
-        </Review>
-      ) : (
-        <Review2>
-          <div className="head">
-            <div className="main">
-              <img src={record.imageUrl} alt="User Profile" />
-              <div className="name">{record.nickName}</div>
-              <div className="time">{record.createdAt}</div>
-            </div>
-            <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
-            {isMenuOpen && (
-              <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
-            )}
-          </div>
-          <div className="body">
-            <div className="page">{record.recordTitle}</div>
-            <div className="content">{record.content}</div>
-          </div>
-          <div className="bottom">
-            <img
-              src={reply}
-              alt="댓글"
-              onClick={() => setIsReplyOpen(true)} // ✅ 댓글 버튼 클릭 시 팝업 열기
-              style={{ cursor: 'pointer' }}
-            />
-            {isReplyOpen && (
-              <Reply
-                recordId={record.recordId}
-                onClose={() => setIsReplyOpen(false)}
-              />
-            )}
-            <div>{record.commentCount}</div>
-
-            <img
-              src={isLiked ? alreadygood : good}
-              alt="좋아요"
-              onClick={handleLikeClick}
-              style={{ cursor: 'pointer' }}
-            />
-            <div>{likeCount}</div>
-          </div>
+          )}
         </Review2>
       )}
     </>

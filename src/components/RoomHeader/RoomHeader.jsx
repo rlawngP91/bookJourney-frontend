@@ -8,7 +8,7 @@ import {
   Popup,
   Popup2,
 } from './RoomHeader.styles';
-import xbox from '../../assets/xbox.svg';
+import xbox from '../../assets/leftarrow.svg';
 import pen from '../../assets/pen.svg';
 import exit from '../../assets/exit.svg';
 import lock from '../../assets/lock.svg';
@@ -25,6 +25,7 @@ import { exitRoom } from '../../apis/deleteRoom';
 export default function RoomHeader({ roomData }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
+  const [openedFromXbox, setOpenedFromXbox] = useState(false); // ✅ `pen` 팝업이 `xbox` 팝업에서 열린 경우 체크
 
   // 화살표 버튼 클릭 시 회원 목록 토글
   const toggleUserList = () => {
@@ -34,7 +35,6 @@ export default function RoomHeader({ roomData }) {
   // usePopup 훅 사용
   const { popupType, openPopup, closePopup } = usePopup();
 
-  // ✅ "나가기" 버튼 클릭 핸들러 추가
   const handleExitRoom = async () => {
     try {
       await exitRoom(roomData.roomId); // API 호출
@@ -111,13 +111,9 @@ export default function RoomHeader({ roomData }) {
           </Title>
           <div className="roomname">{roomData.roomName}</div>
           <Duration>
-            <div>
-              <img src={grayclock} alt="Clock" />
-            </div>
+            <img src={grayclock} alt="Clock" />
             <div>{roomData.progressEndDate}</div>
-            <div>
-              <img src={graynote} alt="Note" />
-            </div>
+            <img src={graynote} alt="Note" />
             <div>{roomData.roomPercentage}%</div>
             <img
               src={isExpanded ? grayarrowdown : grayarrowright}
@@ -145,13 +141,14 @@ export default function RoomHeader({ roomData }) {
               <img src={pen} alt="Pen" />
             </div>
             <div className="buttons">
-              <div className="cancel" onClick={() => navigate('/')}>
+              <div className="cancel" onClick={() => navigate('/home')}>
                 나가기
               </div>
               <div
                 className="delete"
                 onClick={() => {
                   closePopup(); // 기존 팝업 닫기
+                  setOpenedFromXbox(true); // ✅ xbox에서 pen을 열었음을 표시
                   openPopup('pen'); // 새 팝업 열기
                 }}
               >
@@ -163,7 +160,16 @@ export default function RoomHeader({ roomData }) {
       )}
 
       {popupType === 'pen' && (
-        <RecordPopup roomId={roomData.roomId} onClose={closePopup} />
+        <RecordPopup
+          roomId={roomData.roomId}
+          onClose={() => {
+            closePopup();
+            if (openedFromXbox) {
+              navigate('/home'); // ✅ xbox에서 열린 경우 /home으로 이동
+              setOpenedFromXbox(false); // ✅ 상태 초기화
+            }
+          }}
+        />
       )}
 
       {popupType === 'exit' && (
