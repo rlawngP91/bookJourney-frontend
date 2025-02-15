@@ -86,17 +86,16 @@ export default function PageRecord({ onClose, roomId }) {
                 <div>1000</div>
               </div>
 
-              <button
+              <div
                 className="send"
                 onClick={handleRecordSubmit}
                 disabled={loading}
                 style={{
-                  backgroundColor: loading ? '#ccc' : '#6aa5f8',
                   cursor: loading ? 'not-allowed' : 'pointer',
                 }}
               >
                 {loading ? '기록 중...' : '기록'}
-              </button>
+              </div>
             </div>
           </Container>
         </Box>
