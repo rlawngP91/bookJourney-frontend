@@ -8,7 +8,7 @@ export default function RWHeader() {
       <Wrapper>
         <HeaderWrapper>
           <img src={leftarrow} alt="뒤로가기" />
-          <div>같이읽기 방 만들기</div>
+          <div>방 생성하기</div>
         </HeaderWrapper>
       </Wrapper>
     </>

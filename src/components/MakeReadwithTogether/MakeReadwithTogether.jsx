@@ -9,7 +9,7 @@ import {
 import { createRoom } from '../../apis/room'; // 방 생성 API 호출
 import DatePicker from './DatePicker';
 
-const MakeReadwithTogether = forwardRef(({ isbn }, ref) => {
+const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
   const today = new Date();
   const formattedToday = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
 
@@ -23,6 +23,18 @@ const MakeReadwithTogether = forwardRef(({ isbn }, ref) => {
   const [passwordError, setPasswordError] = useState('');
   const [endDate, setEndDate] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  // ✅ 방 생성 버튼 활성화 조건
+  const isCreateButtonDisabled =
+    !roomName.trim() || // 방 제목이 없으면 비활성화
+    roomName.length > 20 || // ✅ 방 제목이 21자 이상이면 비활성화
+    !participants.trim() || // 인원이 없으면 비활성화
+    isNaN(participants) || // ✅ 인원이 숫자가 아닐 경우 비활성화
+    parseInt(participants, 10) < 2 ||
+    parseInt(participants, 10) > 50 || // ✅ 인원이 2~50 범위가 아닐 경우 비활성화
+    !endDate || // 종료일이 없으면 비활성화
+    (selected === '비공개' &&
+      (password.length !== 4 || !/^\d{4}$/.test(password))); // 비공개일 때 비밀번호 미입력 시 비활성화
 
   // ✅ 방 이름 입력 핸들러
   const handleRoomNameChange = (e) => {
@@ -65,6 +77,11 @@ const MakeReadwithTogether = forwardRef(({ isbn }, ref) => {
     setShowDatePicker(false);
   };
 
+  // ✅ 부모에게 버튼 상태 변경 알림
+  React.useEffect(() => {
+    onValidationChange(isCreateButtonDisabled);
+  }, [isCreateButtonDisabled, onValidationChange]);
+
   // ✅ 부모 컴포넌트에서 호출할 수 있도록 `createGroupRoom` 함수 노출
   useImperativeHandle(ref, () => ({
     createGroupRoom,
@@ -72,6 +89,8 @@ const MakeReadwithTogether = forwardRef(({ isbn }, ref) => {
 
   // ✅ 방 생성 API 호출
   const createGroupRoom = async () => {
+    if (isCreateButtonDisabled) return; // ✅ 비활성화 상태에서는 실행 X
+
     const roomData = {
       roomName: roomName || '',
       progressStartDate: formattedToday,

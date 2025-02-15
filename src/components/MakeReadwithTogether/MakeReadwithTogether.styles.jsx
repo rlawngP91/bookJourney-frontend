@@ -2,12 +2,15 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 393px;
-  height: 640px;
+  height: 610px;
   //height: 853px;
   display: flex;
   flex-direction: column;
   background-color: #f6f7f9;
   box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
   * {
     outline: none; /* 기본 포커스 스타일 제거 */
@@ -17,7 +20,6 @@ export const Wrapper = styled.div`
   }
 
   .buttoncontainer {
-    padding-top: 18px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -37,8 +39,12 @@ export const Wrapper = styled.div`
     font-weight: 600;
     line-height: 16px; /* 114.286% */
     letter-spacing: 0.5px;
+    position: relative;
+    box-sizing: border-box; /* ✅ 테두리가 생겨도 크기 유지 */
 
     .error {
+      position: absolute;
+      bottom: -18px;
       color: #fd7472;
       font-family: Pretendard;
       font-size: 11px;
@@ -76,12 +82,13 @@ export const Wrapper = styled.div`
     }
 
     input {
-      //border: 1px solid ${({ hasError }) => (hasError ? '#fd7472' : 'none')};
       border: none;
       width: 342px;
       height: 36px;
       flex-shrink: 0;
       border-radius: 8.361px;
+      box-sizing: border-box; /* ✅ 테두리가 생겨도 크기 유지 */
+
       background: #fff;
       margin: auto;
       padding-left: 11px;
@@ -104,6 +111,7 @@ export const Wrapper = styled.div`
     flex-direction: column;
     gap: 12px;
     margin-top: 49px;
+    position: relative;
 
     .section-title {
       margin-left: 22px;
@@ -206,6 +214,7 @@ export const Wrapper = styled.div`
         flex-shrink: 0;
         border-radius: 8.361px;
         background: #fff;
+        box-sizing: border-box; /* ✅ 테두리가 생겨도 크기 유지 */
 
         color: #a3a3a3;
         text-align: center;
@@ -223,6 +232,9 @@ export const Wrapper = styled.div`
     }
 
     .error {
+      position: absolute;
+      bottom: -18px;
+      right: 0;
       color: #fd7472;
       font-family: Pretendard;
       font-size: 11px;
@@ -258,6 +270,7 @@ export const Wrapper = styled.div`
       border-radius: 8.361px;
       background: #fff;
       margin: auto;
+      box-sizing: border-box; /* ✅ 테두리가 생겨도 크기 유지 */
 
       color: #88909b;
       padding-left: 11px;
@@ -274,11 +287,11 @@ export const Wrapper = styled.div`
     }
 
     .error {
+      margin: -10px;
       color: #fd7472;
       font-family: Pretendard;
       font-size: 11px;
       font-style: normal;
-      margin-top: 5px;
       margin-left: 22px; /* input과 정렬 */
     }
   }
@@ -286,7 +299,7 @@ export const Wrapper = styled.div`
 
 export const Button = styled.button`
   width: 152px;
-  height: 60px;
+  height: 90px;
   border-radius: 9px;
   border: ${({ $isSelected }) => ($isSelected ? '3px' : '1px')} solid #6aa5f8;
   background: #f6f7f9;
