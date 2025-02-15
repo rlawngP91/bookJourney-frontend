@@ -231,7 +231,10 @@ export default function Record({ record, activeTab, isPreview }) {
                 <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
               )}
               {isMenuOpen && (
-                <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                <HamburgerMenu
+                  onClose={() => setIsMenuOpen(false)}
+                  recordId={record.recordId}
+                />
               )}
             </div>
             <div className="content">{record.content}</div>
@@ -275,7 +278,10 @@ export default function Record({ record, activeTab, isPreview }) {
               <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
             )}
             {isMenuOpen && (
-              <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+              <HamburgerMenu
+                onClose={() => setIsMenuOpen(false)}
+                recordId={record.recordId}
+              />
             )}
           </div>
           <div className="body">

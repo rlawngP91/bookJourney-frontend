@@ -156,7 +156,10 @@ export default function Reply({ recordId, onClose }) {
                       onClick={() => setIsMenuOpen(true)}
                     />
                     {isMenuOpen && (
-                      <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                      <HamburgerMenu
+                        onClose={() => setIsMenuOpen(false)}
+                        recordId={recordInfo.recordId}
+                      />
                     )}
                   </div>
                 </div>
@@ -200,7 +203,10 @@ export default function Reply({ recordId, onClose }) {
                       onClick={() => setIsMenuOpen(true)}
                     />
                     {isMenuOpen && (
-                      <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                      <HamburgerMenu
+                        onClose={() => setIsMenuOpen(false)}
+                        recordId={recordInfo.recordId}
+                      />
                     )}
                   </div>
                 </div>
@@ -248,7 +254,10 @@ export default function Reply({ recordId, onClose }) {
                       onClick={() => setIsMenuOpen(true)}
                     />
                     {isMenuOpen && (
-                      <HamburgerMenu onClose={() => setIsMenuOpen(false)} />
+                      <HamburgerMenu
+                        onClose={() => setIsMenuOpen(false)}
+                        commentId={comment.commentId}
+                      />
                     )}
                   </div>
                 </div>
