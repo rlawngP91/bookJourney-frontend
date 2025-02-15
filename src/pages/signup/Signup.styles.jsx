@@ -54,7 +54,9 @@ export const SignupContainer = styled.div`
   .verfication-result-message {
     position: absolute;
     top: 356px;
-    right: 40px;
+    left: 40px;
+    font-size: 11px;
+    font-weight: 500;
     color: red;
     margin: 0;
   }
@@ -62,9 +64,11 @@ export const SignupContainer = styled.div`
   .pwd-result-msg {
     position: absolute;
     top: 530px;
-    right: 40px;
+    left: 40px;
     color: red;
     margin: 0;
+    font-size: 11px;
+    font-weight: 500;
   }
 
   .password-input {
@@ -100,11 +104,13 @@ export const SignupContainer = styled.div`
   .pwd-error-msg {
     position: absolute;
     top: 532px;
-    right: 40px;
-    width: 185px;
+    left: 40px;
+    width: 160px;
     margin: 0;
     font-size: 13px;
     color: red;
     white-space: pre-line;
+    font-size: 11px;
+    font-weight: 500;
   }
 `;

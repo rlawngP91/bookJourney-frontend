@@ -91,8 +91,9 @@ const Login = () => {
       <ButtonContainer>
         <BlueBtn text="시작하기" onClick={handleLogin} />
       </ButtonContainer>
-
+      {/* 
       <button className="find-password">비밀번호를 잊으셨나요?</button>
+      */}
       <div className="question">
         계정이 없으신가요?{' '}
         <span

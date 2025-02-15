@@ -14,10 +14,12 @@ export const LoginContainer = styled.div`
   .error-message {
     position: relative;
     color: red;
+    font-size: 11px;
+    font-weight: 500;
     margin: 0;
     display: inline-block;
-    top: -50px;
-    left: 140px;
+    top: -57px;
+    left: 40px;
   }
 
   .title {
@@ -32,6 +34,7 @@ export const LoginContainer = styled.div`
     left: 25px;
   }
 
+  /**
   .find-password {
     position: absolute;
     left: 20px;
@@ -40,14 +43,14 @@ export const LoginContainer = styled.div`
     width: auto;
     height: 20px;
     background: none; /* 버튼 배경 제거 */
-    border: none; /* 버튼 테두리 제거 */
-    color: var(--sds-color-text-default-default);
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    text-decoration: underline; /* 밑줄 추가 */
-    outline: none;
-  }
+  //border: none; /* 버튼 테두리 제거 */
+  //color: var(--sds-color-text-default-default);
+  //font-family: Pretendard;
+  //font-size: 14px;
+  //font-style: normal;
+  //text-decoration: underline; /* 밑줄 추가 */
+  //outline: none;
+  //}
 
   .question {
     position: absolute;
