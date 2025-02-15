@@ -141,7 +141,7 @@ export default function RoomHeader({ roomData }) {
               <img src={pen} alt="Pen" />
             </div>
             <div className="buttons">
-              <div className="cancel" onClick={() => navigate('/')}>
+              <div className="cancel" onClick={() => navigate('/home')}>
                 나가기
               </div>
               <div

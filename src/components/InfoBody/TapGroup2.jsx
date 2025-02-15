@@ -62,7 +62,7 @@ export default function TabGroup2({ roomData }) {
         <>
           <InfoContainer2>
             <div className="header">
-              <img src={lock} />
+              {!roomData.public && <img src={lock} />}
               <div>{safeRoomData?.roomName}</div>
               <div className="detail">
                 <div className="gap">
