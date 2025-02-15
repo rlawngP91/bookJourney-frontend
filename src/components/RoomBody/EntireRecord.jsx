@@ -62,7 +62,7 @@ export default function EntireRecord({ onClose, roomId }) {
               onChange={(e) => setText(e.target.value)}
               maxLength={5000}
               type="text"
-              placeholder="기록을 입력하세요..."
+              placeholder="기록을 입력해주세요"
             />
             <div className="bottom">
               <div className="page">

@@ -147,7 +147,7 @@ export default function CommentInput() {
       {!isTyping && (
         <div className="before">
           <div className="input2" onClick={() => setIsTyping(true)}>
-            기록 추가하기
+            기록을 입력해주세요
           </div>
           <div>
             <img src={sendIcon} />

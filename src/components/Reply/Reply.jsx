@@ -278,7 +278,7 @@ export default function Reply({ recordId, onClose }) {
               value={newComment}
               onChange={handleInput}
               maxLength={maxLength}
-              placeholder="댓글 추가하기"
+              placeholder="댓글을 입력해주세요"
             />
             <div className="after">
               <div className="char-count">

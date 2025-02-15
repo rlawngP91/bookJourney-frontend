@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import downarrow2 from '../../assets/downarrow2.svg';
 import uparrow from '../../assets/uparrow.svg';
+import reset from '../../assets/reset.svg';
 import Record from '../../components/RoomBody/Record';
 import PageRecord from '../../components/RoomBody/PageRecord';
 import EntireRecord from '../../components/RoomBody/EntireRecord';
@@ -420,7 +421,7 @@ export default function RoomBody({ roomData }) {
                   <div className="header">
                     <div className="o"> </div>
                     <div className="range">페이지 범위</div>
-                    <img src="reset" onClick={resetPageRange} />
+                    <img src={reset} onClick={resetPageRange} />
                   </div>
                   <div className="body">
                     <input

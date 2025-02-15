@@ -11,6 +11,7 @@ import {
 import downarrow2 from '../../assets/downarrow2.svg';
 import send from '../../assets/send.svg';
 import uparrow from '../../assets/uparrow.svg';
+import reset from '../../assets/reset.svg';
 import Record from './Record';
 import PageRecord from './PageRecord';
 import EntireRecord from './EntireRecord';
@@ -166,7 +167,7 @@ export default function RoomBody({ roomData }) {
                   <div className="header">
                     <div className="o"> </div>
                     <div className="range">페이지 범위</div>
-                    <img src="reset" onClick={resetPageRange} />
+                    <img src={reset} onClick={resetPageRange} />
                   </div>
                   <div className="body">
                     <input
@@ -274,7 +275,7 @@ export default function RoomBody({ roomData }) {
           onClick={() => setIsPopupOpen(true)}
           style={{ cursor: 'pointer' }}
         >
-          <div>기록 추가하기</div>
+          <div>기록을 입력해주세요</div>
           <img src={send} alt="send" />
         </div>
       </Footer>
