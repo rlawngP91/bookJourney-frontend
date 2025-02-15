@@ -179,7 +179,7 @@ const Home = () => {
     slidesToShow: 1, // 한 번에 표시할 슬라이드 개수
     slidesToScroll: 1, // 한 번에 넘어가는 슬라이드 개수
     autoplay: true, // 자동 재생
-    autoplaySpeed: 5000, // 자동 슬라이드 속도 (3초)
+    autoplaySpeed: 3000, // 자동 슬라이드 속도 (3초)
     arrows: false, // 좌우 화살표 숨김
     beforeChange: (current, next) => setSelectedToggle(next), // 슬라이드 변경 시 선택된 토글 변경
   };
@@ -244,9 +244,7 @@ const Home = () => {
               </div>
             ))
           ) : (
-            <p className="loading-message">
-              베스트셀러 데이터를 불러오는 중...
-            </p> // 데이터가 없을 때 표시
+            <p className="loading-message">&nbsp;</p> // 데이터가 없을 때 표시
           )}
         </StyledSlider>
 
