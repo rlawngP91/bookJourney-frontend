@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import checkmark from '../../assets/checkmark.svg';
 
 const Overlay = styled.div`
   position: fixed;
@@ -14,13 +13,12 @@ const Overlay = styled.div`
 
 const PopupContainer = styled.div`
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 24px;
+  left: 21px;
+  right: 21px;
   background-color: white;
   box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  border-radius: 16px;
   border: 1px solid #e5e7eb;
   z-index: 51; // Overlay보다 높게 설정
 `;
@@ -34,21 +32,17 @@ const SelectButton = styled.button`
   text-align: left;
   padding: 12px 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   border-radius: 8px;
   font-weight: ${(props) => (props.$isSelected ? 'bold' : 'normal')};
+  color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#808080')};
   border: none;
   background: none;
 
   &:hover {
     background-color: #f9fafb;
   }
-`;
-
-const CheckIcon = styled.img`
-  width: 20px;
-  height: 20px;
 `;
 
 const BookTypePopup = ({ onSelect, onClose, $currentType }) => {
@@ -80,9 +74,6 @@ const BookTypePopup = ({ onSelect, onClose, $currentType }) => {
               $isSelected={getCurrentTypeId($currentType) === type.id}
             >
               <span>{type.label}</span>
-              {getCurrentTypeId($currentType) === type.id && (
-                <CheckIcon src={checkmark} alt="selected" />
-              )}
             </SelectButton>
           ))}
         </PopupContent>

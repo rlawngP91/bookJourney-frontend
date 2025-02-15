@@ -5,15 +5,14 @@ import settingsIcon from '../../assets/searchsetting.svg';
 
 const HeaderWrapper = styled.div`
   position: fixed;
-  width: 100%;
+  width: 393px; // 반응형 100%
   height: 48px;
   left: 0;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
-  background: #ffffff;
+  background: #f6f7f9;
 `;
 
 const BackButton = styled.button`
@@ -24,7 +23,7 @@ const BackButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: -8px;
+  padding-left: 24px;
 
   img {
     width: 18px;
@@ -51,7 +50,7 @@ const SettingsButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 26px;
+  padding-right: 24px;
 
   img {
     width: 17px;

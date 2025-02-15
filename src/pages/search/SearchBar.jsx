@@ -17,7 +17,7 @@ const SearchInput = styled.div`
   align-items: center;
   gap: 8px;
   border-radius: 19.142px;
-  background: rgba(171, 171, 171, 0.12);
+  background: #fff;
 `;
 
 const SearchTypeButton = styled.button`
@@ -44,14 +44,19 @@ const SearchTypeButton = styled.button`
 const StyledInput = styled.input`
   flex: 1;
   width: 100%;
-  height: 100%;
-  border: none;
-  background: #ababab1f;
-  border-radius: 19.142px;
+  height: 70%;
+  border-width: 1px;
+  border-left-color: #d9d9d9;
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+  background: #fff;
+  border-top-right-radius: 19.142px;
+  border-bottom-right-radius: 19.142px;
   outline: none;
   font-family: Pretendard;
   font-size: 14px;
-  padding: 0 80px 0 8px; // 오른쪽 패딩 증가
+  padding: 0 80px 0 15px; // 오른쪽 패딩 증가
 `;
 
 const IconContainer = styled.div`

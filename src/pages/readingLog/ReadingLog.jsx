@@ -14,6 +14,7 @@ import arrowBtn from '../../assets/downarrow2.svg';
 import RoomListRead from '../../components/readingLog/RoomListRead';
 import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
 import DateSelectorPopup from '../../components/popup/DateSelectorPopup.jsx/DateSelectorPopup';
+import LoadingPage from '../../components/loading/loadingPage';
 import Footer from '../../components/commons/Footer/Footer';
 
 import {
@@ -23,13 +24,12 @@ import {
 
 const ReadingLog = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState('NickName');
   const [isRead, setIsRead] = useState(true);
   const [currentDate, setCurrentDate] = useState('2025년 2월');
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [rooms, setRooms] = useState([]);
+  // const [signupDate, setSignupDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -48,9 +48,8 @@ const ReadingLog = () => {
 
         if (result.success) {
           setRooms(result.data);
-          setNickname(result.nickname);
+          // setSignupDate(result.signupDate);
         } else {
-          setError(result.error);
           setRooms([]);
         }
         setIsLoading(false);
@@ -61,9 +60,8 @@ const ReadingLog = () => {
 
         if (result.success) {
           setRooms(result.data);
-          setNickname(result.nickname);
+          // setSignupDate(result.signupDate);
         } else {
-          setError(result.error);
           setRooms([]);
         }
         setIsLoading(false);
@@ -81,13 +79,11 @@ const ReadingLog = () => {
     setShowDatePopup(true);
   };
 
-  // 여기에 skeleton code..?
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>오류가 발생했습니다: {error}</div>;
+  if (isLoading) return <LoadingPage />;
 
   return (
     <Container>
-      <h1 className="readinglog-title">{nickname} 님의 독서기록장</h1>
+      <h1 className="readinglog-title">독서기록장</h1>
 
       <FilterButtons>
         <FilterLeftButton

@@ -16,6 +16,7 @@ import calendarIcon from '../../assets/mypage-calendar.svg';
 import accountIcon from '../../assets/mypage-account.svg';
 import logoutIcon from '../../assets/mypage-logout.svg';
 import Footer from '../../components/commons/Footer/Footer';
+import LoadingPage from '../../components/loading/loadingPage';
 import LogoutPopup from './logout/LogoutPopup';
 import { mypageAPI } from '../../apis/mypageAPI';
 
@@ -86,7 +87,7 @@ export default function MyPage() {
   ];
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (

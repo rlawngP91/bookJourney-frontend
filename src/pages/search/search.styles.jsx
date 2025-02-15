@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const SearchWrapper = styled.div`
   display: flex;
+  width: 393px; //없으면 반응형으로 됨
   flex-direction: column;
-  height: 100vh; // min-height 대신 height 사용
-  background: #ffffff;
+  min-height: 100vh; // min-height 대신 height 사용
+  background: #f6f7f9;
   position: relative;
 `;
 
@@ -14,7 +15,7 @@ export const HeaderContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  background: #ffffff;
+  background: #f6f7f9;
   z-index: 10;
 `;
 
@@ -75,10 +76,10 @@ export const BookList = styled.div`
 `;
 
 export const NoResultsMessage = styled.div`
-  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0;
+  margin-left: 147px;
+  margin-top: 275px;
   color: #666;
   font-family: Pretendard;
   font-size: 14px;
@@ -86,9 +87,11 @@ export const NoResultsMessage = styled.div`
 
 export const ListTypeContainer = styled.div`
   display: ${(props) => (props.$searchQuery ? 'flex' : 'none')};
-  width: 100%;
   border-bottom: 1px solid #eeeeee;
   margin-bottom: 5px;
+  margin-left: 32px;
+  margin-right: 120px;
+  margin-top: 10px;
 `;
 
 export const ListTypeButton = styled.button`
@@ -98,7 +101,7 @@ export const ListTypeButton = styled.button`
   border: none;
   font-family: Pretendard;
   font-size: 14px;
-  color: ${(props) => (props.$isSelected ? '#000000' : '#666666')};
+  color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#666666')};
   font-weight: ${(props) => (props.$isSelected ? '600' : '400')};
   cursor: pointer;
   position: relative;
@@ -112,8 +115,34 @@ export const ListTypeButton = styled.button`
     left: 50%;
     transform: translateX(-50%);
     width: fit-content;
-    min-width: ${(props) => (props.$isSelected ? 'calc(100% - 24px)' : '0')};
+    min-width: ${(props) => (props.$isSelected ? 'calc(100% - 15px)' : '0')};
     height: 2px;
-    background-color: ${(props) => (props.$isSelected ? '#000000' : '#FFF')};
+    background-color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#FFF')};
+  }
+`;
+
+export const float = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+export const LoadingContent = styled.div`
+  color: #4b96f8;
+  font-style: normal;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    animation: ${float} 2s ease-in-out infinite;
+    animation-delay: ${(props) => props.$delay}s;
   }
 `;
