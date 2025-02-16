@@ -58,7 +58,7 @@ export default function Collector() {
       </HeaderWrapper>
 
       {loading ? (
-        <div className="loading">책산책 칭호 불러오는 중...</div>
+        <div className="loading">책산책 수집가 불러오는 중...</div>
       ) : error ? (
         <div style={{ color: 'red' }}>❌ {error}</div>
       ) : (

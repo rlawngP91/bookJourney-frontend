@@ -1,15 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
 import p0 from '../../assets/collectorpopup/p0.svg';
+import p1 from '../../assets/collectorpopup/p1.svg';
+import p2 from '../../assets/collectorpopup/p2.svg';
+import p3 from '../../assets/collectorpopup/p3.svg';
+import p4 from '../../assets/collectorpopup/p4.svg';
+import p5 from '../../assets/collectorpopup/p5.svg';
+import p6 from '../../assets/collectorpopup/p6.svg';
+import p7 from '../../assets/collectorpopup/p7.svg';
+import p8 from '../../assets/collectorpopup/p8.svg';
+import p9 from '../../assets/collectorpopup/p9.svg';
+import p10 from '../../assets/collectorpopup/p10.svg';
+import p11 from '../../assets/collectorpopup/p11.svg';
+import p12 from '../../assets/collectorpopup/p12.svg';
+
+const recordImages = {
+  0: p0,
+  1: p1,
+  5: p2,
+  10: p3,
+  20: p4,
+  30: p5,
+  40: p6,
+  50: p7,
+  60: p8,
+  70: p9,
+  80: p10,
+  90: p11,
+  100: p12,
+};
 
 const Wrapper = styled.div`
   width: 393px;
   height: 852px;
-  z-index: 2000; /* 다른 요소 위로 올림 */
+  z-index: 5000; /* 다른 요소 위로 올림 */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 const Box = styled.div`
@@ -86,17 +117,18 @@ const Box = styled.div`
   }
 `;
 
-export default function CollectorPopup() {
+export default function CollectorPopup({ recordCount }) {
+  //if (recordCount === null) return null;
   return (
     <>
       <Wrapper>
         <Box>
           <div className="container">
             <div className="back">
-              <img src={p0} />
+              <img src={recordImages[recordCount]} alt="기록 이미지" />
             </div>
             <div className="a">책산책 여정 시작</div>
-            <div className="b">n번째 기록을 달성했어요!</div>
+            <div className="b">{recordCount}번째 기록을 달성했어요!</div>
             <div className="c">책산책과 계속 기록을 남겨보아요</div>
           </div>
         </Box>
