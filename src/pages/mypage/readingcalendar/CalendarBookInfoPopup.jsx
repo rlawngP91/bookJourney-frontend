@@ -62,7 +62,7 @@ const ReadStatus = styled.div`
 
 const BookTitle = styled.div`
   display: flex;
-  gap: 7px;
+  margin-top: 8px;
 `;
 
 const TitleText = styled.span`
@@ -110,10 +110,10 @@ const ReadingStatus = styled.span`
 const ReadingPeriod = styled.div`
   color: #757575;
   font-family: Pretendard;
-  font-size: 11.753px;
+  font-size: 11px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 23.505px; /* 200% */
+  font-weight: 500;
+  line-height: 145.455%; /* 200% */
   margin-top: auto;
   margin-bottom: 11px;
 `;
