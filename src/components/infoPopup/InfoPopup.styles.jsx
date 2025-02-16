@@ -2,21 +2,24 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: fixed;
-  width: 393px;
-  height: 250px;
+  bottom: 24px;
+  left: 21px;
+  width: 351px;
+  height: 100px;
   border-radius: 9px;
-  background-color: #a3c7fa;
+  background-color: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  height: 131px;
-  bottom: 0;
   z-index: 1001;
+
   p {
     margin: 0;
-    color: #fff;
+    width: 100%;
     font-family: Pretendard;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
+    line-height: 50px;
+    text-align: center;
   }
 
   .line {
@@ -27,19 +30,21 @@ export const Container = styled.div`
   .first-line,
   .second-line {
     display: flex;
+    height: 50px;
     cursor: pointer;
-
+    /*
     .left-img {
       margin-left: 37px;
       margin-right: 12px;
     }
+      */
   }
 
   .first-line {
-    margin-top: 31px;
+    border-bottom: 1px solid #cecbcb;
   }
 
-  .second-line {
-    margin-top: 23px;
+  .info {
+    z-index: 1000;
   }
 `;
