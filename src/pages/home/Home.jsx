@@ -374,7 +374,6 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Footer />
       {/* InfoPopup */}
       {showInfoPopup && selectedBook && (
         <InfoPopup
@@ -383,6 +382,7 @@ const Home = () => {
           className="info-popup"
         />
       )}
+      <Footer />
     </Wrapper>
   );
 };
