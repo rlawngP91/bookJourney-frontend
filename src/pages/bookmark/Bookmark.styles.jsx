@@ -168,9 +168,10 @@ export const Container = styled.div`
   }
 
   .popup-message2 {
+    width: 100%;
     position: absolute;
     top: 45px;
-    left: 63px;
+    text-align: center;
     color: #000;
     text-align: center;
     font-family: Pretendard;

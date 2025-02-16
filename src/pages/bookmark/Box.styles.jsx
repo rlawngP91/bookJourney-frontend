@@ -21,8 +21,8 @@ export const Container = styled.div`
 
   .writer {
     position: absolute;
-    left: 26px;
-    top: 42px;
+    left: 25px;
+    top: 41.5px;
     color: #757373;
     font-family: Pretendard;
     font-size: 10px;
@@ -49,9 +49,9 @@ export const Container = styled.div`
     line-height: var(--Label-Small-Line-Height, 16px); /* 106.667% */
     letter-spacing: var(--Label-Small-Tracking, 0.5px);
     overflow: hidden; // 을 사용해 영역을 감출 것
-    text-overflow: ellipsis; // 로 ... 을 만들기
-    white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
-    word-break: break-all;
+    display: -webkit-box; /* flexbox와 유사한 CSS 속성 */
+    -webkit-line-clamp: 2; /* 최대 2줄까지 표시 */
+    -webkit-box-orient: vertical; /* 박스의 방향을 수직으로 설정 */
   }
 
   .check-icon {

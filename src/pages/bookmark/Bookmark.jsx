@@ -154,7 +154,7 @@ const Bookmark = () => {
         {popup2Visible && ( // #popup2
           <div id="popup2" className="popup">
             <div className="top">
-              <span className="popup-message2">선택한 책이 없습니다.</span>
+              <div className="popup-message2">선택한 책이 없습니다.</div>
             </div>
             <div className="bottom">
               <div className="popup-ok" onClick={closePopup}>
