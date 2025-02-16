@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const MyPageContainer = styled.div`
   width: 393px; // 100% 393px반영
-  height: 764px; // Footer 를 제외한 높이
-  padding-top: 45px;
+  height: 852px; // Footer 를 제외한 높이
+  padding-top: 95px;
   background-color: #f9fafb;
 `;
 
