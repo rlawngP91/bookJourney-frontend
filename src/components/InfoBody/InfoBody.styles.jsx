@@ -27,8 +27,7 @@ export const Wrapper = styled.div`
       font-size: 15px;
       font-style: normal;
       font-weight: 600;
-      line-height: 16px; /* 106.667% */
-      letter-spacing: 0.5px;
+      width: 250px;
     }
 
     img {

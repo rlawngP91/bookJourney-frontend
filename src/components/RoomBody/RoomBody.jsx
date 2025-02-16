@@ -253,7 +253,7 @@ export default function RoomBody({ roomData }) {
 
       <Container>
         {loading ? (
-          <></>
+          <NoRecord>기록을 불러오는 중...</NoRecord>
         ) : error ? (
           <></>
         ) : records.length === 0 ? (
