@@ -260,7 +260,7 @@ export const ReviewList = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  padding: 46px 25px 0px 55px;
+  padding: 46px 25px 55px 55px;
   max-height: 400px;
   overflow-y: auto;
 

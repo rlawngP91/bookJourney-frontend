@@ -9,7 +9,15 @@ export const Wrapper = styled.div`
   box-sizing: border-box;
 
   position: relative;
-  img {
+
+  .loading {
+    margin: auto;
+    color: #a3a3a3;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
   }
 
   .center {

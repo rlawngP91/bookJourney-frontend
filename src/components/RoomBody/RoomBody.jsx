@@ -17,6 +17,7 @@ import PageRecord from './PageRecord';
 import EntireRecord from './EntireRecord';
 import { getPageRecords } from '../../apis/getPageRecords';
 import { getEntireRecords } from '../../apis/getEntireRecords';
+import CollectorPopup from '../../pages/collector/CollectorPopup';
 
 export default function RoomBody({ roomData }) {
   const [activeTab, setActiveTab] = useState('페이지별');
@@ -24,6 +25,9 @@ export default function RoomBody({ roomData }) {
 
   // ✅ 기록 추가 팝업 상태
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  // ✅ CollectorPopup 상태
+  const [popupRecordCount, setPopupRecordCount] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   // ✅ 정렬 방식 드롭다운 상태
   const [isPageOrderOpen, setIsPageOrderOpen] = useState(false);
@@ -117,13 +121,39 @@ export default function RoomBody({ roomData }) {
     fetchRecords();
   }, [roomId, activeTab, pageOrder, entireOrder, startPage, endPage]);
 
+  // ✅ milestone을 만족하면 CollectorPopup을 띄우기
+  useEffect(() => {
+    if (popupRecordCount !== null) {
+      setShowPopup(true);
+
+      // ✅ 2초 후 자동으로 닫기
+      setTimeout(() => {
+        setShowPopup(false);
+        setPopupRecordCount(null);
+      }, 2000);
+    }
+  }, [popupRecordCount]);
+
   return (
     <>
+      {/* ✅ PageRecord 또는 EntireRecord가 닫힌 후 RoomBody에서 팝업 띄우기 */}
+      {showPopup && popupRecordCount !== null && (
+        <CollectorPopup recordCount={popupRecordCount} />
+      )}
+
       {isPopupOpen &&
         (activeTab === '페이지별' ? (
-          <PageRecord onClose={() => setIsPopupOpen(false)} roomId={roomId} />
+          <PageRecord
+            onClose={() => setIsPopupOpen(false)}
+            roomId={roomId}
+            setPopupRecordCount={setPopupRecordCount} // ✅ 상태 전달
+          />
         ) : (
-          <EntireRecord onClose={() => setIsPopupOpen(false)} roomId={roomId} />
+          <EntireRecord
+            onClose={() => setIsPopupOpen(false)}
+            roomId={roomId}
+            setPopupRecordCount={setPopupRecordCount} // ✅ 상태 전달
+          />
         ))}
 
       <Wrapper>
@@ -253,7 +283,7 @@ export default function RoomBody({ roomData }) {
 
       <Container>
         {loading ? (
-          <></>
+          <NoRecord>기록을 불러오는 중...</NoRecord>
         ) : error ? (
           <></>
         ) : records.length === 0 ? (

@@ -39,7 +39,8 @@ export default function RoomHeader({ roomData }) {
   const handleExitRoom = async () => {
     try {
       await exitRoom(roomData.roomId); // API 호출
-      navigate('/'); // 성공 시 홈으로 이동
+      navigate('/home'); // 성공 시 홈으로 이동
+      // 방 나가기 성공 토스트 팝업 열기
     } catch (error) {
       console.error('❌ 방 나가기 오류:', error);
     }
