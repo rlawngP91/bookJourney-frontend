@@ -474,8 +474,11 @@ export const StyledSlider = styled(Slider)`
     align-items: center;
   }
 
+  .popup-wrapper {
+    position: absolute;
+  }
+
   .info-popup {
     position: absolute;
-    bottom: 0;
   }
 `;
