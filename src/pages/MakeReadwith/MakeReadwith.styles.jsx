@@ -7,6 +7,9 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: #f6f7f9;
   box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   * {
     outline: none; /* 기본 포커스 스타일 제거 */
@@ -18,7 +21,7 @@ export const Wrapper = styled.div`
 
 export const Button = styled.button`
   width: 152px;
-  height: 60px;
+  height: 90px;
   border-radius: 9px;
   border: ${({ $isSelected }) => ($isSelected ? '3px' : '1px')} solid #6aa5f8;
   background: #f6f7f9;
@@ -44,7 +47,7 @@ export const Button = styled.button`
 export const ButtonContainer = styled.div`
   width: 393px;
   height: 110px;
-  padding-top: 50px;
+  padding-top: 22px;
   box-sizing: border-box;
 
   display: flex;

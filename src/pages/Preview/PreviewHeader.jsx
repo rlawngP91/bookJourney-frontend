@@ -4,6 +4,7 @@ import graynote from '../../assets/graynote.svg';
 import grayclock from '../../assets/grayclock.svg';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import decodeEntities from '../../utils/decodeEntities';
 
 const Wrapper = styled.div`
   width: 393px;
@@ -90,7 +91,11 @@ export default function PreviewHeader({ roomData }) {
         />
       </Header>
       <Title>
-        <div>{roomData.bookTitle}</div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: decodeEntities(roomData?.bookTitle || '제목 정보 없음'),
+          }}
+        />
       </Title>
       <div className="roomname">{roomData.roomName}</div>
       <Duration>

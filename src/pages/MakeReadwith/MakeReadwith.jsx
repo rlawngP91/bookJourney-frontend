@@ -11,12 +11,15 @@ export default function MakeReadwith() {
   const [selected, setSelected] = useState('혼자');
   const { isbn } = useParams();
   const makeReadwithTogetherRef = useRef(null); // ✅ `MakeReadwithTogether` 참조
+  const [isCreateButtonDisabled, setIsCreateButtonDisabled] = useState(false); // ✅ 버튼 상태 관리
 
   const handleButtonClick = (option) => {
     setSelected(option); // 클릭한 버튼의 상태를 선택
   };
 
   const handleCreateRoom = async () => {
+    if (isCreateButtonDisabled) return; // ✅ 비활성화 상태에서는 실행 X
+
     try {
       let roomId = null;
 
@@ -58,19 +61,26 @@ export default function MakeReadwith() {
             $isSelected={selected === '혼자'}
             onClick={() => handleButtonClick('혼자')}
           >
-            <div>혼자 기록할래요</div>
+            <div>혼자 기록</div>
           </Button>
           <Button
             $isSelected={selected === '같이'}
             onClick={() => handleButtonClick('같이')}
           >
-            <div>여러명이서 기록할래요</div>
+            <div>여러명 기록</div>
           </Button>
         </ButtonContainer>
         {selected === '같이' && (
-          <MakeReadwithTogether ref={makeReadwithTogetherRef} isbn={isbn} />
+          <MakeReadwithTogether
+            ref={makeReadwithTogetherRef}
+            isbn={isbn}
+            onValidationChange={setIsCreateButtonDisabled}
+          />
         )}
-        <RWFooter onCreateRoom={handleCreateRoom} />
+        <RWFooter
+          onCreateRoom={handleCreateRoom}
+          isDisabled={isCreateButtonDisabled}
+        />
       </Wrapper>
     </>
   );

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import left from '../../assets/left.svg';
+import right from '../../assets/right.svg';
+
+const Wrapper = styled.div`
+  height: 852px;
+  width: 393px;
+  background-color: rgba(0, 0, 0, 0.42);
+  position: relative;
+`;
 
 const DatePickerContainer = styled.div`
   background: white;
@@ -15,32 +24,46 @@ const DatePickerContainer = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+
   padding-top: 60px;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
 const CalendarHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
   padding-bottom: 45px;
+
+  .title {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 35px */
+  }
 `;
 
 const CalendarGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, 1fr); /* 7일 (일~토) */
+  grid-template-rows: repeat(6, 1fr); /* ✅ 항상 6줄 유지 */
   gap: 8px;
   text-align: center;
+  position: absolute;
+  bottom: 130px;
+  left: 15px;
+  width: 362px;
+  height: 300px; /* ✅ 높이 고정 */
 `;
 
 const ArrowButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px 8px;
-  font-size: 16px;
 
   &:hover {
     background-color: #f3f4f6;
@@ -52,17 +75,27 @@ const WeekdayHeader = styled.div`
   color: #6b7280;
   font-size: 14px;
 `;
-
 const DateCell = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'inRange', // ✅ inRange 속성 제거
 })`
-  padding: 8px;
+  display: flex; /* ✅ Flexbox 사용 */
+  align-items: center; /* ✅ 세로 정렬 */
+  justify-content: center; /* ✅ 가로 정렬 */
+  text-align: center; /* ✅ 텍스트 정렬 */
+  width: 100%; /* ✅ 셀 크기 유지 */
+  aspect-ratio: 1 / 1; /* ✅ 정사각형 유지 */
+
+  padding: 0; /* ✅ 내부 여백 제거 */
   cursor: pointer;
-  border-radius: 25%;
+  border-radius: 9px;
   background: ${({ selected, inRange }) =>
-    selected ? '#4F8BFF' : inRange ? '#A3C7FA' : 'transparent'};
+    selected
+      ? '#6AA5F8'
+      : inRange
+        ? 'rgba(106, 165, 248, 0.24)'
+        : 'transparent'};
   color: ${({ selected, disabled }) =>
-    selected ? 'white' : disabled ? '#D1D5DB' : 'inherit'};
+    selected ? 'white' : disabled ? '#7D7D7D' : 'inherit'};
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};
 
   &:hover {
@@ -70,7 +103,7 @@ const DateCell = styled.div.withConfig({
       !selected && !disabled
         ? '#E5E7EB'
         : selected
-          ? '#4F8BFF'
+          ? '#6AA5F8'
           : 'transparent'};
   }
 `;
@@ -82,8 +115,10 @@ const ConfirmButton = styled.button`
   border-radius: 9px;
   border: 1px solid #cecbcb;
   background: #6aa5f8;
+  position: absolute;
+  bottom: 26px;
+  left: 21px;
 
-  margin-top: 76px;
   color: #fff;
   font-family: Pretendard;
   font-size: 15px;
@@ -147,7 +182,6 @@ const DatePicker = ({ onEndDateChange, onClose }) => {
       setTempEndDate(date);
     }
   };
-
   const isDateSelected = (date) => {
     return (
       (startDate && date?.toDateString() === startDate.toDateString()) ||
@@ -159,8 +193,15 @@ const DatePicker = ({ onEndDateChange, onClose }) => {
     return startDate && tempEndDate && date > startDate && date <= tempEndDate;
   };
 
+  // ✅ 선택 가능 범위: 오늘 +7일 ~ 오늘 +90일
+  const minSelectableDate = new Date();
+  minSelectableDate.setDate(minSelectableDate.getDate() + 7); // 오늘 +7일
+
+  const maxSelectableDate = new Date();
+  maxSelectableDate.setDate(maxSelectableDate.getDate() + 90); // 오늘 +90일
+
   const isDateDisabled = (date) => {
-    return date < startDate;
+    return !date || date < minSelectableDate || date > maxSelectableDate;
   };
 
   const handleConfirm = () => {
@@ -171,35 +212,42 @@ const DatePicker = ({ onEndDateChange, onClose }) => {
   };
 
   return (
-    <DatePickerContainer>
-      <CalendarHeader>
-        <ArrowButton onClick={handlePrevMonth}>&lt;</ArrowButton>
-        <div>
-          {currentMonth.getFullYear()}년 {currentMonth.getMonth() + 1}월
-        </div>
-        <ArrowButton onClick={handleNextMonth}>&gt;</ArrowButton>
-      </CalendarHeader>
+    <Wrapper>
+      <DatePickerContainer>
+        <CalendarHeader>
+          <ArrowButton onClick={handlePrevMonth}>
+            <img src={left} />
+          </ArrowButton>
+          <div className="title">
+            {currentMonth.getFullYear()}.
+            {String(currentMonth.getMonth() + 1).padStart(2, '0')}
+          </div>
+          <ArrowButton onClick={handleNextMonth}>
+            <img src={right} />
+          </ArrowButton>
+        </CalendarHeader>
 
-      <CalendarGrid>
-        {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
-          <WeekdayHeader key={day}>{day}</WeekdayHeader>
-        ))}
+        <CalendarGrid>
+          {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
+            <WeekdayHeader key={day}>{day}</WeekdayHeader>
+          ))}
 
-        {getDaysInMonth(currentMonth).map((date, index) => (
-          <DateCell
-            key={index}
-            selected={isDateSelected(date)}
-            inRange={isDateInRange(date)}
-            disabled={isDateDisabled(date)}
-            onClick={() => date && handleDateClick(date)}
-          >
-            {date ? date.getDate() : ''}
-          </DateCell>
-        ))}
-      </CalendarGrid>
+          {getDaysInMonth(currentMonth).map((date, index) => (
+            <DateCell
+              key={index}
+              selected={isDateSelected(date)}
+              inRange={isDateInRange(date)}
+              disabled={isDateDisabled(date)}
+              onClick={() => date && handleDateClick(date)}
+            >
+              {date ? date.getDate() : ''}
+            </DateCell>
+          ))}
+        </CalendarGrid>
 
-      <ConfirmButton onClick={handleConfirm}>기간 선택 완료</ConfirmButton>
-    </DatePickerContainer>
+        <ConfirmButton onClick={handleConfirm}>기간 선택 완료</ConfirmButton>
+      </DatePickerContainer>
+    </Wrapper>
   );
 };
 
