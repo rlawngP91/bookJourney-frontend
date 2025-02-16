@@ -4,23 +4,19 @@ import { Wrapper } from './ReadWith.styles';
 import RoomHeader from '../../components/RoomHeader/RoomHeader';
 import RoomBody from '../../components/RoomBody/RoomBody';
 import { getInnerRoomInfo } from '../../apis/getInnerRoomInfo';
-import { getEntireRecords } from '../../apis/getEntireRecords';
-import { getPageRecords } from '../../apis/getPageRecords';
 import LoadingPage from '../../components/loading/loadingPage';
 
 export default function ReadWith() {
   const { roomId } = useParams();
 
   const [roomData, setRoomData] = useState(null); // 방 정보
-  const [records, setRecords] = useState([]); // 전체 기록 리스트
-  const [pageRecords, setPageRecords] = useState([]); // 페이지별 기록 리스트
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // ✅ 방 정보 가져오기
   useEffect(() => {
     const fetchRoomInfo = async () => {
       try {
+        setLoading(true); // ✅ 로딩 시작
         const roomInfo = await getInnerRoomInfo(roomId);
         setRoomData(roomInfo);
       } catch (err) {
@@ -33,40 +29,21 @@ export default function ReadWith() {
     }
   }, [roomId]);
 
-  // ✅ 기록 데이터 가져오기 (roomData 설정 후)
+  // ✅ roomData가 변경될 때 로딩 해제
   useEffect(() => {
-    const fetchRecords = async () => {
-      try {
-        if (!roomData) return;
-        const pageRecordsData = await getPageRecords(roomId, '페이지순');
-        setPageRecords(pageRecordsData);
-        const recordsData = await getEntireRecords(roomId, '페이지순');
-        setRecords(recordsData);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (roomData) {
-      fetchRecords();
+      setLoading(false); // ✅ roomData가 준비되면 로딩 해제
     }
-  }, [roomData]); // ✅ roomData가 변경될 때만 실행
+  }, [roomData]);
 
   // ✅ 로딩 및 에러 처리
   if (loading) return <LoadingPage />;
   if (error) return;
+
   return (
     <Wrapper>
       <RoomHeader roomData={roomData} />
-      {roomData && (
-        <RoomBody
-          roomData={roomData}
-          records={records}
-          pageRecords={pageRecords}
-        />
-      )}
+      {roomData && <RoomBody roomData={roomData} />}
     </Wrapper>
   );
 }

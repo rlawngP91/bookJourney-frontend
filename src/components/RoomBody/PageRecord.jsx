@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Wrapper, Page, Container, Box, Input } from './PageRecord.styles';
 import xbox from '../../assets/xbox.svg';
-import { postRecord } from '../../apis/postRecord'; // ✅ API 호출 함수 변경
+import { postRecord } from '../../apis/postRecord';
 
-export default function PageRecord({ onClose, roomId }) {
-  const [page, setPage] = useState(''); // ✅ 페이지 입력값
-  const [text, setText] = useState(''); // ✅ 기록 입력값
-  const [loading, setLoading] = useState(false); // ✅ 로딩 상태 추가
+export default function PageRecord({ onClose, roomId, setPopupRecordCount }) {
+  const [page, setPage] = useState('');
+  const [text, setText] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  // ✅ 기록 버튼 클릭 시 API 호출
+  // ✅ milestone 리스트 (0, 1, 5, 10, 20, ..., 100)
+  const milestones = new Set([
+    0, 1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+  ]);
+
   const handleRecordSubmit = async () => {
     if (!roomId) {
       alert('❌ roomId가 필요합니다.');
@@ -27,11 +31,32 @@ export default function PageRecord({ onClose, roomId }) {
 
     setLoading(true);
     try {
-      // ✅ postRecord API 호출
       const response = await postRecord(roomId, Number(page), text);
       console.log('✅ 기록 저장 성공:', response);
-      alert('✅ 기록이 성공적으로 저장되었습니다.');
-      onClose(); // ✅ 팝업 닫기
+
+      // ✅ 응답 구조 디버깅
+      console.log('📌 전체 API 응답:', response);
+      console.log('📌 response.keys:', Object.keys(response));
+
+      // ✅ recordCount 정확히 추출
+      const recordCount = response?.recordCount ?? null;
+      console.log(
+        '🔥 Fixed recordCount:',
+        recordCount,
+        '타입:',
+        typeof recordCount
+      );
+
+      // ✅ 먼저 PageRecord 팝업 닫기
+      onClose();
+
+      // ✅ milestone 조건 확인 후 팝업 띄우기
+      setTimeout(() => {
+        if (recordCount !== null && milestones.has(recordCount)) {
+          console.log('🎉 milestone 달성! recordCount:', recordCount);
+          setPopupRecordCount(recordCount); // ✅ RoomBody에서 감지하여 팝업 띄움
+        }
+      }, 300);
     } catch (error) {
       alert(`❌ 기록 저장 실패: ${error.message}`);
     } finally {
@@ -90,9 +115,7 @@ export default function PageRecord({ onClose, roomId }) {
                 className="send"
                 onClick={handleRecordSubmit}
                 disabled={loading}
-                style={{
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                }}
+                style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
               >
                 {loading ? '기록 중...' : '기록'}
               </div>
