@@ -39,8 +39,8 @@ const DateNumber = styled.span`
 `;
 
 const BookImage = styled.img`
-  width: 80%;
-  height: 80%;
+  width: 45.35px;
+  height: 66.52px;
   object-fit: cover;
 `;
 
@@ -158,9 +158,10 @@ const CalendarContent = ({ selectedDate }) => {
         >
           {date && (
             <>
-              <DateNumber>{date}</DateNumber>
-              {calendarData[date] && (
+              {calendarData[date] ? (
                 <BookImage src={calendarData[date]} alt={`Book on ${date}`} />
+              ) : (
+                <DateNumber>{date}</DateNumber>
               )}
             </>
           )}
