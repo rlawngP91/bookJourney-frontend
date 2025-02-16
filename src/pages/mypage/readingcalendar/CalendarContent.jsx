@@ -6,9 +6,10 @@ import { mypageReadingCalendarAPI } from '../../../apis/mypageReadingCalendarAPI
 
 const CalendarGrid = styled.div`
   display: grid;
-  width: 100%;
+  /* width: 100%; */
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
+  padding: 0 14px;
 `;
 
 const WeekDay = styled.div`

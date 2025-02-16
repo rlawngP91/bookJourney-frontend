@@ -5,7 +5,7 @@ const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 393px; // 100% 393px
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
@@ -16,10 +16,10 @@ const PopupContainer = styled.div`
   position: fixed;
   bottom: ${({ $isOpen }) => ($isOpen ? '0' : '-100%')};
   left: 0;
-  width: 100%;
+  width: 341px; // 100% 393px -> 양옆 padding 고려
   background-color: white;
   border-radius: 9px 9px 0 0;
-  padding: 30px;
+  padding: 33px 26px;
   z-index: 1001;
   overflow-y: auto;
 `;
