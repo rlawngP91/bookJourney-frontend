@@ -4,7 +4,7 @@ import deleteIcon from '../../assets/clear.svg';
 import searchIcon from '../../assets/search2.svg';
 
 const SearchBarWrapper = styled.div`
-  padding: 8px 16px;
+  padding: 4px 16px 8px 16px;
   height: 39px;
   position: relative;
 `;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
+  HeaderContainer,
   FilterButtons,
   FilterLeftButton,
   FilterRightButton,
@@ -84,7 +85,9 @@ const ReadingLog = () => {
   console.log(signupDate);
   return (
     <Container>
-      <h1 className="readinglog-title">독서기록장</h1>
+      <HeaderContainer>
+        <span className="readinglog-title">독서기록장</span>
+      </HeaderContainer>
 
       <FilterButtons>
         <FilterLeftButton

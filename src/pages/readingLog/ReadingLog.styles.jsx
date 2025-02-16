@@ -17,11 +17,17 @@ export const Container = styled.div`
     margin-bottom: 29px;
   }
 `;
-
+export const HeaderContainer = styled.div`
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 export const FilterButtons = styled.div`
   display: flex;
   justify-content: center;
   height: 40px;
+  margin-top: 4px;
   margin-left: 25px;
   margin-right: 25px;
   margin-bottom: 24px;
