@@ -124,6 +124,7 @@ export default function Search() {
     setBooks([]);
     setRooms([]);
     setIsSearchExecuted(false);
+    fetchRecentSearches();
   };
 
   useEffect(() => {
@@ -156,20 +157,20 @@ export default function Search() {
     handleSearch(text);
   };
 
+  const fetchRecentSearches = async () => {
+    try {
+      setIsPageLoading(true);
+      const data = await recentsearchAPI.getRecentSearches();
+      setRecentSearches(data);
+    } catch (error) {
+      console.error('최근 검색어 조회 실패:', error);
+    } finally {
+      setIsPageLoading(false);
+    }
+  };
+
   // 최근 검색어 목록 조회
   useEffect(() => {
-    const fetchRecentSearches = async () => {
-      try {
-        setIsPageLoading(true);
-        const data = await recentsearchAPI.getRecentSearches();
-        setRecentSearches(data);
-      } catch (error) {
-        console.error('최근 검색어 조회 실패:', error);
-      } finally {
-        setIsPageLoading(false);
-      }
-    };
-
     fetchRecentSearches();
   }, []);
 
