@@ -48,7 +48,7 @@ export const fetchReadingRecordsNotRead = async (currentDate) => {
         data: responseNotRead.data.data.recordList.map(
           RoomListNotReadAPIResponse
         ),
-        nickname: responseNotRead.data.data.nickName,
+        signupDate: responseNotRead.data.data.userCreatedAt,
       };
     } else {
       throw new Error(responseNotRead.data.message || '서버 응답 오류');
@@ -75,7 +75,7 @@ export const fetchReadingRecordsRead = async (currentDate) => {
       return {
         success: true,
         data: responseRead.data.data.recordList.map(RoomListReadAPIResponse),
-        nickname: responseRead.data.data.nickName,
+        signupDate: responseRead.data.data.userCreatedAt,
       };
     } else {
       throw new Error(responseRead.data.message || '서버 응답 오류');

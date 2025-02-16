@@ -3,16 +3,18 @@ import styled from 'styled-components';
 
 const Overlay = styled.div`
   position: fixed;
+  width: 393px; // 393px고정
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.42);
   z-index: 50;
 `;
 
 const PopupContainer = styled.div`
   position: fixed;
+  width: 351px; // 좌우 margin더하면 393px
   bottom: 24px;
   left: 21px;
   right: 21px;

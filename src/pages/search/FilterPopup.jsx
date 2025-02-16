@@ -9,22 +9,27 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  width: 393px; // 393px고정
+  background-color: rgba(0, 0, 0, 0.42);
   z-index: 50;
 `;
 
 const PopupContainer = styled.div`
   position: fixed;
+  width: 393px; // 393px고정
   bottom: 0;
   left: 0;
   right: 0;
   background: white;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
-  padding: 24px;
   z-index: 51;
   max-height: 90vh;
   overflow-y: auto;
+`;
+
+const PopupSubContainer = styled.div`
+  margin: 24px; // PopupConatienr에서 padding처리 안돼 overlay때문에
 `;
 
 const CategoryContainer = styled.div`
@@ -116,40 +121,42 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
     <>
       <Overlay onClick={onClose} />
       <PopupContainer>
-        <CategoryContainer>
-          {categories.map((category) => (
-            <CategoryButton
-              key={category}
-              $isSelected={selectedCategory === category}
-              onClick={() => handleCategoryClick(category)}
-            >
-              {category}
-            </CategoryButton>
-          ))}
-        </CategoryContainer>
+        <PopupSubContainer>
+          <CategoryContainer>
+            {categories.map((category) => (
+              <CategoryButton
+                key={category}
+                $isSelected={selectedCategory === category}
+                onClick={() => handleCategoryClick(category)}
+              >
+                {category}
+              </CategoryButton>
+            ))}
+          </CategoryContainer>
 
-        <DatePicker
-          label="모집 마감일"
-          startDate={deadlineStartDate}
-          endDate={deadlineEndDate}
-          onStartDateChange={setDeadlineStartDate}
-          onEndDateChange={setDeadlineEndDate}
-        />
+          <DatePicker
+            label="모집 마감일"
+            startDate={deadlineStartDate}
+            endDate={deadlineEndDate}
+            onStartDateChange={setDeadlineStartDate}
+            onEndDateChange={setDeadlineEndDate}
+          />
 
-        <DatePicker
-          label="방 기간"
-          startDate={periodStartDate}
-          endDate={periodEndDate}
-          onStartDateChange={setPeriodStartDate}
-          onEndDateChange={setPeriodEndDate}
-        />
+          <DatePicker
+            label="방 기간"
+            startDate={periodStartDate}
+            endDate={periodEndDate}
+            onStartDateChange={setPeriodStartDate}
+            onEndDateChange={setPeriodEndDate}
+          />
 
-        <CountSlider
-          initialValue={$currentFilters.recordcnt || 0}
-          onValueChange={(value) => setRecordCount(value)}
-        />
+          <CountSlider
+            initialValue={$currentFilters.recordcnt || 0}
+            onValueChange={(value) => setRecordCount(value)}
+          />
 
-        <ApplyButton onClick={handleApply}>적용</ApplyButton>
+          <ApplyButton onClick={handleApply}>적용</ApplyButton>
+        </PopupSubContainer>
       </PopupContainer>
     </>
   );

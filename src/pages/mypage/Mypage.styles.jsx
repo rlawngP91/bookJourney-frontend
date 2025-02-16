@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const MyPageContainer = styled.div`
-  width: 100%;
-  min-height: 100vh;
+  width: 393px; // 100% 393px반영
+  height: 764px; // Footer 를 제외한 높이
   padding-top: 45px;
   background-color: #f9fafb;
 `;
@@ -15,30 +15,39 @@ export const ProfileSection = styled.div`
 `;
 
 export const ProfileImage = styled.div`
-  width: 96px;
-  height: 96px;
+  width: 79px;
+  height: 79px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: ${({ $imageUrl }) =>
     $imageUrl ? `url(${$imageUrl}) no-repeat center/cover` : '#DBEAFE'};
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 `;
 
-export const NickName = styled.h2`
-  font-size: 20px;
-  font-weight: 700;
+export const NickName = styled.span`
   margin-bottom: 4px;
-  color: #111827;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 13.805px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 13.805px; /* 100% */
+  letter-spacing: 0.431px;
 `;
 
 export const Email = styled.p`
-  font-size: 14px;
-  color: #6b7280;
+  color: #88909b;
+  font-family: Pretendard;
+  font-size: 12.079px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 13.805px; /* 114.286% */
+  letter-spacing: 0.431px;
 `;
 
 export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
 `;
 
 export const MenuItem = styled.button`
@@ -58,7 +67,8 @@ export const MenuItem = styled.button`
 `;
 
 export const MenuIcon = styled.div`
-  margin-right: 16px;
+  margin-right: 16.79px;
+  margin-left: 23.8px;
   display: flex;
   align-items: center;
 
@@ -69,6 +79,11 @@ export const MenuIcon = styled.div`
 `;
 
 export const MenuText = styled.span`
-  font-size: 16px;
-  color: #1f2937;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(--Label-Medium-Line-Height, 16px); /* 114.286% */
+  letter-spacing: var(--Label-Medium-Tracking, 0.5px);
 `;

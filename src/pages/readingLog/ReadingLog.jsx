@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Container,
+  HeaderContainer,
   FilterButtons,
   FilterLeftButton,
   FilterRightButton,
@@ -28,7 +29,7 @@ const ReadingLog = () => {
   const [currentDate, setCurrentDate] = useState('2025년 2월');
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [rooms, setRooms] = useState([]);
-  // const [signupDate, setSignupDate] = useState('');
+  const [signupDate, setSignupDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const ReadingLog = () => {
 
         if (result.success) {
           setRooms(result.data);
-          // setSignupDate(result.signupDate);
+          setSignupDate(result.signupDate);
         } else {
           setRooms([]);
         }
@@ -60,7 +61,7 @@ const ReadingLog = () => {
 
         if (result.success) {
           setRooms(result.data);
-          // setSignupDate(result.signupDate);
+          setSignupDate(result.signupDate);
         } else {
           setRooms([]);
         }
@@ -81,9 +82,12 @@ const ReadingLog = () => {
 
   if (isLoading) return <LoadingPage />;
 
+  console.log(signupDate);
   return (
     <Container>
-      <h1 className="readinglog-title">독서기록장</h1>
+      <HeaderContainer>
+        <span className="readinglog-title">독서기록장</span>
+      </HeaderContainer>
 
       <FilterButtons>
         <FilterLeftButton
@@ -101,9 +105,14 @@ const ReadingLog = () => {
       </FilterButtons>
 
       <DateSelector onClick={handleDateClick}>
-        <span>{currentDate}</span>
-        <img src={arrowBtn} alt="arrowBtn" />
-        <span className="roomtotal">전체 {rooms.length}</span>
+        <div className="roomcontainer">
+          <span className="room">전체</span>
+          <span className="roomtotal">{rooms.length}</span>
+        </div>
+        <div className="datecontainer">
+          <span className="date">{currentDate}</span>
+          <img src={arrowBtn} alt="arrowBtn" />
+        </div>
       </DateSelector>
 
       {rooms.length === 0 ? (
@@ -120,9 +129,11 @@ const ReadingLog = () => {
       <FooterContainer>
         <Footer />
       </FooterContainer>
+
       {showDatePopup && (
         <DateSelectorPopup
           currentDate={currentDate}
+          signupDate={signupDate}
           onClose={() => setShowDatePopup(false)}
           onSelect={(date) => {
             setCurrentDate(date);

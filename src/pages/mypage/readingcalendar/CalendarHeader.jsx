@@ -4,7 +4,7 @@ import backIcon from '../../../assets/leftarrow.svg';
 
 const HeaderWrapper = styled.div`
   position: fixed;
-  width: 100%;
+  width: 393px; // 100% 393px
   height: 80px;
   display: flex;
   left: 0;

@@ -17,7 +17,7 @@ const MonthSelector = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #4b96f8;
+  background-color: #6aa5f8;
   border-radius: 22px;
   gap: 22.48px;
   padding: 10px 10px;
