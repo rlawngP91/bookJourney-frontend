@@ -67,7 +67,7 @@ export const Container = styled.div`
     white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
     word-break: break-all;
     margin: 0;
-
+    margin-top: 2px;
     color: #a3a3a3;
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
@@ -75,12 +75,11 @@ export const Container = styled.div`
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
-    letter-spacing: 0.1px;
   }
   .separate-line {
     width: 118px;
     height: 1px;
-    margin-top: 6px;
+    margin-top: 4px;
     background: #d9d9d9;
   }
 
