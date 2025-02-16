@@ -97,7 +97,7 @@ export const Container = styled.div`
   }
 
   .place-holder {
-    height: 44px;
+    height: 84px;
     width: 100%;
   }
 
@@ -228,5 +228,23 @@ export const Container = styled.div`
     height: 852px;
     background-color: rgba(0, 0, 0, 0.42);
     z-index: 100; /* 팝업 아래 배경보다 높은 z-index */
+  }
+
+  .books-length {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 32px;
+    top: 35px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .books-count-num {
+    position: absolute;
+    color: #a3a3a3;
+    left: 38px;
+    font-size: 16px;
+    font-weight: 600;
   }
 `;

@@ -172,6 +172,9 @@ const Bookmark = () => {
             전체삭제
           </span>
         )}
+        <p className="books-length">
+          전체<span className="books-count-num">{books.length}</span>
+        </p>
         {books.length === 0 ? ( // 조건부 렌더링 추가
           <span className="no-bookmark">즐겨찾기 책이 없습니다.</span>
         ) : (
