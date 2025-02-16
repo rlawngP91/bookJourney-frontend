@@ -19,6 +19,7 @@ const float = keyframes`
 
 const LoadingContainer = styled.div`
   display: flex;
+  width: 393px; // 393px고정
   flex-direction: column;
   align-items: center;
   justify-content: center;

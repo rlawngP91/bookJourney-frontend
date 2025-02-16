@@ -24,7 +24,7 @@ export const ContentContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 56px 0 87px;
+  padding: 56px 0 88px;
 `;
 
 export const FooterContainer = styled.div`

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  width: 100%;
+  width: 393px; // 100% 393px고정
   min-height: 100vh;
   background: #f6f7f9;
 
@@ -21,7 +21,10 @@ export const Container = styled.div`
 export const FilterButtons = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  height: 40px;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-bottom: 24px;
   border-radius: 100px;
   background: #f6f7f9;
   padding: 4px;
@@ -67,33 +70,66 @@ export const FilterRightButton = styled.button`
 
 export const DateSelector = styled.div`
   display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  color: #000;
-  font-family: Pretendard;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: var(--Label-Medium-Line-Height, 16px); /* 123.077% */
-  letter-spacing: var(--Label-Medium-Tracking, 0.5px);
+  height: 18px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 191px;
+  flex-shrink: 0;
 
-  .img {
-    margin-left: 5px;
-    width: 18px;
-    height: 18px;
+  .roomcontainer {
+    display: flex;
+    width: fit-content;
+    height: 16px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    flex-shrink: 0;
   }
-
+  .room {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: var(--Label-Medium-Line-Height, 16px); /* 100% */
+    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
+  }
   .roomtotal {
-    margin-left: auto;
+    color: #a3a3a3;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: var(--Label-Medium-Line-Height, 16px); /* 100% */
+    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
+  }
+  .datecontainer {
+    display: flex;
+    width: fit-content;
+    height: 18px;
+    padding-right: 0px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+  .date {
     color: #000;
     font-family: Pretendard;
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
-    line-height: var(--Label-Medium-Line-Height, 16px); /* 100% */
+    line-height: var(--Label-Medium-Line-Height, 16px); /* 123.077% */
     letter-spacing: var(--Label-Medium-Tracking, 0.5px);
+  }
+  .arrowBtn {
+    display: flex;
+    width: 18px;
+    height: 18px;
+    transform: rotate(-90deg);
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
   }
 `;
 
