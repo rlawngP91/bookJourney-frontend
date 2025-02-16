@@ -42,6 +42,12 @@ export const Wrapper = styled.div`
     position: relative;
     box-sizing: border-box; /* ✅ 테두리가 생겨도 크기 유지 */
 
+    .clear-btn {
+      position: absolute;
+      right: 40px;
+      top: 33px;
+    }
+
     .error {
       position: absolute;
       bottom: -18px;
@@ -250,6 +256,14 @@ export const Wrapper = styled.div`
     gap: 13px;
     padding-top: 52px;
     padding-bottom: 132px;
+    position: relative;
+    box-sizing: border-box; /* ✅ 테두리가 생겨도 크기 유지 */
+
+    .clear-btn {
+      position: absolute;
+      right: 40px;
+      top: 88px;
+    }
 
     .label {
       margin-left: 22px;

@@ -8,6 +8,7 @@ import {
 } from './MakeReadwithTogether.styles';
 import { createRoom } from '../../apis/room'; // 방 생성 API 호출
 import DatePicker from './DatePicker';
+import clearbtn from '../../assets/clearbtn.svg';
 
 const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
   const today = new Date();
@@ -143,6 +144,11 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
             onChange={handleRoomNameChange}
             placeholder="다른 사람들에게 보여질 방 이름이에요."
           />
+          {roomName.length > 0 && (
+            <div className="clear-btn" onClick={() => setRoomName('')}>
+              <img src={clearbtn} />
+            </div>
+          )}
           {roomNameError && <div className="error">{roomNameError}</div>}
         </div>
 
@@ -189,6 +195,11 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
               onChange={handlePasswordChange}
               placeholder="비밀번호 4자리를 입력해주세요."
             />
+            {password.length > 0 && (
+              <div className="clear-btn" onClick={() => setPassword('')}>
+                <img src={clearbtn} />
+              </div>
+            )}
             {passwordError && <div className="error">{passwordError}</div>}
           </div>
         )}
