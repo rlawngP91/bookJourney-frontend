@@ -5,14 +5,15 @@ export const Container = styled.div`
   width: 393px;
   flex-direction: column;
   overflow-y: hidden;
-  padding: 0 0 80px;
+  padding: 0 0 88px;
+  margin-top: 23px;
 `;
 
-export const RoomItem = styled.div`
+export const Item = styled.div`
   display: flex;
   height: 123px;
   gap: 16px;
-  padding: 16px;
+  padding: 12px 24px;
 
   .book-cover {
     width: 84px;
@@ -33,16 +34,16 @@ export const BookInfo = styled.div`
     font-size: 10px;
     font-style: normal;
     font-weight: 500;
-    line-height: var(--Label-Small-Line-Height, 16px); /* 160% */
+    line-height: 160%; /* 160% */
     letter-spacing: var(--Label-Small-Tracking, 0.5px);
   }
 
-  .bookMetaContainer {
+  .BookContainer {
     display: flex;
-    padding-right: 10px;
-    gap: 5px;
+    gap: 7px;
 
-    .roomBook {
+    .BookTitle {
+      width: 180px;
       color: var(--sds-color-text-default-default);
       font-family: Pretendard;
       font-size: 15px;
@@ -50,6 +51,12 @@ export const BookInfo = styled.div`
       font-weight: 500;
       line-height: var(--Label-Small-Line-Height, 16px); /* 106.667% */
       letter-spacing: var(--Label-Small-Tracking, 0.5px);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 32px;
     }
 
     .bookMetaBtn {
@@ -65,14 +72,17 @@ export const BookInfo = styled.div`
     display: flex;
     gap: 12px;
     align-items: center;
-    margin-top: 42px;
+    margin-top: auto;
   }
 `;
 
 export const Tag = styled.span`
   display: inline-flex;
-  width: 41.064px;
-  height: 20.869px;
+  width: 40px;
+  height: 21px;
+  position: absolute;
+  right: 0;
+  top: 43px;
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
@@ -85,7 +95,7 @@ export const Tag = styled.span`
   font-size: 9.624px;
   font-style: normal;
   font-weight: 500;
-  line-height: 13.464px; /* 139.895% */
+  line-height: 139.895%; /* 139.895% */
   letter-spacing: 0.096px;
 `;
 

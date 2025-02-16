@@ -6,9 +6,10 @@ import { mypageReadingCalendarAPI } from '../../../apis/mypageReadingCalendarAPI
 
 const CalendarGrid = styled.div`
   display: grid;
-  width: 100%;
+  /* width: 100%; */
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
+  padding: 0 14px;
 `;
 
 const WeekDay = styled.div`
@@ -29,7 +30,7 @@ const DateCell = styled.div`
 `;
 
 const DateNumber = styled.span`
-  color: #666;
+  color: rgba(0, 0, 0, 0.33);
   font-family: Pretendard;
   font-size: 17.531px;
   font-style: normal;
@@ -38,8 +39,8 @@ const DateNumber = styled.span`
 `;
 
 const BookImage = styled.img`
-  width: 80%;
-  height: 80%;
+  width: 45.35px;
+  height: 66.52px;
   object-fit: cover;
 `;
 
@@ -157,9 +158,10 @@ const CalendarContent = ({ selectedDate }) => {
         >
           {date && (
             <>
-              <DateNumber>{date}</DateNumber>
-              {calendarData[date] && (
+              {calendarData[date] ? (
                 <BookImage src={calendarData[date]} alt={`Book on ${date}`} />
+              ) : (
+                <DateNumber>{date}</DateNumber>
               )}
             </>
           )}
