@@ -11,6 +11,7 @@ import clock2 from '../../assets/clock2.svg';
 import note from '../../assets/note.svg';
 import group from '../../assets/group.svg';
 import MemberHeader from '../Member/MemberHeader';
+import decodeEntities from '../../utils/decodeEntities';
 
 export default function TabGroup2({ roomData }) {
   const [activeTab, setActiveTab] = useState('책정보'); // 현재 탭 상태 관리
@@ -43,20 +44,33 @@ export default function TabGroup2({ roomData }) {
           <InfoContainer>
             <div className="line">
               <div className="first">출판사</div>
-              <div>{safeRoomData?.publisher || ''}</div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: decodeEntities(
+                    safeRoomData?.publisher || '출판사 정보없음'
+                  ),
+                }}
+              />
             </div>
             <div className="line">
               <div className="first">출간일</div>
-              <div>{safeRoomData?.publishedDate || ''}</div>
+              <div>{safeRoomData?.publishedDate || '출간일 정보없음'}</div>
             </div>
             <div className="line">
               <div className="first">ISBN</div>
-              <div>{safeRoomData?.isbn || ''}</div>
+              <div>{safeRoomData?.isbn || 'ISBN 정보없음'}</div>
             </div>
           </InfoContainer>
           <BookDetail>
             <div className="introduce">책 소개</div>
-            <div className="detail">{safeRoomData?.description || ''}</div>
+            <div
+              className="detail"
+              dangerouslySetInnerHTML={{
+                __html: decodeEntities(
+                  safeRoomData?.description || '책소개 정보없음'
+                ),
+              }}
+            />
           </BookDetail>
         </>
       ) : (

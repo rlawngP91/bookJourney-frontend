@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
+  width: 393px;
   background-color: #fef7f7;
   .buttons {
     flex-direction: row;
@@ -151,13 +151,11 @@ export const InfoContainer2 = styled.div`
 `;
 
 export const BookDetail = styled.div`
-  position: relative;
   display: flex;
-  height: 100%;
+  height: auto;
   width: 393px;
   flex-direction: column;
-  padding: 65px 55px 30px 55px;
-  margin-bottom: 90px;
+  padding: 65px 55px 130px 55px;
   box-sizing: border-box;
 
   gap: 15px;
@@ -167,6 +165,26 @@ export const BookDetail = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
+  position: relative;
+
+  .introduce {
+    position: absolute;
+    left: 48.5%;
+    margin-left: -10px;
+    margin-top: -60px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    color: #a3a3a3;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+  }
 
   .numcontainer {
     position: absolute;
