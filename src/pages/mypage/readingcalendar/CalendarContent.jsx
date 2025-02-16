@@ -30,7 +30,7 @@ const DateCell = styled.div`
 `;
 
 const DateNumber = styled.span`
-  color: #666;
+  color: rgba(0, 0, 0, 0.33);
   font-family: Pretendard;
   font-size: 17.531px;
   font-style: normal;

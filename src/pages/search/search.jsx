@@ -75,38 +75,42 @@ export default function Search() {
   };
 
   // searchBar 돋보기 Button
-  const handleSearch = async () => {
-    if (!searchQuery.trim()) return;
+  const handleSearch = async (directQuery, newListType) => {
+    const queryToUse = directQuery || searchQuery;
+    const typeToUse = newListType || listType;
+
+    if (!queryToUse.trim()) return;
 
     setIsSearchExecuted(true);
-    setBookPage(0);
-    setRoomPage(0);
-    setBookHasMore(true);
-    setRoomHasMore(true);
 
     try {
       setIsDataLoading(true);
-      const [booksHasNext, roomsHasNext] = await Promise.all([
-        fetchBookSearchResults({
-          searchQuery,
+
+      if (typeToUse === '책 목록') {
+        setBookPage(0);
+        setBookHasMore(true);
+        const booksHasNext = await fetchBookSearchResults({
+          searchQuery: queryToUse,
           searchType,
           filters: appliedFilters,
           setBooks,
           page: 0,
           isLoadingMore: false,
-        }),
-        fetchRoomSearchResults({
-          searchQuery,
+        });
+        setBookHasMore(booksHasNext);
+      } else {
+        setRoomPage(0);
+        setRoomHasMore(true);
+        const roomsHasNext = await fetchRoomSearchResults({
+          searchQuery: queryToUse,
           searchType,
           filters: appliedFilters,
           setRooms,
           page: 0,
           isLoadingMore: false,
-        }),
-      ]);
-
-      setBookHasMore(booksHasNext);
-      setRoomHasMore(roomsHasNext);
+        });
+        setRoomHasMore(roomsHasNext);
+      }
     } catch (error) {
       console.error('Search failed:', error);
     } finally {
@@ -143,69 +147,13 @@ export default function Search() {
     setShowFilterPopup(false);
 
     if (searchQuery) {
-      try {
-        setIsDataLoading(true);
-
-        const [booksHasNext, roomsHasNext] = await Promise.all([
-          fetchBookSearchResults({
-            searchQuery,
-            searchType,
-            filters: appliedFilters,
-            setBooks,
-            page: 0,
-            isLoadingMore: false,
-          }),
-          fetchRoomSearchResults({
-            searchQuery,
-            searchType,
-            filters: appliedFilters,
-            setRooms,
-            page: 0,
-            isLoadingMore: false,
-          }),
-        ]);
-
-        setBookHasMore(booksHasNext);
-        setRoomHasMore(roomsHasNext);
-      } catch (error) {
-        console.error('Filter apply failed:', error);
-      } finally {
-        setIsDataLoading(false);
-      }
+      handleSearch();
     }
   };
 
   const handleChipClick = async (text) => {
     setSearchQuery(text);
-    try {
-      setIsDataLoading(true);
-
-      const [booksHasNext, roomsHasNext] = await Promise.all([
-        fetchBookSearchResults({
-          searchQuery,
-          searchType,
-          filters: appliedFilters,
-          setBooks,
-          page: 0,
-          isLoadingMore: false,
-        }),
-        fetchRoomSearchResults({
-          searchQuery,
-          searchType,
-          filters: appliedFilters,
-          setRooms,
-          page: 0,
-          isLoadingMore: false,
-        }),
-      ]);
-
-      setBookHasMore(booksHasNext);
-      setRoomHasMore(roomsHasNext);
-    } catch (error) {
-      console.error('Search failed:', error);
-    } finally {
-      setIsDataLoading(false);
-    }
+    handleSearch(text);
   };
 
   // 최근 검색어 목록 조회
@@ -356,13 +304,19 @@ export default function Search() {
           <>
             <ListTypeContainer $searchQuery={searchQuery}>
               <ListTypeButton
-                onClick={() => setListType('책 목록')}
+                onClick={() => {
+                  setListType('책 목록');
+                  handleSearch(searchQuery, '책 목록');
+                }}
                 $isSelected={listType === '책 목록'}
               >
                 책 목록
               </ListTypeButton>
               <ListTypeButton
-                onClick={() => setListType('같이읽기 목록')}
+                onClick={() => {
+                  setListType('같이읽기 목록');
+                  handleSearch(searchQuery, '같이읽기 목록');
+                }}
                 $isSelected={listType === '같이읽기 목록'}
               >
                 같이읽기 목록
