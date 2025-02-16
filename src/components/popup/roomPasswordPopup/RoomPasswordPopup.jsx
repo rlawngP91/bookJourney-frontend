@@ -119,7 +119,19 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
           <Text>비밀번호를 입력해주세요</Text>
         </DescriptionContainer>
         {loading ? (
-          <div>방 정보를 불러오는 중...</div>
+          <div>
+            <InfoContainer>
+              <RoomTitle>방 이름</RoomTitle>
+              <HostNickname>HOST 이름</HostNickname>
+            </InfoContainer>
+            <PasswordDotsContainer>
+              {[0, 1, 2, 3].map((index) => (
+                <PasswordDot key={index} isError={isError}>
+                  {inputPassword[index] && <DotIndicator isError={isError} />}
+                </PasswordDot>
+              ))}
+            </PasswordDotsContainer>
+          </div>
         ) : (
           <>
             <InfoContainer>

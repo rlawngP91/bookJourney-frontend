@@ -10,6 +10,7 @@ const ButtonGroupWrapper = styled.div`
   justify-content: space-between;
   padding: 0px 20px 0px 20px;
   background-color: transparent;
+  box-sizing: border-box;
 `;
 
 export const Button = styled.button`

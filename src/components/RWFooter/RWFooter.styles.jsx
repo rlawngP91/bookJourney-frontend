@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   width: 393px;
   height: 88px;
   flex-shrink: 0;
-  background: #fbfbfb;
+  background: transparent;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -19,7 +19,10 @@ export const Button = styled.button`
   flex-shrink: 0;
   border-radius: 9px;
   border: 1px solid #cecbcb;
-  background: #6aa5f8;
+  background-color: ${({ disabled }) =>
+    disabled ? '#d3d3d3' : '#6AA5F8'}; /* ✅ 비활성화 시 회색 */
+  cursor: ${({ disabled }) =>
+    disabled ? 'not-allowed' : 'pointer'}; /* ✅ 클릭 방지 */
 
   color: #fff;
   font-family: Pretendard;

@@ -21,6 +21,7 @@ import usePopup from '../../hooks/usePopup';
 import RecordPopup from '../popup/recordPopup/RecordPopup';
 import { useNavigate } from 'react-router-dom';
 import { exitRoom } from '../../apis/deleteRoom';
+import decodeEntities from '../../utils/decodeEntities';
 
 export default function RoomHeader({ roomData }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -71,7 +72,11 @@ export default function RoomHeader({ roomData }) {
             </div>
           </Header>
           <Title>
-            <div>{roomData.bookTitle}</div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: decodeEntities(roomData?.bookTitle || '제목 정보 없음'),
+              }}
+            />
           </Title>
           <div className="roomname">{roomData.roomName}</div>
           <Duration>
