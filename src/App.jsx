@@ -1,6 +1,8 @@
 import React from 'react';
 import Router from './routers/Router';
 import { createGlobalStyle } from 'styled-components';
+import ScrollToTop from './ScrolltoTop';
+import { BrowserRouter } from 'react-router-dom';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -54,6 +56,26 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
+      <BrowserRouter>
+        <GlobalStyle />
+        <ScrollToTop />
+        <Router />
+      </BrowserRouter>
+    </>
+  );
+}
+
+export default App;
+
+/* import React from 'react';
+import Router from './routers/Router';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle;
+
+function App() {
+  return (
+    <>
       <GlobalStyle />
       <Router />
     </>
@@ -61,3 +83,4 @@ function App() {
 }
 
 export default App;
+ */
