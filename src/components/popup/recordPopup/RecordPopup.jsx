@@ -64,7 +64,7 @@ export default function RecordPopup({ onClose, roomId }) {
                 <div className="p">p</div>
               </div>
               <div className="last">
-                *지난번에는 {currentPage || ''}p까지 읽었어요
+                *지난번에는 {currentPage || 0}p까지 읽었어요
               </div>
             </div>
             {error && (

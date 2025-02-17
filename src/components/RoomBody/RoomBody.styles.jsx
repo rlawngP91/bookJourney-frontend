@@ -31,12 +31,12 @@ export const NoRecord = styled.div`
 
 export const Container = styled.div`
   width: 393px;
-  height: 453.5px;
+  height: 100vh;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 0px 25px;
+  padding: 0px 25px 90px 25px;
   /* ✅ 내용이 height를 넘어가면 스크롤 */
   overflow-y: auto;
 
