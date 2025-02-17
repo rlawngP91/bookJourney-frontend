@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 
   position: fixed;
   bottom: 0;
-  z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
+  z-index: 100; /* 다른 요소 위에 나타나도록 설정 */
 `;
 
 export const Button = styled.button`

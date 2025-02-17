@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Wrapper, Container, Button, Box, Input } from './RecordPopup.styles';
+import { Wrapper, Container, Button, Box } from './RecordPopup.styles';
 import { postCurrentPage } from '../../../apis/postCurrentPage';
 import { getCurrentPage } from '../../../apis/getCurrentPage';
 
 export default function RecordPopup({ onClose, roomId }) {
-  const [nowPage, setNowPage] = useState(0); // ✅ 입력값 상태
+  const [nowPage, setNowPage] = useState(''); // ✅ 입력값 상태
   const [bookPage, setBookPage] = useState(0); // ✅ 책 총 페이지 수
   const [currentPage, setCurrentPage] = useState(0); // ✅ 사용자가 마지막으로 읽은 페이지
   const [error, setError] = useState('');
@@ -53,7 +53,8 @@ export default function RecordPopup({ onClose, roomId }) {
             <div className="box">
               <div className="label">오늘은 어디까지 읽으셨나요?</div>
               <div className="page">
-                <Input
+                <input
+                  className="input"
                   type="text"
                   value={nowPage}
                   onChange={handlePageChange}
@@ -64,7 +65,7 @@ export default function RecordPopup({ onClose, roomId }) {
                 <div className="p">p</div>
               </div>
               <div className="last">
-                *지난번에는 {currentPage || ''}p까지 읽었어요
+                *지난번에는 {currentPage || 0}p까지 읽었어요
               </div>
             </div>
             {error && (

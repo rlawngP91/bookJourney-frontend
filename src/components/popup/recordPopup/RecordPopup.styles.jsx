@@ -59,6 +59,25 @@ export const Container = styled.div`
     justify-content: center;
     gap: 8px;
 
+    .input {
+      width: 60.682px;
+      height: 48.545px;
+      flex-shrink: 0;
+      color: #000;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 17.53px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%; /* 24.542px */
+      border-radius: 8px;
+      background-color: #eae7e7;
+      border: none; /* ✅ 테두리 없애기 */
+      outline: none; /* ✅ 클릭(포커스) 시 테두리 없애기 */
+      box-shadow: none; /* ✅ 그림자 제거 (일부 브라우저 기본 스타일) */
+
+      border: 1px solid #6aa5f8;
+    }
     .slash {
       color: #000;
       text-align: center;
@@ -103,26 +122,6 @@ export const Container = styled.div`
     line-height: 19.378px; /* 133.333% */
     letter-spacing: 0.484px;
   }
-`;
-
-export const Input = styled.input`
-  width: 60.682px;
-  height: 48.545px;
-  flex-shrink: 0;
-  color: #000;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 17.53px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%; /* 24.542px */
-  border-radius: 8px;
-  background-color: #eae7e7;
-  border: none; /* ✅ 테두리 없애기 */
-  outline: none; /* ✅ 클릭(포커스) 시 테두리 없애기 */
-  box-shadow: none; /* ✅ 그림자 제거 (일부 브라우저 기본 스타일) */
-
-  border: 1px solid #6aa5f8;
 `;
 
 export const Button = styled.button`

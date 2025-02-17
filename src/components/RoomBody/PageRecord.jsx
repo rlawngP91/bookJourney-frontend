@@ -3,7 +3,12 @@ import { Wrapper, Page, Container, Box, Input } from './PageRecord.styles';
 import xbox from '../../assets/xbox.svg';
 import { postRecord } from '../../apis/postRecord';
 
-export default function PageRecord({ onClose, roomId, setPopupRecordCount }) {
+export default function PageRecord({
+  onClose,
+  roomId,
+  setPopupRecordCount,
+  fetchRecords,
+}) {
   const [page, setPage] = useState('');
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
@@ -49,6 +54,7 @@ export default function PageRecord({ onClose, roomId, setPopupRecordCount }) {
 
       // ✅ 먼저 PageRecord 팝업 닫기
       onClose();
+      await fetchRecords();
 
       // ✅ milestone 조건 확인 후 팝업 띄우기
       setTimeout(() => {
