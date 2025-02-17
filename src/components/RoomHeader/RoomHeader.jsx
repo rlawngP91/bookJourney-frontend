@@ -139,8 +139,8 @@ export default function RoomHeader({ roomData }) {
 
       {/* 각 팝업 조건부 렌더링 */}
       {popupType === 'xbox' && (
-        <Popup>
-          <div className="box">
+        <Popup onClick={closePopup}>
+          <div className="box" onClick={(e) => e.stopPropagation()}>
             <div className="title">잠깐!</div>
             <div className="message">
               <div>오늘은 어디까지 읽었는지 알려주세요</div>

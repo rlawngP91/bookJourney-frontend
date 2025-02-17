@@ -37,8 +37,8 @@ export default function Footer() {
         onClick={() => navigate('/search')}
         $isActive={isActive('/search')}
       >
-        <img src={isActive('/search') ? searchActive : search} alt="책찾기" />
-        <div>책찾기</div>
+        <img src={isActive('/search') ? searchActive : search} alt="검색" />
+        <div>검색</div>
       </Button>
       <Button
         onClick={() => navigate('/mypage')}

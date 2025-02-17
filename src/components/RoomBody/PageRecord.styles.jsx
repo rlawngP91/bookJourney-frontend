@@ -9,8 +9,8 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
-  width: 393px;
-  height: 852px;
+  width: 394px;
+  height: 100vh;
 `;
 
 export const Page = styled.input`

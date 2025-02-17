@@ -68,7 +68,7 @@ export const BookDetail = styled.div`
   height: auto;
   width: 393px;
   flex-direction: column;
-  padding: 65px 55px 130px 55px;
+  padding: 65px 55px 220px 55px;
   box-sizing: border-box;
 
   gap: 15px;

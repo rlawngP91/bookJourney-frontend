@@ -3,7 +3,12 @@ import { Wrapper, Title, Container, Box, Input } from './EntireRecord.styles';
 import xbox from '../../assets/xbox.svg';
 import { postRecord } from '../../apis/postRecord';
 
-export default function EntireRecord({ onClose, roomId, setPopupRecordCount }) {
+export default function EntireRecord({
+  onClose,
+  roomId,
+  setPopupRecordCount,
+  fetchRecords,
+}) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
@@ -41,6 +46,7 @@ export default function EntireRecord({ onClose, roomId, setPopupRecordCount }) {
 
       // ✅ 기존 팝업 닫기
       onClose();
+      await fetchRecords();
 
       // ✅ milestone 조건 확인 후 팝업 띄우기
       setTimeout(() => {
@@ -76,7 +82,7 @@ export default function EntireRecord({ onClose, roomId, setPopupRecordCount }) {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              maxLength={25}
+              maxLength={28}
               placeholder="제목"
             />
 
@@ -84,7 +90,7 @@ export default function EntireRecord({ onClose, roomId, setPopupRecordCount }) {
             <Input
               value={text}
               onChange={(e) => setText(e.target.value)}
-              maxLength={5000}
+              maxLength={3000}
               type="text"
               placeholder="기록을 입력해주세요"
             />
@@ -94,7 +100,7 @@ export default function EntireRecord({ onClose, roomId, setPopupRecordCount }) {
               <div className="page">
                 <div className="now">{text.length}</div>
                 <div className="slash">/</div>
-                <div>5000</div>
+                <div>3000</div>
               </div>
 
               <div

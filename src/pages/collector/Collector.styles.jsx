@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 393px;
-  height: 853px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f6f7f9;
