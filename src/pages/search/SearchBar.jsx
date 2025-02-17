@@ -127,7 +127,7 @@ export const SearchBar = ({
             </DeleteIconWrapper>
           )}
           <SearchIconWrapper>
-            <img src={searchIcon} alt="search" onClick={onSearch} />
+            <img src={searchIcon} alt="search" onClick={() => onSearch()} />
           </SearchIconWrapper>
         </IconContainer>
       </SearchInput>
