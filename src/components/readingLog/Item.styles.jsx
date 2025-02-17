@@ -87,7 +87,7 @@ export const Tag = styled.span`
   justify-content: center;
   align-items: center;
   border-radius: 100px;
-  background: #6aa5f8;
+  background: ${({ $status }) => ($status === '혼자' ? '#A3C7FA' : '#6AA5F8')};
   color: #fff;
   font-variant-numeric: lining-nums proportional-nums;
   font-feature-settings: 'dlig' on;

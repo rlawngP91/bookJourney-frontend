@@ -26,7 +26,7 @@ const RoomListNotRead = ({ rooms }) => {
         <Item key={room.id}>
           <img src={room.coverImage} className="book-cover" />
           <BookInfo>
-            <Tag>{room.people}</Tag>
+            <Tag $status={room.people}>{room.people}</Tag>
             <p className="roomAuthor">{room.author}</p>
             <div className="BookContainer">
               <span className="BookTitle">{room.book}</span>
