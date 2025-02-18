@@ -146,6 +146,7 @@ const Signup = () => {
         value={password}
         onChange={handlePasswordChange}
       />
+
       {/* 비밀번호 양식 오류 메시지 */}
       {passwordError && <p className="pwd-error-msg">{passwordError}</p>}
       {/* 비밀번호 확인 입력 */}
