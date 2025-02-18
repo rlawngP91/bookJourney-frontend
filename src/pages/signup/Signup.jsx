@@ -44,6 +44,13 @@ const Signup = () => {
   };
 
   const handleEmailVerification = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setVerificationMessage('이메일을 올바르게 입력해주세요.');
+      return;
+    }
+
     try {
       setVerificationMessage('');
       await requestEmailVerification(email);
@@ -127,11 +134,7 @@ const Signup = () => {
           className="verfication-result-message"
           style={{
             color:
-              verificationMessage === '인증되었습니다.'
-                ? '#6aa5f8'
-                : verificationMessage === '인증 실패. 다시 시도하세요.'
-                  ? '#FD7472'
-                  : '#6aa5f8',
+              verificationMessage === '인증되었습니다.' ? '#6aa5f8' : '#FD7472',
           }}
         >
           {verificationMessage}
