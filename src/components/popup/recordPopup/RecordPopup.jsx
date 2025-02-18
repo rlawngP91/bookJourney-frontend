@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Wrapper, Container, Button, Box } from './RecordPopup.styles';
 import { postCurrentPage } from '../../../apis/postCurrentPage';
 import { getCurrentPage } from '../../../apis/getCurrentPage';
+import { getInnerRoomInfo } from '../../../apis/getInnerRoomInfo';
 
-export default function RecordPopup({ onClose, roomId }) {
+export default function RecordPopup({ onClose, roomId, setRoomData }) {
   const [nowPage, setNowPage] = useState(''); // ✅ 입력값 상태
   const [bookPage, setBookPage] = useState(0); // ✅ 책 총 페이지 수
   const [currentPage, setCurrentPage] = useState(0); // ✅ 사용자가 마지막으로 읽은 페이지
@@ -38,6 +39,10 @@ export default function RecordPopup({ onClose, roomId }) {
       }
 
       await postCurrentPage(roomId, Number(nowPage));
+
+      const updatedRoomData = await getInnerRoomInfo(roomId);
+      setRoomData(updatedRoomData);
+
       onClose(); // ✅ 성공 시 팝업 닫기
     } catch (err) {
       setError(err.message);

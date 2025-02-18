@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Wrapper = styled.div`
   width: 393px;
   height: auto;
@@ -12,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const NoRecord = styled.div`
   width: 393px;
-  height: 453.5px;
+  height: 100vh;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -31,13 +36,13 @@ export const NoRecord = styled.div`
 
 export const Container = styled.div`
   width: 393px;
-  height: 100vh;
+  height: calc(100vh - 410px);
+  flex-grow: 1;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 0px 25px 90px 25px;
-  /* ✅ 내용이 height를 넘어가면 스크롤 */
+  padding: 0px 25px 150px 25px;
   overflow-y: auto;
 
   /* ✅ 스크롤바 투명하게 만들기 */
@@ -73,6 +78,7 @@ export const Category = styled.div`
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 export const Filter = styled.div`

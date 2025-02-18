@@ -107,6 +107,10 @@ export default function PageRecord({
               maxLength={1000} // ✅ 1000자 제한
               type="text"
               placeholder="기록을 입력해주세요"
+              onFocus={(e) => (e.target.placeholder = '')}
+              onBlur={(e) =>
+                (e.target.placeholder = text ? '' : '기록을 입력해주세요')
+              }
             />
 
             {/* 하단 버튼 및 글자수 표시 */}

@@ -42,7 +42,7 @@ export default function ReadWith() {
 
   return (
     <Wrapper>
-      <RoomHeader roomData={roomData} />
+      <RoomHeader roomData={roomData} setRoomData={setRoomData} />
       {roomData && <RoomBody roomData={roomData} />}
     </Wrapper>
   );
