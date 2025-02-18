@@ -12,6 +12,7 @@ export const Container = styled.div`
     left: 118px;
     width: 158px;
     height: 158px;
+    border-radius: 50%;
   }
 
   .title {

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 316px;
+  width: 246px;
   height: auto;
   flex-shrink: 0;
   position: relative;
@@ -20,7 +20,7 @@ export const StyledInput = styled.input`
   background: #fff;
   border: 1px solid #ddd;
   font-size: 16px;
-
+  padding-right: 70px;
   ::placeholder {
     color: #aaa;
   }
@@ -41,7 +41,7 @@ export const AlertText = styled.p`
   margin: 0;
   height: 16px;
   width: 152px;
-  color: #FD7472;
+  color: #fd7472;
   text-align: center;
   font-family: Pretendard;
   font-size: 11px;

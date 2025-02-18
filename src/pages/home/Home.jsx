@@ -266,7 +266,11 @@ const Home = () => {
           )}
         </StyledSlider>
 
-        <span className="description">*자기계발 베스트 셀러</span>
+        <span className="description">
+          {bestSellerList.length > 0 && bestSellerList[selectedToggle]
+            ? `*${bestSellerList[selectedToggle].genreName} 베스트셀러`
+            : '*자기계발 베스트 셀러'}
+        </span>
 
         <div className="circle-container">
           {[0, 1, 2].map((index) => (

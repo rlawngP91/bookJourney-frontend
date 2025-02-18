@@ -2,20 +2,19 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from './Onboarding.styles';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
-import Circle from '../../assets/circle.svg';
+//import Circle from '../../assets/circle.svg';
 import Title from '../../assets/title.svg';
 import { signUp } from '../../apis/signUpApi';
 
 const Onboarding = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
-
+  //sessionStorage에서 회원가입 정보 가져오기
+  const email = sessionStorage.getItem('email');
+  const password = sessionStorage.getItem('password');
+  const nickName = sessionStorage.getItem('nickName');
+  const imageUrl = sessionStorage.getItem('imageUrl');
   const handleBtnClick = async () => {
     try {
-      //sessionStorage에서 회원가입 정보 가져오기
-      const email = sessionStorage.getItem('email');
-      const password = sessionStorage.getItem('password');
-      const nickName = sessionStorage.getItem('nickName');
-      const imageUrl = sessionStorage.getItem('imageUrl');
       let favoriteGenres =
         JSON.parse(sessionStorage.getItem('favoriteGenres')) || [];
 
@@ -72,9 +71,9 @@ const Onboarding = () => {
 
   return (
     <Container>
-      <img className="logo" src={Circle} alt="로고" />
+      <img className="logo" src={imageUrl} alt="로고" />
       <img className="title" src={Title} alt="제목" />
-      <div className="user-hello">닉네임 님, 안녕하세요</div>
+      <div className="user-hello">{nickName}님, 안녕하세요</div>
       <BlueBtn
         text={'시작하기'}
         className={'blue-btn'}
