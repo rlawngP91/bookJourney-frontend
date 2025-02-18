@@ -88,7 +88,6 @@ export const Container = styled.div`
     border: 1px solid #d9d9d9;
     top: 212px;
     left: 123px;
-    cursor: pointer;
   }
 
   .description {
