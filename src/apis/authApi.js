@@ -55,22 +55,33 @@ export const login = async (email, password) => {
 export const reissueAccessToken = async () => {
   try {
     const refreshToken = localStorage.getItem('refreshToken'); // 로컬 스토리지에서 refreshToken 가져오기
+    console.log('[DEBUG] 저장된 refreshToken:', refreshToken);
     if (!refreshToken) {
       console.warn('[WARNING] RefreshToken이 없습니다. 다시 로그인하세요.');
       throw new Error('RefreshToken이 존재하지 않습니다.');
     }
 
-    console.log('[DEBUG] AccessToken 재발급 요청 시작');
+    console.log(
+      '[DEBUG] 보내는 요청 데이터:',
+      JSON.stringify({ refreshToken })
+    );
 
-    const response = await apiClient.post('/auth/reissue', { refreshToken });
+    const response = await apiClient.post(
+      '/auth/reissue',
+      { refreshToken },
+      {
+        withCredentials: true,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
 
     console.log('[DEBUG] AccessToken 재발급 API 응답:', response);
 
     console.log(
-      `여기 진짜 주목 response.data.accessToken = ${response.data.data.accessToken}`
+      `[DEBUG] response.data.accessToken = ${response.data.data.accessToken}`
     );
-    console.log(`여기주목 response.data.status = ${response.data.status}`);
-    console.log(`여기주목 response.data.code = ${response.data.code}`);
+    console.log(`[DEBUG] response.data.status = ${response.data.status}`);
+    console.log(`[DEBUG] response.data.code = ${response.data.code}`);
 
     if (response.data.code === 200) {
       const newAccessToken = response.data.data.accessToken; // 백엔드 명세서에 맞게 필드명 확인

@@ -127,11 +127,9 @@ const Record = () => {
       {popup1Visible && ( // popup1Visible 상태에 따라 조건부 렌더링 추가
         <div id="popup1">
           <div className="top">
-            <span className="popup-title">진행중인 기록에서 삭제</span>
-            <span className="popup-message">지금 읽고있는 책이에요.</span>
-            <span className="popup-message2">
-              진행중인 기록에서 삭제할까요?
-            </span>
+            <div className="popup-title">진행중 기록에서 삭제</div>
+            <div className="popup-message">지금 읽고있는 책이에요.</div>
+            <div className="popup-message2">진행중인 기록에서 삭제할까요?</div>
           </div>
           <div className="popup-bottom">
             <div className="popup-cancel" onClick={handleCloseInfoPopup}>

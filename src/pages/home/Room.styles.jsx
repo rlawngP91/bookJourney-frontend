@@ -53,8 +53,9 @@ export const Container = styled.div`
     letter-spacing: 0.122px;
   }
 
-  .book-title {
+  .room-book-title {
     width: 134px;
+    margin-top: 10px;
     text-align: center;
     overflow: hidden; // 을 사용해 영역을 감출 것
     text-overflow: ellipsis; // 로 ... 을 만들기

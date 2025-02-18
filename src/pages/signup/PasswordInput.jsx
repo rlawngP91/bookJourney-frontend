@@ -1,6 +1,10 @@
-import React from 'react';
+// PasswordInput.jsx
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { InputWrapper, StyledInput, LabelText } from './PasswordInput.styles';
+import Eyes from '../../assets/eye.svg';
+import EyesOff from '../../assets/eyeoff.svg';
+
 const PasswordInput = ({
   placeholder,
   labelText,
@@ -8,25 +12,37 @@ const PasswordInput = ({
   value,
   onChange,
 }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
+
   return (
     <InputWrapper className={className}>
       <LabelText>{labelText}</LabelText>
       <StyledInput
-        type="password"
+        type={isPasswordVisible ? 'text' : 'password'}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+      />
+      <img
+        className="toggle-icon"
+        src={isPasswordVisible ? EyesOff : Eyes}
+        alt={isPasswordVisible ? '비밀번호 숨기기' : '비밀번호 보기'}
+        onClick={togglePasswordVisibility}
       />
     </InputWrapper>
   );
 };
 
 PasswordInput.propTypes = {
-  placeholder: PropTypes.string.isRequired, //placeholder는 필수
-  labelText: PropTypes.string.isRequired, // labelText는 필수
-  className: PropTypes.string, // 클래스명은 필수 아님
-  value: PropTypes.string.isRequired, // value는 필수
-  onChange: PropTypes.func,
+  placeholder: PropTypes.string.isRequired,
+  labelText: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default PasswordInput;
