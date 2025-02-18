@@ -82,7 +82,7 @@ const ReadingLog = () => {
 
   if (isLoading) return <LoadingPage />;
 
-  console.log(signupDate);
+  // console.log(signupDate);
   return (
     <Container>
       <HeaderContainer>
@@ -100,7 +100,7 @@ const ReadingLog = () => {
           $active={!isRead}
           onClick={() => handleFilterChange(false)}
         >
-          다 안읽었어요
+          다 안 읽었어요
         </FilterRightButton>
       </FilterButtons>
 

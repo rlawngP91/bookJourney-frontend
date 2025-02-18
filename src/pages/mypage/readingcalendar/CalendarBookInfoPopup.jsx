@@ -83,7 +83,7 @@ const TitleText = styled.span`
 `;
 
 const ReadingStatus = styled.span`
-  /* color: ${({ $status }) => ($status === '혼자' ? '#A3C7FA' : '#6AA5F8')}; */
+  background: ${({ $status }) => ($status === '혼자' ? '#A3C7FA' : '#6AA5F8')};
 
   display: inline-flex;
   width: 40px;
@@ -95,7 +95,6 @@ const ReadingStatus = styled.span`
   justify-content: center;
   align-items: center;
   border-radius: 100px;
-  background: #6aa5f8;
   color: #fff;
   font-variant-numeric: lining-nums proportional-nums;
   font-feature-settings: 'dlig' on;
