@@ -93,34 +93,32 @@ export default function RoomBody({ roomData }) {
     setStartPage(''); // 페이지 범위 초기화
     setEndPage('');
   };
-
-  // ✅ 데이터 불러오기
-  useEffect(() => {
+  // ✅ 기록 데이터 불러오는 함수
+  const fetchRecords = async () => {
     if (!roomId) return;
-    console.log('✅ roomData 설정됨:', roomData);
+    setLoading(true);
+    setError('');
 
-    const fetchRecords = async () => {
-      setLoading(true);
-      setError('');
-      try {
-        let data;
-        if (activeTab === '페이지별') {
-          data = await getPageRecords(roomId, pageOrder, startPage, endPage);
-        } else {
-          data = await getEntireRecords(roomId, entireOrder);
-        }
-        setRecords(data);
-      } catch (err) {
-        console.error('❌ API 호출 오류:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
+    try {
+      let data;
+      if (activeTab === '페이지별') {
+        data = await getPageRecords(roomId, pageOrder, startPage, endPage);
+      } else {
+        data = await getEntireRecords(roomId, entireOrder);
       }
-    };
+      setRecords(data); // ✅ 최신 데이터 반영
+    } catch (err) {
+      console.error('❌ API 호출 오류:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // ✅ 페이지 로딩 시 한 번 실행
+  useEffect(() => {
     fetchRecords();
   }, [roomId, activeTab, pageOrder, entireOrder, startPage, endPage]);
-
   // ✅ milestone을 만족하면 CollectorPopup을 띄우기
   useEffect(() => {
     if (popupRecordCount !== null) {
@@ -147,12 +145,14 @@ export default function RoomBody({ roomData }) {
             onClose={() => setIsPopupOpen(false)}
             roomId={roomId}
             setPopupRecordCount={setPopupRecordCount} // ✅ 상태 전달
+            fetchRecords={fetchRecords} // ✅ fetchRecords 전달
           />
         ) : (
           <EntireRecord
             onClose={() => setIsPopupOpen(false)}
             roomId={roomId}
             setPopupRecordCount={setPopupRecordCount} // ✅ 상태 전달
+            fetchRecords={fetchRecords} // ✅ fetchRecords 전달
           />
         ))}
 

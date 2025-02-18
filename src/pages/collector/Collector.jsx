@@ -7,7 +7,7 @@ import titleImages from '../../assets/titles/titleImages';
 
 export default function Collector() {
   const navigate = useNavigate();
-  const [collectorNickname, setCollectorNickname] = useState('');
+  //  const [collectorNickname, setCollectorNickname] = useState('');
   const [recordCount, setRecordCount] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true); // ✅ 로딩 상태 추가
@@ -33,7 +33,7 @@ export default function Collector() {
       try {
         setLoading(true); // ✅ 로딩 시작
         const data = await getCollectorInfo();
-        setCollectorNickname(data.collectorNickname);
+        //setCollectorNickname(data.collectorNickname);
         setRecordCount(data.recordCount);
       } catch (error) {
         setError(error.message);
@@ -64,7 +64,8 @@ export default function Collector() {
       ) : (
         <>
           <img src={getImageForRecordCount(recordCount)} alt="수집가 이미지" />
-          <div>{collectorNickname || '수집가 닉네임 없음'}</div>
+          {/*           <div>{collectorNickname || '수집가 닉네임 없음'}</div>
+           */}
         </>
       )}
     </Wrapper>

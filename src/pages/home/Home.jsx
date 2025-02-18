@@ -339,9 +339,7 @@ const Home = () => {
                     </span>
                     <div className="bottom-side">
                       <p className="introduction-letter">
-                        &quot;
                         {popularBook.description || '책 소개가 없습니다'}
-                        &quot;
                       </p>
                     </div>
                   </div>

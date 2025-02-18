@@ -21,7 +21,7 @@ export const Container = styled.div`
     width: 393px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.42);
-    z-index: 100; /* 팝업 아래 배경보다 높은 z-index */
+    z-index: 500; /* 팝업 아래 배경보다 높은 z-index */
   }
 
   .title {
@@ -299,15 +299,26 @@ export const Container = styled.div`
 
   .introduction-letter {
     margin-left: 11px;
+    height: 63px;
+    width: 230px;
     padding: 0;
+
     color: #a3a3a3;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
     font-variant-numeric: lining-nums proportional-nums;
     font-feature-settings: 'dlig' on;
     font-family: Pretendard;
     font-size: 13.35px;
     font-style: normal;
     font-weight: 700;
-    line-height: 13.35px;
+    line-height: 21px; /* 157.309% */
+    letter-spacing: 0.133px;
   }
 
   .recruiting-room-info {

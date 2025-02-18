@@ -23,6 +23,9 @@ export const Wrapper = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 17.963px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
   }
 
   .percent {

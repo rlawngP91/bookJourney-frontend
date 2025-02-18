@@ -9,7 +9,7 @@ export const Container = styled.div`
   border-radius: 9px;
   background-color: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  z-index: 1001;
+  z-index: 1000;
 
   p {
     margin: 0;
@@ -32,6 +32,11 @@ export const Container = styled.div`
     display: flex;
     height: 50px;
     cursor: pointer;
+    color: #6aa5f8;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
     /*
     .left-img {
       margin-left: 37px;
