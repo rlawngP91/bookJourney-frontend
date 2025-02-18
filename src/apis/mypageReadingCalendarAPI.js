@@ -17,10 +17,21 @@ export const mypageReadingCalendarAPI = {
       );
 
       if (response.data.code === 200 && response.data.data.calendarList) {
+        // const transformedData = response.data.data.calendarList.reduce(
+        //   (acc, item) => {
+        //     const day = parseInt(item.date.split('.')[2]);
+        //     acc[day] = item.imageUrl;
+        //     return acc;
+        //   },
+        //   {}
+        // );
         const transformedData = response.data.data.calendarList.reduce(
           (acc, item) => {
             const day = parseInt(item.date.split('.')[2]);
-            acc[day] = item.imageUrl;
+            if (!acc[day]) {
+              acc[day] = [];
+            }
+            acc[day].push(item.imageUrl);
             return acc;
           },
           {}

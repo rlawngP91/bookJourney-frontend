@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   display: flex;
@@ -117,5 +118,14 @@ export const MetaItem = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: 23.505px; /* 200% */
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
   }
 `;

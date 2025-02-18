@@ -119,6 +119,7 @@ export const SearchBar = ({
           value={value}
           onChange={onChange}
           onKeyDown={handleKeyPress}
+          maxLength={15}
         />
         <IconContainer>
           {value && (

@@ -142,8 +142,8 @@ export const DateSelector = styled.div`
 export const NoItems = styled.div`
   justify-content: center;
   align-items: center;
-  margin-left: 147px;
-  margin-top: 275px;
+  margin-left: 144px;
+  margin-top: 190px;
   color: #666;
   font-family: Pretendard;
   font-size: 14px;
