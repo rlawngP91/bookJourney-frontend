@@ -271,6 +271,7 @@ export const ReviewList = styled.div`
   padding: 46px 25px 55px 55px;
   max-height: 450px;
   overflow-y: auto;
+  scroll-behavior: smooth; /* ✅ 스크롤을 부드럽게 이동 */
 
   /* ✅ 크롬, 사파리에서 스크롤바 숨김 */
   &::-webkit-scrollbar {

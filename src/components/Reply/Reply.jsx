@@ -13,7 +13,7 @@ import hamburgermenu from '../../assets/hamburgermenu.svg';
 import good from '../../assets/good.svg';
 import alreadygood from '../../assets/alreadygood.svg';
 import reply from '../../assets/reply.svg';
-import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
+import HamburgerMenu2 from '../HamburgerMenu/HamburgerMenu2';
 import { getReplys } from '../../apis/getReplys';
 import { postReply } from '../../apis/postReply';
 import { postReplyLike } from '../../apis/postReplyLike';
@@ -26,11 +26,19 @@ export default function Reply({ recordId, onClose }) {
   const [newComment, setNewComment] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedCommentId, setSelectedCommentId] = useState(null); // ✅ 선택된 commentId 저장
   const footerRef = useRef(null);
   const textareaRef = useRef(null);
   const maxLength = 1000; // 최대 글자 수
   const reviewListRef = useRef(null);
+
+  const handleMenuOpen = (commentId) => {
+    setSelectedCommentId(commentId);
+  };
+
+  const handleMenuClose = () => {
+    setSelectedCommentId(null);
+  };
 
   const handleInput = (e) => {
     setNewComment(e.target.value);
@@ -78,6 +86,7 @@ export default function Reply({ recordId, onClose }) {
   const fetchCommentsOnly = async () => {
     try {
       const data = await getReplys(recordId);
+      setRecordInfo(data.recordInfo);
       setComments(
         data.comments.map((comment) => ({
           ...comment,
@@ -176,19 +185,6 @@ export default function Reply({ recordId, onClose }) {
                     <div className="n">{recordInfo.nickName}</div>
                     <div className="t">{recordInfo.createdAt}</div>
                   </div>
-                  <div>
-                    <img
-                      src={hamburgermenu}
-                      onClick={() => setIsMenuOpen(true)}
-                      style={{ cursor: 'pointer' }}
-                    />
-                    {isMenuOpen && (
-                      <HamburgerMenu
-                        onClose={() => setIsMenuOpen(false)}
-                        recordId={recordInfo.recordId}
-                      />
-                    )}
-                  </div>
                 </div>
                 <div className="title2">{recordInfo.recordTitle}</div>
                 <div className="c">{recordInfo.content}</div>
@@ -223,19 +219,6 @@ export default function Reply({ recordId, onClose }) {
                   <div className="f">
                     <div className="n">{recordInfo.nickName}</div>
                     <div className="t">{recordInfo.createdAt}</div>
-                  </div>
-                  <div>
-                    <img
-                      src={hamburgermenu}
-                      onClick={() => setIsMenuOpen(true)}
-                      style={{ cursor: 'pointer' }}
-                    />
-                    {isMenuOpen && (
-                      <HamburgerMenu
-                        onClose={() => setIsMenuOpen(false)}
-                        recordId={recordInfo.recordId}
-                      />
-                    )}
                   </div>
                 </div>
                 <div className="c">{recordInfo.content}</div>
@@ -278,12 +261,14 @@ export default function Reply({ recordId, onClose }) {
                   <div>
                     <img
                       src={hamburgermenu}
-                      onClick={() => setIsMenuOpen(true)}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleMenuOpen(comment.commentId)} // ✅ 선택된 commentId 저장
                     />
-                    {isMenuOpen && (
-                      <HamburgerMenu
-                        onClose={() => setIsMenuOpen(false)}
+                    {selectedCommentId === comment.commentId && ( // ✅ 특정 commentId만 활성화
+                      <HamburgerMenu2
+                        onClose={handleMenuClose}
                         commentId={comment.commentId}
+                        fetchCommentsOnly={fetchCommentsOnly}
                       />
                     )}
                   </div>

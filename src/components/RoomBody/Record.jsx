@@ -210,7 +210,7 @@ export const Review2 = styled.div`
   }
 `;
 
-export default function Record({ record, activeTab, isPreview }) {
+export default function Record({ record, activeTab, isPreview, fetchRecords }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(record.like);
   const [likeCount, setLikeCount] = useState(record.recordLikeCount);
@@ -252,6 +252,7 @@ export default function Record({ record, activeTab, isPreview }) {
                 <HamburgerMenu
                   onClose={() => setIsMenuOpen(false)}
                   recordId={record.recordId}
+                  fetchRecords={fetchRecords} // ✅ fetchRecords 전달
                 />
               )}
             </div>
@@ -303,6 +304,7 @@ export default function Record({ record, activeTab, isPreview }) {
               <HamburgerMenu
                 onClose={() => setIsMenuOpen(false)}
                 recordId={record.recordId}
+                fetchRecords={fetchRecords} // ✅ fetchRecords 전달
               />
             )}
           </div>
