@@ -8,12 +8,12 @@ export const Wrapper = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   padding: 60px 25px 0px 25px;
+
   .roomname {
     padding-top: 11px;
-
     color: #000;
     font-family: Pretendard;
-    font-size: 11px;
+    font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 18.08px; /* 164.366% */
@@ -42,8 +42,8 @@ export const Title = styled.div`
 
   div {
     color: #000;
-    font-family: Inter;
-    font-size: 20.553px;
+    font-family: Pretendard;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
   }

@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { exitRoom } from '../../apis/deleteRoom';
 import decodeEntities from '../../utils/decodeEntities';
 
-export default function RoomHeader({ roomData }) {
+export default function RoomHeader({ roomData, setRoomData }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const [openedFromXbox, setOpenedFromXbox] = useState(false); // ✅ `pen` 팝업이 `xbox` 팝업에서 열린 경우 체크
@@ -175,6 +175,7 @@ export default function RoomHeader({ roomData }) {
               setOpenedFromXbox(false); // ✅ 상태 초기화
             }
           }}
+          setRoomData={setRoomData}
         />
       )}
 
