@@ -4,9 +4,9 @@ export const Wrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.42) !important ;
+  width: 393px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.42);
   display: flex;
   justify-content: center;
   align-items: end;
@@ -34,6 +34,7 @@ export const Button = styled.div`
   border: 1px solid #cecbcb;
   background-color: #fff;
   line-height: 50px;
+  cursor: pointer;
 `;
 
 export const Button2 = styled.div`
@@ -50,4 +51,5 @@ export const Button2 = styled.div`
   background-color: #fff;
   text-align: center;
   line-height: 42px;
+  cursor: pointer;
 `;

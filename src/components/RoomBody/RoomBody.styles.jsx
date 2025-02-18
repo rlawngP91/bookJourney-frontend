@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
 export const NoRecord = styled.div`
   width: 393px;
-  height: 453.5px;
+  height: 100vh;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -73,6 +73,7 @@ export const Category = styled.div`
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 export const Filter = styled.div`

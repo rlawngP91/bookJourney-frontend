@@ -87,16 +87,23 @@ export const Review = styled.div`
     .bottom {
       display: flex;
       flex-direction: row;
-      gap: 7px;
+      gap: 4.5px;
       align-items: center;
       justify-content: end;
 
+      color: #000;
+      font-family: Pretendard;
       font-size: 10.012px;
-      font-weight: 400;
-      padding-right: 12px;
+      font-style: normal;
+
+      .ww {
+        width: 13px;
+        text-align: center;
+      }
 
       .like-count {
-        color: #000;
+        width: 13px;
+        text-align: center;
       }
 
       .like-count.liked {
@@ -178,16 +185,23 @@ export const Review2 = styled.div`
   .bottom {
     display: flex;
     flex-direction: row;
-    gap: 7px;
+    gap: 4.5px;
     align-items: center;
     justify-content: end;
 
+    color: #000;
+    font-family: Pretendard;
     font-size: 10.012px;
-    font-weight: 400;
-    padding-right: 12px;
+    font-style: normal;
+
+    .ww {
+      width: 13px;
+      text-align: center;
+    }
 
     .like-count {
-      color: #000;
+      width: 13px;
+      text-align: center;
     }
 
     .like-count.liked {
@@ -228,7 +242,11 @@ export default function Record({ record, activeTab, isPreview }) {
                 <div className="time">{record.createdAt}</div>
               </div>
               {!isPreview && (
-                <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+                <img
+                  src={hamburgermenu}
+                  onClick={() => setIsMenuOpen(true)}
+                  style={{ cursor: 'pointer' }}
+                />
               )}
               {isMenuOpen && (
                 <HamburgerMenu
@@ -252,7 +270,7 @@ export default function Record({ record, activeTab, isPreview }) {
                     onClose={() => setIsReplyOpen(false)}
                   />
                 )}
-                <div>{record.commentCount}</div>
+                <div className="ww">{record.commentCount}</div>
                 <img
                   src={isLiked ? alreadygood : good}
                   alt="좋아요"
@@ -275,7 +293,11 @@ export default function Record({ record, activeTab, isPreview }) {
               <div className="time">{record.createdAt}</div>
             </div>
             {!isPreview && (
-              <img src={hamburgermenu} onClick={() => setIsMenuOpen(true)} />
+              <img
+                src={hamburgermenu}
+                onClick={() => setIsMenuOpen(true)}
+                style={{ cursor: 'pointer' }}
+              />
             )}
             {isMenuOpen && (
               <HamburgerMenu
@@ -302,7 +324,7 @@ export default function Record({ record, activeTab, isPreview }) {
                   onClose={() => setIsReplyOpen(false)}
                 />
               )}
-              <div>{record.commentCount}</div>
+              <div className="ww">{record.commentCount}</div>
 
               <img
                 src={isLiked ? alreadygood : good}

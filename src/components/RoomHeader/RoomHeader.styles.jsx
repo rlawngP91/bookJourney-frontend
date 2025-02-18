@@ -77,17 +77,16 @@ export const UserList = styled.div`
 `;
 
 export const Popup = styled.div`
-  position: fixed; /* 화면에 고정된 위치 */
-  top: 50%; /* 화면의 중앙 */
-  left: 50%; /* 화면의 중앙 */
-  transform: translate(-50%, -50%); /* 완벽한 중앙 정렬 */
-  z-index: 2000; /* 다른 요소 위로 올림 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
-  width: 100%;
-  height: 100%;
+  width: 393px;
+  height: 100vh;
 
   .box {
     display: flex;
@@ -95,6 +94,7 @@ export const Popup = styled.div`
     align-items: center;
     justify-self: center;
     width: 268px;
+    height: 144px;
     border-radius: 14px;
     background: #fff;
     box-shadow: 0px 2.73px 2.73px 0px rgba(0, 0, 0, 0.25);
@@ -115,12 +115,16 @@ export const Popup = styled.div`
       font-family: Pretendard;
       font-size: 12px;
       font-style: normal;
-      line-height: 140%; /* 16.8px */
-      padding-bottom: 20px;
+      padding-bottom: 26px;
       display: flex;
       flex-direction: row;
       gap: 3px;
       align-items: center;
+
+      img {
+        height: 15px;
+        width: 15px;
+      }
     }
 
     .buttons {
@@ -160,17 +164,16 @@ export const Popup = styled.div`
 `;
 
 export const Popup2 = styled.div`
-  position: fixed; /* 화면에 고정된 위치 */
-  top: 50%; /* 화면의 중앙 */
-  left: 50%; /* 화면의 중앙 */
-  transform: translate(-50%, -50%); /* 완벽한 중앙 정렬 */
-  z-index: 2000; /* 다른 요소 위로 올림 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
-  width: 100%;
-  height: 100%;
+  width: 393px;
+  height: 100vh;
 
   .exit {
     display: flex;
@@ -178,12 +181,13 @@ export const Popup2 = styled.div`
     align-items: center;
     justify-self: center;
     width: 268px;
+    height: 144px;
     border-radius: 14px;
     background: #fff;
     box-shadow: 0px 2.73px 2.73px 0px rgba(0, 0, 0, 0.25);
 
     .title {
-      padding: 24px 0px 13px 0px;
+      padding: 24px 0px 10px 0px;
       color: #000;
       font-family: Pretendard;
       font-size: 13px;
@@ -198,12 +202,11 @@ export const Popup2 = styled.div`
       font-family: Pretendard;
       font-size: 12px;
       font-style: normal;
-      line-height: 140%; /* 16.8px */
-      padding-bottom: 20px;
       display: flex;
       flex-direction: row;
       gap: 3px;
       align-items: center;
+      padding-bottom: 16px;
     }
 
     .buttons {

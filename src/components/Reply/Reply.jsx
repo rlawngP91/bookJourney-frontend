@@ -30,6 +30,7 @@ export default function Reply({ recordId, onClose }) {
   const footerRef = useRef(null);
   const textareaRef = useRef(null);
   const maxLength = 1000; // 최대 글자 수
+  const reviewListRef = useRef(null);
 
   const handleInput = (e) => {
     setNewComment(e.target.value);
@@ -48,9 +49,11 @@ export default function Reply({ recordId, onClose }) {
   const [likeCountRecord, setLikeCountRecord] = useState(0);
 
   useEffect(() => {
+    if (!recordId) return;
     fetchComments();
-  }, []);
+  }, [recordId]);
 
+  // ✅ 전체 데이터(기록 정보 + 댓글)를 불러오는 함수
   const fetchComments = async () => {
     setLoading(true);
     try {
@@ -58,15 +61,31 @@ export default function Reply({ recordId, onClose }) {
       setRecordInfo(data.recordInfo);
       setIsLikedRecord(Boolean(data.recordInfo.like));
       setLikeCountRecord(data.recordInfo.recordLikeCount);
-      const updatedComments = data.comments.map((comment) => ({
-        ...comment,
-        isLiked: Boolean(comment.like),
-      }));
-      setComments(updatedComments);
+      setComments(
+        data.comments.map((comment) => ({
+          ...comment,
+          isLiked: Boolean(comment.like),
+        }))
+      );
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ✅ 댓글만 업데이트하는 함수
+  const fetchCommentsOnly = async () => {
+    try {
+      const data = await getReplys(recordId);
+      setComments(
+        data.comments.map((comment) => ({
+          ...comment,
+          isLiked: Boolean(comment.like),
+        }))
+      );
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -83,10 +102,17 @@ export default function Reply({ recordId, onClose }) {
     try {
       await postReply(recordId, newComment);
       setNewComment('');
-      fetchComments();
       if (textareaRef.current) {
         textareaRef.current.style.height = '20px';
       }
+
+      await fetchCommentsOnly();
+
+      setTimeout(() => {
+        if (reviewListRef.current) {
+          reviewListRef.current.scrollTop = reviewListRef.current.scrollHeight;
+        }
+      }, 100);
     } catch (error) {
       console.error('❌ 댓글 전송 오류:', error);
     }
@@ -154,6 +180,7 @@ export default function Reply({ recordId, onClose }) {
                     <img
                       src={hamburgermenu}
                       onClick={() => setIsMenuOpen(true)}
+                      style={{ cursor: 'pointer' }}
                     />
                     {isMenuOpen && (
                       <HamburgerMenu
@@ -201,6 +228,7 @@ export default function Reply({ recordId, onClose }) {
                     <img
                       src={hamburgermenu}
                       onClick={() => setIsMenuOpen(true)}
+                      style={{ cursor: 'pointer' }}
                     />
                     {isMenuOpen && (
                       <HamburgerMenu
@@ -230,8 +258,7 @@ export default function Reply({ recordId, onClose }) {
             </div>
           )}
         </Comment>
-
-        <ReviewList>
+        <ReviewList ref={reviewListRef}>
           {comments.map((comment) => (
             <Review key={comment.commentId}>
               <div className="head2">

@@ -147,7 +147,11 @@ export default function RoomHeader({ roomData, setRoomData }) {
               <img src={pen} alt="Pen" />
             </div>
             <div className="buttons">
-              <div className="cancel" onClick={() => navigate('/home')}>
+              <div
+                className="cancel"
+                style={{ cursor: 'pointer' }}
+                onClick={() => navigate('/home')}
+              >
                 나가기
               </div>
               <div
@@ -157,6 +161,7 @@ export default function RoomHeader({ roomData, setRoomData }) {
                   setOpenedFromXbox(true); // ✅ xbox에서 pen을 열었음을 표시
                   openPopup('pen'); // 새 팝업 열기
                 }}
+                style={{ cursor: 'pointer' }}
               >
                 입력하기
               </div>
@@ -184,17 +189,25 @@ export default function RoomHeader({ roomData, setRoomData }) {
           <div className="exit">
             <div className="title">방 나가기</div>
             <div className="message">
-              <p>
+              <div>
                 남긴 기록이 모두 삭제됩니다.
                 <br />
                 방을 나가시겠습니까?
-              </p>
+              </div>
             </div>
             <div className="buttons">
-              <div className="cancel" onClick={() => closePopup(true)}>
+              <div
+                className="cancel"
+                style={{ cursor: 'pointer' }}
+                onClick={() => closePopup(true)}
+              >
                 취소
               </div>
-              <div className="delete" onClick={handleExitRoom}>
+              <div
+                className="delete"
+                style={{ cursor: 'pointer' }}
+                onClick={handleExitRoom}
+              >
                 나가기
               </div>
             </div>
