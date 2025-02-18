@@ -19,15 +19,27 @@ export const Wrapper = styled.div`
     text-align: center;
     padding: 88px 20px 0px 20px;
     box-sizing: border-box;
+    align-items: end;
 
     .bookname {
       color: #000;
-      text-align: center;
       font-family: Pretendard;
       font-size: 15px;
       font-style: normal;
       font-weight: 600;
-      width: 250px;
+      width: 80%;
+    }
+
+    .booknameloading {
+      height: 36px;
+      color: #000;
+      font-family: Pretendard;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+      width: 80%;
+      line-height: 36px;
+      text-align: center;
     }
 
     img {

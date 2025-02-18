@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   width: 393px;
   background-color: #fef7f7;
   .buttons {
@@ -79,7 +79,7 @@ export const InfoContainer2 = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 30px;
   box-sizing: border-box;
   display: flex;

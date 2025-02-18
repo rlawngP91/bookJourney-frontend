@@ -60,7 +60,7 @@ export default function InfoBody({ roomData, bookData }) {
       <Container>
         <Wrapper>
           <div className="title">
-            <div className="bookname">책 제목</div>
+            <div className="booknameloading">책 제목</div>
           </div>
           <div className="writer">지은이</div>
         </Wrapper>
