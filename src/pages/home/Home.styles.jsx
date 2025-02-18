@@ -37,7 +37,7 @@ export const Container = styled.div`
     cursor: pointer;
   }
 
-  .bell {
+  .exit {
     position: absolute;
     top: 78px;
     right: 37px;
@@ -246,26 +246,26 @@ export const Container = styled.div`
 
   .top-side {
     display: flex;
+    gap: 9px;
   }
 
   .book-title {
+    max-width: 180px;
     margin-top: 7px;
     margin-left: 11px;
     height: 21px;
     color: #000;
-    font-variant-numeric: lining-nums proportional-nums;
-    font-feature-settings: 'dlig' on;
-    font-family: Pretendard;
     font-size: 13.35px;
-    font-style: normal;
     font-weight: 700;
     line-height: 24.272px;
-    letter-spacing: 0.133px;
+    overflow: hidden; // 을 사용해 영역을 감출 것
+    text-overflow: ellipsis; // 로 ... 을 만들기
+    white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
+    word-break: break-all;
   }
 
   .reading-count {
     margin-top: 9px;
-    margin-left: 11px;
     width: 40.597px;
     height: 20.631px;
     flex-shrink: 0;
@@ -378,8 +378,12 @@ export const Container = styled.div`
 
   .popup {
     position: fixed;
-    top: 234px;
-    left: 63px;
+    top: 50%; /* 뷰포트 높이의 50% 위치 */
+    left: 50%; /* 뷰포트 너비의 50% 위치 */
+    transform: translate(
+      -50%,
+      -50%
+    ); /* 자신의 크기만큼 이동하여 정확한 중앙에 위치 */
     width: 268px;
     height: 144px;
     border-radius: 14px;
@@ -396,24 +400,20 @@ export const Container = styled.div`
   .popup-title {
     position: absolute;
     top: 24px;
-    left: 71px;
+    width: 100%;
+    text-align: center;
     color: #000;
-    font-family: Pretendard;
     font-size: 13px;
-    font-style: normal;
     font-weight: 600;
   }
 
   .popup-message {
     position: absolute;
     top: 52px;
-    left: 66px;
-    color: #000;
+    width: 100%;
     text-align: center;
-    font-family: Pretendard;
+    color: #000;
     font-size: 12px;
-    font-style: normal;
-    font-weight: var(--sds-typography-body-font-weight-regular);
   }
 
   .left-side {
@@ -429,13 +429,10 @@ export const Container = styled.div`
   .popup-message2 {
     position: absolute;
     top: 69px;
-    left: 49px;
     color: #000;
+    width: 100%;
     text-align: center;
-    font-family: Pretendard;
     font-size: 12px;
-    font-style: normal;
-    font-weight: var(--sds-typography-body-font-weight-regular);
   }
 
   .popup-bottom {

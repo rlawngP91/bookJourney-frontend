@@ -113,4 +113,11 @@ export const SignupContainer = styled.div`
     font-size: 11px;
     font-weight: 500;
   }
+
+  .back-btn {
+    position: absolute;
+    cursor: pointer;
+    top: 51px;
+    left: 35px;
+  }
 `;

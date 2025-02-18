@@ -74,7 +74,7 @@ const Onboarding = () => {
     <Container>
       <img className="logo" src={Circle} alt="로고" />
       <img className="title" src={Title} alt="제목" />
-      <p className="user-hello">닉네임 님, 안녕하세요</p>
+      <div className="user-hello">닉네임 님, 안녕하세요</div>
       <BlueBtn
         text={'시작하기'}
         className={'blue-btn'}

@@ -5,6 +5,7 @@ import UserInputField from '../../components/userInputField/UserInputField';
 import Title from '../../assets/title.svg';
 import PasswordInput from './PasswordInput';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
+import Arrow from '../../assets/arrow.svg';
 import {
   requestEmailVerification,
   verifyEmailCode,
@@ -91,6 +92,12 @@ const Signup = () => {
   return (
     <SignupContainer>
       <img className="title" src={Title} alt="타이틀" />
+      <img
+        className="back-btn"
+        src={Arrow}
+        alt="뒤로가기"
+        onClick={() => navigate('/login')}
+      />
       <UserInputField
         labelText="이메일"
         placeholder="이메일 입력"

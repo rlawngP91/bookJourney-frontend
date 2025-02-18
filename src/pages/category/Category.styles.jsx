@@ -8,7 +8,7 @@ export const Container = styled.div`
 
   .start-btn {
     position: absolute;
-    bottom: 163px;
+    bottom: 143px;
     left: 20px;
   }
 
