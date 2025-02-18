@@ -70,6 +70,10 @@ export const Container = styled.div`
     top: 646px;
     display: flex;
     justify-content: space-evenly;
+
+    & > *:first-child {
+      border-radius: 9px !important;
+    }
   }
 
   .back-btn {

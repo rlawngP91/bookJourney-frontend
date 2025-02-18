@@ -128,9 +128,10 @@ export const Container = styled.div`
   }
 
   .popup {
-    position: absolute;
-    top: 234px;
-    left: 63px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 268px;
     height: 144px;
     border-radius: 14px;

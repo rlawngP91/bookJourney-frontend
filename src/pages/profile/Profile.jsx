@@ -70,10 +70,6 @@ const Profile = () => {
     }
   };
 
-  const handlerBackBtnClick = () => {
-    navigate('/signup');
-  };
-
   // plus 버튼 클릭 시 파일 입력창 열기
   const handlePlusBtnClick = () => {
     if (fileInputRef.current) {
@@ -134,13 +130,10 @@ const Profile = () => {
         </p>
       )}
       <div className="btn-container">
-        <div className="back-btn" onClick={handlerBackBtnClick}>
-          <p>이전</p>
-        </div>
         <BlueBtn
           className={'next'}
           text="다음"
-          width={'167px'}
+          width={'351px'}
           disabled={!isButtonEnabled}
           onClick={handleNextButtonClick}
         />

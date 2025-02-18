@@ -1,22 +1,31 @@
+// PasswordInput.styles.jsx
 import styled from 'styled-components';
 
-// Wrapper로 감싸서 전체 스타일을 지정합니다.
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 288px;
+  width: 248px;
   height: 42.759px;
   flex-shrink: 0;
-  position: relative; /* 위치가 겹치지 않게 하기 위해 relative 추가 */
+  position: relative;
   left: 25px;
   padding-bottom: 16px;
+
+  .toggle-icon {
+    position: absolute;
+    right: -60px; /* 우측 끝선 기준 30px 안쪽 */
+    top: 11px; /* 수직 중앙 */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
 `;
 
 export const StyledInput = styled.input`
   width: 100%;
   height: 100%;
   padding-left: 20px;
-  padding-right: 28px;
+  padding-right: 70px; /* toggle-icon 공간 확보 */
   border-radius: 21px;
   border: 1px solid white;
   background: #fff;
@@ -28,19 +37,16 @@ export const StyledInput = styled.input`
 
   &:focus {
     border: 1.7px solid #6aa5f8;
-    outline: none; /* 기본 outline 제거 */
+    outline: none;
   }
 `;
 
-// labelText를 표시할 div 스타일링
 export const LabelText = styled.div`
   position: absolute;
-  font-family: Pretendard;
   font-size: 16px;
   font-weight: 400;
   color: #000;
-  position: absolute;
-  top: -32px; /* 인풋 위에 위치하도록 조정 */
+  top: -32px;
   left: 21px;
-  pointer-events: none; /* 클릭을 방지하려면 pointer-events를 none으로 설정 */
+  pointer-events: none;
 `;

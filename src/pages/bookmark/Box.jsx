@@ -20,8 +20,10 @@ const Box = ({
     <Container>
       <img className="cover" src={imgSrc} alt="책 표지" />
       <div className="right">
-        <span className="writer">{writer}</span>
-        <span className="bookTitle">{bookTitle}</span>
+        <div className="info-container">
+          <span className="writer">{writer}</span>
+          <span className="bookTitle">{bookTitle}</span>
+        </div>
       </div>
       {isDeleteMode && (
         <img

@@ -29,7 +29,7 @@ const Room = ({
       </div>
       <span className="room-title">{roomTitle}</span>
       <div className="right-side">
-        <span className="book-title">{bookTitle}</span>
+        <span className="room-book-title">{bookTitle}</span>
         <span className="period">
           {progressStartDate} ~ {progressEndDate}
         </span>

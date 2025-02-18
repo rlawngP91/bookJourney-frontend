@@ -55,9 +55,11 @@ export const SignupContainer = styled.div`
     position: absolute;
     top: 356px;
     left: 40px;
+    color: #fd7472;
     font-size: 11px;
+    font-style: normal;
     font-weight: 500;
-    color: red;
+
     margin: 0;
   }
 
@@ -65,9 +67,10 @@ export const SignupContainer = styled.div`
     position: absolute;
     top: 530px;
     left: 40px;
-    color: red;
     margin: 0;
+    color: #fd7472;
     font-size: 11px;
+    font-style: normal;
     font-weight: 500;
   }
 
@@ -107,10 +110,18 @@ export const SignupContainer = styled.div`
     left: 40px;
     width: 160px;
     margin: 0;
-    font-size: 13px;
-    color: red;
-    white-space: pre-line;
+    margin: 0;
+    color: #fd7472;
     font-size: 11px;
+    font-style: normal;
     font-weight: 500;
+    white-space: pre-line;
+  }
+
+  .back-btn {
+    position: absolute;
+    cursor: pointer;
+    top: 51px;
+    left: 35px;
   }
 `;
