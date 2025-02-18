@@ -78,8 +78,8 @@ export const BookList = styled.div`
 export const NoResultsMessage = styled.div`
   justify-content: center;
   align-items: center;
-  margin-left: 147px;
-  margin-top: 275px;
+  margin-left: 144px;
+  margin-top: 190px; // 459 -> 419
   color: #666;
   font-family: Pretendard;
   font-size: 14px;

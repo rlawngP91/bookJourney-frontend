@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Overlay = styled.div`
@@ -148,16 +148,16 @@ const DateSelectorPopup = ({ onClose, onSelect, currentDate, signupDate }) => {
   ];
 
   // 선택된 연도가 가입 연도와 같을 경우, 가입월 이후의 월만 표시
-  const months = useMemo(() => {
-    if (selected.year === signupYear) {
-      const signupMonthNum = parseInt(signupMonth);
-      return allMonths.filter((month, index) => {
-        if (index === 0) return true; // '전체보기' 항상 포함
-        return index === 0 || parseInt(month) >= signupMonthNum;
-      });
-    }
-    return allMonths;
-  }, [selected.year, signupYear, signupMonth]);
+  // const months = useMemo(() => {
+  //   if (selected.year === signupYear) {
+  //     const signupMonthNum = parseInt(signupMonth);
+  //     return allMonths.filter((month, index) => {
+  //       if (index === 0) return true; // '전체보기' 항상 포함
+  //       return index === 0 || parseInt(month) >= signupMonthNum;
+  //     });
+  //   }
+  //   return allMonths;
+  // }, [selected.year, signupYear, signupMonth]);
 
   const handleScroll = (ref, items, type) => {
     if (!ref.current) return;
@@ -178,7 +178,7 @@ const DateSelectorPopup = ({ onClose, onSelect, currentDate, signupDate }) => {
   useEffect(() => {
     // 초기 스크롤 위치 설정
     const yearIndex = years.indexOf(selected.year);
-    const monthIndex = months.indexOf(selected.month);
+    const monthIndex = allMonths.indexOf(selected.month);
 
     if (yearRef.current && yearIndex !== -1) {
       yearRef.current.scrollTop = yearIndex * 40;
@@ -220,9 +220,9 @@ const DateSelectorPopup = ({ onClose, onSelect, currentDate, signupDate }) => {
           </PickerColumn>
           <PickerColumn
             ref={monthRef}
-            onScroll={() => handleScroll(monthRef, months, 'month')}
+            onScroll={() => handleScroll(monthRef, allMonths, 'month')}
           >
-            {months.map((month) => (
+            {allMonths.map((month) => (
               <PickerItem key={month} $selected={selected.month === month}>
                 {month}
               </PickerItem>

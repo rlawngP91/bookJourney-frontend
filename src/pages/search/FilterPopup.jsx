@@ -62,19 +62,19 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
     $currentFilters.category || ''
   );
   const [deadlineStartDate, setDeadlineStartDate] = useState(
-    $currentFilters.deadline?.start || null
+    $currentFilters?.deadline?.start || null
   );
   const [deadlineEndDate, setDeadlineEndDate] = useState(
-    $currentFilters.deadline?.end || null
+    $currentFilters?.deadline?.end || null
   );
   const [periodStartDate, setPeriodStartDate] = useState(
-    $currentFilters.period?.start || null
+    $currentFilters?.period?.start || null
   );
   const [periodEndDate, setPeriodEndDate] = useState(
-    $currentFilters.period?.end || null
+    $currentFilters?.period?.end || null
   );
   const [recordCount, setRecordCount] = useState(
-    $currentFilters.recordcnt || 0
+    $currentFilters?.recordcnt || 0
   );
 
   const categories = [
@@ -103,6 +103,18 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
   };
 
   const handleApply = () => {
+    console.log({
+      category: selectedCategory,
+      deadline: {
+        start: deadlineStartDate,
+        end: deadlineEndDate,
+      },
+      period: {
+        start: periodStartDate,
+        end: periodEndDate,
+      },
+      recordcnt: recordCount,
+    });
     onApply({
       category: selectedCategory,
       deadline: {

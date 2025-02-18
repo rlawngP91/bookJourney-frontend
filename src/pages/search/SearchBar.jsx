@@ -119,6 +119,7 @@ export const SearchBar = ({
           value={value}
           onChange={onChange}
           onKeyDown={handleKeyPress}
+          maxLength={15}
         />
         <IconContainer>
           {value && (
@@ -127,7 +128,7 @@ export const SearchBar = ({
             </DeleteIconWrapper>
           )}
           <SearchIconWrapper>
-            <img src={searchIcon} alt="search" onClick={onSearch} />
+            <img src={searchIcon} alt="search" onClick={() => onSearch()} />
           </SearchIconWrapper>
         </IconContainer>
       </SearchInput>

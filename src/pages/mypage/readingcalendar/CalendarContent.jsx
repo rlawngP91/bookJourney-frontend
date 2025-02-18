@@ -38,10 +38,35 @@ const DateNumber = styled.span`
   line-height: 140%;
 `;
 
-const BookImage = styled.img`
+const BookImagesContainer = styled.div`
+  position: relative;
   width: 45.35px;
   height: 66.52px;
   object-fit: cover;
+`;
+
+const StyledBookImage = styled.img`
+  position: absolute;
+  left: 0;
+  width: 45.35px;
+  height: 66.52px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+
+  &:nth-child(3) {
+    bottom: 17.24px;
+    z-index: 1;
+  }
+
+  &:nth-child(2) {
+    bottom: 8.62px;
+    z-index: 2;
+  }
+
+  &:nth-child(1) {
+    bottom: 0;
+    z-index: 3;
+  }
 `;
 
 const float = keyframes`
@@ -157,9 +182,24 @@ const CalendarContent = ({ selectedDate }) => {
           onClick={() => date && handleDateClick(date)}
         >
           {date && (
+            // <>
+            //   {calendarData[date] ? (
+            //     <BookImage src={calendarData[date]} alt={`Book on ${date}`} />
+            //   ) : (
+            //     <DateNumber>{date}</DateNumber>
+            //   )}
+            // </>
             <>
-              {calendarData[date] ? (
-                <BookImage src={calendarData[date]} alt={`Book on ${date}`} />
+              {calendarData[date]?.length > 0 ? (
+                <BookImagesContainer>
+                  {calendarData[date].slice(0, 3).map((imageUrl, imgIndex) => (
+                    <StyledBookImage
+                      key={imgIndex}
+                      src={imageUrl}
+                      alt={`Book ${imgIndex + 1} on ${date}`}
+                    />
+                  ))}
+                </BookImagesContainer>
               ) : (
                 <DateNumber>{date}</DateNumber>
               )}

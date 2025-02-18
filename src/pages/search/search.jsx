@@ -75,8 +75,9 @@ export default function Search() {
   };
 
   // searchBar 돋보기 Button
-  const handleSearch = async (directQuery, newListType) => {
+  const handleSearch = async (directQuery, newSearchType, newListType) => {
     const queryToUse = directQuery || searchQuery;
+    const searchtypeToUse = newSearchType || searchType;
     const typeToUse = newListType || listType;
 
     if (!queryToUse.trim()) return;
@@ -91,7 +92,7 @@ export default function Search() {
         setBookHasMore(true);
         const booksHasNext = await fetchBookSearchResults({
           searchQuery: queryToUse,
-          searchType,
+          searchType: searchtypeToUse,
           filters: appliedFilters,
           setBooks,
           page: 0,
@@ -103,7 +104,7 @@ export default function Search() {
         setRoomHasMore(true);
         const roomsHasNext = await fetchRoomSearchResults({
           searchQuery: queryToUse,
-          searchType,
+          searchType: searchtypeToUse,
           filters: appliedFilters,
           setRooms,
           page: 0,
@@ -139,6 +140,7 @@ export default function Search() {
       room: '방 이름',
     };
     setSearchType(typeLabels[typeId]);
+    handleSearch();
     setShowPopup(false);
   };
 

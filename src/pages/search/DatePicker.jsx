@@ -3,6 +3,14 @@ import styled from 'styled-components';
 
 const DatePickerContainer = styled.div`
   margin: 16px 0;
+  /* position: absolute; */
+`;
+
+const DatePickerHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 `;
 
 const DatePickerLabel = styled.div`
@@ -12,7 +20,27 @@ const DatePickerLabel = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 140%; /* 19.6px */
-  margin-bottom: 8px;
+`;
+
+const DatePickerReset = styled.button`
+  display: inline-flex;
+  padding: 4px 12px;
+  height: 21px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background-color: #6aa5f8;
+  color: #fff;
+  margin-top: 8px;
+  margin-right: 8px;
+  font-family: Pretendard;
+  font-size: 9.624px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 139.895%;
+  letter-spacing: 0.096px;
+  border: none;
+  cursor: pointer;
 `;
 
 const DateInputsContainer = styled.div`
@@ -24,6 +52,7 @@ const DateInputsContainer = styled.div`
 const DateInput = styled.div`
   padding: 12px 16px;
   border-radius: 12px;
+  font-size: 13px;
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.$isSelected ? '#FFF' : '#000')};
@@ -112,7 +141,7 @@ const DatePicker = ({
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const formatDate = (date) => {
-    if (!date) return 'yyyy.mm.dd';
+    if (!date) return 'YYYY.MM.DD';
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -155,6 +184,7 @@ const DatePicker = ({
 
   const handleStartDateClick = (date) => {
     if (onStartDateChange) {
+      console.log('startdate' + date); // Thu May 15 2025 00:00:00 GMT+0900 (한국 표준시)
       onStartDateChange(date);
     }
     setShowStartCalendar(false);
@@ -162,6 +192,7 @@ const DatePicker = ({
 
   const handleEndDateClick = (date) => {
     if (onEndDateChange) {
+      console.log('enddate' + date); // Wed Jun 11 2025 00:00:00 GMT+0900 (한국 표준시)
       onEndDateChange(date);
     }
     setShowEndCalendar(false);
@@ -174,14 +205,22 @@ const DatePicker = ({
 
   const isDateDisabled = (date) => {
     if (!date) return true;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return date < today;
+    // const today = new Date();
+    // today.setHours(0, 0, 0, 0);
+    // return date < today;
+  };
+
+  const handleReset = () => {
+    if (onStartDateChange) onStartDateChange(null);
+    if (onEndDateChange) onEndDateChange(null);
   };
 
   return (
     <DatePickerContainer>
-      <DatePickerLabel>{label}</DatePickerLabel>
+      <DatePickerHeader>
+        <DatePickerLabel>{label}</DatePickerLabel>
+        <DatePickerReset onClick={handleReset}>reset</DatePickerReset>
+      </DatePickerHeader>
       <DateInputsContainer>
         <DateInput
           $date-has-value={startDate}
@@ -225,7 +264,7 @@ const DatePicker = ({
               <DateCell
                 key={index}
                 $isSelected={isDateSelected(date, startDate)}
-                disabled={isDateDisabled(date)}
+                // disabled={isDateDisabled(date)}
                 onClick={() => date && handleStartDateClick(date)}
               >
                 {date ? date.getDate() : ''}
