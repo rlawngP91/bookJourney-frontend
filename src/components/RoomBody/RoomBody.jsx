@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
+  Layout,
   Wrapper,
   Container,
   Tab,
@@ -133,7 +134,7 @@ export default function RoomBody({ roomData }) {
   }, [popupRecordCount]);
 
   return (
-    <>
+    <Layout>
       {/* ✅ PageRecord 또는 EntireRecord가 닫힌 후 RoomBody에서 팝업 띄우기 */}
       {showPopup && popupRecordCount !== null && (
         <CollectorPopup recordCount={popupRecordCount} />
@@ -294,6 +295,7 @@ export default function RoomBody({ roomData }) {
               key={record.recordId}
               record={record}
               activeTab={activeTab}
+              fetchRecords={fetchRecords} // ✅ fetchRecords 전달
             />
           ))
         )}
@@ -309,6 +311,6 @@ export default function RoomBody({ roomData }) {
           <img src={send} alt="send" />
         </div>
       </Footer>
-    </>
+    </Layout>
   );
 }

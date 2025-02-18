@@ -1,17 +1,16 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: fixed; /* 화면에 고정된 위치 */
-  top: 50%; /* 화면의 중앙 */
-  left: 50%; /* 화면의 중앙 */
-  transform: translate(-50%, -50%); /* 완벽한 중앙 정렬 */
-  z-index: 2000; /* 다른 요소 위로 올림 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
   display: flex;
+  background-color: rgba(0, 0, 0, 0.42);
+  width: 394px;
+  height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.42);
-  width: 100%;
-  height: 100%;
 `;
 
 export const Box = styled.div`
@@ -75,8 +74,6 @@ export const Container = styled.div`
       border: none; /* ✅ 테두리 없애기 */
       outline: none; /* ✅ 클릭(포커스) 시 테두리 없애기 */
       box-shadow: none; /* ✅ 그림자 제거 (일부 브라우저 기본 스타일) */
-
-      border: 1px solid #6aa5f8;
     }
     .slash {
       color: #000;
@@ -139,4 +136,5 @@ export const Button = styled.button`
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
+  cursor: pointer;
 `;

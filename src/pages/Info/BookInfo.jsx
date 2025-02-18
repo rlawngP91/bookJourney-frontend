@@ -4,6 +4,7 @@ import { Wrapper, Header, Body, Container } from './RoomInfo.styles';
 import Footer from '../../components/commons/Footer/Footer';
 import logo from '../../assets/logo.svg';
 import exit from '../../assets/exit.svg';
+import bookloading from '../../assets/bookloading.svg';
 import ButtonGroup3 from '../../components/InfoBody/ButtonGroup3';
 import TabGroup1 from '../../components/InfoBody/TabGroup1';
 import InfoBody from '../../components/InfoBody/InfoBody';
@@ -49,10 +50,13 @@ export default function BookInfo() {
               alt="나가기"
               onClick={() => navigate(-1)}
               style={{ cursor: 'pointer' }}
-            />{' '}
+            />
           </div>
           {loading ? (
-            <></>
+            <div className="book">
+              <div>장르</div>
+              <img src={bookloading} alt="책 이미지" />
+            </div>
           ) : error ? (
             <div style={{ color: 'red' }}>❌ 오류: {error}</div>
           ) : (

@@ -65,7 +65,7 @@ export const InfoContainer = styled.div`
 
 export const BookDetail = styled.div`
   display: flex;
-  height: auto;
+  height: 100vh;
   width: 393px;
   flex-direction: column;
   padding: 65px 55px 220px 55px;
