@@ -4,6 +4,7 @@ import { Wrapper, Header, Body, Container } from './RoomInfo.styles';
 import Footer from '../../components/commons/Footer/Footer';
 import logo from '../../assets/logo.svg';
 import exit from '../../assets/exit.svg';
+import bookloading from '../../assets/bookloading.svg';
 import ButtonGroup from '../../components/InfoBody/ButtonGroup';
 import ButtonGroup2 from '../../components/InfoBody/ButtonGroup2';
 import TabGroup2 from '../../components/InfoBody/TapGroup2';
@@ -57,12 +58,15 @@ export default function RoomInfo() {
             />
           </div>
           {loading ? (
-            <div>📖 책 정보를 불러오는 중...</div>
+            <div className="book">
+              <div>장르</div>
+              <img src={bookloading} alt="책 이미지" />
+            </div>
           ) : error ? (
             <div style={{ color: 'red' }}>❌ 오류: {error}</div>
           ) : (
             <div className="book">
-              <div>{roomData.genre}</div> {/* 장르 표시 */}
+              <div>{roomData.genre}</div>
               <img src={roomData.imageUrl} alt="책 이미지" />
             </div>
           )}

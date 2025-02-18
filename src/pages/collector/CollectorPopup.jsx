@@ -53,7 +53,7 @@ const Box = styled.div`
   justify-content: end;
 
   //height: 383px;
-  height: 852px;
+  height: 100vh;
   width: 393px;
 
   border-top-right-radius: 9px;
