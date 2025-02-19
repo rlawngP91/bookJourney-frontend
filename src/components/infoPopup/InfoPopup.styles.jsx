@@ -30,6 +30,8 @@ export const Container = styled.div`
   .first-line,
   .second-line {
     display: flex;
+    align-items: center;
+    justify-content: center;
     height: 50px;
     cursor: pointer;
     color: #6aa5f8;
@@ -43,6 +45,11 @@ export const Container = styled.div`
       margin-right: 12px;
     }
       */
+    .info2,
+    .delete-record2 {
+      text-align: center;
+      line-height: 50px;
+    }
   }
 
   .first-line {

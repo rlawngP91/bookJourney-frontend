@@ -154,7 +154,12 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
 
         {/* 세부 정보 */}
         <div className="detail">
-          <div className="section-title">세부 정보</div>
+          <div className="section">
+            <div className="section-title">세부 정보</div>
+            <div className="desc">
+              같이읽기 방 기간은 7일 ~ 90일로 설정가능합니다.
+            </div>
+          </div>
 
           {/* 기간 입력 (버튼으로 변경) */}
           <div className="duration">

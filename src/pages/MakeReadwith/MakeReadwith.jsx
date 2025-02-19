@@ -15,6 +15,10 @@ export default function MakeReadwith() {
 
   const handleButtonClick = (option) => {
     setSelected(option); // 클릭한 버튼의 상태를 선택
+
+    if (option === '혼자') {
+      setIsCreateButtonDisabled(false);
+    }
   };
 
   const handleCreateRoom = async () => {

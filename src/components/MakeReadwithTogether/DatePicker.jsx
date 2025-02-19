@@ -4,10 +4,12 @@ import left from '../../assets/left.svg';
 import right from '../../assets/right.svg';
 
 const Wrapper = styled.div`
-  height: 852px;
+  height: 100vh;
   width: 393px;
   background-color: rgba(0, 0, 0, 0.42);
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 `;
 
 const DatePickerContainer = styled.div`
