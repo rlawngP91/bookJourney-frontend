@@ -10,6 +10,7 @@ const DatePickerHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 30px;
   margin-bottom: 8px;
 `;
 
@@ -22,26 +23,26 @@ const DatePickerLabel = styled.div`
   line-height: 140%; /* 19.6px */
 `;
 
-const DatePickerReset = styled.button`
-  display: inline-flex;
-  padding: 4px 12px;
-  height: 21px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100px;
-  background-color: #6aa5f8;
-  color: #fff;
-  margin-top: 8px;
-  margin-right: 8px;
-  font-family: Pretendard;
-  font-size: 9.624px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 139.895%;
-  letter-spacing: 0.096px;
-  border: none;
-  cursor: pointer;
-`;
+// const DatePickerReset = styled.button`
+//   display: inline-flex;
+//   padding: 4px 12px;
+//   height: 21px;
+//   justify-content: center;
+//   align-items: center;
+//   border-radius: 100px;
+//   background-color: #6aa5f8;
+//   color: #fff;
+//   margin-top: 8px;
+//   margin-right: 8px;
+//   font-family: Pretendard;
+//   font-size: 9.624px;
+//   font-style: normal;
+//   font-weight: 500;
+//   line-height: 139.895%;
+//   letter-spacing: 0.096px;
+//   border: none;
+//   cursor: pointer;
+// `;
 
 const DateInputsContainer = styled.div`
   display: flex;
@@ -136,10 +137,12 @@ const DatePicker = ({
   endDate,
   onStartDateChange,
   onEndDateChange,
+  isCalendarOpen,
+  onCalendarOpen,
+  onCalendarClose,
 }) => {
-  const [showStartCalendar, setShowStartCalendar] = useState(false);
-  const [showEndCalendar, setShowEndCalendar] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [isStartDateActive, setIsStartDateActive] = useState(true);
 
   const formatDate = (date) => {
     if (!date) return 'yyyy.mm.dd';
@@ -183,22 +186,6 @@ const DatePicker = ({
     );
   };
 
-  const handleStartDateClick = (date) => {
-    if (onStartDateChange) {
-      console.log('startdate' + date); // Thu May 15 2025 00:00:00 GMT+0900 (한국 표준시)
-      onStartDateChange(date);
-    }
-    setShowStartCalendar(false);
-  };
-
-  const handleEndDateClick = (date) => {
-    if (onEndDateChange) {
-      console.log('enddate' + date); // Wed Jun 11 2025 00:00:00 GMT+0900 (한국 표준시)
-      onEndDateChange(date);
-    }
-    setShowEndCalendar(false);
-  };
-
   const isDateSelected = (date, selectedDate) => {
     if (!date || !selectedDate) return false;
     return date.toDateString() === selectedDate.toDateString();
@@ -211,24 +198,56 @@ const DatePicker = ({
     // return date < today;
   };
 
-  const handleReset = () => {
-    if (onStartDateChange) onStartDateChange(null);
-    if (onEndDateChange) onEndDateChange(null);
+  // const handleReset = () => {
+  //   if (onStartDateChange) onStartDateChange(null);
+  //   if (onEndDateChange) onEndDateChange(null);
+  // };
+
+  const handleStartDateClick = (date) => {
+    if (onStartDateChange) {
+      onStartDateChange(date);
+    }
+    onCalendarClose();
   };
+
+  const handleEndDateClick = (date) => {
+    if (onEndDateChange) {
+      onEndDateChange(date);
+    }
+    onCalendarClose();
+  };
+
+  const handleDateInputClick = (isStart) => {
+    // 이미 해당 입력 필드의 캘린더가 열려있는 경우 닫기
+    if (isCalendarOpen && isStartDateActive === isStart) {
+      onCalendarClose();
+    } else {
+      // 다른 캘린더가 열려있거나 캘린더가 닫혀있는 경우 새로 열기
+      setIsStartDateActive(isStart);
+      onCalendarOpen();
+    }
+  };
+
+  // const handleReset = () => {
+  //   if (onStartDateChange) onStartDateChange(null);
+  //   if (onEndDateChange) onEndDateChange(null);
+  //   onCalendarClose();
+  // };
 
   return (
     <DatePickerContainer>
       <DatePickerHeader>
         <DatePickerLabel>{label}</DatePickerLabel>
-        <DatePickerReset onClick={handleReset}>reset</DatePickerReset>
+        {/* <DatePickerReset onClick={handleReset}>reset</DatePickerReset> */}
       </DatePickerHeader>
       <DateInputsContainer>
         <DateInput
           $date-has-value={startDate}
-          $isSelected={showStartCalendar}
+          $isSelected={isCalendarOpen && isStartDateActive}
           onClick={() => {
-            setShowStartCalendar(!showStartCalendar);
-            setShowEndCalendar(false);
+            setIsStartDateActive(true);
+            onCalendarOpen();
+            handleDateInputClick(true);
           }}
         >
           {formatDate(startDate)}
@@ -236,18 +255,19 @@ const DatePicker = ({
         <RangeSeparator>~</RangeSeparator>
         <DateInput
           $date-has-value={endDate}
-          $isSelected={showEndCalendar}
+          $isSelected={isCalendarOpen && !isStartDateActive}
           onClick={() => {
-            setShowEndCalendar(!showEndCalendar);
-            setShowStartCalendar(false);
+            setIsStartDateActive(false);
+            onCalendarOpen();
+            handleDateInputClick(false);
           }}
         >
           {formatDate(endDate)}
         </DateInput>
       </DateInputsContainer>
 
-      {showStartCalendar && (
-        <Calendar>
+      {isCalendarOpen && (
+        <Calendar $right={!isStartDateActive}>
           <CalendarHeader>
             <ArrowButton onClick={handlePrevMonth}>&lt;</ArrowButton>
             <div>
@@ -264,40 +284,21 @@ const DatePicker = ({
             {getDaysInMonth(currentDate).map((date, index) => (
               <DateCell
                 key={index}
-                $isSelected={isDateSelected(date, startDate)}
-                // disabled={isDateDisabled(date)}
-                onClick={() => date && handleStartDateClick(date)}
-              >
-                {date ? date.getDate() : ''}
-              </DateCell>
-            ))}
-          </CalendarGrid>
-        </Calendar>
-      )}
-
-      {showEndCalendar && (
-        <Calendar $right="true">
-          <CalendarHeader>
-            <ArrowButton onClick={handlePrevMonth}>&lt;</ArrowButton>
-            <div>
-              {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
-            </div>
-            <ArrowButton onClick={handleNextMonth}>&gt;</ArrowButton>
-          </CalendarHeader>
-
-          <CalendarGrid>
-            {WEEKDAYS.map((day) => (
-              <WeekdayHeader key={day}>{day}</WeekdayHeader>
-            ))}
-
-            {getDaysInMonth(currentDate).map((date, index) => (
-              <DateCell
-                key={index}
-                $isSelected={isDateSelected(date, endDate)}
+                $isSelected={isDateSelected(
+                  date,
+                  isStartDateActive ? startDate : endDate
+                )}
                 disabled={
-                  isDateDisabled(date) || (startDate && date < startDate)
+                  isDateDisabled(date) ||
+                  (!isStartDateActive && startDate && date < startDate) || // EndDate 선택 시 StartDate 이전 날짜 제한
+                  (isStartDateActive && endDate && date > endDate) // StartDate 선택 시 EndDate 이후 날짜 제한
                 }
-                onClick={() => date && handleEndDateClick(date)}
+                onClick={() =>
+                  date &&
+                  (isStartDateActive
+                    ? handleStartDateClick(date)
+                    : handleEndDateClick(date))
+                }
               >
                 {date ? date.getDate() : ''}
               </DateCell>

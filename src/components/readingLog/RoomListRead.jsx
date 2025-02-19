@@ -29,7 +29,7 @@ const RoomListRead = ({ rooms }) => {
               <div className="BookContainer">
                 <span className="BookTitle">{room.book}</span>
               </div>
-              <div className="roomMeta">
+              <div className="roomMetaRead">
                 <MetaItem>
                   <span className="data">{room.date}</span>
                 </MetaItem>

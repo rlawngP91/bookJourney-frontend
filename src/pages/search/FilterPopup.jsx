@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import resetIcon from '../../assets/reset.svg';
 import styled from 'styled-components';
 import DatePicker from './DatePicker';
 import CountSlider from './CountSlider';
@@ -36,7 +37,7 @@ const CategoryContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 70px;
 `;
 
 const CategoryButton = styled.button`
@@ -51,6 +52,38 @@ const CategoryButton = styled.button`
   border-radius: 8px;
   background: ${(props) => (props.$isSelected ? '#A3C7FA' : 'white')};
   color: ${(props) => (props.$isSelected ? 'white' : 'black')};
+`;
+
+const ResetContainer = styled.button`
+  display: flex;
+  width: fit-content;
+  height: 14px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  flex-shrink: 0;
+  border: none;
+  background: white;
+  color: #999;
+  margin-left: auto;
+
+  .img {
+    display: flex;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    aspect-ratio: 1/1;
+  }
+  .span {
+    font-family: Pretendard;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 14px */
+  }
 `;
 
 const ApplyButton = styled.button`
@@ -71,6 +104,16 @@ const ApplyButton = styled.button`
 `;
 
 const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
+  // DatePicker 하나만
+  const [activeCalendar, setActiveCalendar] = useState(null);
+  const handleCalendarOpen = (calendarId) => {
+    setActiveCalendar(calendarId);
+  };
+
+  const handleCalendarClose = () => {
+    setActiveCalendar(null);
+  };
+
   const [selectedCategory, setSelectedCategory] = useState(
     $currentFilters.category || ''
   );
@@ -116,18 +159,6 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
   };
 
   const handleApply = () => {
-    console.log({
-      category: selectedCategory,
-      deadline: {
-        start: deadlineStartDate,
-        end: deadlineEndDate,
-      },
-      period: {
-        start: periodStartDate,
-        end: periodEndDate,
-      },
-      recordcnt: recordCount,
-    });
     onApply({
       category: selectedCategory,
       deadline: {
@@ -140,6 +171,16 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
       },
       recordcnt: recordCount,
     });
+  };
+
+  const handleReset = () => {
+    setSelectedCategory('');
+    setDeadlineStartDate(null);
+    setDeadlineEndDate(null);
+    setPeriodStartDate(null);
+    setPeriodEndDate(null);
+    setRecordCount(100);
+    setActiveCalendar(null);
   };
 
   return (
@@ -165,6 +206,9 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
             endDate={deadlineEndDate}
             onStartDateChange={setDeadlineStartDate}
             onEndDateChange={setDeadlineEndDate}
+            isCalendarOpen={activeCalendar === 'deadline'}
+            onCalendarOpen={() => handleCalendarOpen('deadline')}
+            onCalendarClose={handleCalendarClose}
           />
 
           <DatePicker
@@ -173,13 +217,21 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
             endDate={periodEndDate}
             onStartDateChange={setPeriodStartDate}
             onEndDateChange={setPeriodEndDate}
+            isCalendarOpen={activeCalendar === 'period'}
+            onCalendarOpen={() => handleCalendarOpen('period')}
+            onCalendarClose={handleCalendarClose}
           />
 
           <CountSlider
             initialValue={$currentFilters.recordcnt || 0}
+            value={recordCount}
             onValueChange={(value) => setRecordCount(value)}
           />
 
+          <ResetContainer onClick={handleReset}>
+            <img src={resetIcon} />
+            <span>전체해제</span>
+          </ResetContainer>
           <ApplyButton onClick={handleApply}>적용</ApplyButton>
         </PopupSubContainer>
       </PopupContainer>
