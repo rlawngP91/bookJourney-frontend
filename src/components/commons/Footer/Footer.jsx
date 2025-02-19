@@ -19,23 +19,29 @@ export default function Footer() {
 
   return (
     <Wrapper>
-      <Button onClick={() => navigate('/home')} $isActive={isActive('/home')}>
+      <Button
+        onClick={() => navigate('/home')}
+        $isActive={isActive('/home')}
+        style={{ cursor: 'pointer' }}
+      >
         <img src={isActive('/home') ? homeActive : home} alt="홈" />
         <div>홈</div>
       </Button>
       <Button
         onClick={() => navigate('/readinglog')}
         $isActive={isActive('/readinglog')}
+        style={{ cursor: 'pointer' }}
       >
         <img
           src={isActive('/readinglog') ? bookwriteActive : bookwrite}
           alt="독서기록장"
-        />{' '}
+        />
         <div>독서기록장</div>
       </Button>
       <Button
         onClick={() => navigate('/search')}
         $isActive={isActive('/search')}
+        style={{ cursor: 'pointer' }}
       >
         <img src={isActive('/search') ? searchActive : search} alt="검색" />
         <div>검색</div>
@@ -43,6 +49,7 @@ export default function Footer() {
       <Button
         onClick={() => navigate('/mypage')}
         $isActive={isActive('/mypage')}
+        style={{ cursor: 'pointer' }}
       >
         <img src={isActive('/mypage') ? myActive : my} alt="마이페이지" />
         <div>마이페이지</div>

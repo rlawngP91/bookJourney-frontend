@@ -13,7 +13,7 @@ import hamburgermenu from '../../assets/hamburgermenu.svg';
 import good from '../../assets/good.svg';
 import alreadygood from '../../assets/alreadygood.svg';
 import reply from '../../assets/reply.svg';
-import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
+import HamburgerMenu2 from '../HamburgerMenu/HamburgerMenu2';
 import { getReplys } from '../../apis/getReplys';
 import { postReply } from '../../apis/postReply';
 import { postReplyLike } from '../../apis/postReplyLike';
@@ -26,10 +26,19 @@ export default function Reply({ recordId, onClose }) {
   const [newComment, setNewComment] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedCommentId, setSelectedCommentId] = useState(null); // ✅ 선택된 commentId 저장
   const footerRef = useRef(null);
   const textareaRef = useRef(null);
   const maxLength = 1000; // 최대 글자 수
+  const reviewListRef = useRef(null);
+
+  const handleMenuOpen = (commentId) => {
+    setSelectedCommentId(commentId);
+  };
+
+  const handleMenuClose = () => {
+    setSelectedCommentId(null);
+  };
 
   const handleInput = (e) => {
     setNewComment(e.target.value);
@@ -48,9 +57,11 @@ export default function Reply({ recordId, onClose }) {
   const [likeCountRecord, setLikeCountRecord] = useState(0);
 
   useEffect(() => {
+    if (!recordId) return;
     fetchComments();
-  }, []);
+  }, [recordId]);
 
+  // ✅ 전체 데이터(기록 정보 + 댓글)를 불러오는 함수
   const fetchComments = async () => {
     setLoading(true);
     try {
@@ -58,15 +69,32 @@ export default function Reply({ recordId, onClose }) {
       setRecordInfo(data.recordInfo);
       setIsLikedRecord(Boolean(data.recordInfo.like));
       setLikeCountRecord(data.recordInfo.recordLikeCount);
-      const updatedComments = data.comments.map((comment) => ({
-        ...comment,
-        isLiked: Boolean(comment.like),
-      }));
-      setComments(updatedComments);
+      setComments(
+        data.comments.map((comment) => ({
+          ...comment,
+          isLiked: Boolean(comment.like),
+        }))
+      );
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ✅ 댓글만 업데이트하는 함수
+  const fetchCommentsOnly = async () => {
+    try {
+      const data = await getReplys(recordId);
+      setRecordInfo(data.recordInfo);
+      setComments(
+        data.comments.map((comment) => ({
+          ...comment,
+          isLiked: Boolean(comment.like),
+        }))
+      );
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -83,10 +111,17 @@ export default function Reply({ recordId, onClose }) {
     try {
       await postReply(recordId, newComment);
       setNewComment('');
-      fetchComments();
       if (textareaRef.current) {
         textareaRef.current.style.height = '20px';
       }
+
+      await fetchCommentsOnly();
+
+      setTimeout(() => {
+        if (reviewListRef.current) {
+          reviewListRef.current.scrollTop = reviewListRef.current.scrollHeight;
+        }
+      }, 100);
     } catch (error) {
       console.error('❌ 댓글 전송 오류:', error);
     }
@@ -150,18 +185,6 @@ export default function Reply({ recordId, onClose }) {
                     <div className="n">{recordInfo.nickName}</div>
                     <div className="t">{recordInfo.createdAt}</div>
                   </div>
-                  <div>
-                    <img
-                      src={hamburgermenu}
-                      onClick={() => setIsMenuOpen(true)}
-                    />
-                    {isMenuOpen && (
-                      <HamburgerMenu
-                        onClose={() => setIsMenuOpen(false)}
-                        recordId={recordInfo.recordId}
-                      />
-                    )}
-                  </div>
                 </div>
                 <div className="title2">{recordInfo.recordTitle}</div>
                 <div className="c">{recordInfo.content}</div>
@@ -197,18 +220,6 @@ export default function Reply({ recordId, onClose }) {
                     <div className="n">{recordInfo.nickName}</div>
                     <div className="t">{recordInfo.createdAt}</div>
                   </div>
-                  <div>
-                    <img
-                      src={hamburgermenu}
-                      onClick={() => setIsMenuOpen(true)}
-                    />
-                    {isMenuOpen && (
-                      <HamburgerMenu
-                        onClose={() => setIsMenuOpen(false)}
-                        recordId={recordInfo.recordId}
-                      />
-                    )}
-                  </div>
                 </div>
                 <div className="c">{recordInfo.content}</div>
                 <div className="b">
@@ -230,8 +241,7 @@ export default function Reply({ recordId, onClose }) {
             </div>
           )}
         </Comment>
-
-        <ReviewList>
+        <ReviewList ref={reviewListRef}>
           {comments.map((comment) => (
             <Review key={comment.commentId}>
               <div className="head2">
@@ -251,12 +261,14 @@ export default function Reply({ recordId, onClose }) {
                   <div>
                     <img
                       src={hamburgermenu}
-                      onClick={() => setIsMenuOpen(true)}
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleMenuOpen(comment.commentId)} // ✅ 선택된 commentId 저장
                     />
-                    {isMenuOpen && (
-                      <HamburgerMenu
-                        onClose={() => setIsMenuOpen(false)}
+                    {selectedCommentId === comment.commentId && ( // ✅ 특정 commentId만 활성화
+                      <HamburgerMenu2
+                        onClose={handleMenuClose}
                         commentId={comment.commentId}
+                        fetchCommentsOnly={fetchCommentsOnly}
                       />
                     )}
                   </div>

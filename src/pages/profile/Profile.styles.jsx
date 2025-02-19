@@ -49,11 +49,8 @@ export const Container = styled.div`
     top: 487px;
     left: 307px;
     color: #a3a3a3;
-    font-family: Pretendard;
     font-size: 11px;
-    font-style: normal;
     font-weight: 500;
-    line-height: 16px; /* 145.455% */
     letter-spacing: 0.5px;
     cursor: pointer;
     align-self: flex-end; /* 오른쪽 끝에 위치하게 설정 */
@@ -70,6 +67,10 @@ export const Container = styled.div`
     top: 646px;
     display: flex;
     justify-content: space-evenly;
+
+    & > *:first-child {
+      border-radius: 9px !important;
+    }
   }
 
   .back-btn {

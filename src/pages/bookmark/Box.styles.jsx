@@ -6,6 +6,7 @@ export const Container = styled.div`
   margin-bottom: 24px;
   margin-left: 32px;
   display: flex;
+  cursor: pointer;
 
   .cover {
     width: 84px;
@@ -15,21 +16,25 @@ export const Container = styled.div`
 
   .right {
     position: relative;
-    width: 205px;
+    display: flex;
+    align-items: center;
+    width: 225px;
     padding-right: 15px;
   }
 
+  .info-container {
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
   .writer {
-    position: absolute;
-    left: 25px;
-    top: 41.5px;
+    width: 165px;
     color: #757373;
-    font-family: Pretendard;
     font-size: 10px;
     font-style: normal;
     font-weight: 500;
-    line-height: var(--Label-Small-Line-Height, 16px); /* 160% */
-    letter-spacing: var(--Label-Small-Tracking, 0.5px);
     overflow: hidden; // 을 사용해 영역을 감출 것
     text-overflow: ellipsis; // 로 ... 을 만들기
     white-space: nowrap; // 아래줄로 내려가는 것을 막기위해
@@ -37,10 +42,7 @@ export const Container = styled.div`
   }
 
   .bookTitle {
-    position: absolute;
     width: 166px;
-    top: 66px;
-    left: 25px;
     color: var(--sds-color-text-default-default);
     font-family: Pretendard;
     font-size: 15px;
@@ -58,6 +60,7 @@ export const Container = styled.div`
     width: 24px;
     height: 24px;
     margin-top: 49.5px;
+    margin-left: 23px;
     left: 300px;
     cursor: pointer;
   }

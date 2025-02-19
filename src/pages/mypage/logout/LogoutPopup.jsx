@@ -16,7 +16,7 @@ export default function LogoutPopup({ isOpen, onClose }) {
   const handleLogout = async () => {
     const success = await logout(); // 로그아웃 API 호출
     if (success) {
-      navigate('/login'); // ✅ 로그아웃 후 로그인 페이지로 이동
+      navigate('/login'); // 로그아웃 후 로그인 페이지로 이동
     } else {
       alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
     }

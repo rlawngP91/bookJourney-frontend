@@ -36,13 +36,9 @@ export const Container = styled.div`
     position: relative;
     left: 1px;
     color: #000;
-    font-variant-numeric: lining-nums proportional-nums;
-    font-feature-settings: 'dlig' on;
-    font-family: Pretendard;
     font-size: 10px;
-    font-style: normal;
     font-weight: 700;
-    letter-spacing: 0.11px;
+    line-height: 17px;
   }
   .read-type {
     width: 33.452px;

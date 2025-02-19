@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background: #fbfbfb;
-  box-shadow: 0px 1px 5.7px 0px rgba(0, 0, 0, 0.25);
 
   position: fixed;
   bottom: 0;
@@ -23,7 +22,7 @@ export const Button = styled.button`
   align-items: center;
   justify-content: flex-end;
   background-color: #fbfbfb;
-  padding-bottom: 20px;
+  padding-bottom: 25px;
   gap: 4px;
   /* 기본 스타일 제거 */
   border: none; /* 테두리 제거 */
@@ -42,7 +41,5 @@ export const Button = styled.button`
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
-    line-height: var(--Label-Medium-Line-Height, 16px); /* 160% */
-    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
   }
 `;

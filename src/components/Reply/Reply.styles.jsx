@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  bottom: 0;
+  top: 0;
   left: 0;
   position: fixed; /* 화면에 고정된 위치 */
   z-index: 2000; /* 다른 요소 위로 올림 */
@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
-  width: 393px;
+  width: 394px;
   height: 852px;
 `;
 
@@ -137,6 +137,10 @@ export const Comment = styled.div`
     font-weight: 400;
     padding-right: 10px;
 
+    div {
+      width: 13px;
+    }
+
     .isLikedRecord {
       color: #000;
     }
@@ -148,7 +152,7 @@ export const Comment = styled.div`
 `;
 
 export const Container = styled.div`
-  height: 700px;
+  height: 740px;
   width: 393px;
   position: fixed;
   bottom: 0;
@@ -242,6 +246,10 @@ export const Review = styled.div`
       font-weight: 400;
       padding-right: 10px;
 
+      div {
+        width: 13px;
+      }
+
       .isLikedRecord {
         color: #000;
       }
@@ -261,8 +269,9 @@ export const ReviewList = styled.div`
   flex-direction: column;
   background-color: #fff;
   padding: 46px 25px 55px 55px;
-  max-height: 400px;
+  max-height: 450px;
   overflow-y: auto;
+  scroll-behavior: smooth; /* ✅ 스크롤을 부드럽게 이동 */
 
   /* ✅ 크롬, 사파리에서 스크롤바 숨김 */
   &::-webkit-scrollbar {

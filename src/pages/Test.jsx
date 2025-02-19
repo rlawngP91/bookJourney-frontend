@@ -1,9 +1,9 @@
 import React from 'react';
-import CollectorPopup from './collector/CollectorPopup';
+import ToastPopup from '../components/ToastPopup/ToastPopup';
 export default function Test() {
   return (
     <>
-      <CollectorPopup />
+      <ToastPopup />
     </>
   );
 }

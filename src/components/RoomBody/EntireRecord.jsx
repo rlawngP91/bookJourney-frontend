@@ -8,6 +8,8 @@ export default function EntireRecord({
   roomId,
   setPopupRecordCount,
   fetchRecords,
+  setToastMessage,
+  setToastTitle,
 }) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -20,17 +22,17 @@ export default function EntireRecord({
 
   const handleRecordSubmit = async () => {
     if (!roomId) {
-      alert('❌ roomId가 필요합니다.');
+      setToastMessage('RoomId가 필요합니다');
       return;
     }
 
     if (!title.trim()) {
-      alert('📌 제목을 입력해주세요.');
+      setToastMessage('기록 제목을 입력해주세요');
       return;
     }
 
     if (!text.trim()) {
-      alert('📌 기록 내용을 입력해주세요.');
+      setToastMessage('기록 내용을 입력해주세요');
       return;
     }
 
@@ -39,6 +41,11 @@ export default function EntireRecord({
       // ✅ postRecord API 호출
       const response = await postRecord(roomId, undefined, text, title);
       console.log('✅ 기록 저장 성공:', response);
+
+      // ✅ Toast 메시지 설정 (기록이 정상적으로 저장된 경우에만 실행)
+      setToastTitle('같이 읽기 방');
+      setToastMessage('기록 작성 성공');
+      console.log('🔥 ToastMessage 설정됨:', '기록 작성 성공');
 
       // ✅ recordCount 정확히 추출
       const recordCount = response?.recordCount ?? null;
@@ -57,9 +64,16 @@ export default function EntireRecord({
       }, 300);
     } catch (error) {
       alert(`❌ 기록 저장 실패: ${error.message}`);
+      setToastMessage('기록 작성 실패');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleClose = () => {
+    setToastMessage(null);
+    setToastTitle('');
+    onClose();
   };
 
   return (
@@ -70,7 +84,7 @@ export default function EntireRecord({
             {/* 닫기 버튼 */}
             <div
               className="close"
-              onClick={onClose}
+              onClick={handleClose}
               style={{ cursor: 'pointer' }}
             >
               <img src={xbox} alt="닫기" />
@@ -93,6 +107,10 @@ export default function EntireRecord({
               maxLength={3000}
               type="text"
               placeholder="기록을 입력해주세요"
+              onFocus={(e) => (e.target.placeholder = '')}
+              onBlur={(e) =>
+                (e.target.placeholder = text ? '' : '기록을 입력해주세요')
+              }
             />
 
             {/* 하단 버튼 및 글자수 표시 */}

@@ -5,6 +5,7 @@ import UserInputField from '../../components/userInputField/UserInputField';
 import Title from '../../assets/title.svg';
 import PasswordInput from './PasswordInput';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
+import Arrow from '../../assets/arrow.svg';
 import {
   requestEmailVerification,
   verifyEmailCode,
@@ -28,14 +29,30 @@ const Signup = () => {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
 
   const handleBtnClick = () => {
+    // 버튼 클릭 시 비밀번호 정규식 검사 수행
+    if (!passwordRegex.test(password)) {
+      setPasswordError(
+        '비밀번호는 영어와 숫자를 포함하여 8자 이상 16자 이내로 설정해주세요.'
+      );
+      return; // 정규식에 부합하지 않으면 아래 동작 수행하지 않음
+    }
+    // 정규식을 만족하면 에러 메시지 초기화 후 진행
+    setPasswordError('');
     sessionStorage.setItem('email', email); // 세션에 이메일 저장
     sessionStorage.setItem('password', password); // 세션에 비밀번호 저장
     navigate('/profile');
   };
 
   const handleEmailVerification = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setVerificationMessage('이메일을 올바르게 입력해주세요.');
+      return;
+    }
+
     try {
-      setVerificationMessage('인증 요청 중...');
+      setVerificationMessage('');
       await requestEmailVerification(email);
       setVerificationMessage('인증 코드가 전송되었습니다.');
     } catch (error) {
@@ -46,7 +63,7 @@ const Signup = () => {
   // 인증번호 검증 함수
   const handleCodeVerification = async () => {
     try {
-      setVerificationMessage('인증번호 확인 중...');
+      setVerificationMessage('');
       const isVerified = await verifyEmailCode(email, verificationCode);
       if (isVerified) {
         setVerificationMessage('인증되었습니다.');
@@ -54,24 +71,17 @@ const Signup = () => {
       } else {
         setVerificationMessage('인증 실패. 다시 시도하세요.');
       }
-    } catch (error) {
-      setVerificationMessage(error.message);
+    } catch {
+      setVerificationMessage('인증 실패. 다시 시도하세요.');
     }
   };
 
   // 비밀번호 입력 핸들러: 정규식 검사 추가
+
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
 
-    // 정규식 검사: 조건에 맞지 않으면 에러 메시지 설정
-    if (!passwordRegex.test(newPassword)) {
-      setPasswordError(
-        '비밀번호는 영어와 숫자를 포함하여 8자 이상 16자 이내로 설정해주세요.'
-      );
-    } else {
-      setPasswordError('');
-    }
     checkPasswordMatch(newPassword, confirmPassword);
   };
 
@@ -91,6 +101,12 @@ const Signup = () => {
   return (
     <SignupContainer>
       <img className="title" src={Title} alt="타이틀" />
+      <img
+        className="back-btn"
+        src={Arrow}
+        alt="뒤로가기"
+        onClick={() => navigate('/login')}
+      />
       <UserInputField
         labelText="이메일"
         placeholder="이메일 입력"
@@ -118,9 +134,7 @@ const Signup = () => {
           className="verfication-result-message"
           style={{
             color:
-              verificationMessage === '인증 코드가 전송되었습니다.'
-                ? 'green'
-                : 'red',
+              verificationMessage === '인증되었습니다.' ? '#6aa5f8' : '#FD7472',
           }}
         >
           {verificationMessage}
@@ -135,6 +149,7 @@ const Signup = () => {
         value={password}
         onChange={handlePasswordChange}
       />
+
       {/* 비밀번호 양식 오류 메시지 */}
       {passwordError && <p className="pwd-error-msg">{passwordError}</p>}
       {/* 비밀번호 확인 입력 */}
@@ -150,7 +165,7 @@ const Signup = () => {
       {!passwordMatch && !passwordError && (
         <p className="pwd-result-msg">비밀번호가 일치하지 않습니다.</p>
       )}
-      {/* 회원가입 버튼 (활성화 조건: 인증 완료 + 비밀번호 일치) */}
+      {/* 회원가입 버튼 (활성화 조건: 인증 완료 + 비밀번호 일치 + 정규식 만족족) */}
       <BlueBtn
         text="다음"
         className="start-btn"

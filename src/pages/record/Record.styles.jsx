@@ -108,7 +108,7 @@ export const Container = styled.div`
 
   .order-text {
     margin-left: 25px;
-    color: #000;
+    color: #6aa5f8;
     font-family: Pretendard;
     font-size: var(--sds-typography-body-size-small);
     font-style: normal;
@@ -158,8 +158,9 @@ export const Container = styled.div`
 
   #popup1 {
     position: fixed;
-    top: 234px;
-    left: 63px;
+    top: 50%; /* 뷰포트 높이의 50% 위치 */
+    left: 50%; /* 뷰포트 너비의 50% 위치 */
+    transform: translate(-50%, -50%);
     width: 268px;
     height: 144px;
     border-radius: 14px;
@@ -234,5 +235,9 @@ export const Container = styled.div`
   .popup-delete {
     border-left: 0.5px solid #a3a3a3;
     color: #d25643;
+  }
+
+  .info-popup {
+    position: absolute;
   }
 `;

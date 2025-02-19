@@ -8,12 +8,17 @@ export default function InfoBody({ roomData, bookData }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true); // ✅ 로딩 상태 추가
 
   useEffect(() => {
     if (bookData) {
       setIsFavorite(bookData.favorite);
     }
-  }, [bookData]);
+    // ✅ 데이터가 로드되면 로딩 상태 해제
+    if (roomData || bookData) {
+      setLoading(false);
+    }
+  }, [bookData, roomData]);
 
   const handleStarClick = async () => {
     if (!bookData || !bookData.isbn) {
@@ -49,9 +54,23 @@ export default function InfoBody({ roomData, bookData }) {
     }
   };
 
-  // 둘 다 없는 경우에만 로딩 혹은 아무것도 렌더링하지 않음
+  // ✅ 로딩 중일 때 로딩 화면 표시
+  if (loading) {
+    return (
+      <Container>
+        <Wrapper>
+          <div className="title">
+            <div className="booknameloading">책 제목</div>
+          </div>
+          <div className="writer">지은이</div>
+        </Wrapper>
+      </Container>
+    );
+  }
+
+  // 둘 다 없는 경우에 아무것도 렌더링하지 않음
   if (!roomData && !bookData) {
-    return;
+    return null;
   }
 
   // roomData가 존재하면 roomData를 우선 렌더링
@@ -71,7 +90,7 @@ export default function InfoBody({ roomData, bookData }) {
     );
   }
 
-  // roomData가 없고 bookData만 있을 경우 (즐겨찾기 기능 없이)
+  // roomData가 없고 bookData만 있을 경우 (즐겨찾기 기능 포함)
   if (bookData) {
     return (
       <Container>

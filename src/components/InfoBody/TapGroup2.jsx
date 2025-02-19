@@ -28,12 +28,14 @@ export default function TabGroup2({ roomData }) {
         <Category
           $isActive={activeTab === '책정보'}
           onClick={() => handleTabClick('책정보')}
+          style={{ cursor: 'pointer' }}
         >
           책 정보
         </Category>
         <Category
           $isActive={activeTab === '방정보'}
           onClick={() => handleTabClick('방정보')}
+          style={{ cursor: 'pointer' }}
         >
           방 정보
         </Category>

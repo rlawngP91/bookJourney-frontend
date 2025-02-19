@@ -76,24 +76,19 @@ export const Container = styled.div`
   .cancel-btn {
     border: 1px solid #cecbcb;
     color: #a3a3a3;
-    font-family: var(--Label-Small-Font, Roboto);
     font-size: 15px;
-    font-style: normal;
     font-weight: 500;
     line-height: 42px;
-    letter-spacing: var(--Label-Small-Tracking, 0.5px);
   }
 
   .remove-btn {
-    border: 1px solid #cecbcb;
+    //border: 1px solid #cecbcb;
     background: #6aa5f8;
     color: #fff;
-    font-family: var(--Label-Small-Font, Roboto);
     font-size: 15px;
     font-style: normal;
     font-weight: 500;
     line-height: 42px;
-    letter-spacing: var(--Label-Small-Tracking, 0.5px);
   }
 
   .place-holder {
@@ -106,11 +101,8 @@ export const Container = styled.div`
     top: 35px;
     right: 25px;
     color: #a3a3a3;
-    font-family: Pretendard;
     font-size: 13px;
-    font-style: normal;
     font-weight: 600;
-    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
     cursor: pointer;
   }
 
@@ -119,18 +111,17 @@ export const Container = styled.div`
     top: 35px;
     right: 25px;
     color: #a3a3a3;
-    font-family: Pretendard;
     font-size: 13px;
     font-style: normal;
     font-weight: 600;
-    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
     cursor: pointer;
   }
 
   .popup {
-    position: absolute;
-    top: 234px;
-    left: 63px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 268px;
     height: 144px;
     border-radius: 14px;

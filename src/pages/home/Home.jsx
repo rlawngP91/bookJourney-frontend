@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Container, Wrapper, StyledSlider } from './Home.styles';
 import Title from '../../assets/title.svg';
 import Star from './star.svg';
-import Bell from './bell.svg';
+import exit from '../../assets/exit.svg';
 import Gray from './gray.svg';
 import Blue from './blue.svg';
 import Footer from '../../components/commons/Footer/Footer';
@@ -16,6 +16,7 @@ import Arrow from './arrow.svg';
 import BookFrame from '../../components/bookFrame/BookFrame';
 import InfoPopup from '../../components/infoPopup/InfoPopup';
 import apiClient from '../../apis/instance/apiClient';
+import LogoutPopup from '../mypage/logout/LogoutPopup';
 import { fetchPopularBook } from '../../apis/popularApi';
 import { fetchProgressRecords } from '../../apis/progressApi';
 import { deleteRecord } from '../../apis/deleteRecordApi';
@@ -35,6 +36,14 @@ const Home = () => {
   const [recruitWeek, setRecruitWeek] = useState('');
   const [recruitRooms, setRecruitRooms] = useState([]);
   const sliderRef = useRef(null); // 슬라이더 참조
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const logoutPopup = () => {
+    setShowLogoutPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowLogoutPopup(false);
+  };
 
   useEffect(() => {
     console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
@@ -200,11 +209,11 @@ const Home = () => {
         {popup1Visible && ( // #popup1
           <div id="popup1" className="popup">
             <div className="top">
-              <span className="popup-title">진행중인 기록에서 삭제</span>
-              <span className="popup-message">지금 읽고있는 책이에요.</span>
-              <span className="popup-message2">
+              <div className="popup-title">진행중인 기록에서 삭제</div>
+              <div className="popup-message">지금 읽고있는 책이에요.</div>
+              <div className="popup-message2">
                 진행중인 기록에서 삭제할까요?
-              </span>
+              </div>
             </div>
             <div className="popup-bottom">
               <div className="popup-cancel" onClick={handleCloseInfoPopup}>
@@ -223,7 +232,16 @@ const Home = () => {
           alt="별 아이콘"
           onClick={handleBookmarkClick}
         />
-        <img className="bell" src={Bell} alt="벨 아이콘" />
+        <img
+          src={exit}
+          className="exit"
+          alt="나가기"
+          onClick={() => logoutPopup()}
+          style={{ cursor: 'pointer' }}
+        />
+        {showLogoutPopup && (
+          <LogoutPopup isOpen={showLogoutPopup} onClose={handleClosePopup} />
+        )}
         <span className="user-name">
           {nickName}
           <span>님</span>
@@ -248,7 +266,11 @@ const Home = () => {
           )}
         </StyledSlider>
 
-        <span className="description">*자기계발 베스트 셀러</span>
+        <span className="description">
+          {bestSellerList.length > 0 && bestSellerList[selectedToggle]
+            ? `*${bestSellerList[selectedToggle].genreName} 베스트셀러`
+            : ''}
+        </span>
 
         <div className="circle-container">
           {[0, 1, 2].map((index) => (

@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 393px;
-  height: 610px;
+  height: 100vh;
   //height: 853px;
   display: flex;
   flex-direction: column;
   background-color: #f6f7f9;
   box-sizing: border-box;
   position: fixed;
-  bottom: 0;
+  top: 240px;
   left: 0;
 
   * {
@@ -98,13 +98,12 @@ export const Wrapper = styled.div`
       background: #fff;
       margin: auto;
       padding-left: 11px;
+      padding-right: 33px;
       color: #88909b;
       font-family: Pretendard;
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
-      line-height: var(--Label-Medium-Line-Height, 16px); /* 114.286% */
-      letter-spacing: var(--Label-Medium-Tracking, 0.5px);
     }
 
     input.roomNameError {
@@ -119,15 +118,29 @@ export const Wrapper = styled.div`
     margin-top: 49px;
     position: relative;
 
-    .section-title {
-      margin-left: 22px;
-      color: #000;
-      font-family: Pretendard;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: var(--Label-Small-Line-Height, 16px); /* 114.286% */
-      letter-spacing: var(--Label-Small-Tracking, 0.5px);
+    .section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0px 22px;
+      box-sizing: border-box;
+
+      .desc {
+        color: #a3a3a3;
+        text-align: center;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+      }
+
+      .section-title {
+        color: #000;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+      }
     }
 
     .duration {
@@ -150,8 +163,6 @@ export const Wrapper = styled.div`
           font-size: 13px;
           font-style: normal;
           font-weight: 400;
-          line-height: var(--Label-Small-Line-Height, 16px); /* 123.077% */
-          letter-spacing: var(--Label-Small-Tracking, 0.5px);
         }
 
         .inputWrap {
@@ -175,8 +186,6 @@ export const Wrapper = styled.div`
             font-size: 13px;
             font-style: normal;
             font-weight: 400;
-            line-height: var(--Label-Small-Line-Height, 16px); /* 123.077% */
-            letter-spacing: var(--Label-Small-Tracking, 0.5px);
           }
 
           .separator {
@@ -186,8 +195,6 @@ export const Wrapper = styled.div`
             font-size: 13px;
             font-style: normal;
             font-weight: 400;
-            line-height: var(--Label-Small-Line-Height, 16px); /* 123.077% */
-            letter-spacing: var(--Label-Small-Tracking, 0.5px);
           }
         }
       }
@@ -209,8 +216,6 @@ export const Wrapper = styled.div`
         font-size: 13px;
         font-style: normal;
         font-weight: 400;
-        line-height: var(--Label-Small-Line-Height, 16px); /* 123.077% */
-        letter-spacing: var(--Label-Small-Tracking, 0.5px);
       }
 
       input {
@@ -228,8 +233,6 @@ export const Wrapper = styled.div`
         font-size: 13px;
         font-style: normal;
         font-weight: 400;
-        line-height: var(--Label-Small-Line-Height, 16px); /* 123.077% */
-        letter-spacing: var(--Label-Small-Tracking, 0.5px);
       }
 
       input.participantsError {
@@ -292,8 +295,6 @@ export const Wrapper = styled.div`
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
-      line-height: var(--Label-Medium-Line-Height, 16px); /* 114.286% */
-      letter-spacing: var(--Label-Medium-Tracking, 0.5px);
     }
 
     input.passwordError {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from './routers/Router';
 import { createGlobalStyle } from 'styled-components';
-import ScrollToTop from './ScrolltoTop';
+import ScrollToTop from './ScrollToTop';
 import { BrowserRouter } from 'react-router-dom';
 
 const GlobalStyle = createGlobalStyle`
@@ -50,6 +50,18 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  * {
+    scrollbar-width: none;
+  }
+
+  * {
+    -ms-overflow-style: none; /* IE, Edge */
   }
 `;
 
