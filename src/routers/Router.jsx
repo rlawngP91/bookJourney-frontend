@@ -118,7 +118,6 @@ export default Router;
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Main from '../pages/Main/Main';
 import Test from '../pages/Test';
 import MakeReadwith from '../pages/MakeReadwith/MakeReadwith';
 import RoomInfo from '../pages/Info/RoomInfo';
@@ -143,7 +142,6 @@ import Account from '../pages/mypage/accountInfo/Account';
 export default function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
       <Route path="/test" element={<Test />} />
       <Route path="/makereadwith/:isbn" element={<MakeReadwith />} />
       <Route path="/rooms/:roomId" element={<RoomInfo />} />
