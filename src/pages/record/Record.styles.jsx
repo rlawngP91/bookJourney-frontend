@@ -108,7 +108,7 @@ export const Container = styled.div`
 
   .order-text {
     margin-left: 25px;
-    color: #000;
+    color: #6aa5f8;
     font-family: Pretendard;
     font-size: var(--sds-typography-body-size-small);
     font-style: normal;
@@ -235,5 +235,9 @@ export const Container = styled.div`
   .popup-delete {
     border-left: 0.5px solid #a3a3a3;
     color: #d25643;
+  }
+
+  .info-popup {
+    position: absolute;
   }
 `;

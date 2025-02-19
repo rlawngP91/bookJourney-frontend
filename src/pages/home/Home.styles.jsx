@@ -484,8 +484,4 @@ export const StyledSlider = styled(Slider)`
   .popup-wrapper {
     position: absolute;
   }
-
-  .info-popup {
-    position: absolute;
-  }
 `;
