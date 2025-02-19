@@ -64,42 +64,36 @@ export default function ButtonGroup2({ roomData, roomId }) {
   const [toastMessage, setToastMessage] = useState(null);
   const [toastTitle, setToastTitle] = useState('');
 
-  // ✅ 방 참가 처리 함수
-  const handleEnterRoom = async (password = '') => {
+  const handleEnterRoom = async (password = null) => {
     try {
       const response = await postEnterRoom(roomId, password);
       console.log('✅ 방 참가 성공:', response);
 
-      // ✅ 성공 시 방 정보 페이지로 이동
       setToastTitle('방 참가 성공');
       setToastMessage('방에 성공적으로 입장하였습니다.');
       navigate(`/rooms/${roomId}/info`);
     } catch (error) {
       console.error('❌ 방 참가 실패:', error.message);
       setToastTitle('같이읽기 방 참가하기');
-      setToastMessage(error.message); // ✅ API에서 던진 에러 메시지를 사용자에게 표시
+      setToastMessage(error.message);
     } finally {
-      setPopupVisible(false); // ✅ 팝업 닫기
+      setPopupVisible(false);
     }
   };
 
   const handleRecordClick = () => {
     if (roomData?.member) {
-      // ✅ 이미 멤버라면 바로 이동
       if (roomId) {
         navigate(`/rooms/${roomId}/info`);
       } else {
         console.error('roomId가 라우터 파라미터로 전달되지 않았습니다.');
       }
     } else {
-      // ✅ 비공개 방이면 비밀번호 팝업 띄우기
       if (roomData?.public === false) {
-        setPopupVisible(true);
-        return;
+        setPopupVisible(true); // 비밀번호 입력 팝업 띄우기
+      } else {
+        handleEnterRoom(); // ✅ 공개 방은 비밀번호 없이 참가
       }
-
-      // ✅ 공개 방이면 바로 참가
-      handleEnterRoom();
     }
   };
 
