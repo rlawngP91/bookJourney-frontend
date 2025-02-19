@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -156,4 +156,30 @@ export const FooterContainer = styled.div`
   right: 0;
   background: #fbfbfb;
   z-index: 10;
+`;
+
+export const float = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
+export const LoadingContent = styled.div`
+  color: #4b96f8;
+  font-style: normal;
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    animation: ${float} 2s ease-in-out infinite;
+    animation-delay: ${(props) => props.$delay}s;
+  }
 `;
