@@ -19,6 +19,7 @@ import EntireRecord from './EntireRecord';
 import { getPageRecords } from '../../apis/getPageRecords';
 import { getEntireRecords } from '../../apis/getEntireRecords';
 import CollectorPopup from '../../pages/collector/CollectorPopup';
+import ToastPopup from '../../components/ToastPopup/ToastPopup';
 
 export default function RoomBody({ roomData }) {
   const [activeTab, setActiveTab] = useState('페이지별');
@@ -26,6 +27,8 @@ export default function RoomBody({ roomData }) {
 
   // ✅ 기록 추가 팝업 상태
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null); // ✅ Toast 메시지 상태 추가
+  const [toastTitle, setToastTitle] = useState('');
   // ✅ CollectorPopup 상태
   const [popupRecordCount, setPopupRecordCount] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -129,9 +132,26 @@ export default function RoomBody({ roomData }) {
       setTimeout(() => {
         setShowPopup(false);
         setPopupRecordCount(null);
-      }, 2000);
+      }, 3000);
     }
   }, [popupRecordCount]);
+
+  // ✅ 팝업을 열 때 기존 토스트 메시지 초기화
+  const openPopup = () => {
+    setIsPopupOpen(true);
+    setToastMessage(null); // ✅ 기존 토스트 메시지 초기화
+    setToastTitle('');
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+
+    // ✅ Toast 메시지가 화면에서 완전히 사라진 후에 초기화
+    setTimeout(() => {
+      setToastMessage(null);
+      setToastTitle('');
+    }, 3000); // ToastPopup 애니메이션 시간과 맞춤
+  };
 
   return (
     <Layout>
@@ -143,17 +163,21 @@ export default function RoomBody({ roomData }) {
       {isPopupOpen &&
         (activeTab === '페이지별' ? (
           <PageRecord
-            onClose={() => setIsPopupOpen(false)}
             roomId={roomId}
-            setPopupRecordCount={setPopupRecordCount} // ✅ 상태 전달
-            fetchRecords={fetchRecords} // ✅ fetchRecords 전달
+            setPopupRecordCount={setPopupRecordCount}
+            fetchRecords={fetchRecords}
+            setToastMessage={setToastMessage}
+            setToastTitle={setToastTitle}
+            onClose={closePopup}
           />
         ) : (
           <EntireRecord
-            onClose={() => setIsPopupOpen(false)}
             roomId={roomId}
-            setPopupRecordCount={setPopupRecordCount} // ✅ 상태 전달
-            fetchRecords={fetchRecords} // ✅ fetchRecords 전달
+            setPopupRecordCount={setPopupRecordCount}
+            fetchRecords={fetchRecords}
+            setToastMessage={setToastMessage}
+            setToastTitle={setToastTitle}
+            onClose={closePopup}
           />
         ))}
 
@@ -304,13 +328,24 @@ export default function RoomBody({ roomData }) {
       <Footer>
         <div
           className="input"
-          onClick={() => setIsPopupOpen(true)}
+          onClick={openPopup}
           style={{ cursor: 'pointer' }}
         >
           <div>기록을 입력해주세요</div>
           <img src={send} alt="send" />
         </div>
       </Footer>
+
+      {toastMessage && (
+        <ToastPopup
+          title={toastTitle}
+          message={toastMessage}
+          onClose={() => {
+            setToastMessage(null);
+            setToastTitle('');
+          }}
+        />
+      )}
     </Layout>
   );
 }

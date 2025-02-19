@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import RoomPasswordPopup from '../popup/roomPasswordPopup/RoomPasswordPopup';
+import { postEnterRoom } from '../../apis/postEnter';
+import ToastPopup from '../ToastPopup/ToastPopup';
 
 const ButtonGroupWrapper = styled.div`
   width: 393px;
@@ -58,26 +60,46 @@ export const Button1 = styled.button`
 // 방참가 API 연동필요!
 export default function ButtonGroup2({ roomData, roomId }) {
   const navigate = useNavigate();
-
   const [popupVisible, setPopupVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastTitle, setToastTitle] = useState('');
+
+  // ✅ 방 참가 처리 함수
+  const handleEnterRoom = async (password = '') => {
+    try {
+      const response = await postEnterRoom(roomId, password);
+      console.log('✅ 방 참가 성공:', response);
+
+      // ✅ 성공 시 방 정보 페이지로 이동
+      setToastTitle('방 참가 성공');
+      setToastMessage('방에 성공적으로 입장하였습니다.');
+      navigate(`/rooms/${roomId}/info`);
+    } catch (error) {
+      console.error('❌ 방 참가 실패:', error.message);
+      setToastTitle('같이읽기 방 참가하기');
+      setToastMessage(error.message); // ✅ API에서 던진 에러 메시지를 사용자에게 표시
+    } finally {
+      setPopupVisible(false); // ✅ 팝업 닫기
+    }
+  };
 
   const handleRecordClick = () => {
     if (roomData?.member) {
-      // ✅ 멤버이면 바로 네비게이트 실행
+      // ✅ 이미 멤버라면 바로 이동
       if (roomId) {
         navigate(`/rooms/${roomId}/info`);
       } else {
         console.error('roomId가 라우터 파라미터로 전달되지 않았습니다.');
       }
     } else {
-      // ✅ 멤버가 아니고, 방이 비공개(`public === false`)라면 비밀번호 팝업 띄우기
+      // ✅ 비공개 방이면 비밀번호 팝업 띄우기
       if (roomData?.public === false) {
         setPopupVisible(true);
         return;
       }
 
-      // ✅ 멤버가 아니지만 방이 공개(`public === true`)라면 네비게이트 실행
-      navigate(`/rooms/${roomId}/info`);
+      // ✅ 공개 방이면 바로 참가
+      handleEnterRoom();
     }
   };
 
@@ -95,6 +117,15 @@ export default function ButtonGroup2({ roomData, roomId }) {
         <RoomPasswordPopup
           onClose={() => setPopupVisible(false)}
           roomId={roomId}
+          onSubmit={handleEnterRoom} // ✅ 비밀번호 팝업에서 입력 후 API 호출
+        />
+      )}
+
+      {toastMessage && (
+        <ToastPopup
+          title={toastTitle}
+          message={toastMessage}
+          onClose={() => setToastMessage(null)}
         />
       )}
     </ButtonGroupWrapper>

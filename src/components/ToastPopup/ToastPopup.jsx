@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import toastlogo from '../../assets/toastlogo.svg';
 
-// ✅ 애니메이션 정의
 const slideDown = keyframes`
   0% {
-    transform: translateY(-100px); /* 화면 위에서 시작 */
+    transform: translateY(-50px);
     opacity: 0;
   }
   100% {
-    transform: translateY(0); /* 원래 위치로 */
+    transform: translateY(0);
     opacity: 1;
   }
 `;
@@ -21,7 +20,7 @@ const fadeOut = keyframes`
   }
   100% {
     opacity: 0;
-    transform: translateY(-10px); /* 약간 위로 올라가면서 사라짐 */
+    transform: translateY(50px);
   }
 `;
 
@@ -31,6 +30,10 @@ export const Wrapper = styled.div`
   background: transparent;
   display: flex;
   justify-content: center;
+  z-index: 5000;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 export const Container = styled.div`
@@ -41,8 +44,17 @@ export const Container = styled.div`
   border-radius: 9px;
   background: #fff;
   box-shadow: 0px 1.892px 1.892px 0px rgba(0, 0, 0, 0.25);
-  animation: ${(props) => (props.$isVisible ? slideDown : fadeOut)} 0.5s
-    ease-in-out;
+  opacity: 0;
+
+  // ✅ show 상태에 따라 애니메이션 적용
+  ${({ $isVisible }) =>
+    $isVisible
+      ? css`
+          animation: ${slideDown} 1s ease-out forwards;
+        `
+      : css`
+          animation: ${fadeOut} 1 ease-in forwards;
+        `}
 
   .box {
     display: flex;
@@ -76,32 +88,41 @@ export const Container = styled.div`
   }
 `;
 
-export default function ToastPopup({ isVisible, onClose }) {
-  const [show, setShow] = useState(isVisible);
+export default function ToastPopup({ title, message, onClose }) {
+  const [show, setShow] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastTitle, setToastTitle] = useState(null);
 
   useEffect(() => {
-    if (isVisible) {
+    if (message) {
+      setToastTitle(title);
+      setToastMessage(message);
       setShow(true);
-      setTimeout(() => {
+      console.log('🔥 ToastPopup 등장:', message);
+
+      const timer = setTimeout(() => {
         setShow(false);
-        onClose();
-      }, 3000); // 3초 후 자동 사라짐
+        console.log('🛑 ToastPopup 사라짐');
+        setTimeout(onClose, 500); // 🔥 애니메이션이 끝난 후 onClose 실행
+      }, 3000);
+
+      return () => clearTimeout(timer);
     }
-  }, [isVisible, onClose]);
+  }, [message, title]);
 
   return (
-    <Wrapper>
-      {show && (
+    show && (
+      <Wrapper>
         <Container $isVisible={show}>
           <div className="box">
             <img src={toastlogo} alt="토스트 아이콘" />
             <div className="text">
-              <div className="title">제목</div>
-              <div className="content">내용내용내용내용내용내용내용내용</div>
+              <div className="title">{toastTitle || 'Error'}</div>
+              <div className="content">{toastMessage}</div>
             </div>
           </div>
         </Container>
-      )}
-    </Wrapper>
+      </Wrapper>
+    )
   );
 }
