@@ -29,7 +29,7 @@ const SliderTrack = styled.div`
 const SliderRange = styled.div`
   position: absolute;
   height: 100%;
-  background: #4f8bff;
+  background: #a3c7fa;
   border-radius: 2px;
   left: 0;
   width: ${(props) => props.$percentage}%;

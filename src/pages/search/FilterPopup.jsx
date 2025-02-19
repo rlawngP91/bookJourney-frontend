@@ -40,6 +40,12 @@ const CategoryContainer = styled.div`
 `;
 
 const CategoryButton = styled.button`
+  color: #000;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
   padding: 12px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -51,10 +57,17 @@ const ApplyButton = styled.button`
   width: 100%;
   padding: 16px;
   background: #6aa5f8;
-  color: white;
-  border: none;
-  border-radius: 8px;
   margin-top: 24px;
+  border-radius: 8.795px;
+  border: 0.977px solid #cecbcb;
+
+  color: #fff;
+  font-family: var(--Label-Small-Font, Roboto);
+  font-size: 14.658px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15.635px; /* 106.667% */
+  letter-spacing: 0.489px;
 `;
 
 const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
@@ -147,7 +160,7 @@ const FilterPopup = ({ onClose, onApply, $currentFilters }) => {
           </CategoryContainer>
 
           <DatePicker
-            label="모집 마감일"
+            label="모집 기간"
             startDate={deadlineStartDate}
             endDate={deadlineEndDate}
             onStartDateChange={setDeadlineStartDate}

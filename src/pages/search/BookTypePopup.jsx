@@ -43,8 +43,14 @@ const SelectButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-family: Pretendard;
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 19.6px; /* 19.6px */
   font-weight: ${(props) => (props.$isSelected ? 'bold' : 'normal')};
-  color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#808080')};
+  color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#88909B')};
   border: none;
   background: none;
 

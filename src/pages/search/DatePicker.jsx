@@ -16,7 +16,7 @@ const DatePickerHeader = styled.div`
 const DatePickerLabel = styled.div`
   color: #000;
   font-family: Pretendard;
-  font-size: var(--sds-typography-body-size-small);
+  font-size: 15px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%; /* 19.6px */
@@ -51,12 +51,13 @@ const DateInputsContainer = styled.div`
 
 const DateInput = styled.div`
   padding: 12px 16px;
-  border-radius: 12px;
+  border-radius: 8.361px;
   font-size: 13px;
   text-align: center;
   cursor: pointer;
   color: ${(props) => (props.$isSelected ? '#FFF' : '#000')};
-  background-color: ${(props) => (props.$isSelected ? '#A3C7FA' : 'white')};
+  background-color: ${(props) =>
+    props.$isSelected ? '#A3C7FA' : 'rgba(171, 171, 171, 0.12)'};
   flex: 1;
 `;
 
@@ -75,7 +76,7 @@ const Calendar = styled.div`
   ${(props) =>
     props.$right &&
     `
-    right: 0;
+    right: 25px;
   `}
 `;
 
@@ -141,7 +142,7 @@ const DatePicker = ({
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const formatDate = (date) => {
-    if (!date) return 'YYYY.MM.DD';
+    if (!date) return 'yyyy.mm.dd';
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
