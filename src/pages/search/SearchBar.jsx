@@ -9,6 +9,11 @@ const SearchBarWrapper = styled.div`
   position: relative;
 `;
 
+const SearchInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const SearchInput = styled.div`
   position: relative;
   display: flex;
@@ -56,7 +61,7 @@ const StyledInput = styled.input`
   outline: none;
   font-family: Pretendard;
   font-size: 14px;
-  padding: 0 80px 0 15px; // 오른쪽 패딩 증가
+  padding: 0 35px 0 15px; // 오른쪽 패딩 증가
 `;
 
 const IconContainer = styled.div`
@@ -83,16 +88,14 @@ const DeleteIconWrapper = styled.div`
 
 const SearchIconWrapper = styled.div`
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   align-items: center;
-  width: 16px;
-  height: 16px;
   cursor: pointer;
 
-  img {
-    width: 16px;
-    height: 16px;
-  }
+  color: #000;
+  width: 40px;
+  height: 40px;
 `;
 
 export const SearchBar = ({
@@ -111,27 +114,32 @@ export const SearchBar = ({
 
   return (
     <SearchBarWrapper>
-      <SearchInput>
-        <SearchTypeButton onClick={onTypeClick}>{searchType}</SearchTypeButton>
-        <StyledInput
-          type="text"
-          placeholder={`${searchType} 검색`}
-          value={value}
-          onChange={onChange}
-          onKeyDown={handleKeyPress}
-          maxLength={15}
-        />
-        <IconContainer>
-          {value && (
-            <DeleteIconWrapper>
-              <img src={deleteIcon} alt="clear" onClick={onClear} />
-            </DeleteIconWrapper>
-          )}
-          <SearchIconWrapper>
-            <img src={searchIcon} alt="search" onClick={() => onSearch()} />
-          </SearchIconWrapper>
-        </IconContainer>
-      </SearchInput>
+      <SearchInputContainer>
+        <SearchInput>
+          <SearchTypeButton onClick={onTypeClick}>
+            {searchType}
+          </SearchTypeButton>
+          <StyledInput
+            type="text"
+            placeholder={`${searchType} 검색`}
+            value={value}
+            onChange={onChange}
+            onKeyDown={handleKeyPress}
+            maxLength={15}
+          />
+          <IconContainer>
+            {value && (
+              <DeleteIconWrapper>
+                <img src={deleteIcon} alt="clear" onClick={onClear} />
+              </DeleteIconWrapper>
+            )}
+          </IconContainer>
+        </SearchInput>
+
+        <SearchIconWrapper>
+          <img src={searchIcon} alt="search" onClick={() => onSearch()} />
+        </SearchIconWrapper>
+      </SearchInputContainer>
     </SearchBarWrapper>
   );
 };

@@ -10,9 +10,16 @@ const HeaderWrapper = styled.div`
   left: 0;
   top: 0;
   display: flex;
+  background: #f6f7f9;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  flex: 1;
+  height: 23px;
   justify-content: space-between;
   align-items: center;
-  background: #f6f7f9;
+  margin-top: 82px;
 `;
 
 const BackButton = styled.button`
@@ -61,13 +68,15 @@ const SettingsButton = styled.button`
 export default function SearchHeader({ onBackClick, onSettingsClick }) {
   return (
     <HeaderWrapper>
-      <BackButton onClick={onBackClick}>
-        <img src={backIcon} alt="뒤로 가기" />
-      </BackButton>
-      <Title>책찾기</Title>
-      <SettingsButton onClick={onSettingsClick}>
-        <img src={settingsIcon} alt="설정" />
-      </SettingsButton>
+      <HeaderContainer>
+        <BackButton onClick={onBackClick}>
+          <img src={backIcon} alt="뒤로 가기" />
+        </BackButton>
+        <Title>찾기</Title>
+        <SettingsButton onClick={onSettingsClick}>
+          <img src={settingsIcon} alt="설정" />
+        </SettingsButton>
+      </HeaderContainer>
     </HeaderWrapper>
   );
 }
