@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from './routers/Router';
 import { createGlobalStyle } from 'styled-components';
-import ScrollToTop from './ScrolltoTop';
+import ScrollToTop from './ScrollToTop';
 import { BrowserRouter } from 'react-router-dom';
 
 const GlobalStyle = createGlobalStyle`
