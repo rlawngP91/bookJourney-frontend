@@ -328,8 +328,6 @@ export const Button = styled.button`
     font-size: 14px;
     font-style: normal;
     font-weight: ${({ $isSelected }) => ($isSelected ? '700' : '400')};
-    line-height: 20px;
-    letter-spacing: 0.1px;
   }
 
   &:hover {
