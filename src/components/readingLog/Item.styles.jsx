@@ -30,13 +30,18 @@ export const BookInfo = styled.div`
   position: relative;
 
   .roomAuthor {
+    width: 170px;
     color: #757373;
     font-family: Pretendard;
     font-size: 10px;
     font-style: normal;
     font-weight: 500;
-    line-height: 160%; /* 160% */
+    line-height: 160%;
     letter-spacing: var(--Label-Small-Tracking, 0.5px);
+    white-space: nowrap; /* 한 줄로 제한 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
   }
 
   .BookContainer {
@@ -50,7 +55,7 @@ export const BookInfo = styled.div`
       font-size: 15px;
       font-style: normal;
       font-weight: 500;
-      line-height: var(--Label-Small-Line-Height, 16px); /* 106.667% */
+      line-height: 106.667%; /* 106.667% */
       letter-spacing: var(--Label-Small-Tracking, 0.5px);
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -69,11 +74,28 @@ export const BookInfo = styled.div`
     }
   }
 
-  .roomMeta {
+  .roomTitle {
+    color: #939393;
+    font-family: Pretendard;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: var(--Label-Small-Line-Height, 16px); /* 145.455% */
+    letter-spacing: var(--Label-Small-Tracking, 0.5px);
+    margin-top: auto;
+  }
+
+  .roomMetaRead {
     display: flex;
     gap: 12px;
     align-items: center;
     margin-top: auto;
+  }
+  .roomMeta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    /* margin-top: auto; */
   }
 `;
 

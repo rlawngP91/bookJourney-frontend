@@ -5,7 +5,7 @@ import CalendarHandler from './CalendarHandler';
 import CalendarContent from './CalendarContent';
 
 import {
-  ReadinCalendarContainer,
+  ReadingCalendarContainer,
   CalendarHandlerWrapper,
   CalendarContentWrapper,
 } from './ReadingCalendar.styles';
@@ -40,7 +40,7 @@ export default function ReadingCalendar() {
   };
 
   return (
-    <ReadinCalendarContainer>
+    <ReadingCalendarContainer>
       <CalendarHeader onBackClick={() => navigate(-1)} />
       <CalendarHandlerWrapper>
         <CalendarHandler
@@ -52,6 +52,6 @@ export default function ReadingCalendar() {
       <CalendarContentWrapper>
         <CalendarContent selectedDate={currentDate} />
       </CalendarContentWrapper>
-    </ReadinCalendarContainer>
+    </ReadingCalendarContainer>
   );
 }

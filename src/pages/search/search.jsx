@@ -8,6 +8,7 @@ import { RecentSearches } from './RecentSearches';
 
 import BookTypePopup from './BookTypePopup';
 import FilterPopup from './FilterPopup';
+import RecentRemoveAllPopup from './RecentRemoveAllPopup';
 import LoadingPage from '../../components/loading/loadingPage';
 import logoIcon from '../../assets/loadingbook.svg';
 
@@ -38,6 +39,8 @@ export default function Search() {
     return localStorage.getItem(SEARCH_TYPE_KEY) || DEFAULT_SEARCH_TYPE;
   });
   const [recentSearches, setRecentSearches] = useState([]);
+  const [showRecentRemoveAllPopup, setShowRecentRemoveAllPopup] =
+    useState(false);
   const [isSearchExecuted, setIsSearchExecuted] = useState(false);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [isDataLoading, setIsDataLoading] = useState(false);
@@ -198,6 +201,7 @@ export default function Search() {
       console.error('전체 검색어 삭제 실패:', error);
     } finally {
       setIsDataLoading(false);
+      setShowRecentRemoveAllPopup(false);
     }
   };
 
@@ -297,7 +301,7 @@ export default function Search() {
         {!isSearchExecuted && (
           <RecentSearches
             recentSearches={recentSearches.map((search) => search.text)}
-            onClearAll={handleClearAll}
+            onClearAll={() => setShowRecentRemoveAllPopup(true)}
             onRemove={(id) => removeRecentSearch(recentSearches[id].id)} // index를 사용하여 해당 아이템의 id에 접근
             onChipClick={handleChipClick}
           />
@@ -349,6 +353,12 @@ export default function Search() {
         <Footer />
       </FooterContainer>
 
+      {showRecentRemoveAllPopup && (
+        <RecentRemoveAllPopup
+          onClose={() => setShowRecentRemoveAllPopup(false)}
+          onApply={handleClearAll}
+        />
+      )}
       {showFilterPopup && (
         <FilterPopup
           onClose={() => {

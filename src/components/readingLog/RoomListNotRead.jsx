@@ -42,6 +42,7 @@ const RoomListNotRead = ({ rooms }) => {
               <div className="BookContainer">
                 <span className="BookTitle">{room.book}</span>
               </div>
+              <span className="roomTitle">{room.roomTitle}</span>
               <div className="roomMeta">
                 <MetaItem>
                   <img src={clockIcon} alt="recentEdited" className="icon" />

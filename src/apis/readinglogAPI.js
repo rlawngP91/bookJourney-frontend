@@ -22,6 +22,7 @@ const RoomListNotReadAPIResponse = (record) => ({
   book: record.bookTitle,
   author: record.authorName,
   people: record.roomType === '같이읽기' ? '같이' : '혼자',
+  roomTitle: record.roomName,
   recentEdit: record.modifiedAt,
   progress: record.userPercentage,
   coverImage: record.imageUrl,

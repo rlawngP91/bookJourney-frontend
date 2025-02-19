@@ -5,7 +5,7 @@ import backIcon from '../../../assets/leftarrow.svg';
 const HeaderWrapper = styled.div`
   position: fixed;
   width: 393px; // 100% 393px
-  height: 80px;
+  height: 155px;
   display: flex;
   left: 0;
   top: 0;
@@ -19,7 +19,7 @@ const BackButton = styled.button`
   padding: 8px;
   cursor: pointer;
   position: absolute;
-  top: 50%;
+  top: 53%;
   transform: translateY(-50%);
   align-items: center;
   justify-content: center;
@@ -34,7 +34,7 @@ const BackButton = styled.button`
 const Title = styled.h1`
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 53%;
   transform: translate(-50%, -50%);
   color: #000;
   text-align: center;
