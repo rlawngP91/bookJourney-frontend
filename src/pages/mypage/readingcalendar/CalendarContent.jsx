@@ -17,6 +17,7 @@ const WeekDay = styled.div`
   color: #4b96f8;
   font-size: 14px;
   margin-top: 30px;
+  margin-bottom: 15px;
 `;
 
 const DateCell = styled.div`

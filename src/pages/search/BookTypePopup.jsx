@@ -15,30 +15,42 @@ const Overlay = styled.div`
 const PopupContainer = styled.div`
   position: fixed;
   width: 351px; // 좌우 margin더하면 393px
+  height: 150px;
   bottom: 24px;
   left: 21px;
   right: 21px;
   background-color: white;
   box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1);
-  border-radius: 16px;
+  border-radius: 9px;
   border: 1px solid #e5e7eb;
   z-index: 51; // Overlay보다 높게 설정
 `;
 
 const PopupContent = styled.div`
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+
+  & > button:not(:last-child) {
+    border-bottom: 1px solid #cecbcb;
+  }
 `;
 
 const SelectButton = styled.button`
   width: 100%;
+  height: 50px;
   text-align: left;
   padding: 12px 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+
+  font-family: Pretendard;
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 19.6px; /* 19.6px */
   font-weight: ${(props) => (props.$isSelected ? 'bold' : 'normal')};
-  color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#808080')};
+  color: ${(props) => (props.$isSelected ? '#6AA5F8' : '#88909B')};
   border: none;
   background: none;
 

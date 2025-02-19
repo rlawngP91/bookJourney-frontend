@@ -17,6 +17,18 @@ const float = keyframes`
   }
 `;
 
+const floatUpDown = keyframes`
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+`;
+
 const LoadingContainer = styled.div`
   display: flex;
   width: 393px; // 393px고정
@@ -65,6 +77,7 @@ const LoadingItem3 = styled(LoadingItem)`
   height: 63.8px;
   left: -20%;
   top: 60%;
+  animation: ${floatUpDown} 2s ease-in-out infinite;
 `;
 
 const loadingPage = () => {
@@ -74,7 +87,7 @@ const loadingPage = () => {
         <LoadingLogo src={loadinglogo} alt="Loading Logo" />
         <LoadingItem1 src={loadingbook} alt="Loading Item 1" $delay={0} />
         <LoadingItem2 src={loadingpencil} alt="Loading Item 2" $delay={0.2} />
-        <LoadingItem3 src={loadingcheck} alt="Loading Item 3" $delay={0.6} />
+        <LoadingItem3 src={loadingcheck} alt="Loading Item 3" $delay={0.1} />
       </LogoContainer>
     </LoadingContainer>
   );

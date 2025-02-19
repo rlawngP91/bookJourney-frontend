@@ -7,7 +7,6 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
   min-width: 220px;
   height: 44px;
   flex-shrink: 0;
