@@ -8,6 +8,7 @@ import Plus from './plus.svg';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
 import { checkNicknameAvailability } from '../../apis/verification';
 import { uploadProfileImage } from '../../apis/profileApi';
+import Popup from './Popup';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Profile = () => {
   // 프로필 이미지 관련 state (미리보기 URL과 파일 객체)
   const [profileImg, setProfileImg] = useState(ProfileImgPlaceholder);
   const [profileFile, setProfileFile] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   // file input DOM 접근을 위한 ref 생성
   const fileInputRef = useRef(null);
@@ -49,32 +51,30 @@ const Profile = () => {
 
   const handleNextButtonClick = async () => {
     try {
-      let uploadedImageUrl = '';
+      let uploadedImageUrl = profileImg; // 기본적으로 현재 선택된 이미지 URL 사용
 
-      if (!profileFile) {
-        console.error('[ERROR] 업로드할 프로필 이미지가 없습니다!');
-        alert('업로드할 프로필 이미지를 선택해주세요.');
-        return;
+      if (profileFile) {
+        console.log('[DEBUG] 프로필 이미지 업로드 시작...');
+        uploadedImageUrl = await uploadProfileImage(profileFile); // 프로필 이미지 업로드 요청
+        console.log('[DEBUG] 업로드된 프로필 이미지 URL:', uploadedImageUrl);
       }
 
-      console.log('[DEBUG] 프로필 이미지 업로드 시작...');
-      uploadedImageUrl = await uploadProfileImage(profileFile); // 프로필 이미지 업로드 요청
-      console.log('[DEBUG] 업로드된 프로필 이미지 URL:', uploadedImageUrl);
-
-      sessionStorage.setItem('nickName', nickname); // 닉네임 저장
-      sessionStorage.setItem('imageUrl', uploadedImageUrl); // 프로필 이미지 URL 저장
-      navigate('/category'); // "/category"로 이동
+      sessionStorage.setItem('nickName', nickname);
+      sessionStorage.setItem('imageUrl', uploadedImageUrl);
+      navigate('/category');
     } catch (error) {
       console.error('[ERROR] 프로필 업로드 또는 세션 저장 실패:', error);
-      alert(error.message); // 실패 시 사용자에게 알림
+      alert(error.message);
     }
   };
 
   // plus 버튼 클릭 시 파일 입력창 열기
   const handlePlusBtnClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    setShowPopup(true); // Popup 열기
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false); // Popup 닫기
   };
 
   // 파일이 선택되었을 때 미리보기 URL 생성 및 state 업데이트
@@ -92,6 +92,11 @@ const Profile = () => {
     const previewUrl = URL.createObjectURL(file);
     setProfileImg(previewUrl);
     console.log(`previewUrl =  ${previewUrl}`);
+  };
+
+  const handleProfileSelect = (imgSrc) => {
+    setProfileImg(imgSrc);
+    setProfileFile(null); // 파일이 아니라 URL을 사용
   };
 
   return (
@@ -128,6 +133,13 @@ const Profile = () => {
         >
           {nicknameMessage}
         </p>
+      )}
+      {showPopup && (
+        <Popup
+          onClose={handleClosePopup}
+          onFileSelect={() => fileInputRef.current?.click()}
+          onProfileSelect={handleProfileSelect}
+        />
       )}
       <div className="btn-container">
         <BlueBtn
