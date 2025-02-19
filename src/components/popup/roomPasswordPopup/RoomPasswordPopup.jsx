@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import closeBtn from '../../../assets/close.svg';
 import { getPasswordInfo } from '../../../apis/getPasswordInfo';
 import { postEnterRoom } from '../../../apis/postEnter';
+import ToastPopup from '../../ToastPopup/ToastPopup';
 import {
   PopupContainer,
   PopupSubContainer,
@@ -26,6 +27,7 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
   const [hostName, setHostName] = useState('');
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
     const fetchRoomData = async () => {
@@ -49,8 +51,8 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
     fetchRoomData();
   }, [roomId]);
 
-  // ✅ 사용자가 입력할 때마다 호출
-  const handlePasswordInput = async (value) => {
+  // ✅ 비밀번호 입력 이벤트 핸들링
+  const handlePasswordInput = (value) => {
     if (value === 'Backspace') {
       setInputPassword((prev) => prev.slice(0, -1));
       return;
@@ -62,12 +64,12 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
 
       // 🔹 4자리 입력 완료되면 자동으로 검증
       if (newPassword.length === 4) {
-        await handlePasswordSubmit(newPassword);
+        handlePasswordSubmit(newPassword);
       }
     }
   };
 
-  // ✅ 키보드 입력 이벤트 핸들링
+  // ✅ 키보드 입력 이벤트 추가
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key >= '0' && e.key <= '9') {
@@ -85,7 +87,6 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
   const handlePasswordSubmit = async (enteredPassword) => {
     try {
       if (parseInt(enteredPassword) !== password) {
-        // ❌ 비밀번호 틀림 → 에러 표시 후 리셋
         setIsError(true);
         setErrorMessage('비밀번호가 틀렸습니다.');
 
@@ -97,18 +98,26 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
         return;
       }
 
-      // ✅ 비밀번호 맞으면 서버로 입장 요청
+      // ✅ 비밀번호 맞으면 방 입장 API 호출
       const response = await postEnterRoom(roomId, enteredPassword);
       console.log('✅ 방 입장 성공:', response);
 
       if (response.roomId) {
-        onClose();
-        navigate(`/rooms/${roomId}/info`);
+        setTimeout(() => {
+          onClose();
+          navigate(`/rooms/${roomId}/info`);
+
+          // ✅ 네비게이션 후 토스트 팝업 표시
+          setTimeout(() => {
+            setToastMessage('성공적으로 방에 입장했습니다');
+          }, 5000);
+        }, 10);
       }
+
+      setToastMessage('성공적으로 방에 입장했습니다');
     } catch (error) {
       console.error('❌ 방 입장 실패:', error);
 
-      // ✅ 서버에서 받은 에러 메시지를 그대로 출력
       setIsError(true);
       setErrorMessage(error.message);
 
@@ -158,6 +167,15 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
           </>
         )}
       </PopupSubContainer>
+
+      {/* ✅ 토스트 팝업 추가 */}
+      {toastMessage && (
+        <ToastPopup
+          title="방 참가 성공"
+          message={toastMessage}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
     </PopupContainer>
   );
 };
