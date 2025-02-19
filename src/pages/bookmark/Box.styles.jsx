@@ -18,7 +18,7 @@ export const Container = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    width: 205px;
+    width: 225px;
     padding-right: 15px;
   }
 
@@ -60,6 +60,7 @@ export const Container = styled.div`
     width: 24px;
     height: 24px;
     margin-top: 49.5px;
+    margin-left: 23px;
     left: 300px;
     cursor: pointer;
   }
