@@ -95,6 +95,11 @@ const ConfirmButton = styled.button`
   font-size: 15px;
   color: #fff;
   font-weight: 500;
+  color: #fff;
+  font-family: Pretendard;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 106.667%; /* 106.667% */
   cursor: pointer;
 `;
 

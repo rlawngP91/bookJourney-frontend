@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 const SliderContainer = styled.div`
@@ -8,11 +8,10 @@ const SliderContainer = styled.div`
 `;
 
 const Label = styled.div`
-  font-size: 16px;
+  font-size: 15px;
   margin-bottom: 30px;
   color: #000;
   font-family: Pretendard;
-  font-size: var(--sds-typography-body-size-small);
   font-style: normal;
   font-weight: 500;
   line-height: 140%; /* 19.6px */
@@ -29,7 +28,7 @@ const SliderTrack = styled.div`
 const SliderRange = styled.div`
   position: absolute;
   height: 100%;
-  background: #4f8bff;
+  background: #a3c7fa;
   border-radius: 2px;
   left: 0;
   width: ${(props) => props.$percentage}%;
@@ -67,8 +66,7 @@ const Tick = styled.div`
   color: ${(props) => (props.$active ? '#4F8BFF' : '#6B7280')};
 `;
 
-const CountSlider = ({ initialValue, onValueChange }) => {
-  const [value, setValue] = useState(initialValue);
+const CountSlider = ({ initialValue, value, onValueChange }) => {
   const [isDragging, setIsDragging] = useState(false);
   const trackRef = useRef(null);
 
@@ -79,10 +77,6 @@ const CountSlider = ({ initialValue, onValueChange }) => {
     { label: '100 개', value: 75 },
     { label: '전체', value: 100 },
   ];
-
-  useEffect(() => {
-    onValueChange?.(value);
-  }, [value, onValueChange]);
 
   const calculatePercentage = (val) => {
     return (val / 100) * 100;
@@ -111,10 +105,8 @@ const CountSlider = ({ initialValue, onValueChange }) => {
     const x = clientX - rect.left;
     const percentage = Math.min(Math.max((x / rect.width) * 100, 0), 100);
     const newValue = percentageToValue(percentage);
-    setValue(newValue);
-    onValueChange?.(newValue);
+    onValueChange?.(newValue); // 직접 부모 컴포넌트의 상태 업데이트
   };
-
   const handleMouseDown = (e) => {
     e.preventDefault();
     setIsDragging(true);
@@ -143,15 +135,15 @@ const CountSlider = ({ initialValue, onValueChange }) => {
     <SliderContainer>
       <Label>기록 수</Label>
       <SliderTrack ref={trackRef} onClick={handleTrackClick}>
-        <SliderRange $percentage={calculatePercentage(value)} />
+        <SliderRange $percentage={calculatePercentage(value || initialValue)} />
         <SliderThumb
-          $percentage={calculatePercentage(value)}
+          $percentage={calculatePercentage(value || initialValue)}
           onMouseDown={handleMouseDown}
         />
       </SliderTrack>
       <TicksContainer>
         {ticks.map((tick, index) => (
-          <Tick key={index} $active={value === tick.value}>
+          <Tick key={index} $active={(value || initialValue) === tick.value}>
             {tick.label}
           </Tick>
         ))}
