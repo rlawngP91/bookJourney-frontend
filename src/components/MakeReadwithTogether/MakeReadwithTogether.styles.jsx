@@ -114,7 +114,7 @@ export const Wrapper = styled.div`
   .detail {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 20px;
     margin-top: 49px;
     position: relative;
 
@@ -129,9 +129,11 @@ export const Wrapper = styled.div`
         color: #a3a3a3;
         text-align: center;
         font-family: Pretendard;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 600;
+        font-size: 11px;
+        font-weight: 400;
+        position: fixed;
+        left: 22px;
+        top: 550px;
       }
 
       .section-title {

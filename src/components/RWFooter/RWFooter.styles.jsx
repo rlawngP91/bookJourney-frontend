@@ -18,7 +18,7 @@ export const Button = styled.button`
   height: 42px;
   flex-shrink: 0;
   border-radius: 9px;
-  border: 1px solid #cecbcb;
+  border: none;
   background-color: ${({ disabled }) =>
     disabled ? '#d3d3d3' : '#6AA5F8'}; /* ✅ 비활성화 시 회색 */
   cursor: ${({ disabled }) =>

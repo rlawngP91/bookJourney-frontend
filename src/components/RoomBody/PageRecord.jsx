@@ -8,11 +8,12 @@ export default function PageRecord({
   roomId,
   setPopupRecordCount,
   fetchRecords,
+  setToastMessage,
+  setToastTitle,
 }) {
   const [page, setPage] = useState('');
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
-
   // ✅ milestone 리스트 (0, 1, 5, 10, 20, ..., 100)
   const milestones = new Set([
     0, 1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
@@ -20,17 +21,20 @@ export default function PageRecord({
 
   const handleRecordSubmit = async () => {
     if (!roomId) {
-      alert('❌ roomId가 필요합니다.');
+      setToastTitle('기록 작성 실패');
+      setToastMessage('RoomId가 필요합니다.');
       return;
     }
 
     if (!page.trim() || isNaN(page) || Number(page) < 1) {
-      alert('📌 올바른 페이지 번호를 입력해주세요.');
+      setToastTitle('기록 작성 실패');
+      setToastMessage('올바른 페이지 번호를 입력해주세요.');
       return;
     }
 
     if (!text.trim()) {
-      alert('📌 기록 내용을 입력해주세요.');
+      setToastTitle('기록 작성 실패');
+      setToastMessage('기록 내용을 입력해주세요.');
       return;
     }
 
@@ -39,20 +43,14 @@ export default function PageRecord({
       const response = await postRecord(roomId, Number(page), text);
       console.log('✅ 기록 저장 성공:', response);
 
-      // ✅ 응답 구조 디버깅
-      console.log('📌 전체 API 응답:', response);
-      console.log('📌 response.keys:', Object.keys(response));
-
       // ✅ recordCount 정확히 추출
       const recordCount = response?.recordCount ?? null;
-      console.log(
-        '🔥 Fixed recordCount:',
-        recordCount,
-        '타입:',
-        typeof recordCount
-      );
+      console.log('🔥 Fixed recordCount:', recordCount);
 
-      // ✅ 먼저 PageRecord 팝업 닫기
+      // ✅ ToastPopup 띄우기
+      setToastTitle('같이 읽기 방');
+      setToastMessage('기록 작성 성공');
+
       onClose();
       await fetchRecords();
 
@@ -60,11 +58,13 @@ export default function PageRecord({
       setTimeout(() => {
         if (recordCount !== null && milestones.has(recordCount)) {
           console.log('🎉 milestone 달성! recordCount:', recordCount);
-          setPopupRecordCount(recordCount); // ✅ RoomBody에서 감지하여 팝업 띄움
+          setPopupRecordCount(recordCount);
         }
       }, 300);
     } catch (error) {
-      alert(`❌ 기록 저장 실패: ${error.message}`);
+      console.error('❌ 기록 저장 실패:', error.message);
+      setToastTitle('기록 작성 실패');
+      setToastMessage(error.message);
     } finally {
       setLoading(false);
     }

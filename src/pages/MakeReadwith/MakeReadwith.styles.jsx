@@ -35,8 +35,6 @@ export const Button = styled.button`
     font-size: 14px;
     font-style: normal;
     font-weight: ${({ $isSelected }) => ($isSelected ? '700' : '400')};
-    line-height: 20px;
-    letter-spacing: 0.1px;
   }
 
   &:hover {
@@ -55,23 +53,3 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   gap: 18px;
 `;
-/*
-export const Aa = styled.input`
-  border: none;
-  width: 342px;
-  height: 36px;
-  flex-shrink: 0;
-  border-radius: 8.361px;
-  background: #fff;
-  margin: auto;
-
-  color: #88909b;
-  padding-left: 11px;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: var(--Label-Medium-Line-Height, 16px); /* 114.286% */
-//  letter-spacing: var(--Label-Medium-Tracking, 0.5px);
-//  border: 1px solid ${({ $hasError }) => ($hasError ? '#fd7472' : '#ddd')};
-//`;

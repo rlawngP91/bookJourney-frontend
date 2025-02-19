@@ -5,6 +5,7 @@ import { Wrapper, Button, ButtonContainer } from './MakeReadwith.styles';
 import MakeReadwithTogether from '../../components/MakeReadwithTogether/MakeReadwithTogether';
 import { createRoom } from '../../apis/room'; // 방 생성 API 호출
 import { useNavigate, useParams } from 'react-router-dom';
+import ToastPopup from '../../components/ToastPopup/ToastPopup';
 
 export default function MakeReadwith() {
   const navigate = useNavigate(); // ✅ useNavigate 사용
@@ -12,6 +13,8 @@ export default function MakeReadwith() {
   const { isbn } = useParams();
   const makeReadwithTogetherRef = useRef(null); // ✅ `MakeReadwithTogether` 참조
   const [isCreateButtonDisabled, setIsCreateButtonDisabled] = useState(false); // ✅ 버튼 상태 관리
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastTitle, setToastTitle] = useState('');
 
   const handleButtonClick = (option) => {
     setSelected(option); // 클릭한 버튼의 상태를 선택
@@ -22,7 +25,7 @@ export default function MakeReadwith() {
   };
 
   const handleCreateRoom = async () => {
-    if (isCreateButtonDisabled) return; // ✅ 비활성화 상태에서는 실행 X
+    if (isCreateButtonDisabled) return;
 
     try {
       let roomId = null;
@@ -47,11 +50,18 @@ export default function MakeReadwith() {
       if (roomId) {
         const validRoomId = typeof roomId === 'object' ? roomId.roomId : roomId;
         console.log('📌 최종 roomId:', validRoomId);
-        navigate(`/rooms/${validRoomId}/info`);
+
+        setToastTitle('방 생성 성공');
+        setToastMessage('잠시후 방으로 이동합니다!');
+
+        setTimeout(() => {
+          navigate(`/rooms/${validRoomId}/info`);
+        }, 3000);
       }
     } catch (error) {
       console.error(`❌ 방 생성 실패:`, error.message);
-      alert(error.message);
+      setToastTitle('방 생성 실패');
+      setToastMessage(error.message);
     }
   };
 
@@ -86,6 +96,14 @@ export default function MakeReadwith() {
           isDisabled={isCreateButtonDisabled}
         />
       </Wrapper>
+
+      {toastMessage && (
+        <ToastPopup
+          title={toastTitle}
+          message={toastMessage}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
     </>
   );
 }
