@@ -51,6 +51,11 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
 
   // ✅ 사용자가 입력할 때마다 호출
   const handlePasswordInput = async (value) => {
+    if (value === 'Backspace') {
+      setInputPassword((prev) => prev.slice(0, -1));
+      return;
+    }
+
     if (inputPassword.length < 4) {
       const newPassword = inputPassword + value;
       setInputPassword(newPassword);
@@ -61,6 +66,20 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
       }
     }
   };
+
+  // ✅ 키보드 입력 이벤트 핸들링
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key >= '0' && e.key <= '9') {
+        handlePasswordInput(e.key);
+      } else if (e.key === 'Backspace') {
+        handlePasswordInput('Backspace');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [inputPassword]);
 
   // ✅ 비밀번호 검증 및 입장 처리
   const handlePasswordSubmit = async (enteredPassword) => {
@@ -74,7 +93,7 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
           setInputPassword('');
           setIsError(false);
           setErrorMessage('');
-        }, 1000);
+        }, 2000);
         return;
       }
 
@@ -99,17 +118,6 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
       }, 1000);
     }
   };
-
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (e.key >= '0' && e.key <= '9') {
-        handlePasswordInput(e.key);
-      }
-    };
-
-    window.addEventListener('keypress', handleKeyPress);
-    return () => window.removeEventListener('keypress', handleKeyPress);
-  }, [inputPassword]);
 
   return (
     <PopupContainer>

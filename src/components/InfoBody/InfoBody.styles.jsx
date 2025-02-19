@@ -31,14 +31,13 @@ export const Wrapper = styled.div`
     }
 
     .booknameloading {
-      height: 36px;
+      height: 18px;
       color: #000;
       font-family: Pretendard;
       font-size: 15px;
       font-style: normal;
       font-weight: 600;
       width: 80%;
-      line-height: 36px;
       text-align: center;
     }
 

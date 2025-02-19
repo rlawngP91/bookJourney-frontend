@@ -7,7 +7,9 @@ export const PopupContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
   z-index: 1500;
+  width: 393px;
 `;
 
 export const PopupSubContainer = styled.div`
@@ -84,7 +86,7 @@ export const PasswordDotsContainer = styled.div`
 export const PasswordDot = styled.div`
   width: 44px;
   height: 44px;
-  border: 1px solid ${(props) => (props.isError ? '#EF4444' : '#3B82F6')};
+  border: 1px solid ${(props) => (props.isError ? '#FD7472' : '#3B82F6')};
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -97,14 +99,14 @@ export const DotIndicator = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: ${(props) => (props.isError ? '#EF4444' : '#3B82F6')};
+  background-color: ${(props) => (props.isError ? '##FD7472' : '#3B82F6')};
 `;
 
 export const ErrorText = styled.div`
-  color: #ef4444;
-  font-family: Pretendard;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 140%;
+  color: #fd7472;
   text-align: center;
+  font-family: Pretendard;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
 `;
