@@ -269,7 +269,7 @@ const Home = () => {
         <span className="description">
           {bestSellerList.length > 0 && bestSellerList[selectedToggle]
             ? `*${bestSellerList[selectedToggle].genreName} 베스트셀러`
-            : '*자기계발 베스트 셀러'}
+            : ''}
         </span>
 
         <div className="circle-container">
