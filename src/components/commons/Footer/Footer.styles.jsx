@@ -42,7 +42,5 @@ export const Button = styled.button`
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
-    line-height: var(--Label-Medium-Line-Height, 16px); /* 160% */
-    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
   }
 `;
