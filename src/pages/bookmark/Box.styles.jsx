@@ -6,6 +6,7 @@ export const Container = styled.div`
   margin-bottom: 24px;
   margin-left: 32px;
   display: flex;
+  cursor: pointer;
 
   .cover {
     width: 84px;

@@ -5,6 +5,7 @@ const favoriteBookAPIResponse = (item) => ({
   imgSrc: item.bookInfo.imageUrl,
   writer: item.bookInfo.authorName,
   bookTitle: item.bookInfo.bookTitle,
+  isbn: item.bookInfo.isbn,
   isChecked: false,
 });
 

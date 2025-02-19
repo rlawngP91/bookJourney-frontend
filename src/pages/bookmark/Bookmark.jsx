@@ -178,17 +178,21 @@ const Bookmark = () => {
         {books.length === 0 ? ( // 조건부 렌더링 추가
           <span className="no-bookmark">즐겨찾기 책이 없습니다.</span>
         ) : (
-          books.map((book) => (
-            <Box
-              key={book.bookTitle}
-              imgSrc={book.imgSrc}
-              writer={book.writer}
-              bookTitle={book.bookTitle}
-              isDeleteMode={isDeleteMode}
-              isChecked={book.isChecked} // 상위 상태 전달
-              onToggle={handleToggleBook}
-            />
-          ))
+          books.map((book) => {
+            console.log('book:', book.isbn);
+            return (
+              <Box
+                key={book.bookTitle}
+                imgSrc={book.imgSrc}
+                writer={book.writer}
+                bookTitle={book.bookTitle}
+                isDeleteMode={isDeleteMode}
+                isChecked={book.isChecked} // 상위 상태 전달
+                onToggle={handleToggleBook}
+                onClick={() => navigate(`/info/${book.isbn}`)}
+              />
+            );
+          })
         )}
       </div>
       <div
