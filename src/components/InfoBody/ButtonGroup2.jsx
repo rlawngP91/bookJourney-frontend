@@ -67,7 +67,13 @@ export default function ButtonGroup2({ roomData, roomId }) {
     try {
       const response = await postEnterRoom(roomId, password);
       console.log('✅ 방 참가 성공:', response);
-      navigate(`/rooms/${roomId}/info`);
+
+      setToastTitle('같이읽기 방 참가 성공');
+      setToastMessage('잠시후 방으로 이동합니다!');
+
+      setTimeout(() => {
+        navigate(`/rooms/${roomId}/info`);
+      }, 3000);
     } catch (error) {
       console.error('❌ 방 참가 실패:', error.message);
       setToastTitle('같이읽기 방 참가하기');

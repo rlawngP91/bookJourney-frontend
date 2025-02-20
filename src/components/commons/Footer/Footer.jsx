@@ -44,7 +44,7 @@ export default function Footer() {
         style={{ cursor: 'pointer' }}
       >
         <img src={isActive('/search') ? searchActive : search} alt="검색" />
-        <div>검색</div>
+        <div>찾기</div>
       </Button>
       <Button
         onClick={() => navigate('/mypage')}
