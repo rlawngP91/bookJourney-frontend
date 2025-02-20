@@ -52,14 +52,19 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
 
   // ✅ 인원 입력 핸들러
   const handleParticipantsChange = (e) => {
-    const value = e.target.value;
-    const numValue = parseInt(value, 10);
+    let value = e.target.value;
+
+    // ✅ 숫자만 허용하고, .이나 한글(자음 포함)은 제거
+    value = value.replace(/[^0-9]/g, '');
+
     setParticipants(value);
+
+    // ✅ 경고 메시지 설정 (입력은 허용)
     setParticipantsError(
-      isNaN(numValue)
-        ? '* 숫자만 입력 가능합니다.'
-        : numValue < 2 || numValue > 50
-          ? '* 최소 2명 ~ 최대 50명입니다'
+      value.length === 0
+        ? '* 숫자를 입력해주세요.'
+        : parseInt(value, 10) < 2 || parseInt(value, 10) > 50
+          ? '* 최소 2명 ~ 최대 50명입니다.'
           : ''
     );
   };
@@ -122,20 +127,20 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
             $isSelected={selected === '공개'}
             onClick={() => setSelected('공개')}
           >
-            공개
+            <div>공개</div>
           </Button>
           <Button
             $isSelected={selected === '비공개'}
             onClick={() => setSelected('비공개')}
           >
-            비공개
+            <div>비공개</div>
           </Button>
         </div>
 
         {/* 같이 읽기방 이름 입력 */}
         <div className="name">
           <div className="countcontainer">
-            <div className="label">같이 읽기방 이름</div>
+            <div className="label">같이읽기방 이름</div>
             <div className="count">{roomName.length}/20</div>
           </div>
           <input
@@ -143,6 +148,7 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
             value={roomName}
             onChange={handleRoomNameChange}
             placeholder="다른 사람들에게 보여질 방 이름이에요."
+            maxLength={20}
           />
           {roomName.length > 0 && (
             <div className="clear-btn" onClick={() => setRoomName('')}>
@@ -156,9 +162,7 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
         <div className="detail">
           <div className="section">
             <div className="section-title">세부 정보</div>
-            <div className="desc">
-              같이읽기 방 기간은 7일 ~ 90일로 설정가능합니다.
-            </div>
+            <div className="desc">* 최소 7일~ 최대 90일</div>
           </div>
 
           {/* 기간 입력 (버튼으로 변경) */}
@@ -183,6 +187,7 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
               placeholder="0 명"
               value={participants}
               onChange={handleParticipantsChange}
+              type="number"
             />
           </div>
           {participantsError && (

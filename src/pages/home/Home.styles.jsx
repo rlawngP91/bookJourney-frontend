@@ -17,7 +17,8 @@ export const Container = styled.div`
 
   .overlay {
     position: fixed;
-    top: 0;
+    bottom: 0;
+    left: 0;
     width: 393px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.42);

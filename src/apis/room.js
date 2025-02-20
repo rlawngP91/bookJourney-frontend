@@ -38,9 +38,7 @@ export const createRoom = async (roomData) => {
 
           case 8011:
             console.error(`❌ 8011: 이미 존재하는 혼자 읽기 방.`);
-            throw new Error(
-              '해당 책으로 생성된 혼자 읽기 방이 이미 존재합니다.'
-            );
+            throw new Error('이 책으로 생성된 혼자읽기 방이 이미 존재합니다.');
 
           default:
             console.error(`❌ 알 수 없는 오류 발생 (코드: ${data.code})`, data);
