@@ -117,6 +117,8 @@ export const fetchRoomSearchResults = async ({
         author: room.authorName,
         coverImage: room.imageUrl,
         title: room.roomName,
+        // 추가
+        member: room.member,
         currentpeople: room.memberCount,
         totalpeople: room.recruitCount,
         progress: room.roomPercentage,

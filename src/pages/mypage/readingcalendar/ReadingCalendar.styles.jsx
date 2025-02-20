@@ -11,6 +11,7 @@ export const CalendarHandlerWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 393px; // 100% 393px
+  margin-top: 5px;
   margin-bottom: 34px;
   background-color: #f6f7f9;
 `;
