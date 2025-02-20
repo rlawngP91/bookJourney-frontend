@@ -105,10 +105,6 @@ const Login = () => {
           회원가입
         </span>
       </div>
-      <div className="agree">
-        가입시 <span>이용약관</span> 및 <span>개인정보 처리방침</span>에
-        동의하게 됩니다.
-      </div>
     </LoginContainer>
   );
 };

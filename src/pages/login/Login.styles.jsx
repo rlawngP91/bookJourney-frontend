@@ -71,27 +71,6 @@ export const LoginContainer = styled.div`
       cursor: pointer;
     }
   }
-
-  .agree {
-    left: 33px;
-    position: absolute;
-    width: 342px;
-    height: 16px;
-    margin-top: 178px;
-    flex-shrink: 0;
-    color: #88909b;
-    font-family: Pretendard;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: var(--Label-Medium-Line-Height, 16px); /* 133.333% */
-    letter-spacing: var(--Label-Medium-Tracking, 0.5px);
-
-    span {
-      color: #006aff;
-      cursor: pointer;
-    }
-  }
 `;
 
 // 버튼을 정렬하는 컨테이너
