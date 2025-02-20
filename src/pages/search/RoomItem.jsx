@@ -180,7 +180,7 @@ export const RoomItem = ({
     <StyledLink
       to={{
         pathname: `/rooms/${id}`,
-        state: { member: member }, // member prop을 추가로 받아야 합니다
+        state: { member }, // member prop을 추가
       }}
     >
       <ItemWrapper>
