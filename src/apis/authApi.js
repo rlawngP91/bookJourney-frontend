@@ -1,4 +1,5 @@
 import apiClient from '../apis/instance/apiClient'; // axios 인스턴스 가져오기
+import { logout } from './logoutApi';
 //로그인 API 요청 처리
 export const login = async (email, password) => {
   try {
@@ -32,11 +33,6 @@ export const login = async (email, password) => {
     if (responseData.code === 200) {
       console.log('[DEBUG] 응답 데이터 구조:', responseData.data);
 
-      //accessToken을 API 요청 헤더에 추가 (자동 적용)
-      //setAccessToken(accessToken);
-
-      //accessToken을 localStorage 또는 sessionStorage에 저장
-      //localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('userId', userId);
 
@@ -54,12 +50,15 @@ export const login = async (email, password) => {
 // AccessToken 재발급 API 요청 함수
 export const reissueAccessToken = async () => {
   try {
-    const refreshToken = localStorage.getItem('refreshToken'); // 로컬 스토리지에서 refreshToken 가져오기
+    const refreshToken = localStorage.getItem('refreshToken');
     console.log('[DEBUG] 저장된 refreshToken:', refreshToken);
+
     if (!refreshToken) {
       console.warn('[WARNING] RefreshToken이 없습니다. 다시 로그인하세요.');
+      handleLogout();
       throw new Error('RefreshToken이 존재하지 않습니다.');
     }
+
     console.log('[DEBUG] AccessToken 재발급 요청 시작');
     console.log(
       '[DEBUG] 보내는 요청 데이터:',
@@ -77,24 +76,33 @@ export const reissueAccessToken = async () => {
 
     console.log('[DEBUG] AccessToken 재발급 API 응답:', response);
 
-    console.log(
-      `[DEBUG] response.data.accessToken = ${response.data.data.accessToken}`
-    );
-    console.log(`[DEBUG] response.data.status = ${response.data.status}`);
-    console.log(`[DEBUG] response.data.code = ${response.data.code}`);
-
     if (response.data.code === 200) {
-      const newAccessToken = response.data.data.accessToken; // 백엔드 명세서에 맞게 필드명 확인
+      const newAccessToken = response.data.data.accessToken;
       console.log('[DEBUG] 새로운 AccessToken:', newAccessToken);
 
-      localStorage.setItem('accessToken', newAccessToken); // 새 AccessToken 저장
-      return newAccessToken; // 새 AccessToken 반환
+      localStorage.setItem('accessToken', newAccessToken);
+      return newAccessToken;
     } else {
       console.warn('[WARNING] AccessToken 재발급 실패:', response.data.message);
       throw new Error(response.data.message);
     }
   } catch (error) {
     console.error('[ERROR] AccessToken 재발급 실패:', error);
+
+    // refreshToken도 만료된 경우 (7006 응답을 받음)
+    if (error.response?.data?.code === 7006) {
+      console.warn('[WARNING] RefreshToken 만료됨. 로그아웃 처리.');
+      handleLogout();
+    }
+
     throw error;
   }
+};
+
+const handleLogout = async () => {
+  await logout();
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('userId');
+  window.location.href = '/login';
 };
