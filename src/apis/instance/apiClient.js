@@ -14,7 +14,7 @@ apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken'); // 최신 토큰 가져오기
     console.log('[DEBUG] 요청 전송 전 - Authorization 헤더:', token);
-    if (token) {
+    if (token && config.url !== '/auth/reissue') {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -66,6 +66,8 @@ apiClient.interceptors.response.use(
 
         if (newAccessToken) {
           console.log('[DEBUG] 새 AccessToken 발급 성공:', newAccessToken);
+          // **새로운 AccessToken을 localStorage에 저장**
+          setAccessToken(newAccessToken);
           // 새 AccessToken을 기존 요청에 추가하여 재시도
           error.config.headers.Authorization = `Bearer ${newAccessToken}`;
           return apiClient.request(error.config); // 기존 요청 다시 보내기
