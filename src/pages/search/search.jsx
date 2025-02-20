@@ -313,7 +313,7 @@ export default function Search() {
               <ListTypeButton
                 onClick={() => {
                   setListType('책 목록');
-                  handleSearch(searchQuery, '책 목록');
+                  handleSearch(searchQuery, searchType, '책 목록');
                 }}
                 $isSelected={listType === '책 목록'}
               >
@@ -322,7 +322,7 @@ export default function Search() {
               <ListTypeButton
                 onClick={() => {
                   setListType('같이읽기 목록');
-                  handleSearch(searchQuery, '같이읽기 목록');
+                  handleSearch(searchQuery, searchType, '같이읽기 목록');
                 }}
                 $isSelected={listType === '같이읽기 목록'}
               >
