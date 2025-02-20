@@ -40,6 +40,25 @@ const Container = styled.div`
   scrollbar-width: none;
 `;
 
+const NoRecord = styled.div`
+  width: 393px;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0px 25px;
+  margin-left: -25px;
+
+  color: #a3a3a3;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 453.5px;
+`;
+
 const Tab = styled.div`
   display: flex;
   flex-direction: row;
@@ -507,9 +526,9 @@ export default function RoomBody({ roomData }) {
 
       <Container>
         {loading ? (
-          <></>
+          <NoRecord>기록을 불러오는 중...</NoRecord>
         ) : error ? (
-          <></>
+          <NoRecord>기록이 없습니다</NoRecord>
         ) : records.length === 0 ? (
           <div>📭 기록이 없습니다.</div>
         ) : (

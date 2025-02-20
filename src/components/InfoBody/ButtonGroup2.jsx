@@ -42,7 +42,8 @@ export const Button1 = styled.button`
   height: 42px;
   border-radius: 9px;
   border: 1px solid #cecbcb;
-  background: ${(props) => (props.$public ? '#6aa5f8' : '#A9A9A9')};
+  background: ${(props) =>
+    props.$public ? '#6aa5f8' : 'rgba(106, 165, 248, 0.49)'};
 
   /* 기본 스타일 제거 */
   border: none; /* 테두리 제거 */
@@ -54,10 +55,8 @@ export const Button1 = styled.button`
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 106.667% */
-  letter-spacing: 0.5px;
 `;
-// 방참가 API 연동필요!
+
 export default function ButtonGroup2({ roomData, roomId }) {
   const navigate = useNavigate();
   const [popupVisible, setPopupVisible] = useState(false);
@@ -68,11 +67,7 @@ export default function ButtonGroup2({ roomData, roomId }) {
     try {
       const response = await postEnterRoom(roomId, password);
       console.log('✅ 방 참가 성공:', response);
-
       navigate(`/rooms/${roomId}/info`);
-
-      setToastTitle('방 참가 성공');
-      setToastMessage('방에 성공적으로 입장하였습니다.');
     } catch (error) {
       console.error('❌ 방 참가 실패:', error.message);
       setToastTitle('같이읽기 방 참가하기');
