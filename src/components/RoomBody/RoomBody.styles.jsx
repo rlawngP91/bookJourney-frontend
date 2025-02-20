@@ -107,11 +107,16 @@ export const Filter = styled.div`
     gap: 5px;
     padding: 8px 12px;
     background: white;
-    font-size: 14px;
     cursor: pointer;
 
     border-radius: 9px;
     border: 1px solid #000;
+
+    color: #000;
+    font-family: Pretendard;
+    font-size: 11.629px;
+    font-style: normal;
+    font-weight: 500;
   }
 
   .arrow-icon {
@@ -132,7 +137,6 @@ export const Filter = styled.div`
     border: none;
     width: 133px;
     height: 95px;
-    flex-shrink: 0;
     border-radius: 9px;
     background-color: #fff;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);

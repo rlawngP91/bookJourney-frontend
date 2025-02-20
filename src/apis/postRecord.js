@@ -6,7 +6,7 @@ export const postRecord = async (roomId, recordPage, content, recordTitle) => {
   }
 
   if (!content.trim()) {
-    throw new Error('❌ 기록 내용을 입력하세요.');
+    throw new Error('내용을 입력해주세요');
   }
 
   // ✅ 기록 유형 및 요청 데이터 동적 생성

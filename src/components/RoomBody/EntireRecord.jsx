@@ -22,17 +22,20 @@ export default function EntireRecord({
 
   const handleRecordSubmit = async () => {
     if (!roomId) {
+      setToastTitle('기록 작성 실패');
       setToastMessage('RoomId가 필요합니다');
       return;
     }
 
     if (!title.trim()) {
-      setToastMessage('기록 제목을 입력해주세요');
+      setToastTitle('기록 작성 실패');
+      setToastMessage('제목을 입력해주세요');
       return;
     }
 
     if (!text.trim()) {
-      setToastMessage('기록 내용을 입력해주세요');
+      setToastTitle('기록 작성 실패');
+      setToastMessage('내용을 입력해주세요');
       return;
     }
 
@@ -64,7 +67,8 @@ export default function EntireRecord({
       }, 300);
     } catch (error) {
       alert(`❌ 기록 저장 실패: ${error.message}`);
-      setToastMessage('기록 작성 실패');
+      setToastTitle('기록 작성 실패');
+      setToastMessage(error.message);
     } finally {
       setLoading(false);
     }

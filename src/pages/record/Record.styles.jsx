@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   width: 393px;
-  height: 852px;
+  height: 100vh;
   background-color: #f6f7f9;
 
   .header {
@@ -143,7 +143,7 @@ export const Container = styled.div`
     grid-template-columns: repeat(2, 1fr); /* 한 행에 2개 배치 */
     gap: 24.89px 38.15px; /* 세로: 24.89px, 가로: 38.15px */
     width: 327.85px;
-    height: 604.94px;
+    height: 100vh;
 
     padding: 39px 33.15px 46.06px 32px;
 
