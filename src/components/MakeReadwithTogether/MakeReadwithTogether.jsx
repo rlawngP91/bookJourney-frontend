@@ -95,7 +95,7 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
 
   // ✅ 방 생성 API 호출
   const createGroupRoom = async () => {
-    if (isCreateButtonDisabled) return; // ✅ 비활성화 상태에서는 실행 X
+    if (isCreateButtonDisabled) return;
 
     const roomData = {
       roomName: roomName || '',
@@ -110,11 +110,9 @@ const MakeReadwithTogether = forwardRef(({ isbn, onValidationChange }, ref) => {
     try {
       const roomId = await createRoom(roomData);
       console.log(`🎉 같이 읽는 방 생성 성공! roomId: ${roomId}`);
-      alert('같이 읽는 방이 성공적으로 생성되었습니다!');
       return roomId;
     } catch (error) {
       console.error(`❌ 방 생성 실패:`, error.message);
-      alert(error.message);
     }
   };
 

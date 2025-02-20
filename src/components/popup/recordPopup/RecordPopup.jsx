@@ -3,14 +3,16 @@ import { Wrapper, Container, Button, Box } from './RecordPopup.styles';
 import { postCurrentPage } from '../../../apis/postCurrentPage';
 import { getCurrentPage } from '../../../apis/getCurrentPage';
 import { getInnerRoomInfo } from '../../../apis/getInnerRoomInfo';
+import ToastPopup from '../../ToastPopup/ToastPopup';
 
 export default function RecordPopup({ onClose, roomId, setRoomData }) {
-  const [nowPage, setNowPage] = useState(''); // ✅ 입력값 상태
-  const [bookPage, setBookPage] = useState(0); // ✅ 책 총 페이지 수
-  const [currentPage, setCurrentPage] = useState(0); // ✅ 사용자가 마지막으로 읽은 페이지
+  const [nowPage, setNowPage] = useState('');
+  const [bookPage, setBookPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [error, setError] = useState('');
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastTitle, setToastTitle] = useState(null);
 
-  // ✅ 방의 책 정보 가져오기
   useEffect(() => {
     const fetchPages = async () => {
       try {
@@ -34,7 +36,8 @@ export default function RecordPopup({ onClose, roomId, setRoomData }) {
   const handleConfirm = async () => {
     try {
       if (!nowPage || isNaN(nowPage) || nowPage < 1 || nowPage > bookPage) {
-        setError('❌ 올바른 페이지 번호를 입력하세요.');
+        setToastTitle('페이지 기록 실패');
+        setToastMessage('올바른 페이지 번호를 입력하세요');
         return;
       }
 
@@ -43,9 +46,15 @@ export default function RecordPopup({ onClose, roomId, setRoomData }) {
       const updatedRoomData = await getInnerRoomInfo(roomId);
       setRoomData(updatedRoomData);
 
-      onClose(); // ✅ 성공 시 팝업 닫기
+      setToastTitle('페이지 기록 성공');
+      setToastMessage('지금까지 읽은 페이지를 저장했습니다');
+
+      setTimeout(() => {
+        onClose();
+      }, 3000);
     } catch (err) {
-      setError(err.message);
+      setToastTitle('페이지 기록 실패');
+      setToastMessage(`${err.message}`);
     }
   };
 
@@ -80,6 +89,17 @@ export default function RecordPopup({ onClose, roomId, setRoomData }) {
           </Container>
         </Box>
       </Wrapper>
+
+      {toastMessage && (
+        <ToastPopup
+          title={toastTitle}
+          message={toastMessage}
+          onClose={() => {
+            setToastTitle('');
+            setToastMessage(null);
+          }}
+        />
+      )}
     </>
   );
 }

@@ -115,8 +115,8 @@ const ConfirmButton = styled.button`
   height: 42px;
   flex-shrink: 0;
   border-radius: 9px;
-  border: 1px solid #cecbcb;
   background: #6aa5f8;
+  border: none;
   position: absolute;
   bottom: 26px;
   left: 21px;
