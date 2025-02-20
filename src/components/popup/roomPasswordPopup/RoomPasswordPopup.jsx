@@ -110,7 +110,7 @@ const RoomPasswordPopup = ({ roomId, onClose }) => {
           // ✅ 네비게이션 후 토스트 팝업 표시
           setTimeout(() => {
             setToastMessage('성공적으로 방에 입장했습니다');
-          }, 10000);
+          }, 10);
         }, 10);
       }
 

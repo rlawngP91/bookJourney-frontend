@@ -61,15 +61,14 @@ export const Wrapper = styled.div`
 
 export const Popup = styled.div`
   position: fixed; /* 화면에 고정된 위치 */
-  top: 50%; /* 화면의 중앙 */
-  left: 50%; /* 화면의 중앙 */
-  transform: translate(-50%, -50%); /* 완벽한 중앙 정렬 */
+  top: 0; /* 화면의 중앙 */
+  left: 0; /* 화면의 중앙 */
   z-index: 2000; /* 다른 요소 위로 올림 */
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.42);
-  width: 100%;
+  width: 393px;
   height: 100%;
 
   .box {
@@ -123,6 +122,7 @@ export const Popup = styled.div`
 
         border-top: 0.5px solid #a3a3a3;
         border-right: 0.5px solid #a3a3a3;
+        cursor: pointer;
       }
 
       .delete {
@@ -135,6 +135,7 @@ export const Popup = styled.div`
         font-weight: 600;
         line-height: 47px; /* 18.2px */
         border-top: 0.5px solid #a3a3a3;
+        cursor: pointer;
       }
     }
   }

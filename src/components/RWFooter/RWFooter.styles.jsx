@@ -20,7 +20,7 @@ export const Button = styled.button`
   border-radius: 9px;
   border: none;
   background-color: ${({ disabled }) =>
-    disabled ? '#d3d3d3' : '#6AA5F8'}; /* ✅ 비활성화 시 회색 */
+    disabled ? 'rgba(106, 165, 248, 0.49)' : '#6AA5F8'};
   cursor: ${({ disabled }) =>
     disabled ? 'not-allowed' : 'pointer'}; /* ✅ 클릭 방지 */
 
@@ -29,8 +29,6 @@ export const Button = styled.button`
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
-  line-height: 16px; /* 106.667% */
-  letter-spacing: 0.5px;
 
   outline: none; /* 기본 포커스 스타일 제거 */
   &:focus {
