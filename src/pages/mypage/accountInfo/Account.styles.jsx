@@ -2,7 +2,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   width: 393px;
-  height: 852px;
+  height: 100vh;
   background-color: #f6f7f9;
 
   .start-btn {

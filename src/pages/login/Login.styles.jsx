@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LoginContainer = styled.div`
   position: relative;
   width: 393px;
-  height: 852px;
+  height: 100vh;
   background-color: #f6f7f9;
 
   & > *:nth-child(3) {

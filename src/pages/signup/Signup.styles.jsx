@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SignupContainer = styled.div`
   position: relative;
   width: 393px;
-  height: 607px;
+  height: 100vh;
   background-color: #f6f7f9;
   padding-top: 245px;
   .title {
