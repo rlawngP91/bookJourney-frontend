@@ -56,18 +56,62 @@ export default function Search() {
   const [rooms, setRooms] = useState([]);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
-  const [appliedFilters, setAppliedFilters] = useState({
-    category: null,
-    deadline: {
-      start: null,
-      end: null,
-    },
-    period: {
-      start: null,
-      end: null,
-    },
-    recordcnt: null,
+  const APPLIED_FILTERS_KEY = 'appliedFilters';
+
+  const [appliedFilters, setAppliedFilters] = useState(() => {
+    const savedFilters = localStorage.getItem(APPLIED_FILTERS_KEY);
+    if (savedFilters) {
+      const parsedFilters = JSON.parse(savedFilters);
+      return {
+        ...parsedFilters,
+        deadline: {
+          start: parsedFilters.deadline?.start
+            ? new Date(parsedFilters.deadline.start)
+            : null,
+          end: parsedFilters.deadline?.end
+            ? new Date(parsedFilters.deadline.end)
+            : null,
+        },
+        period: {
+          // start와 end를 독립적으로 처리
+          start: parsedFilters.period?.start
+            ? new Date(parsedFilters.period.start)
+            : null,
+          end: parsedFilters.period?.end
+            ? new Date(parsedFilters.period.end)
+            : null,
+        },
+      };
+    }
+    return {
+      category: null,
+      deadline: {
+        start: null,
+        end: null,
+      },
+      period: {
+        start: null,
+        end: null,
+      },
+      recordcnt: 100,
+    };
   });
+  useEffect(() => {
+    localStorage.setItem(APPLIED_FILTERS_KEY, JSON.stringify(appliedFilters));
+  }, [appliedFilters]);
+
+  // const [appliedFilters, setAppliedFilters] = useState({
+  //   category: null,
+  //   deadline: {
+  //     start: null,
+  //     end: null,
+  //   },
+  //   period: {
+  //     start: null,
+  //     end: null,
+  //   },
+  //   recordcnt: 100,
+  // });
 
   // 검색어 입력만
   const handleSearchChange = (e) => {
@@ -143,7 +187,7 @@ export default function Search() {
       room: '방 이름',
     };
     setSearchType(typeLabels[typeId]);
-    handleSearch();
+    handleSearch(searchQuery, typeLabels[typeId], listType);
     setShowPopup(false);
   };
 
@@ -153,13 +197,13 @@ export default function Search() {
     setShowFilterPopup(false);
 
     if (searchQuery) {
-      handleSearch();
+      handleSearch(searchQuery, searchType, listType);
     }
   };
 
   const handleChipClick = async (text) => {
     setSearchQuery(text);
-    handleSearch(text);
+    handleSearch(text, searchType, listType);
   };
 
   const fetchRecentSearches = async () => {
