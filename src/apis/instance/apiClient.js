@@ -42,27 +42,32 @@ apiClient.interceptors.response.use(
     console.log(`[DEBUG] errorCode : ${errorCode}`); // 여기 찍혀야 함
 
     // 최대 재시도 횟수 설정 (ex: 2번)
-    error.config._retryCount = error.config._retryCount || 0;
+    //error.config._retryCount = error.config._retryCount || 0;
 
-    if (errorCode === 7006 && error.config._retryCount < 1) {
+    if (errorCode === 7006 /* && error.config._retryCount < 1*/) {
       console.warn('[WARNING] AccessToken 만료! 재발급 시도');
       console.log('[DEBUG] AccessToken 재발급 요청 시작'); // 여기 찍혀야 함
 
-      error.config._retryCount += 1; // 재시도 횟수 증가
+      //error.config._retryCount += 1; // 재시도 횟수 증가
 
       try {
         const newAccessToken = await reissueAccessToken(); // 새 AccessTo ken 요청
         console.log('[DEBUG] 새 AccessToken:', newAccessToken);
 
-        // 새 AccessToken을 기존 요청에 추가하여 재시도
-        error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-        return apiClient.request(error.config); // 기존 요청 다시 보내기
+        if (newAccessToken) {
+          // 새 AccessToken을 기존 요청에 추가하여 재시도
+          error.config.headers.Authorization = `Bearer ${newAccessToken}`;
+          return apiClient.request(error.config); // 기존 요청 다시 보내기
+        }
       } catch (refreshError) {
         console.error(
           '[ERROR] AccessToken 재발급 실패 - 재로그인 필요:',
           refreshError
         );
         await logout();
+        localStorage.removeItem('accessToken'); // 기존 AccessToken 삭제
+        localStorage.removeItem('refreshToken'); // RefreshToken도 삭제
+        localStorage.removeItem('userId');
         window.location.href = '/login';
         return Promise.reject(error);
       }
@@ -71,6 +76,9 @@ apiClient.interceptors.response.use(
     if (errorCode === 7005) {
       console.warn('[WARNING] 유효하지 않은 토큰! 로그아웃 처리.');
       await logout();
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('userId');
       window.location.href = '/login';
       return Promise.reject(error);
     }
