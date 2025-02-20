@@ -22,7 +22,7 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// 응답 인터셉터 - 7006 인증 실패 시 로그아웃 처리
+// 응답 인터셉터 - 7006 인증 실패 시 AccessToken 재발급 처리
 apiClient.interceptors.response.use(
   (response) => {
     console.log('[DEBUG] 응답 인터셉터 실행 - 정상 응답:', response);
@@ -47,14 +47,25 @@ apiClient.interceptors.response.use(
     if (errorCode === 7006 /* && error.config._retryCount < 1*/) {
       console.warn('[WARNING] AccessToken 만료! 재발급 시도');
       console.log('[DEBUG] AccessToken 재발급 요청 시작'); // 여기 찍혀야 함
+      const refreshToken = localStorage.getItem('refreshToken');
 
       //error.config._retryCount += 1; // 재시도 횟수 증가
 
+      if (!refreshToken) {
+        console.warn('[WARNING] RefreshToken이 존재하지 않음. 로그아웃 처리.');
+        await logout();
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userId');
+        window.location.href = '/login';
+        return Promise.reject(error);
+      }
+
       try {
         const newAccessToken = await reissueAccessToken(); // 새 AccessTo ken 요청
-        console.log('[DEBUG] 새 AccessToken:', newAccessToken);
 
         if (newAccessToken) {
+          console.log('[DEBUG] 새 AccessToken 발급 성공:', newAccessToken);
           // 새 AccessToken을 기존 요청에 추가하여 재시도
           error.config.headers.Authorization = `Bearer ${newAccessToken}`;
           return apiClient.request(error.config); // 기존 요청 다시 보내기
