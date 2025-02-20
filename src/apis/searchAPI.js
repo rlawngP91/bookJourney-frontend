@@ -48,7 +48,7 @@ export const fetchBookSearchResults = async ({
 
       console.log(mappedBooks.length);
       console.log('book search success!');
-      return mappedBooks.length === 10;
+      return mappedBooks.length >= 4;
     } else {
       if (!isLoadingMore) setBooks([]);
       return false;
@@ -133,7 +133,7 @@ export const fetchRoomSearchResults = async ({
 
       console.log(mappedRooms.length);
       console.log('room search success!');
-      return mappedRooms.length === 10;
+      return mappedRooms.length >= 4;
     } else {
       if (!isLoadingMore) setRooms([]);
       return false;
