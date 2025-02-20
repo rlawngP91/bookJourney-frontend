@@ -160,6 +160,8 @@ export const RoomItem = ({
   author,
   coverImage,
   title,
+  //
+  member,
   currentpeople,
   totalpeople,
   progress,
@@ -175,7 +177,12 @@ export const RoomItem = ({
   };
 
   return (
-    <StyledLink to={`/rooms/${id}`}>
+    <StyledLink
+      to={{
+        pathname: `/rooms/${id}`,
+        state: { member: member }, // member prop을 추가로 받아야 합니다
+      }}
+    >
       <ItemWrapper>
         <Tag $isRecruiting={isRecruiting()}>모집중</Tag>
         <BookCoverWrapper>

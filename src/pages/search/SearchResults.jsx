@@ -63,6 +63,7 @@ export const SearchResults = ({
                     book={room.book}
                     author={room.author}
                     title={room.title}
+                    member={room.member}
                     currentpeople={room.currentpeople}
                     totalpeople={room.totalpeople}
                     progress={room.progress}
