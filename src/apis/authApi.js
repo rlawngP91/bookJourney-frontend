@@ -60,7 +60,7 @@ export const reissueAccessToken = async () => {
       console.warn('[WARNING] RefreshToken이 없습니다. 다시 로그인하세요.');
       throw new Error('RefreshToken이 존재하지 않습니다.');
     }
-
+    console.log('[DEBUG] AccessToken 재발급 요청 시작');
     console.log(
       '[DEBUG] 보내는 요청 데이터:',
       JSON.stringify({ refreshToken })
