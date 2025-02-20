@@ -9,8 +9,10 @@ import {
   DateSelector,
   NoItems,
   FooterContainer,
+  LoadingContent,
 } from './ReadingLog.styles';
 
+import logoIcon from '../../assets/loadingbook.svg';
 import arrowBtn from '../../assets/downarrow2.svg';
 import RoomListRead from '../../components/readingLog/RoomListRead';
 import RoomListNotRead from '../../components/readingLog/RoomListNotRead';
@@ -30,7 +32,8 @@ const ReadingLog = () => {
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [signupDate, setSignupDate] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPageLoading] = useState(false);
+  const [isDataLoading, setIsDataLoading] = useState(false);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -44,7 +47,7 @@ const ReadingLog = () => {
     const fetchData = async () => {
       if (isRead) {
         // "다 읽었어요" 탭
-        setIsLoading(true);
+        setIsDataLoading(true);
         const result = await fetchReadingRecordsRead(currentDate);
 
         if (result.success) {
@@ -53,10 +56,10 @@ const ReadingLog = () => {
         } else {
           setRooms([]);
         }
-        setIsLoading(false);
+        setIsDataLoading(false);
       } else {
         // "다 안읽었어요" 탭
-        setIsLoading(true);
+        setIsDataLoading(true);
         const result = await fetchReadingRecordsNotRead(currentDate);
 
         if (result.success) {
@@ -65,7 +68,7 @@ const ReadingLog = () => {
         } else {
           setRooms([]);
         }
-        setIsLoading(false);
+        setIsDataLoading(false);
       }
     };
 
@@ -80,7 +83,7 @@ const ReadingLog = () => {
     setShowDatePopup(true);
   };
 
-  if (isLoading) return <LoadingPage />;
+  if (isPageLoading) return <LoadingPage />;
 
   // console.log(signupDate);
   return (
@@ -104,28 +107,39 @@ const ReadingLog = () => {
         </FilterRightButton>
       </FilterButtons>
 
-      <DateSelector onClick={handleDateClick}>
-        <div className="roomcontainer">
-          <span className="room">전체</span>
-          <span className="roomtotal">{rooms.length}</span>
-        </div>
-        <div className="datecontainer">
-          <span className="date">{currentDate}</span>
-          <img src={arrowBtn} alt="arrowBtn" />
-        </div>
-      </DateSelector>
+      {isDataLoading && (
+        <LoadingContent $delay={0}>
+          <img src={logoIcon} />
+        </LoadingContent>
+      )}
 
-      {rooms.length === 0 ? (
-        <NoItems>검색 결과가 없습니다</NoItems>
-      ) : (
+      {!isDataLoading && (
         <>
-          {isRead ? (
-            <RoomListRead rooms={rooms} />
+          <DateSelector onClick={handleDateClick}>
+            <div className="roomcontainer">
+              <span className="room">전체</span>
+              <span className="roomtotal">{rooms.length}</span>
+            </div>
+            <div className="datecontainer">
+              <span className="date">{currentDate}</span>
+              <img src={arrowBtn} alt="arrowBtn" />
+            </div>
+          </DateSelector>
+
+          {rooms.length === 0 ? (
+            <NoItems>검색 결과가 없습니다</NoItems>
           ) : (
-            <RoomListNotRead rooms={rooms} />
+            <>
+              {isRead ? (
+                <RoomListRead rooms={rooms} />
+              ) : (
+                <RoomListNotRead rooms={rooms} />
+              )}
+            </>
           )}
         </>
       )}
+
       <FooterContainer>
         <Footer />
       </FooterContainer>
