@@ -22,19 +22,14 @@ export const exitRoom = async (roomId) => {
     // ✅ 에러 코드에 따른 경고 메시지 처리
     switch (errorCode) {
       case 8007:
-        alert('❌ 방장은 방에서 나갈 수 없습니다.');
         break;
       case 8001:
-        alert('❌ 방을 찾을 수 없습니다.');
         break;
       case 5001:
-        alert('❌ 유저를 찾을 수 없습니다.');
         break;
       case 8005:
-        alert('❌ 사용자와 방의 관계가 없습니다.');
         break;
       default:
-        alert(errorMessage);
     }
 
     throw new Error(errorMessage);

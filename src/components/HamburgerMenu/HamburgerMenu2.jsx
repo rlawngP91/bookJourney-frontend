@@ -13,10 +13,8 @@ export default function HamburgerMenu2({
       if (commentId) {
         await deleteReply(commentId);
         await fetchCommentsOnly?.(); // ✅ 댓글 목록 새로 불러오기
-
-        alert('✅ 댓글이 삭제되었습니다.');
       } else {
-        alert('❌ 삭제할 댓글이 없습니다.');
+        return;
       }
       onClose(); // ✅ 메뉴 닫기
     } catch (error) {

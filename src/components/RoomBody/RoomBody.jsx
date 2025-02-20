@@ -110,7 +110,7 @@ export default function RoomBody({ roomData }) {
       } else {
         data = await getEntireRecords(roomId, entireOrder);
       }
-      setRecords(data); // ✅ 최신 데이터 반영
+      setRecords(data);
     } catch (err) {
       console.error('❌ API 호출 오류:', err);
       setError(err.message);
@@ -119,20 +119,17 @@ export default function RoomBody({ roomData }) {
     }
   };
 
-  // ✅ 페이지 로딩 시 한 번 실행
   useEffect(() => {
     fetchRecords();
   }, [roomId, activeTab, pageOrder, entireOrder, startPage, endPage]);
-  // ✅ milestone을 만족하면 CollectorPopup을 띄우기
+
   useEffect(() => {
     if (popupRecordCount !== null) {
       setShowPopup(true);
-
-      // ✅ 2초 후 자동으로 닫기
       setTimeout(() => {
         setShowPopup(false);
         setPopupRecordCount(null);
-      }, 3000);
+      }, 4000);
     }
   }, [popupRecordCount]);
 
@@ -155,7 +152,6 @@ export default function RoomBody({ roomData }) {
 
   return (
     <Layout>
-      {/* ✅ PageRecord 또는 EntireRecord가 닫힌 후 RoomBody에서 팝업 띄우기 */}
       {showPopup && popupRecordCount !== null && (
         <CollectorPopup recordCount={popupRecordCount} />
       )}

@@ -530,7 +530,7 @@ export default function RoomBody({ roomData }) {
         ) : error ? (
           <NoRecord>기록이 없습니다</NoRecord>
         ) : records.length === 0 ? (
-          <div>📭 기록이 없습니다.</div>
+          <NoRecord>기록이 없습니다</NoRecord>
         ) : (
           records.map((record) => (
             <Record

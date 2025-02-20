@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Wrapper, Page, Container, Box, Input } from './PageRecord.styles';
 import xbox from '../../assets/xbox.svg';
 import { postRecord } from '../../apis/postRecord';
+import { getCurrentPage } from '../../apis/getCurrentPage';
 
 export default function PageRecord({
   onClose,
@@ -14,10 +15,27 @@ export default function PageRecord({
   const [page, setPage] = useState('');
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(false);
-  // ✅ milestone 리스트 (0, 1, 5, 10, 20, ..., 100)
+  const [bookPage, setBookPage] = useState('0');
   const milestones = new Set([
     0, 1, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
   ]);
+
+  useEffect(() => {
+    const fetchBookPage = async () => {
+      try {
+        const data = await getCurrentPage(roomId);
+        setBookPage(data.bookPage); // ✅ bookPage 값 저장
+      } catch (error) {
+        console.error('❌ 책 전체 페이지 가져오기 실패:', error.message);
+        setToastTitle('페이지 정보 불러오기 실패');
+        setToastMessage(error.message);
+      }
+    };
+
+    if (roomId) {
+      fetchBookPage();
+    }
+  }, [roomId]);
 
   const handleRecordSubmit = async () => {
     if (!roomId) {
@@ -87,17 +105,18 @@ export default function PageRecord({
             {/* 제목 */}
             <div className="title">어떤 페이지에 대한 기록인가요?</div>
 
-            {/* 페이지 입력 */}
-            <div className="inputpage">
-              <Page
-                type="text"
-                value={page}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
-                  setPage(value);
-                }}
-              />
-              <div className="p">p</div>
+            <div className="pagepage">
+              <div className="inputpage">
+                <Page
+                  type="text"
+                  value={page}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
+                    setPage(value);
+                  }}
+                />
+                <div className="p">/&nbsp;&nbsp;{bookPage}p</div>
+              </div>
             </div>
 
             {/* 기록 내용 입력 */}

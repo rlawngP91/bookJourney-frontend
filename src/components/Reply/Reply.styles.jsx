@@ -338,7 +338,7 @@ export const Footer = styled.div`
 
       .char-count {
         color: #a3a3a3;
-        font-family: Inter;
+        font-family: Pretendard;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;

@@ -22,11 +22,14 @@ import RecordPopup from '../popup/recordPopup/RecordPopup';
 import { useNavigate } from 'react-router-dom';
 import { exitRoom } from '../../apis/deleteRoom';
 import decodeEntities from '../../utils/decodeEntities';
+import ToastPopup from '../ToastPopup/ToastPopup';
 
 export default function RoomHeader({ roomData, setRoomData }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
   const [openedFromXbox, setOpenedFromXbox] = useState(false); // ✅ `pen` 팝업이 `xbox` 팝업에서 열린 경우 체크
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastTitle, setToastTitle] = useState('');
 
   // 화살표 버튼 클릭 시 회원 목록 토글
   const toggleUserList = () => {
@@ -39,10 +42,16 @@ export default function RoomHeader({ roomData, setRoomData }) {
   const handleExitRoom = async () => {
     try {
       await exitRoom(roomData.roomId); // API 호출
-      navigate('/home'); // 성공 시 홈으로 이동
-      // 방 나가기 성공 토스트 팝업 열기
+      setToastTitle('같이읽기방 퇴장 성공');
+      setToastMessage('잠시후 홈화면으로 이동합니다');
+
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
     } catch (error) {
       console.error('❌ 방 나가기 오류:', error);
+      setToastTitle('같이읽기방 퇴장 실패');
+      setToastMessage(error.message);
     }
   };
 
@@ -213,6 +222,17 @@ export default function RoomHeader({ roomData, setRoomData }) {
             </div>
           </div>
         </Popup2>
+      )}
+
+      {toastMessage && (
+        <ToastPopup
+          title={toastTitle}
+          message={toastMessage}
+          onClose={() => {
+            setToastMessage(null);
+            setToastTitle('');
+          }}
+        />
       )}
     </Wrapper>
   );

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   bottom: 0;
   left: 0;
-  position: fixed; /* 화면에 고정된 위치 */
-  z-index: 2000; /* 다른 요소 위로 올림 */
+  position: fixed;
+  z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,11 +15,11 @@ export const Wrapper = styled.div`
 
 export const Page = styled.input`
   height: 36px;
-  width: 50px;
+  width: 40px;
+  text-align: center;
   background-color: transparent;
-  border: none; /* 테두리 제거 */
-  outline: none; /* 포커스 시 나오는 아웃라인 제거 */
-  padding-left: 10px;
+  border: none;
+  outline: none;
   box-sizing: border-box;
 `;
 
@@ -48,25 +48,61 @@ export const Container = styled.div`
     left: 25px;
     top: 25px;
   }
-
-  .inputpage {
+  .pagepage {
     display: flex;
     flex-direction: row;
-    gap: 2px;
-    line-height: 36px;
-    height: 36px;
-    border-radius: 9px;
-    background-color: rgba(217, 217, 217, 0.31);
-    padding: 0px 10px;
-    justify-content: space-between;
-    .p {
-      color: #a3a3a3;
+    gap: 5px;
+    margin: auto;
+
+    .inputpage {
+      display: flex;
+      flex-direction: row;
+      gap: 2px;
+      line-height: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background-color: rgba(217, 217, 217, 0.31);
+      padding: 0px 10px 0px 5px;
+      justify-content: space-between;
+      color: #000;
       text-align: center;
-      font-family: Inter;
-      font-size: 13px;
+      font-family: Pretendard;
+      font-size: 14px;
       font-style: normal;
       font-weight: 600;
-      letter-spacing: 0.5px;
+
+      .p {
+        color: #a3a3a3;
+        text-align: center;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+      }
+    }
+
+    .sperate {
+      display: flex;
+      align-items: center;
+      color: #000;
+      font-family: Pretendard;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .pagecontainer {
+      display: flex;
+      flex-direction: row;
+      gap: 1px;
+      align-items: center;
+      .totalpage {
+        color: #000;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 300;
+      }
     }
   }
 
