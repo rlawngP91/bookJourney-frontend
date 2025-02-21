@@ -102,14 +102,14 @@ const Account = () => {
         <PasswordInput
           className="input1"
           labelText="현재 비밀번호"
-          placeholder="현재 비밀번호를 입력"
+          placeholder="현재 비밀번호"
           value={currentPassword}
           onChange={handleCurrentPasswordChange}
         />
         <PasswordInput
           className="input2"
           labelText="새 비밀번호"
-          placeholder="새 비밀번호를 입력"
+          placeholder="새 비밀번호 입력"
           value={newPassword}
           onChange={handleNewPasswordChange}
         />
