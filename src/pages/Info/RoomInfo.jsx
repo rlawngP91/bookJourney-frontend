@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Wrapper, Header, Body, Container } from './RoomInfo.styles';
 import Footer from '../../components/commons/Footer/Footer';
 import logo from '../../assets/logo.svg';
@@ -18,9 +18,6 @@ export default function RoomInfo() {
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
-  const location = useLocation();
-  const render = location.state?.member;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +80,7 @@ export default function RoomInfo() {
             </>
           ) : (
             <>
-              {render ? (
+              {roomData?.member ? (
                 <ButtonGroup />
               ) : (
                 <ButtonGroup2 roomData={roomData} roomId={roomId} />
