@@ -56,12 +56,15 @@ export const Container = styled.div`
   }
 
   .btn-container {
-    position: absolute;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
+    width: 393px;
     height: 68px;
-    bottom: 0;
+    padding: 20px 0px;
   }
 
   .cancel-btn,
