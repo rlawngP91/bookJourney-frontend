@@ -29,17 +29,14 @@ const Login = () => {
         setErrorMessage('비밀번호를 입력해주세요.');
         return;
       }
-      console.log('[DEBUG] 로그인 요청 전송:', { email, password });
 
       const response = await login(email, password);
-      console.log('[DEBUG] 로그인 함수가 반환한 값:', response);
 
       if (!response || !response.data) {
         throw new Error('서버 응답이 없습니다.');
       }
 
       const responseData = response.data; // response.data 객체 추출
-      console.log('[DEBUG] responseData:', responseData);
 
       const { accessToken, refreshToken, userId } = responseData;
 
@@ -49,22 +46,15 @@ const Login = () => {
 
       // 로그인 성공 후 accessToken 업데이트
       setAccessToken(accessToken);
-      console.log('[DEBUG] accessToken 저장 완료:', accessToken);
 
       // 로그인 성공 후 페이지 이동 (예: 메인 페이지)
       window.location.href = '/home';
     } catch (error) {
-      console.error('[ERROR] 로그인 실패:', error);
       if (error.response) {
-        console.error(
-          '[ERROR] 서버 응답 메시지:',
-          error.response.data?.message || '알 수 없는 오류'
-        );
         setErrorMessage(
           error.response.data?.message || '로그인 중 오류가 발생했습니다.'
         );
       } else {
-        console.error('[ERROR] 네트워크 또는 기타 오류:', error.message);
         setErrorMessage('로그인 중 오류가 발생했습니다.');
       }
     }

@@ -5,8 +5,6 @@ export const logout = async () => {
     const response = await apiClient.post('/auth/logout');
 
     if (response.data.code === 200) {
-      console.log('[DEBUG] 로그아웃 성공:', response.data);
-
       // localStorage에서 사용자 정보 삭제
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');

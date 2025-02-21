@@ -4,16 +4,13 @@ import { Container } from './Bookmark.styles';
 import Arrow from '../../assets/arrow.svg';
 import Box from './Box';
 import { bookmarkAPI } from '../../apis/bookmarkAPI';
-// import BookCover from '../../assets/bookmarkDummy.svg';
 
 const Bookmark = () => {
   const [isDeleteMode, setIsDeleteMode] = useState(false); // 삭제 모드 상태
   const [books, setBooks] = useState([]);
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-
     if (!accessToken) {
-      console.warn('[WARNING] accessToken 없음 - 로그인 페이지로 이동');
       navigate('/login'); // 로그인 페이지로 리디렉트
       return;
     }
@@ -29,20 +26,7 @@ const Bookmark = () => {
 
     fetchBookmarks();
   }, []);
-  // const [books, setBooks] = useState([
-  //   {
-  //     imgSrc: BookCover,
-  //     writer: '리처드 도킨스',
-  //     bookTitle: '이기적 유전자',
-  //     isChecked: false,
-  //   },
-  //   {
-  //     imgSrc: BookCover,
-  //     writer: '리처드 도킨스',
-  //     bookTitle: '이기적 유전자2',
-  //     isChecked: false,
-  //   },
-  // ]);
+
   const navigate = useNavigate(); // useNavigate 훅 사용
   const handleBackClick = () => {
     navigate('/home');
@@ -179,7 +163,6 @@ const Bookmark = () => {
           <span className="no-bookmark">즐겨찾기 책이 없습니다.</span>
         ) : (
           books.map((book) => {
-            console.log('book:', book.isbn);
             return (
               <Box
                 key={book.bookTitle}

@@ -21,9 +21,7 @@ const Onboarding = () => {
       favoriteGenres = favoriteGenres.map((genre) => ({
         genreName: genre.genreName,
       }));
-      console.log(
-        `[DEBUG] favoriteGenres 값 : ${sessionStorage.getItem('favoriteGenres')}`
-      );
+
       //필수 값 검증
       if (
         !email ||
@@ -32,12 +30,11 @@ const Onboarding = () => {
         !imageUrl ||
         favoriteGenres.length === 0
       ) {
-        console.error('[ERROR] 회원가입 필수 정보가 누락되었습니다!');
         alert('회원가입 정보를 올바르게 입력해주세요.');
         return;
       }
 
-      console.log('[DEBUG] 회원가입 요청 시작');
+      //console.log('[DEBUG] 회원가입 요청 시작');
       const responseData = await signUp(
         email,
         password,
@@ -51,8 +48,8 @@ const Onboarding = () => {
       localStorage.setItem('refreshToken', responseData.refreshToken);
       localStorage.setItem('userId', responseData.userId);
 
-      console.log('[DEBUG] accessToken 저장 완료:', responseData.accessToken);
-      console.log('[DEBUG] refreshToken 저장 완료:', responseData.refreshToken);
+      //console.log('[DEBUG] accessToken 저장 완료:', responseData.accessToken);
+      //console.log('[DEBUG] refreshToken 저장 완료:', responseData.refreshToken);
 
       //회원가입 후 불필요한 sessionStorage 데이터 삭제
       sessionStorage.removeItem('email');
@@ -64,7 +61,7 @@ const Onboarding = () => {
       //회원가입 완료 후 홈으로 이동
       navigate('/home');
     } catch (error) {
-      console.error('[ERROR] 회원가입 요청 실패:', error);
+      //console.error('[ERROR] 회원가입 요청 실패:', error);
       alert(error.message);
     }
   };

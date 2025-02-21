@@ -29,27 +29,21 @@ const Record = () => {
       return;
     }
 
-    apiClient.get('/books/best-sellers').then((response) => {
-      console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
-    });
+    apiClient.get('/books/best-sellers').then(() => {});
 
     const sortType = selectedOrder === 'latest-order' ? '최신순' : '진행도순';
 
-    fetchProgressRecords(sortType)
-      .then((records) => {
-        if (selectedOrder === 'progressive-order') {
-          const sortedRecords = [...records].sort(
-            (a, b) => b.userPercentage - a.userPercentage
-          );
-          console.log('[DEBUG] 유저진행도순 정렬 후:', sortedRecords);
-          setRecordList(sortedRecords);
-        } else {
-          setRecordList(records);
-        }
-      })
-      .catch((error) => {
-        console.error('[ERROR] 진행 기록 데이터 가져오기 실패:', error);
-      });
+    fetchProgressRecords(sortType).then((records) => {
+      if (selectedOrder === 'progressive-order') {
+        const sortedRecords = [...records].sort(
+          (a, b) => b.userPercentage - a.userPercentage
+        );
+
+        setRecordList(sortedRecords);
+      } else {
+        setRecordList(records);
+      }
+    });
   }, [selectedOrder]);
 
   const handleBackClick = () => {

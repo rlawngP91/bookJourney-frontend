@@ -6,10 +6,8 @@ export const deleteRecord = async (roomId) => {
     console.log('[DEBUG] 삭제 API 응답:', response.data);
 
     if (response.data.code === 200) {
-      console.log('[SUCCESS] 책 기록이 성공적으로 삭제되었습니다.');
       return true;
     } else {
-      console.warn('[WARNING] 삭제 요청 실패:', response.data.message);
       return false;
     }
   } catch (error) {

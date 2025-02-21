@@ -9,12 +9,12 @@ export const uploadProfileImage = async (file) => {
 
     const formData = new FormData();
     formData.append('image', file);
-    console.log('[DEBUG] FormData 생성됨:', formData);
+    //console.log('[DEBUG] FormData 생성됨:', formData);
 
-    console.log('[DEBUG] 프로필 이미지 업로드 요청 시작:', file.name);
-    for (let pair of formData.entries()) {
-      console.log(`[DEBUG] FormData Key: ${pair[0]}, Value:`, pair[1]);
-    }
+    //console.log('[DEBUG] 프로필 이미지 업로드 요청 시작:', file.name);
+    //for (let pair of formData.entries()) {
+    // console.log(`[DEBUG] FormData Key: ${pair[0]}, Value:`, pair[1]);
+    //}
     const response = await apiClient.post('/users/images', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // 파일 업로드 시 필수
@@ -22,25 +22,25 @@ export const uploadProfileImage = async (file) => {
       },
     });
 
-    console.log('[DEBUG] 프로필 이미지 업로드 API 응답:', response);
-    console.log('[DEBUG] 프로필 이미지 업로드 요청 시작:', file.name);
+    //console.log('[DEBUG] 프로필 이미지 업로드 API 응답:', response);
+    // console.log('[DEBUG] 프로필 이미지 업로드 요청 시작:', file.name);
 
     if (!(file instanceof File)) {
-      console.error('[ERROR] 선택한 파일이 File 객체가 아닙니다:', file);
+      // console.error('[ERROR] 선택한 파일이 File 객체가 아닙니다:', file);
       throw new Error('올바른 파일을 선택해주세요.');
     }
 
-    console.log('[DEBUG] 프로필 이미지 업로드 API 응답:', response);
-    console.log('[DEBUG] 서버에서 반환한 데이터:', response?.data);
+    // console.log('[DEBUG] 프로필 이미지 업로드 API 응답:', response);
+    // console.log('[DEBUG] 서버에서 반환한 데이터:', response?.data);
 
     if (response.data.code === 200) {
-      console.log('[DEBUG] 업로드 성공:', response.data.data);
+      //  console.log('[DEBUG] 업로드 성공:', response.data.data);
       return response.data.data; // 업로드된 이미지 URL 반환
     } else {
       throw new Error(response.data.message || '이미지 업로드 실패');
     }
   } catch (error) {
-    console.error('[ERROR] 프로필 이미지 업로드 실패:', error);
+    //  console.error('[ERROR] 프로필 이미지 업로드 실패:', error);
 
     if (error.response) {
       throw new Error(

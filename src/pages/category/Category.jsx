@@ -42,7 +42,7 @@ const Category = () => {
       .map((genre) => ({ genreName: genre.trim() })); // JSON 형식 변환
 
     sessionStorage.setItem('favoriteGenres', JSON.stringify(selectedGenres)); // 세션 스토리지 저장
-    console.log('[DEBUG] 저장된 favoriteGenres:', selectedGenres);
+    //console.log('[DEBUG] 저장된 favoriteGenres:', selectedGenres);
 
     navigate('/onboarding');
   };
@@ -61,13 +61,13 @@ const Category = () => {
         handleShowPopup(); // 초과 선택 시 팝업 표시
         return prevStates; // 상태 업데이트 방지
       }
-      console.log(`몇개선택했는지 > `, newSelectedCount);
+      //console.log(`몇개선택했는지 > `, newSelectedCount);
       return newStates; // 정상적으로 상태 업데이트
     });
   };
 
   const handleShowPopup = () => {
-    console.log('최대 3개까지만 선택합시다!'); // 호출 여부 확인
+    //console.log('최대 3개까지만 선택합시다!'); // 호출 여부 확인
     setPopupVisible(true);
   };
 

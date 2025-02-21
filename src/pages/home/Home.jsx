@@ -46,68 +46,39 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log('[DEBUG] Home.jsx - 페이지 로드됨, API 요청 실행');
     const accessToken = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    console.log('[DEBUG] Home.jsx - accessToken:', accessToken);
-    console.log('[DEBUG] Home.jsx - refreshToken:', refreshToken);
 
     if (!accessToken) {
-      console.warn(
-        '[WARNING] accessToken이 없습니다. 로그인 페이지로 이동합니다.'
-      );
       window.location.href = '/login';
     }
     //주석시작. 서버에서 닉네임과 베스트셀러 리스트 가져오기
-    apiClient
-      .get('/books/best-sellers')
-      .then((response) => {
-        console.log('[DEBUG] 베스트셀러 API 응답:', response.data);
-        if (response.data.code === 200) {
-          setNickName(response.data.data.nickName); // 닉네임 저장
-          setBestSellerList(response.data.data.bestSellerList); // 베스트셀러 리스트 저장
-        }
-      })
-      .catch((error) => {
-        console.error('[ERROR] 베스트셀러 데이터 가져오기 실패:', error);
-      });
+    apiClient.get('/books/best-sellers').then((response) => {
+      if (response.data.code === 200) {
+        setNickName(response.data.data.nickName); // 닉네임 저장
+        setBestSellerList(response.data.data.bestSellerList); // 베스트셀러 리스트 저장
+      }
+    });
 
     // 인기 도서 정보 가져오기
-    fetchPopularBook()
-      .then((data) => {
-        if (data) {
-          setPopularBook(data);
-          setIsbn(data.isbn);
-          console.log('[DEBUG] 인기 도서 정보:', data);
-        } else {
-          console.warn('[WARNING] API 응답이 비어 있음!');
-        }
-      })
-      .catch((error) => {
-        console.error('[ERROR] 인기 도서 정보 가져오기 실패:', error);
-      });
+    fetchPopularBook().then((data) => {
+      if (data) {
+        setPopularBook(data);
+        setIsbn(data.isbn);
+      }
+    });
 
     // 진행중인 기록 가져오기
-    fetchProgressRecords('최신순')
-      .then((records) => {
-        setRecordList(records); // recordList 업데이트
-        setBookCount(records.length); // bookCount 업데이트
-      })
-      .catch((error) =>
-        console.error('[ERROR] 진행 기록 가져오기 실패:', error)
-      );
+    fetchProgressRecords('최신순').then((records) => {
+      setRecordList(records); // recordList 업데이트
+      setBookCount(records.length); // bookCount 업데이트
+    });
 
-    fetchRecruitRooms()
-      .then((data) => {
-        if (data) {
-          setRecruitWeek(data.weekOfMonth); // 주차 정보 저장
-          setRecruitRooms(data.roomList); // 모집 중인 방 목록 저장
-        }
-      })
-      .catch((error) => {
-        console.error('[ERROR] 모집 중인 방 데이터 가져오기 실패:', error);
-      });
+    fetchRecruitRooms().then((data) => {
+      if (data) {
+        setRecruitWeek(data.weekOfMonth); // 주차 정보 저장
+        setRecruitRooms(data.roomList); // 모집 중인 방 목록 저장
+      }
+    });
   }, []);
 
   // 책 클릭 시 해당 roomId의 상세 페이지로 이동
@@ -122,7 +93,6 @@ const Home = () => {
       setShowInfoPopup(true);
     } else {
       // 책 표지를 클릭한 경우 상세 페이지로 이동
-      console.log(`[DEBUG] 클릭된 책의 roomId: ${record.roomId}`);
       navigate(`/rooms/${record.roomId}/info`);
     }
   };
@@ -130,7 +100,6 @@ const Home = () => {
   //left-side 클릭 시 상세 페이지 이동
   const handleBookClick = () => {
     if (isbn) {
-      console.log(`[DEBUG] 클릭된 도서의 ISBN: ${isbn}`);
       navigate(`/info/${isbn}`); // isbn을 포함하여 페이지 이동
     }
   };
@@ -154,30 +123,24 @@ const Home = () => {
   };
 
   const handleLine1Click = () => {
-    console.log(`[${selectedBook.bookTitle}] 정보 보기`);
     navigate(`/rooms/${selectedBook.roomId}/`);
     setShowInfoPopup(false); // InfoPopup 숨김
   };
 
   const handleLine2Click = () => {
     setPopup1Visible(true); // 팝업 띄우기기
-    //console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
     setShowInfoPopup(false); // InfoPopup 숨김
   };
 
   const handleDeleteConfirmed = async () => {
-    console.log(`[${selectedBook.bookTitle}]를 기록에서 삭제`);
     const success = await deleteRecord(selectedBook.roomId);
     if (success) {
-      console.log(`[SUCCESS] [${selectedBook.bookTitle}] 기록 삭제 완료`);
       setRecordList((prevList) =>
         prevList.filter((book) => book.roomId !== selectedBook.roomId)
       ); // UI에서 삭제
 
       setBookCount((prevCount) => prevCount - 1); //bookCount 감소
       setPopup1Visible(false);
-    } else {
-      alert('삭제 요청에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
