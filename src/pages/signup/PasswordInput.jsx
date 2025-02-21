@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { InputWrapper, StyledInput, LabelText } from './PasswordInput.styles';
-import Eyes from '../../assets/eye.svg';
-import EyesOff from '../../assets/eyeoff.svg';
+import EyesOff from '../../assets/eye.svg';
+import Eyes from '../../assets/eyeoff.svg';
 
 const PasswordInput = ({
   placeholder,
