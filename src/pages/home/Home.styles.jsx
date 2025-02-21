@@ -342,8 +342,10 @@ export const Container = styled.div`
 
   .room-wrapper {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     top: 47.06px;
-    left: 20px;
   }
 
   .footer-place-holder {

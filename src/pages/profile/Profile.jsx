@@ -29,7 +29,7 @@ const Profile = () => {
   // 닉네임 중복 확인 함수
   const handleNicknameCheck = async () => {
     try {
-      setNicknameMessage('닉네임 확인 중...');
+      setNicknameMessage('');
       console.log('[DEBUG] 닉네임 확인 요청:', nickname);
 
       const isAvailable = await checkNicknameAvailability(nickname);
@@ -129,7 +129,10 @@ const Profile = () => {
       {nicknameMessage && (
         <p
           className="nickname-result-msg"
-          style={{ color: isNicknameValid ? 'green' : '#FD7472', margin: '0' }}
+          style={{
+            color: isNicknameValid ? ' #6AA5F8' : '#FD7472',
+            margin: '0',
+          }}
         >
           {nicknameMessage}
         </p>

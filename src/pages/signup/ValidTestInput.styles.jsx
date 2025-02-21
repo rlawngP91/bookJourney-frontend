@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
   flex-shrink: 0;
   position: relative;
   left: 25px;
-  padding-bottom: 6.1px; /* Adjusted padding */
+  padding-bottom: 6.1px;
 `;
 
 export const StyledInput = styled.input`
@@ -23,6 +23,11 @@ export const StyledInput = styled.input`
   padding-right: 70px;
   ::placeholder {
     color: #aaa;
+  }
+
+  &:focus {
+    border: 1.7px solid #6aa5f8;
+    outline: none; /* 기본 outline 제거 */
   }
 `;
 

@@ -5,6 +5,7 @@ export const Container = styled.div`
   width: 393px;
   height: 100vh;
   background-color: #f6f7f9;
+
   .title {
     position: absolute;
     top: 97px;
@@ -46,7 +47,7 @@ export const Container = styled.div`
   .duplicate-check {
     position: absolute;
     z-index: 100;
-    top: 487px;
+    top: 489px;
     left: 307px;
     color: #a3a3a3;
     font-size: 11px;
@@ -97,7 +98,6 @@ export const Container = styled.div`
     position: absolute;
     top: 523px;
     left: 34px;
-    font-family: Pretendard;
     font-size: 11px;
     font-style: normal;
     font-weight: 500;

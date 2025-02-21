@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginContainer, ButtonContainer } from './Login.styles';
 import UserInputField from '../../components/userInputField/UserInputField';
 import BlueBtn from '../../components/blueBtn/BlueBtn';
+import PasswordInput from '../signup/PasswordInput';
 import Title from '../../assets/title.svg';
 import { login } from '../../apis/authApi'; // 로그인 API 함수 가져오기
 import { setAccessToken } from '../../apis/instance/apiClient'; // accessToken 업데이트 함수 가져오기
@@ -12,6 +13,11 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+  };
 
   const handleLogin = async () => {
     try {
@@ -76,13 +82,13 @@ const Login = () => {
         onChange={(e) => setEmail(e.target.value)}
       />
 
-      <UserInputField
+      <PasswordInput
         className="input-field"
         placeholder="비밀번호 입력"
         labelText="비밀번호"
         type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handlePasswordChange}
       />
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
