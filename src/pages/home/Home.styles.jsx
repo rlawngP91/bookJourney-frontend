@@ -236,6 +236,7 @@ export const Container = styled.div`
     width: 350px;
     height: 139px;
     display: flex;
+    cursor: pointer;
   }
 
   .right-side {

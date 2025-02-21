@@ -301,14 +301,13 @@ const Home = () => {
             <span className="read-count-text">읽기 횟수가 많은 책</span>
           </div>
           <div className="book-room-info">
-            <div className="book-info-container">
+            <div className="book-info-container" onClick={handleBookClick}>
               {popularBook ? (
                 <>
                   <img
                     className="left-side"
                     src={popularBook.imageUrl}
                     alt="책표지"
-                    onClick={handleBookClick}
                   />
                   <div className="right-side">
                     <div className="top-side">
